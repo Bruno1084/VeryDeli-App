@@ -80,7 +80,7 @@ CREATE TABLE `comentarios` (
     `comentario_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_id` int  NOT NULL ,
     `usuario_id` int  NOT NULL ,
-    `comentarios_mensaje` varchar(500)  NOT NULL ,
+    `comentario_mensaje` varchar(500)  NOT NULL ,
     `comentario_fecha` date  NULL DEFAULT (curdate()),
     PRIMARY KEY (
         `comentario_id`
