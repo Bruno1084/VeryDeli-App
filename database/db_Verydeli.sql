@@ -24,7 +24,7 @@
 CREATE TABLE `usuarios` (
     `usuarios_id` int AUTO_INCREMENT NOT NULL ,
     `usuarios_nombre` varchar(65)  NOT NULL ,
-    `usuarios_correo` varchar(65)  NOT NULL ,
+    `usuarios_correo` varchar(65) UNIQUE NOT NULL ,
     `usuarios_contraseña` varchar(25)  NOT NULL ,
     `usuarios_esResponsable` tinyint(1)  NOT NULL ,
     `usuarios_esActivo` tinyint(1)  NOT NULL ,
