@@ -1,9 +1,8 @@
 <?php
-
-function getAllUsuarios () {
+function getVehiculo($id) {
   require '../database/conection.php';
-  
-  $sql = "SELECT * FROM usuarios";
+
+  $sql = "SELECT * FROM vehiculos WHERE vehiculo_id = $id";
   $resultado = $conexion->$query($sql);
 
   if ($resultado->num_rows > 0) {
@@ -13,5 +12,5 @@ function getAllUsuarios () {
   };
 
   return $resultado;
-};
+}
 ?>
