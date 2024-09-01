@@ -1,7 +1,7 @@
 <?php
 
 
-    function CheckEmail($Email) {
+    function checkEmail($Email) {
     require '../database/conection.php';
 
     $sql = "SELECT usuario_correo FROM usuarios WHERE usuario_correo=$Email";
