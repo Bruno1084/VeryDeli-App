@@ -91,9 +91,9 @@ CREATE TABLE `postulaciones` (
     `postulacion_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_id` int  NOT NULL ,
     `usuarios_postulante` int  NOT NULL ,
-    `postulaciones_precio` float  NOT NULL ,
-    `postulaciones_descr` varchar(500)  NULL ,
-    `postulaciones_fecha` date  NULL DEFAULT (curdate()),
+    `postulacion_precio` float  NOT NULL ,
+    `postulacion_descr` varchar(500)  NULL ,
+    `postulacion_fecha` date  NULL DEFAULT (curdate()),
     PRIMARY KEY (
         `postulacion_id`
     )
