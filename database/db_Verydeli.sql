@@ -24,8 +24,11 @@
 CREATE TABLE `usuarios` (
     `usuario_id` int AUTO_INCREMENT NOT NULL ,
     `usuario_nombre` varchar(65)  NOT NULL ,
+    `usuario_apellido` varchar(65) NOT NULL,
+    `usuario_localidad` varchar(65) NOT NULL,
     `usuario_correo` varchar(65) UNIQUE NOT NULL ,
-    `usuario_contraseña` varchar(25)  NOT NULL ,
+    `usuario_usuario` varchar(65) UNIQUE NOT NULL, 
+    `usuario_contraseña` varchar(255)  NOT NULL ,
     `usuario_esResponsable` tinyint(1)  NOT NULL ,
     `usuario_esActivo` tinyint(1)  NOT NULL ,
     PRIMARY KEY (
