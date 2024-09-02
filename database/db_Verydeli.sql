@@ -24,8 +24,11 @@
 CREATE TABLE `usuarios` (
     `usuario_id` int AUTO_INCREMENT NOT NULL ,
     `usuario_nombre` varchar(65)  NOT NULL ,
+    `usuario_apellido` varchar(65) NOT NULL,
+    `usuario_localidad` varchar(65) NOT NULL,
     `usuario_correo` varchar(65) UNIQUE NOT NULL ,
-    `usuario_contraseña` varchar(25)  NOT NULL ,
+    `usuario_usuario` varchar(65) UNIQUE NOT NULL, 
+    `usuario_contraseña` varchar(255)  NOT NULL ,
     `usuario_esResponsable` tinyint(1)  NOT NULL ,
     `usuario_esActivo` tinyint(1)  NOT NULL ,
     PRIMARY KEY (
@@ -91,9 +94,9 @@ CREATE TABLE `postulaciones` (
     `postulacion_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_id` int  NOT NULL ,
     `usuarios_postulante` int  NOT NULL ,
-    `postulaciones_precio` float  NOT NULL ,
-    `postulaciones_descr` varchar(500)  NULL ,
-    `postulaciones_fecha` date  NULL DEFAULT (curdate()),
+    `postulacion_precio` float  NOT NULL ,
+    `postulacion_descr` varchar(500)  NULL ,
+    `postulacion_fecha` date  NULL DEFAULT (curdate()),
     PRIMARY KEY (
         `postulacion_id`
     )
