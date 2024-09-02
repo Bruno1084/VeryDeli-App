@@ -16,7 +16,7 @@
     <div class="form-rest my-5"></div>
 
     <div class="container py-4">
-        <form class="formulario-registro FormularioAjax" action="#" method="post">
+        <form class="formulario-registro FormularioAjax" action="../utils/registerUser.php" method="post">
             <div class="row justify-content-center">
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="nombre">Nombre</label>
