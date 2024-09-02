@@ -54,7 +54,11 @@
     manejarError("La localidad ingresada no es válida");
     exit();
   }
-
+  
+  if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $usuario)){
+    manejarError("El usuario no coincide con el formato solicitado.");
+    exit();
+  }
   
   $checkUsuario = $conexion->prepare("SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = :usuario");
   $checkUsuario->bindParam(':usuario', $usuario);
