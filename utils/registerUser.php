@@ -71,6 +71,10 @@
   };
   $checkUsuario = null;
   
+  if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $contrasenia)){
+    manejarError('La contraseña ingresada no coincide con el formato solicitado.');
+    exit();
+  }
 
   $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
   $sql = $conexion->prepare("INSERT INTO usuarios (usuario_nombre, usuario_apellido, usuario_correo, usuario_localidad, usuario_usuario, usuario_contraseña) VALUES (:nombre, :apellido, :correo, :localidad, :usuario, :contrasenia)");
