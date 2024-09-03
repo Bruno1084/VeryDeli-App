@@ -58,7 +58,7 @@ CREATE TABLE `vehiculos` (
 
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
-    `publicacion_fecha` date  NULL DEFAULT (curdate()),
+    `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `publicacion_descr` varchar(500)  NOT NULL ,
     `publicacion_volumen` float  NULL ,
     `publicacion_peso` float  NULL ,
@@ -75,7 +75,7 @@ CREATE TABLE `publicaciones` (
 );
 
 CREATE TABLE `imagenes` (
-    `imagen_url` varchar  NULL ,
+    `imagen_url` varchar(255) NOT NULL ,
     `publicacion_id` int  NOT NULL 
 );
 
@@ -84,7 +84,7 @@ CREATE TABLE `comentarios` (
     `publicacion_id` int  NOT NULL ,
     `usuario_id` int  NOT NULL ,
     `comentario_mensaje` varchar(500)  NOT NULL ,
-    `comentario_fecha` date  NULL DEFAULT (curdate()),
+    `comentario_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (
         `comentario_id`
     )
@@ -96,7 +96,7 @@ CREATE TABLE `postulaciones` (
     `usuarios_postulante` int  NOT NULL ,
     `postulacion_precio` float  NOT NULL ,
     `postulacion_descr` varchar(500)  NULL ,
-    `postulacion_fecha` date  NULL DEFAULT (curdate()),
+    `postulacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (
         `postulacion_id`
     )
@@ -108,7 +108,7 @@ CREATE TABLE `calificaciones` (
     `usuario_calificado` int  NOT NULL ,
     `usuario_calificador` int  NOT NULL ,
     `calificacion_puntaje` enum('1','2','3','4','5')  NOT NULL ,
-    `calificacion_fecha` date  NOT NULL ,
+    `calificacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (
         `calificacion_id`
     )
@@ -196,4 +196,3 @@ ON `calificaciones` (`usuario_calificado`);
 
 CREATE INDEX `idx_calificaciones_usuario_calificador`
 ON `calificaciones` (`usuario_calificador`);
-
