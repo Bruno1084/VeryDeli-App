@@ -1,4 +1,4 @@
 <?php
-    session_name("SESSION");
-    session_start();
+session_name("SESSION");
+session_start();
 ?>
