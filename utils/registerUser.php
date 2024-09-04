@@ -44,9 +44,9 @@ if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
   };
   $checkcorreo->close();
 } else{
-    manejarError('El correo ingresado no es válido.');
-    $conexion->close();
-    exit();
+  manejarError('El correo ingresado no es válido.');
+  $conexion->close();
+  exit();
   };
 
 //Validar formato de la localidad
