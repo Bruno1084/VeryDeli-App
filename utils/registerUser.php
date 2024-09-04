@@ -56,7 +56,7 @@ if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $localidad)){
 };
 
 //Validar formato del usuario
-if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $usuario)){
+if(verificarDatos('[a-zA-Z0-9]{4,20}', $usuario)){
   manejarError("El usuario no coincide con el formato solicitado.");
   exit();
 };
@@ -75,7 +75,8 @@ if($checkUsuario->rowCount() > 0){
 
 $checkUsuario->close();
 
-if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $contrasenia)){
+// Validar formato de la contraseña
+if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
   manejarError('La contraseña ingresada no coincide con el formato solicitado.');
   exit();
 };
