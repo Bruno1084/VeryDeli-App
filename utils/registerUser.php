@@ -12,51 +12,56 @@ $localidad = $_POST['localidad'];
 $usuario = $_POST['usuario'];
 $contrasenia = $_POST['contraseña'];
 
+//Verificar campos obligatorios
 if(!verificarCamposObligatorios([$nombre, $apellido, $correo, $localidad, $usuario, $contrasenia])){
   manejarError('No se han llenado todos los campos obligatorios.');
   exit();
 };
 
-
+//Validar formato del nombre
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $nombre)){
-  manejarError('No has llenado todos los campos obligatorios.');  
+  manejarError('El nombre no coincide con el formato solicitado.');  
   exit();
 };
 
+//Validar formato del apellido
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $apellido)){
   manejarError('El apellido no coincide con el formato solicitado.');
   exit();
 };
 
-if($correo != ""){
-  if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
-    $checkcorreo = $conexion->prepare("SELECT usuario_correo FROM usuarios WHERE usuario_correo = ?");
-    $checkcorreo->bind_param("s", $correo);
-    $checkcorreo->execute();
-    if($checkcorreo->num_rows > 0){
-      manejarError('El correo ingresado ya se encuentra registrado.');
-      $checkcorreo->close();
-      $conexion->close();
-      exit();
-    };
+//Validar formato del correo
+if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
+  //Verificar si el correo ya está registrado
+  $checkcorreo = $conexion->prepare("SELECT usuario_correo FROM usuarios WHERE usuario_correo = ?");
+  $checkcorreo->bind_param("s", $correo);
+  $checkcorreo->execute();
+  if($checkcorreo->num_rows > 0){
+    manejarError('El correo ingresado ya se encuentra registrado.');
+    $checkcorreo->close();
+    $conexion->close();
+    exit();
+  };
   $checkcorreo->close();
 } else{
   manejarError('El correo ingresado no es válido.');
   $conexion->close();
   exit();
   };
-};
 
+//Validar formato de la localidad
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $localidad)){
   manejarError("La localidad ingresada no es válida");
   exit();
 };
 
-if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $usuario)){
+//Validar formato del usuario
+if(verificarDatos('[a-zA-Z0-9]{4,20}', $usuario)){
   manejarError("El usuario no coincide con el formato solicitado.");
   exit();
 };
 
+//Verificar si el nombre de usuario ya está en uso
 $checkUsuario = $conexion->prepare("SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = ?");
 $checkUsuario->bind_param('s', $usuario);
 $checkUsuario->execute();
@@ -67,14 +72,19 @@ if($checkUsuario->rowCount() > 0){
   $conexion->close();
   exit();
 };
+
 $checkUsuario->close();
 
-if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $contrasenia)){
+// Validar formato de la contraseña
+if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
   manejarError('La contraseña ingresada no coincide con el formato solicitado.');
   exit();
 };
 
+//Generar hash de la contraseña con BCRYPT y costo 10
 $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
+
+//Insertar el nuevo usuario en la base de datos
 $sql = "INSERT INTO usuarios (usuario_nombre, usuario_apellido, usuario_correo, usuario_localidad, usuario_usuario, usuario_contraseña) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param('ssssss', $nombre, $apellido, $correo, $localidad, $usuario, $contrasenia);
