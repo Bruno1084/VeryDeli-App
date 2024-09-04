@@ -13,8 +13,9 @@ function enviarFormularioAjax(e){
     cache : "no-cache",
     body : data
     };
+  // Realiza una solicitud HTTP
   fetch(action, config)
-  .then(respuesta => respuesta.text()) // Almacenamos la respuesta del receptor
+  .then(respuesta => respuesta.text()) // Almacena la respuesta de la solicitud
   .then(respuesta =>{ //instrucciones para mostrar la respuesta
     let contenedor = document.querySelector(".form-rest");
     contenedor.innerHTML = respuesta;
@@ -22,6 +23,7 @@ function enviarFormularioAjax(e){
   });
 }
 
+//Agrega el evento "submit" para los formularios
 formularios_ajax.forEach(formulario =>{
     formulario.addEventListener("submit", enviarFormularioAjax);
 });
