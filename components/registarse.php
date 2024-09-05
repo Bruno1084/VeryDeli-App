@@ -13,40 +13,46 @@
         <h2>Registrarse</h2>
     </div>
 
-    <div class="form-rest my-5"></div>
+    
 
     <div class="container py-4">
-        <form class="formulario-registro FormularioAjax" action="../utils/registerUser.php" method="post">
+        
+        <form class="FormularioAjax formulario-registro " action="../utils/registerUser.php" method="post">
+            
+            <div class="row justify-content-center">
+                <div class="form-rest col-8 my-4"></div>
+            </div>
+
             <div class="row justify-content-center">
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control bg-input" id="nombre" name="nombre" required placeholder="Ingrese su nombre">
+                    <input type="text" class="form-control bg-input" id="nombre" name="nombre"  placeholder="Ingrese su nombre">
                 </div>
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="apellido">Apellido</label>
-                    <input type="text" class="form-control bg-input" id="apellido" name="apellido" required placeholder="Ingrese su apellido">
+                    <input type="text" class="form-control bg-input" id="apellido" name="apellido"  placeholder="Ingrese su apellido">
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="correo">Correo</label>
-                    <input type="email" class="form-control bg-input" id="correo" name="correo" required placeholder="Ingrese su correo electrónico">
+                    <input type="email" class="form-control bg-input" id="correo" name="correo"  placeholder="Ingrese su correo electrónico">
                 </div>
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="localidad">Localidad</label>
-                    <input type="text" class="form-control bg-input" id="localidad" name="localidad" required placeholder="Ingrese su localidad">
+                    <input type="text" class="form-control bg-input" id="localidad" name="localidad"  placeholder="Ingrese su localidad">
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="usuario">Usuario</label>
-                    <input type="text" class="form-control bg-input" id="usuario" name="usuario" required placeholder="Ingrese su nombre de usuario">
+                    <input type="text" class="form-control bg-input" id="usuario" name="usuario"  placeholder="Ingrese su nombre de usuario">
                 </div>
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="contraseña">Contraseña</label>
-                    <input type="password" class="form-control bg-input" id="contraseña" name="contraseña" required placeholder="Ingrese su contraseña">
+                    <input type="password" class="form-control bg-input" id="contraseña" name="contraseña"  placeholder="Ingrese su contraseña">
                 </div>
             </div>
 
@@ -94,16 +100,14 @@
             </div>
 
             <div class="text-center my-3">
-                <button type="submit" class="btn btn-amarillo">Crear</button>
+                <input type="submit" class="btn btn-amarillo" value="Crear"></button>
             </div>
         </form>
 
         <div class="text-center">
                 <a href="login.php" class="btn btn-morado"> Iniciar Sesion </a>
         </div>
-    </div>
-
-        
+    </div> 
     
     <script>
         // Si selecciona la opcion de ser transportista habilita los campos
