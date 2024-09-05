@@ -68,7 +68,7 @@
                     <div class="form-group col-6 col-md-4 mb-3">
                         <label for="tipoVehiculo">Tip. Vehículo</label>
                         <select class="form-control bg-input" id="tipoVehiculo" name="tipoVehiculo">
-                            <option>Seleccionar...</option>
+                            <option disabled selected >Seleccionar...</option>
                             <option>Camión</option>
                             <option>Furgoneta</option>
                         </select>
@@ -83,17 +83,17 @@
                     <div class="form-group col-6 col-md-4 mb-3">
                         <label for="volumenSoportado">Volumen soportado</label>
                         <select class="form-control bg-input" id="volumenSoportado" name="volumenSoportado">
-                            <option>Seleccionar...</option>
-                            <option>100 m³</option>
-                            <option>200 m³</option>
+                            <option disabled selected >Seleccionar...</option>
+                            <option value="100 m3">100 m3</option>
+                            <option value="200 m3">200 m3</option>
                         </select>
                     </div>
                     <div class="form-group col-6 col-md-4 mb-3">
                         <label for="pesoSoportado">Peso soportado</label>
                         <select class="form-control bg-input" id="pesoSoportado" name="pesoSoportado">
-                            <option>Seleccionar...</option>
-                            <option>1,000 kg</option>
-                            <option>2,000 kg</option>
+                            <option disabled selected>Seleccionar...</option>
+                            <option value="1,000 kg">1,000 kg</option>
+                            <option value="2,000 kg">2,000 kg</option>
                         </select>
                     </div>
                 </div>

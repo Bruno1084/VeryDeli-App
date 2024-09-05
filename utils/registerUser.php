@@ -87,10 +87,40 @@ $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
 
 
 if(!empty($_POST['serTransportista'])){
+  if(!isset($_POST['tipoVehiculo'])){
+    manejarError("Seleccione el tipo de vehiculo");
+    exit();
+  }
+  
   $tipoVehiculo = $_POST['tipoVehiculo'];
   $patente = $_POST['patente'];
+  
+  if(empty($patente)){
+    manejarError("Ingrese la patente del vehiculo.");
+    exit();
+  }
+
+  if(verificarDatos("[a-zA-Z0-9]{6,7}", $patente)){
+    manejarError("La patente no coincide con el formato solicitado.");
+    exit();
+  }
+  
+  if(!isset($_POST['volumenSoportado'])){
+    manejarError("Seleccione el volumen soportado por el vehiculo.");
+    exit();
+  }
+
+  
+  
   $volumenSoportado = $_POST['volumenSoportado'];
+  
+  if(!isset($_POST['pesoSoportado'])){
+    manejarError("Seleccione el peso soportado por el vehiculo.");
+    exit();
+  }
+  
   $pesoSoportado = $_POST['pesoSoportado'];
+
 }
 
 //Insertar el nuevo usuario en la base de datos
