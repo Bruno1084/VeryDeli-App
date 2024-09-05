@@ -85,6 +85,14 @@ if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
 //Generar hash de la contraseña con BCRYPT y costo 10
 $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
 
+
+if(!empty($_POST['serTransportista'])){
+  $tipoVehiculo = $_POST['tipoVehiculo'];
+  $patente = $_POST['patente'];
+  $volumenSoportado = $_POST['volumenSoportado'];
+  $pesoSoportado = $_POST['pesoSoportado'];
+}
+
 //Insertar el nuevo usuario en la base de datos
 $sql = "INSERT INTO usuarios (usuario_nombre, usuario_apellido, usuario_correo, usuario_localidad, usuario_usuario, usuario_contraseña) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
