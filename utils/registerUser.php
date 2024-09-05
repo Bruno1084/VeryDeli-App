@@ -3,6 +3,7 @@ require_once("../database/conection.php");
 require_once("../utils/functions/limpiarCadena.php");
 require_once("../utils/functions/verificarObligatorios.php");
 require_once("../utils/functions/manejaError.php");
+require_once("../utils/functions/verificarDatos.php");
 
 //Almacena los datos
 $nombre = $_POST['nombre'];
