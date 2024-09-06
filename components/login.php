@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    
     <div class="mt-5 text-center">
         <h2 class="fw-bold">Very Deli</h2>
         <img class="img-fluid" src="../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
@@ -13,7 +14,7 @@
     </div>
 
     <div class="container py-4">
-        <form class="formulario-registro" action="#" method="post">
+        <form class="formulario-registro FormularioAjax" action="../utils/iniciarSesion.php" method="post">
             <div class="row justify-content-center">
                 <div class="form-group col-8 col-md-5 mb-3">
                     <label for="usuario">Usuario</label>
