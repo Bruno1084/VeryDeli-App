@@ -29,8 +29,8 @@ CREATE TABLE `usuarios` (
     `usuario_correo` varchar(65) UNIQUE NOT NULL ,
     `usuario_usuario` varchar(65) UNIQUE NOT NULL, 
     `usuario_contraseña` varchar(255)  NOT NULL ,
-    `usuario_esResponsable` tinyint(1)  NOT NULL ,
-    `usuario_esActivo` tinyint(1)  NOT NULL ,
+    `usuario_esResponsable` tinyint(1)  NULL ,
+    `usuario_esActivo` tinyint(1)  NULL ,
     PRIMARY KEY (
         `usuario_id`
     )
