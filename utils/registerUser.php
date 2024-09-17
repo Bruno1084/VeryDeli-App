@@ -5,6 +5,8 @@ require_once("../utils/functions/verificarObligatorios.php");
 require_once("../utils/functions/manejaError.php");
 require_once("../utils/functions/verificarDatos.php");
 
+$conexion = conectarBD();
+
 //Almacena los datos
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];

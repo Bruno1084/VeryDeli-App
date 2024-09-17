@@ -2,6 +2,7 @@
 
 function getAllComentarios ($idPublicacion) {
   require '../database/conection.php';
+  $conexion = conectarBD();
 
   $sql = "SELECT * FROM comentarios WHERE publicacion_id = ?";
   $stmt = $conexion->prepare($sql);

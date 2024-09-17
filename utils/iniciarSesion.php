@@ -3,6 +3,8 @@ require_once("../utils/functions/startSession.php");
 require_once("../utils/functions/manejaError.php");
 require_once("../database/conection.php");
 
+$conexion = conectarBD();
+
 //Obtiene los datos
 $usuario = $_POST['usuario'];
 $contrasenia = $_POST['contraseña'];
