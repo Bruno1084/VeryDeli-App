@@ -1,0 +1,49 @@
+body{
+    background: linear-gradient(to right, #4B0082, #A6420D) !important;
+    color: #FFFFFF;
+}
+
+
+.formulario-registro{
+    color:rgba(255, 255, 255, 90%);
+}
+
+.bg-input{
+    background-color: rgba(255, 255, 255, 80%);
+}
+
+.rst-pass{
+    color:#FFFFFF;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.btn-amarillo{
+    color: #642294;
+    background-color: #FFC107;
+    border-radius: 30px;
+    width: 251px;
+    font-weight: bold;
+}
+
+.btn-morado{
+    background-color: #4B0082;
+    color: #FFFFFF;
+    border-radius: 30px;
+    width: 251px;
+    font-weight: bold;
+}
+
+.btn-morado:hover{
+    color: #FFFFFF;
+    background-color: #4B0082;
+}
+
+.btn-amarillo:hover{
+    color: #642294;
+    background-color: #FFC107;
+}
+
+.additional-fields {
+    display: none;
+}
