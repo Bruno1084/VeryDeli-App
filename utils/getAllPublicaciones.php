@@ -2,7 +2,6 @@
 
 function getAllPublicaciones(){
   require '../database/conection.php';
-  $conexion = conectarBD();
 
   $sql = "SELECT * FROM publicaciones";
   $stmt = $conexion->prepare($sql);

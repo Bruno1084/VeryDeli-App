@@ -2,7 +2,6 @@
 
 function getAllPostulacionesFromPublicacion ($idPublicacion) {
   require '../database/conection.php';
-  $conexion = conectarBD();
 
   $sql = "SELECT * FROM postulaciones WHERE publicacion_id = ?";
   $stmt = $conexion->prepare($sql);

@@ -2,7 +2,6 @@
 
 function getComentario ($id) {
   require '../database/conection.php';
-  $conexion = conectarBD();
 
   $sql = "SELECT * FROM comentarios WHERE comentario_id = ?";
   $stmt = $conexion->prepare($sql);

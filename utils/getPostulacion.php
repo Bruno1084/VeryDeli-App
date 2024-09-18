@@ -2,7 +2,6 @@
 
 function getPostulacion ($id) {
   require '../database/conection.php';
-  $conexion = conectarBD();
 
   $sql = "SELECT * FROM postulaciones WHERE postulacion_id = ?";
   $stmt = $conexion->prepare($sql);
