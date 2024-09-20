@@ -1,7 +1,5 @@
 
 const formularios_ajax = document.querySelectorAll(".FormularioAjax");
-
-
 function enviarFormularioAjax(e){
   e.preventDefault();
   let data = new FormData(this); // Almacena los datos del formulario
@@ -19,12 +17,14 @@ function enviarFormularioAjax(e){
   .then(respuesta =>{ //instrucciones para mostrar la respuesta
     let contenedor = document.querySelector(".form-rest");
     contenedor.innerHTML = respuesta;
-    this.reset();
   });
 }
 
 //Agrega el evento "submit" para los formularios
-formularios_ajax.forEach(formulario =>{
+document.addEventListener("DOMContentLoaded", function() {
+  const formularios_ajax = document.querySelectorAll(".FormularioAjax");
+  formularios_ajax.forEach(formulario => {
     formulario.addEventListener("submit", enviarFormularioAjax);
+  });
 });
 
