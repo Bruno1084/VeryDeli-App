@@ -3,6 +3,8 @@
 function getAllPublicacionesFromUsuario ($idUsuario) {
   require '../database/conection.php';
 
+  $conexion = conectarBD();
+
   $sql = "SELECT * FROM publicaciones WHERE usuario_autor = ?";
   $stmt = $conexion->prepare($sql);
   $stmt->bind_param('i', $idUsuario);

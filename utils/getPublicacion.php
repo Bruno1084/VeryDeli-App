@@ -3,6 +3,8 @@
 function getPublicacion ($id) {
   require '../database/conection.php';
 
+  $conexion = conectarBD();
+
   $sql = "SELECT * FROM publicaciones WHERE publicacion_id = ?";
   $stmt = $conexion->prepare($sql);
   $stmt->bind_param('i', $id);

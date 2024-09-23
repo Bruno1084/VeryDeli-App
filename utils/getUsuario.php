@@ -3,6 +3,8 @@
 function getUsuario ($id) {
   require '../database/conection.php';
 
+  $conexion = conectarBD();
+
   $sql = "SELECT * FROM usuarios WHERE id = ?";
   $stmt = $conexion->prepare($sql);
   $stmt->bind_param('i', $id);

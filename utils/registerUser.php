@@ -4,6 +4,8 @@ require_once("../utils/functions/limpiarCadena.php");
 require_once("../utils/functions/verificarObligatorios.php");
 require_once("../utils/functions/manejaError.php");
 
+$conexion = conectarBD();
+
 //Almacena los datos
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
@@ -66,7 +68,7 @@ $checkUsuario = $conexion->prepare("SELECT usuario_usuario FROM usuarios WHERE u
 $checkUsuario->bind_param('s', $usuario);
 $checkUsuario->execute();
 
-if($checkUsuario->rowCount() > 0){
+if($checkUsuario->num_rows() > 0){
   manejarError('El nombre de usuario ingresado ya se encuentra en uso, ingrese otro.');
   $checkUsuario->close();
   $conexion->close();
@@ -99,5 +101,5 @@ if ($stmt->execute()){
 manejarError('Error al registrar el usuario. Intente de nuevo más tarde.');
 };
 
-$conexion->close;
+$conexion->close();
 ?>

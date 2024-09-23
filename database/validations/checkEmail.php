@@ -1,17 +1,17 @@
 <?php
 
-
-    function checkEmail($Email) {
+function checkEmail ($email) {
     require '../database/conection.php';
+    $conexion = conectarBD();
 
-    $sql = "SELECT usuario_correo FROM usuarios WHERE usuario_correo=$Email";
-    $resultado = $conexion->query($sql);
+    $sql = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
 
-    if ($resultado->num_rows > 0) {
-        $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-        return true;
-    } else {
-        return false;
-    };
+    $stmt->bind_result($count);
+    $stmt->fetch();
 
-    }
+    return $count > 0;
+};
+?>
