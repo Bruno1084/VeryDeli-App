@@ -29,10 +29,10 @@ if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
 
 //Verifica si el nombre de usuario está registrado
 $verificarUsuario = $conexion->prepare("SELECT * FROM usuario WHERE usuario_usuario = ?");
-$verificarUsuario->bindValue('s', $usuario);
+$verificarUsuario->bind_param('s', $usuario);
 $verificarUsuario->execute();
 
-if($verificarUsuario->rowCount() == 1){
+if($verificarUsuario->num_rows() == 1){
   $verificarUsuario = $verificarUsuario->fetch();
   //Verifica que la contraseña corresponda al usuario
   if($verificarUsuario["usuario_usuario"] == $usuario && password_verify($contrasenia, $verificarUsuario["usuario_clave"])){

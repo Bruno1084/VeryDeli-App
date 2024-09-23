@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php
-
-use function PHPSTORM_META\type;
-
- require_once("../components/head.php") ?>
+  <?php require_once("../components/head.php") ?>
+  <title>Very Deli</title>
 </head>
 <body>
+  <?php require_once("../components/Header.php");?>
   <h1>Esto debería mostrar los usuarios</h1>
   
   <div>
@@ -21,7 +19,7 @@ use function PHPSTORM_META\type;
       if (!empty($usuarios)) {
         echo "<ul>";
         // Loop through the users and display them
-         foreach ($usuarios as $usuario) {
+        foreach ($usuarios as $usuario) {
           echo "<li>" . $usuario['usuario_nombre'] . " - " . $usuario['usuario_correo'] . "</li>";
         }
         echo "</ul>";
@@ -31,4 +29,5 @@ use function PHPSTORM_META\type;
     ?>
   </div>
 </body>
+<?php require_once("../components/JS.php"); ?>
 </html>

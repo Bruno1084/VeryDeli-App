@@ -1,6 +1,6 @@
 <?php
 
-function checkEmail($email) {
+function checkEmail ($email) {
     require '../database/conection.php';
     $conexion = conectarBD();
 
