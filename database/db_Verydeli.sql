@@ -46,28 +46,30 @@ CREATE TABLE `transportistas` (
 
 CREATE TABLE `vehiculos` (
     `vehiculo_id` int AUTO_INCREMENT NOT NULL ,
-    `vehiculo_patente` varchar(10)  NULL ,
-    `vehiculo_tipoVehiculo` varchar(80)  NULL ,
-    `vehiculo_pesoSoportado` float  NULL ,
-    `vehiculo_volumenSoportado` float  NULL ,
-    `transportista_id` int  NULL ,
+    `vehiculo_patente` varchar(10)  NOT NULL ,
+    `vehiculo_tipoVehiculo` varchar(80)  NOT NULL ,
+    `vehiculo_pesoSoportado` float  NOT NULL ,
+    `vehiculo_volumenSoportado` float  NOT NULL ,
+    `transportista_id` int  NOT NULL ,
+    `vehiculo_estado` boolean  NOT NULL ,
     PRIMARY KEY (
         `vehiculo_id`
     )
 );
 
+
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `publicacion_descr` varchar(500)  NOT NULL ,
-    `publicacion_volumen` float  NULL ,
-    `publicacion_peso` float  NULL ,
-    `publicacion_nombreRecibe` varchar(100)  NULL ,
-    `publicacion_telefono` varchar(15)  NULL ,
-    `publicacion_origen` varchar(100)  NULL ,
-    `publicacion_destino` varchar(100)  NULL ,
+    `publicacion_volumen` float  NOT NULL ,
+    `publicacion_peso` float  NOT NULL ,
+    `publicacion_nombreRecibe` varchar(100)  NOT NULL ,
+    `publicacion_telefono` varchar(15)  NOT NULL ,
+    `publicacion_origen` varchar(100)  NOT NULL ,
+    `publicacion_destino` varchar(100)  NOT NULL ,
     `usuario_autor` int  NOT NULL ,
-    `usuario_transportista` int  NULL ,
+    `usuario_transportista` int  NOT NULL ,
     `publicacion_esActivo` tinyint(1)  NOT NULL ,
     PRIMARY KEY (
         `publicacion_id`
@@ -95,7 +97,7 @@ CREATE TABLE `postulaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuarios_postulante` int  NOT NULL ,
     `postulacion_precio` float  NOT NULL ,
-    `postulacion_descr` varchar(500)  NULL ,
+    `postulacion_descr` varchar(500)  NOT NULL ,
     `postulacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (
         `postulacion_id`

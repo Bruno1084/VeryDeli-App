@@ -9,6 +9,9 @@ VALUES
 INSERT INTO `transportistas` (`transportista_id`)
 VALUES 
 (2);  -- assuming this transportista is a user with usuario_id = 2
+INSERT INTO `transportistas` (`transportista_id`)
+VALUES 
+(1);  -- assuming this transportista is a user with usuario_id = 1
 
 
 -- Administradores de ejemplo
@@ -18,10 +21,10 @@ VALUES
 
 
 -- Vehículos de ejemplo
-INSERT INTO `vehiculos` (`vehiculo_patente`, `vehiculo_tipoVehiculo`, `vehiculo_pesoSoportado`, `vehiculo_volumenSoportado`, `transportista_id`)
+INSERT INTO `vehiculos` (`vehiculo_patente`, `vehiculo_tipoVehiculo`, `vehiculo_pesoSoportado`, `vehiculo_volumenSoportado`, `transportista_id`,`vehiculo_estado`)
 VALUES 
-('ABC123', 'Camion', 2000.5, 50.75, 1),
-('XYZ789', 'Furgoneta', 1000.0, 25.0, 2);
+('ABC123', 'Camion', 2000.5, 50.75, 1, true),
+('XYZ789', 'Furgoneta', 1000.0, 25.0, 2, true);
 
 
 -- Publicaciones de ejemplo
