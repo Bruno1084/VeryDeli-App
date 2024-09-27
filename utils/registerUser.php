@@ -4,6 +4,9 @@ require_once("../utils/functions/limpiarCadena.php");
 require_once("../utils/functions/verificarObligatorios.php");
 require_once("../utils/functions/manejaError.php");
 
+$db = new DB();
+$conexion = $db->getConnection();
+
 //Almacena los datos
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
@@ -34,18 +37,18 @@ if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $apellido)){
 if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
   //Verificar si el correo ya está registrado
   $checkcorreo = $conexion->prepare("SELECT usuario_correo FROM usuarios WHERE usuario_correo = ?");
-  $checkcorreo->bind_param("s", $correo);
+  $checkcorreo->bindValue(1, $correo, PDO::PARAM_STR);
   $checkcorreo->execute();
-  if($checkcorreo->num_rows > 0){
+  if($checkcorreo->rowCount() > 0){
     manejarError('El correo ingresado ya se encuentra registrado.');
-    $checkcorreo->close();
-    $conexion->close();
+    $checkcorreo = null;
+    $conexion = null;
     exit();
   };
-  $checkcorreo->close();
+  $checkcorreo = null;
 } else{
   manejarError('El correo ingresado no es válido.');
-  $conexion->close();
+  $conexion = null;
   exit();
   };
 
@@ -63,17 +66,17 @@ if(verificarDatos('[a-zA-Z0-9]{4,20}', $usuario)){
 
 //Verificar si el nombre de usuario ya está en uso
 $checkUsuario = $conexion->prepare("SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = ?");
-$checkUsuario->bind_param('s', $usuario);
+$checkUsuario->bindValue(1, $usuario, PDO::PARAM_STR);
 $checkUsuario->execute();
 
 if($checkUsuario->rowCount() > 0){
   manejarError('El nombre de usuario ingresado ya se encuentra en uso, ingrese otro.');
-  $checkUsuario->close();
-  $conexion->close();
+  $checkUsuario = null;
+  $conexion = null;
   exit();
 };
 
-$checkUsuario->close();
+$checkUsuario = null;
 
 // Validar formato de la contraseña
 if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
@@ -87,7 +90,12 @@ $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
 //Insertar el nuevo usuario en la base de datos
 $sql = "INSERT INTO usuarios (usuario_nombre, usuario_apellido, usuario_correo, usuario_localidad, usuario_usuario, usuario_contraseña) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
-$stmt->bind_param('ssssss', $nombre, $apellido, $correo, $localidad, $usuario, $contrasenia);
+$stmt->bindValue(1, $nombre, PDO::PARAM_STR);
+$stmt->bindValue(2, $apellido, PDO::PARAM_STR);
+$stmt->bindValue(3, $correo, PDO::PARAM_STR);
+$stmt->bindValue(4, $localidad, PDO::PARAM_STR);
+$stmt->bindValue(5, $usuario, PDO::PARAM_STR);
+$stmt->bindValue(6, $contraseniaHashed, PDO::PARAM_STR);
 
 if ($stmt->execute()){
   echo '
@@ -99,5 +107,5 @@ if ($stmt->execute()){
 manejarError('Error al registrar el usuario. Intente de nuevo más tarde.');
 };
 
-$conexion->close;
+$conexion = null;
 ?>

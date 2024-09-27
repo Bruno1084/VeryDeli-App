@@ -2,20 +2,19 @@
 
 function getComentario ($id) {
   require '../database/conection.php';
+  $db = new DB();
+  $conexion = $db->getConnection();
 
   $sql = "SELECT * FROM comentarios WHERE comentario_id = ?";
   $stmt = $conexion->prepare($sql);
-  $stmt->bind_param('i', $id);
+  $stmt->bindValue(1, $id, PDO::PARAM_INT);
   $stmt->execute();
 
-  $resultado = $stmt->get_result();
+  $comentario = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  if ($resultado->num_rows > 0) {
-    $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-  } else {
-    $resultado = [];
-  };
+  $stmt = null;
+  $conexion = null;
 
-  return $resultado;
+  return $comentario;
 };
 ?>

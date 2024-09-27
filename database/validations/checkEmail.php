@@ -1,17 +1,18 @@
 <?php
 
+function checkEmail ($email) {
+    require './database/conection.php';
+    $db = new DB();
+    $conexion = $db->getConnection();
 
-    function checkEmail($Email) {
-    require '../database/conection.php';
+    $sql = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1, $email, PDO::PARAM_STR);
+    $stmt->execute();
 
-    $sql = "SELECT usuario_correo FROM usuarios WHERE usuario_correo=$Email";
-    $resultado = $conexion->query($sql);
+    $count = $stmt->fetchColumn();
+    $stmt->fetch();
 
-    if ($resultado->num_rows > 0) {
-        $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-        return true;
-    } else {
-        return false;
-    };
-
-    }
+    return $count > 0;
+};
+?>
