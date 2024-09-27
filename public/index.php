@@ -28,6 +28,7 @@
       }
     ?>
   </div>
+  <?php require_once("../components/Footer.php"); ?>
+  <?php require_once("../components/JS.php"); ?>
 </body>
-<?php require_once("../components/JS.php"); ?>
 </html>
