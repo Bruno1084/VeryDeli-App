@@ -3,7 +3,8 @@ require_once("../utils/functions/startSession.php");
 require_once("../utils/functions/manejaError.php");
 require_once("../database/conection.php");
 
-$conexion = conectarBD();
+$db = new DB();
+$conexion = $db->getConnection();
 
 //Obtiene los datos
 $usuario = $_POST['usuario'];
@@ -29,10 +30,10 @@ if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
 
 //Verifica si el nombre de usuario está registrado
 $verificarUsuario = $conexion->prepare("SELECT * FROM usuario WHERE usuario_usuario = ?");
-$verificarUsuario->bind_param('s', $usuario);
+$verificarUsuario->bindValue(1, $usuario, PDO::PARAM_STR);
 $verificarUsuario->execute();
 
-if($verificarUsuario->num_rows() == 1){
+if($verificarUsuario->rowCount() == 1){
   $verificarUsuario = $verificarUsuario->fetch();
   //Verifica que la contraseña corresponda al usuario
   if($verificarUsuario["usuario_usuario"] == $usuario && password_verify($contrasenia, $verificarUsuario["usuario_clave"])){
@@ -55,6 +56,6 @@ else{
   manejarError('Usuario o clave incorrectos.');
 }
 
-$verificarUsuario->close();
-$conexion->close();
+$verificarUsuario = null;
+$conexion = null;
 ?>
