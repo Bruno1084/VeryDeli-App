@@ -2,21 +2,20 @@
 
 function getPostulacion ($id) {
   require '../database/conection.php';
-  $conexion = conectarBD();
+
+  $db = new DB();
+  $conexion = $db->getConnection();
 
   $sql = "SELECT * FROM postulaciones WHERE postulacion_id = ?";
   $stmt = $conexion->prepare($sql);
-  $stmt->bind_param('i', $id);
+  $stmt->bindValue(1, $id, PDO::PARAM_INT);
   $stmt->execute();
 
-  $resultado = $stmt->get_result();
+  $postulacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  if ($resultado->num_rows > 0) {
-    $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-  } else {
-    $resultado = [];
-  };
+  $stmt = null;
+  $conexion = null;
 
-  return $resultado;
+  return $postulacion;
 };
 ?>

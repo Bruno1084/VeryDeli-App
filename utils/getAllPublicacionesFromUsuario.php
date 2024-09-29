@@ -2,23 +2,20 @@
 
 function getAllPublicacionesFromUsuario ($idUsuario) {
   require '../database/conection.php';
-  $conexion = conectarBD();
+
+  $db = new DB();
+  $conexion = $db->getConnection();
 
   $sql = "SELECT * FROM publicaciones WHERE usuario_autor = ?";
   $stmt = $conexion->prepare($sql);
-  $stmt->bind_param('i', $idUsuario);
+  $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
   $stmt->execute();
 
-  $resultado = $stmt->get_result();
+  $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  if ($resultado->num_rows > 0) {
-    $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-  } else {
-    $resultado = [];
-  };
+  $stmt = null;
+  $conexion = null;
 
-  $stmt->close();
-  $conexion->close();
-  return $resultado;
+  return $publicaciones;
 };
 ?>
