@@ -7,7 +7,7 @@
                 <li>Elemento 1</li>
                 <li>Elemento 1</li>
             </div>
-            <div class="col-6 justify-content-center"> 
+            <div class="col-6 "> 
                 <h4>Ubicacion:</h4>
                 <p><strong>Dirección:</strong> Ejército de Los Andes 950, D5700HHW, San Luis, Argentina</p>  
                 <p><strong>Teléfono:</strong> +54 (0266) 444444 - +54 (0266) 444444</p> 
