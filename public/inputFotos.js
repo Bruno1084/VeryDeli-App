@@ -2,22 +2,21 @@ var count=0;
 var nAdd=1;
 window.addEventListener("load",()=>{
     document.querySelector("#addPhoto").addEventListener("click",clickAdd);
-    document.querySelector("#addPhoto").addEventListener("click",()=>{
-        var btn=document.querySelector('#addNewPhoto');
-        btn.addEventListener("change",()=>{
-            if((count+btn.files.length)<=5){
-                if(formatoFoto(btn.files)){
-                    addFotos(btn);
-                    btn.removeAttribute("id");
+    input=document.querySelector('#addNewPhoto');
+    input.addEventListener("change",()=>{
+        if ((count+input.files.length)<=5 && input.files.length>0) {
+            if (formatoFoto(input.files)) {
+                addFotos(input.files);
+                if (count<5) {
+                    input.removeAttribute("id");
                     nuevoInput();
                 }
-                else{
-                    alert("Error de formato");
-                }
+            } else {
+                alert("Error de formato");
+                input.files=null;
             }
-            else{
-                alert("Error. Maximo 5 fotos");
-            }
-        });
+        } else {
+            alert("Error. Máximo 5 fotos");
+        }
     });
 });

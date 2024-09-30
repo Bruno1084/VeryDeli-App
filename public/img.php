@@ -21,11 +21,11 @@
             border: solid 0.1vh black;
         }
     </style>
-    <form method="post" action="eje.php" accept="image/png, image/jpg, image/jpeg" enctype="multipart/form-data">
+    <form method="post" id="publicacion" action="eje.php" enctype="multipart/form-data">
         <div id="add">
             <h2 id="addPhoto">Cargar Foto</h2>
             <div id="photos"></div>
-            <input type="file" class="addNewPhoto" name="addNewPhoto-0[]" id="addNewPhoto" multiple/>
+            <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto-0[]" id="addNewPhoto" multiple/>
         </div>
         <button type="submit" name="enviar" id="enviar">Enviar</button>
     </form>
