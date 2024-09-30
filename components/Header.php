@@ -1,4 +1,4 @@
-<header id="header" class="conainer-fluid">
+<header id="header" class="conainer-fluid ">
     <div class="content-fluid">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg">
