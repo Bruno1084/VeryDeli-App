@@ -30,39 +30,6 @@
         <button type="submit" name="enviar" id="enviar">Enviar</button>
     </form>
     <script src="./functions.js"></script>
-    <script>
-        var count=0;
-        var nAdd=1;
-        window.addEventListener("load",()=>{
-            document.querySelector("#addPhoto").addEventListener("click",clickAdd);
-            document.querySelector("#addPhoto").addEventListener("click",()=>{
-                var btn=document.querySelector('#addNewPhoto');
-                btn.addEventListener("change",()=>{
-                    if((count+btn.files.length)<=5){
-                        if(formatoFoto(btn.files)){
-                            addFotos(btn);
-                            btn.removeAttribute("id");
-                            var aux=document.createElement('input');
-                            aux.setAttribute("type","file");
-                            aux.setAttribute("class","addNewPhoto");
-                            aux.setAttribute("name","addNewPhoto-'"+nAdd+"'[]");
-                            aux.setAttribute("id","addNewPhoto");
-                            aux.setAttribute("multiple","");
-                            document.querySelector("#add").append(aux);
-                            nAdd+=1;
-                        }
-                        else{
-                            alert("Error de formato");
-                        }
-                    }
-                    else{
-                        alert("Error. Maximo 5 fotos");
-                    }
-                });
-            });
-
-        });
-        
-    </script>
+    <script src="./inputFotos.js"></script>
 </body>
 </html>

@@ -27,4 +27,34 @@ function deleteFoto(foto){
     if(count==4){
         document.querySelector("#addPhoto").addEventListener("click",clickAdd);
     }
+    actualizarInputs();
+}
+function nuevoInput(){
+    var aux=document.createElement('input');
+    aux.setAttribute("type","file");
+    aux.setAttribute("class","addNewPhoto");
+    aux.setAttribute("name","addNewPhoto-"+nAdd+"[]");
+    aux.setAttribute("id","addNewPhoto");
+    aux.setAttribute("multiple","");
+    document.querySelector("#add").append(aux);
+    nAdd+=1;
+}
+
+function actualizarInputs(){
+    var fotos=document.querySelector("#photos").children;
+    var i=0;
+    while(i<nAdd-1){
+        if(!Array.from(fotos).some(foto =>foto.name.includes("_"+i+"_")))break;
+        i++;
+    }
+    if(i<nAdd-1){
+        var aux=document.querySelector("[name='addNewPhoto-"+i+"\[\]']");
+        aux.remove();
+        nAdd--;
+        var nInputs=document.querySelector("#add").children;
+        var countInputs=document.querySelector("#add").childElementCount;
+        for((i+2);(i+2)<countInputs;i++){
+            nInputs[i+2].setAttribute("name","addNewPhoto-"+(i)+"[]");
+        }
+    }
 }
