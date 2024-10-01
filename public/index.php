@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <?php require_once("../components/head.php") ?>
+  <title>Very Deli</title>
 </head>
 <body>
+  <?php require_once("../components/Header.php");?>
   <h1>Esto debería mostrar los usuarios</h1>
   
   <div>
@@ -18,7 +20,7 @@
         echo "<ul>";
         // Loop through the users and display them
         foreach ($usuarios as $usuario) {
-          echo "<li>" . $usuario['nombre'] . " - " . $usuario['email'] . "</li>";
+          echo "<li>" . $usuario['usuario_nombre'] . " - " . $usuario['usuario_correo'] . "</li>";
         }
         echo "</ul>";
       } else {
@@ -27,4 +29,5 @@
     ?>
   </div>
 </body>
+<?php require_once("../components/JS.php"); ?>
 </html>
