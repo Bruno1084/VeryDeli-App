@@ -3,7 +3,10 @@
 <html lang="es">
 
 <head>
-    <?php require_once("../components/head.php") ?>
+    <?php 
+    require_once("../components/head.php");
+    require_once("../components/JS.php");
+    ?>
 </head>
 
 <body>
@@ -13,7 +16,9 @@
         <h2>Registrarse</h2>
     </div>
 
-    <div class="form-rest my-5"></div>
+    <div class="d-flex justify-content-center">
+        <div class="form-rest my-5 col-8"></div>
+    </div>
 
     <div class="container py-4">
         <form class="formulario-registro FormularioAjax" action="../utils/registerUser.php" method="post">
