@@ -1,11 +1,27 @@
 <?php
 
+define('ENV', [
+  'DB_HOST' => 'mod.h.filess.io',
+  'DB_PORT' => '3307',
+  'DB_USER' => 'VeryDeliDB_wallyetare',
+  'DB_NAME' => 'VeryDeliDB_wallyetare',
+  'DB_PASSWORD' => '8ceccf7701a7f958705178390275fb31b28edf28'
+]);
+
 class DB {
-  private static $HOST = getenv('DB_HOST');
-  private static $PORT = getenv('DB_PORT');
-  private static $USER = getenv('DB_USER');
-  private static $NAME = getenv('DB_NAME');
-  private static $PASSWORD = getenv('DB_PASSWORD');
+  private static $HOST;
+  private static $PORT;
+  private static $USER;
+  private static $NAME;
+  private static $PASSWORD;
+
+  public function __construct () {
+    self::$HOST = ENV['DB_HOST'];
+    self::$PORT = ENV['DB_PORT'];
+    self::$USER = ENV['DB_USER'];
+    self::$NAME = ENV['DB_NAME'];
+    self::$PASSWORD = ENV['DB_PASSWORD'];
+  }
 
   public static function getConnection() {
     try {
