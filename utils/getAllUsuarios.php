@@ -4,6 +4,7 @@ function getAllUsuarios () {
   require '../database/conection.php';
   
   $sql = "SELECT * FROM usuarios";
+  $conexion = conectarBD();
   $stmt = $conexion->prepare($sql);
   $stmt->execute();
 
