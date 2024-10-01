@@ -26,7 +26,7 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="miPerfil.php">Mi Perfil</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
+                                <li><a class="dropdown-item" href="../utils/functions/cerrarSesion.php">Cerrar Sesion</a></li>
                             </ul>
                         </li>
                     </ul>
