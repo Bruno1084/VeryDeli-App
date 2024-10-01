@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-    <?php require_once("../components/head.php") ?>
+    <?php 
+    require_once("../components/head.php");
+    require_once("../components/JS.php");
+    ?>
 </head>
 
 <body>
@@ -11,6 +14,10 @@
         <h2 class="fw-bold">Very Deli</h2>
         <img class="img-fluid" src="../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
         <h2> Iniciar Sesión</h2>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="form-rest my-5 col-8"></div>
     </div>
 
     <div class="container py-4">
