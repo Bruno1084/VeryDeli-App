@@ -1,11 +1,27 @@
 <?php
 
+define('ENV', [
+  "DB_HOST" => "sql.freedb.tech",
+  "DB_PORT" => "3306",
+  "DB_USER" => "freedb_VeryDeli",
+  "DB_NAME" => "freedb_VeryDeli",
+  "DB_PASSWORD" => "nwfXzTs!VCxac2J"
+]);
+
 class DB {
-  private static $HOST = getenv('DB_HOST');
-  private static $PORT = getenv('DB_PORT');
-  private static $USER = getenv('DB_USER');
-  private static $NAME = getenv('DB_NAME');
-  private static $PASSWORD = getenv('DB_PASSWORD');
+  private static $HOST;
+  private static $PORT;
+  private static $USER;
+  private static $NAME;
+  private static $PASSWORD;
+
+  public function __construct () {
+    self::$HOST = ENV['DB_HOST'];
+    self::$PORT = ENV['DB_PORT'];
+    self::$USER = ENV['DB_USER'];
+    self::$NAME = ENV['DB_NAME'];
+    self::$PASSWORD = ENV['DB_PASSWORD'];
+  }
 
   public static function getConnection() {
     try {
