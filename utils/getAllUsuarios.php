@@ -6,7 +6,6 @@ function getAllUsuarios () {
   $conexion = $db->getConnection();
   
   $sql = "SELECT * FROM usuarios";
-  $conexion = conectarBD();
   $stmt = $conexion->prepare($sql);
   $stmt->execute();
 
