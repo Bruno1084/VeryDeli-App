@@ -43,7 +43,7 @@
 
             <div class="row justify-content-center my-3">
                 <div class="col-8 col-md-5 text-center">
-                    <a href="registrarse.php" class="btn btn-amarillo btn-block">Registrarse</a>
+                    <a href="../components/registarse.php" class="btn btn-amarillo btn-block">Registrarse</a>
                 </div>
             </div>
         </form>
