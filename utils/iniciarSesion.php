@@ -1,6 +1,8 @@
 <?php
 require_once("../utils/functions/startSession.php");
 require_once("../utils/functions/manejaError.php");
+require_once("../utils/functions/verificarObligatorios.php");
+require_once("../utils/functions/verificarDatos.php");
 require_once("../database/conection.php");
 
 $db = new DB();
@@ -12,24 +14,24 @@ $contrasenia = $_POST['contraseña'];
 
 //Verifica campos obligatorios
 if(!verificarCamposObligatorios([$usuario, $contrasenia])){
-    manejarError('No se han llenado todos los campos obligatorios.');
+    manejarError('Campos sin completar','No se han llenado todos los campos obligatorios.');
     exit();
 }
 
 //Validar formato del usuario
 if(verificarDatos('[a-zA-Z0-9]{4,20}', $usuario)){
-  manejarError('El usuario no coincide con el formato solicitado.');
+  manejarError('Nombre de usuario invalido','El usuario no coincide con el formato solicitado.');
   exit();
 }
 
 //Validar formato de la contraseña
 if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
-  manejarError('La contraseña no coincide con el formato solicitado.');
+  manejarError('Contraseña invalida','La contraseña no coincide con el formato solicitado.');
   exit();
 }
 
 //Verifica si el nombre de usuario está registrado
-$verificarUsuario = $conexion->prepare("SELECT * FROM usuario WHERE usuario_usuario = ?");
+$verificarUsuario = $conexion->prepare("SELECT * FROM usuarios WHERE usuario_usuario = ?");
 $verificarUsuario->bindValue(1, $usuario, PDO::PARAM_STR);
 $verificarUsuario->execute();
 
@@ -46,14 +48,14 @@ if($verificarUsuario->rowCount() == 1){
     $_SESSION['esResponsable'] = $verificarUsuario['usuario_esResponsable'];
     $_SESSION['esActivo'] = true;
 
-    // header("rutaHomen");  ---> Aqui se redirecciona al usuario
+    header('Location: ../public/index.php');
   }
   else{
-    manejarError('Usuario o clave incorrectos.');
+    manejarError('Datos invalidos','Usuario o clave incorrectos.');
   }
 }
 else{
-  manejarError('Usuario o clave incorrectos.');
+  manejarError('Datos invalidos','Usuario o clave incorrectos.');
 }
 
 $verificarUsuario = null;
