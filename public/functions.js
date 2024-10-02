@@ -46,7 +46,12 @@ function deleteFoto(foto){
         photosId.value=photosId.value.replace(photoId+",","");
     }
     else{
-        photosId.value=photosId.value.replace(photoId,"");
+        if(photosId.value.includes(photoId+";")){
+            photosId.value=photosId.value.replace(photoId+";","");
+        }
+        else{
+            photosId.value=photosId.value.replace(photoId,"");
+        }
     }
     
     count-=1;
