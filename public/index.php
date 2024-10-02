@@ -14,21 +14,21 @@
         .addNewPhoto{
             display:none;
         }
-        
         #photos {
           display: flex;
           flex-wrap: wrap;           
           max-width: 100%;
           gap: 5px; 
         }
-
+        
         #photos img {
-          flex: 1 1 calc(33.33% - 10px); /*tres imagenes por fila restando gap */
-          max-width: calc(33.33% - 10px); /* Maximo Tres imágenes por fila*/
-          height: auto;
+          width: 250px;
+          height: 250px;
           object-fit: cover;
+          margin-right: 5px;
           margin-bottom: 5px;
         }
+
     </style>
 
   <div class="modal fade" id="modalCrearPublicacion" aria-hidden="true" aria-labelledby="modalCrearPublicacionLabel" tabindex="-1">
@@ -82,6 +82,7 @@
 
             <div class="row">
               <div id="add" class="col-12 mb-3">
+                <input type="text" name="photosId" id="photosId" value="" hidden>
                 <h2 id="addPhoto">Imagenes ➕</h2>
                 <div id="photos"></div>
                 <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto-0[]" id="addNewPhoto" multiple/>
