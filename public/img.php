@@ -23,6 +23,7 @@
     </style>
     <form method="post" id="publicacion" action="eje.php" enctype="multipart/form-data">
         <div id="add">
+            <input type="text" name="photosId" id="photosId" value="" hidden>
             <h2 id="addPhoto">Cargar Foto</h2>
             <div id="photos"></div>
             <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto-0[]" id="addNewPhoto" multiple/>

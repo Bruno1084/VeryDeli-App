@@ -15,6 +15,10 @@ function formatoFoto(fotos){
 }
 
 function addFotos(fotos) {
+    var photosId=document.querySelector("#photosId");
+    if(photosId.value!=""){
+        photosId.value+=";";   
+    }
     for (let i = 1; i <= fotos.length; i++) {
         const codifPhoto = URL.createObjectURL(fotos[i - 1]);
         const img = document.createElement('img');
@@ -23,14 +27,28 @@ function addFotos(fotos) {
         img.id = "fotoUsuario-"+(i+count)+"";
         img.alt = "userPhoto";
         img.onclick = () => deleteFoto(img);
-
         document.querySelector("#photos").append(img);  // Añadir imagen al contenedor
+        if(i<fotos.length){
+            photosId.value+=img.getAttribute("data-id")+",";
+        }
+        else{
+            photosId.value+=img.getAttribute("data-id");
+        }
     }
     count += fotos.length;
 }
 
 function deleteFoto(foto){
+    var photoId=foto.getAttribute("data-id");
     foto.remove();
+    var photosId=document.querySelector("#photosId");
+    if(photosId.value.includes(photoId+",")){
+        photosId.value=photosId.value.replace(photoId+",","");
+    }
+    else{
+        photosId.value=photosId.value.replace(photoId,"");
+    }
+    
     count-=1;
     if(count==4){
         document.querySelector("#addPhoto").addEventListener("click",clickAdd);
