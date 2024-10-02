@@ -11,11 +11,11 @@
                     if(str_contains($photosId[$i],",")){
                         $photosId[$i]=explode(",",$photosId[$i]);
                         for($j=0;$j<sizeof($photosId[$i]);$j++){
-                            $photosId[$i][$j]=str_replace($photosId[$i][$j],"fotoUsuario_","");
+                            $photosId[$i][$j]=substr($photosId[$i][$j],12);
                         }
                     }
                     else{
-                        $photosId[$i]=str_replace($photosId[$i],"fotoUsuario_","");
+                        $photosId[$i]=substr($photosId[$i],12);
                     }
                 }
             }
@@ -23,13 +23,14 @@
                 if(str_contains($photosId,",")){
                     $photosId=explode(",",$photosId);
                     for($i=0;$i<sizeof($photosId);$i++){
-                        $photosId[$i]=str_replace($photosId[$i],"fotoUsuario_","");
+                        $photosId[$i]=substr($photosId[$i],12);
                     }
                 }
                 else{
-                    $photosId=str_replace($photosId,"fotoUsuario_","");
+                    $photosId=substr($photosId,12);
                 }
             }
+            
             
             echo "<pre>";
             var_dump($photosId);

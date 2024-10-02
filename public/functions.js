@@ -119,8 +119,8 @@ function actualizarInputs(){
         nAdd--;
         var nInputs=document.querySelector("#add").children;
         var countInputs=document.querySelector("#add").childElementCount;
-        for((i+2);(i+2)<countInputs;i++){
-            nInputs[i+2].setAttribute("name","addNewPhoto-"+(i)+"[]");
+        for((i+3);(i+3)<countInputs;i++){
+            nInputs[i+3].setAttribute("name","addNewPhoto-"+(i)+"[]");
         }
     }
 }
