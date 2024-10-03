@@ -22,11 +22,22 @@
         }
         
         #photos img {
-          width: 250px;
-          height: 250px;
+          width: 100px;
+          height: 100px;
           object-fit: cover;
           margin-right: 5px;
           margin-bottom: 5px;
+          transition: width 50ms, height 50ms;
+        }
+
+        #photos img:hover{
+          width: 200px;
+          height: 200px;
+          filter:brightness(50%)
+        }
+
+        #addPhoto{
+          display: inline-block;
         }
 
 
@@ -93,7 +104,7 @@
             <div class="row">
               <div id="add" class="col-12 mb-3">
                 <input type="text" name="photosId" id="photosId" value="" hidden>
-                <h2 id="addPhoto">Imagenes ➕</h2>
+                <h2 id="addPhoto">Fotos ➕</h2>
                 <div id="photos"></div>
                 <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto-0[]" id="addNewPhoto" multiple/>
                 </div>
@@ -222,16 +233,13 @@
   // Validar Teléfono de contacto
   const contacto = document.getElementById('publicacion-contacto');
   const contactoFeedback =document.getElementById('invalid-contacto');
+  const regexTelefono = /^[0-9]{10,13}$/;
   if (contacto.value.trim() === '') {
     contactoFeedback.textContent = 'El teléfono de contacto es obligatorio.';
     contacto.classList.add('is-invalid');
     isValid = false;
-  } else if(isNaN(contacto.value)){
-    contactoFeedback.textContent = 'El teléfono solo debe contener caracteres numericos';
-    contacto.classList.add('is-invalid');
-    isValid = false;
-  } else if (contacto.value.length != 10) {
-    contactoFeedback.textContent = 'El teléfono debe contener 10 dígitos.';
+  } else if(!regexTelefono.test(contacto.value)){
+    contactoFeedback.textContent = 'Ingrese un número de teléfono valido!';
     contacto.classList.add('is-invalid');
     isValid = false;
   } else {
