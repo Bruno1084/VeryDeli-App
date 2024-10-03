@@ -6,10 +6,11 @@
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
-  <h1>Esto debería mostrar los usuarios</h1>
-  
-  <div>
-    <?php
+  <h1 class="text-center">Esto debería mostrar los usuarios</h1>
+  <?php require_once("../components/publicaciones.php");?>
+  <?php require_once("../components/Footer.php");?>
+  <!-- <div>
+     <?php
       require '../utils/getAllUsuarios.php';
 
       // Fetch the users

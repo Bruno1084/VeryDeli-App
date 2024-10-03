@@ -45,16 +45,44 @@ body{
     font-weight: bold;
 }
 
+.btn-blanco{
+    background-color:#F4F2EE;
+    color: #FFFFFF;
+    border-radius: 30px;
+    width: 251px;
+    font-weight: bold;
+}
+
+
 .btn-morado:hover{
     color: #FFFFFF;
     background-color: #4B0082;
 }
+
 
 .btn-amarillo:hover{
     color: #642294;
     background-color: #FFC107;
 }
 
+.btn-blanco:hover{
+    color: #FFFFFF;
+    background-color: #4B0082;
+}
+
 .additional-fields {
     display: none;
+}
+
+.card-top-publicaciones{
+    width: 500px;
+    height: 60px;
+    border-bottom: 1px solid;
+}
+.card-publicacion{
+    width: 500px;
+    height: 341px;
+    top: 48px;
+    left: 350px;
+    border-radius: 8px;
 }
