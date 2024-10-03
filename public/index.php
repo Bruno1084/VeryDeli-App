@@ -33,16 +33,16 @@
 
   <div class="modal fade" id="modalCrearPublicacion" aria-hidden="true" aria-labelledby="modalCrearPublicacionLabel" tabindex="-1">
     <div class="modal-dialog modal-xl">
-      <div class="modal-content bg-dark">
-        <div class="modal-header bg-dark">
+      <div class="modal-content bg-modalPublicacion">
+        <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
           <h1 class="modal-title fs-5" id="modalCrearPublicacionLabel">Nueva Publicación</h1>
           <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form action="#" method="post" enctype="multipart/form-data" id="formPublicacion" onsubmit="return validarPublicacion()">
+          <form action="#" class="form-publicacion" method="post" enctype="multipart/form-data" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
             <div class="row">
               <div class="col-3 mb-3">
-                <input type="text" class="form-control" id="publicacion-titulo" name="titulo" placeholder="Titulo" required>
+                <input type="text" class="form-control " id="publicacion-titulo" name="titulo" placeholder="Titulo" required>
               </div>
             </div>
 
@@ -91,14 +91,14 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" form="formPublicacion" class="btn btn-primary">Crear Publicación</button>
+          <button type="button" class="btn btn-morado" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" form="formPublicacion" class="btn btn-amarillo">Crear Publicación</button>
         </div>
       </div>
     </div>
   </div>
   
-  <button class="btn btn-primary" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
+  <button class="btn" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
   <script src="../js/functions.js"></script>
   <script src="../js/inputFotos.js"></script>
   <script>
