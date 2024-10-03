@@ -2,6 +2,7 @@
 require_once("../database/conection.php");
 require_once("../utils/functions/limpiarCadena.php");
 require_once("../utils/functions/verificarObligatorios.php");
+require_once("../utils/functions/verificarDatos.php");
 require_once("../utils/functions/manejaError.php");
 
 $db = new DB();
@@ -17,19 +18,19 @@ $contrasenia = $_POST['contraseña'];
 
 //Verificar campos obligatorios
 if(!verificarCamposObligatorios([$nombre, $apellido, $correo, $localidad, $usuario, $contrasenia])){
-  manejarError('No se han llenado todos los campos obligatorios.');
+  manejarError('Campos sin completar','No se han llenado todos los campos obligatorios.');
   exit();
 };
 
 //Validar formato del nombre
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $nombre)){
-  manejarError('El nombre no coincide con el formato solicitado.');  
+  manejarError('Nombre invalido','El nombre no coincide con el formato solicitado.');  
   exit();
 };
 
 //Validar formato del apellido
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $apellido)){
-  manejarError('El apellido no coincide con el formato solicitado.');
+  manejarError('Apellido invalido','El apellido no coincide con el formato solicitado.');
   exit();
 };
 
@@ -40,27 +41,27 @@ if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
   $checkcorreo->bindValue(1, $correo, PDO::PARAM_STR);
   $checkcorreo->execute();
   if($checkcorreo->rowCount() > 0){
-    manejarError('El correo ingresado ya se encuentra registrado.');
+    manejarError('Correo invalido','El correo ingresado ya se encuentra registrado.');
     $checkcorreo = null;
     $conexion = null;
     exit();
   };
   $checkcorreo = null;
 } else{
-  manejarError('El correo ingresado no es válido.');
+  manejarError('Correo invalido','El correo ingresado no es válido.');
   $conexion = null;
   exit();
   };
 
 //Validar formato de la localidad
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $localidad)){
-  manejarError("La localidad ingresada no es válida");
+  manejarError('Localidad invalida',"La localidad ingresada no es válida");
   exit();
 };
 
 //Validar formato del usuario
 if(verificarDatos('[a-zA-Z0-9]{4,20}', $usuario)){
-  manejarError("El usuario no coincide con el formato solicitado.");
+  manejarError('Nombre de usuario invalido',"El usuario no coincide con el formato solicitado.");
   exit();
 };
 
@@ -70,7 +71,7 @@ $checkUsuario->bindValue(1, $usuario, PDO::PARAM_STR);
 $checkUsuario->execute();
 
 if($checkUsuario->rowCount() > 0){
-  manejarError('El nombre de usuario ingresado ya se encuentra en uso, ingrese otro.');
+  manejarError('Nombre de usuario invalido','El nombre de usuario ingresado ya se encuentra en uso, ingrese otro.');
   $checkUsuario = null;
   $conexion = null;
   exit();
@@ -80,7 +81,7 @@ $checkUsuario = null;
 
 // Validar formato de la contraseña
 if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
-  manejarError('La contraseña ingresada no coincide con el formato solicitado.');
+  manejarError('Contraseña invalida','La contraseña ingresada no coincide con el formato solicitado.');
   exit();
 };
 
@@ -104,7 +105,7 @@ if ($stmt->execute()){
     </div>
   ';
 } else {
-manejarError('Error al registrar el usuario. Intente de nuevo más tarde.');
+manejarError('Ocurrio un error inesperado','Error al registrar el usuario. Intente de nuevo más tarde.');
 };
 
 $conexion = null;
