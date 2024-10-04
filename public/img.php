@@ -17,7 +17,7 @@
             border: solid 0.1vh black;
         }
     </style>
-    <form method="post" id="newPublicacion" action="eje.php" enctype="multipart/form-data">
+    <form method="post" id="newPublicacion" action="eje.php">
         <div id="add">
             <select name="photosId[]" id="photosId" multiple hidden>
             </select>

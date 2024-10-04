@@ -1,21 +1,19 @@
 <?php
     $data=array();
+    define("URL","https://api.imgbb.com/1/upload?key=edbd60e6db615da0b89a51189c5e4fe3");
     $ok="";
-    function getExtencion(string $name):string{
-        $ext=explode(".",$name);
-        return ".".$ext[1];
+    function getExtencion($text){
+        return explode("/",$text)[1];
     }
     function stringRandom(int $tam):string{
         $txt="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return substr(str_shuffle($txt),0, $tam);
     }
     function curlImgBB($img,$name){
-        $apiKey="b9a4cf5a03920383d33b750bae0914a0";
-        define("URL","https://api.imgbb.com/1/upload?key=".$apiKey);
-        $con=curl_init();
         $header=array("Content-Type : application/x-www-form-urlencoded");
         $imageFinal=array("image"=>$img,"name"=>$name);
-
+        
+        $con=curl_init();
         curl_setopt($con,CURLOPT_URL,URL);
         //hacer solicitud POST
         curl_setopt($con,CURLOPT_POST,true);
@@ -33,35 +31,26 @@
             $curlError=curl_error($con);
             $data["error"]=$curlError;
             return false;
-        }else{
-            curl_close($con);
-            $item=json_decode($strResponse);
-            echo json_encode($item);
-            $res["status"]=$item->status;
-            $res["success"]=$item->success;
-            $res["url_viewer"]=$item->data->url_viewer;
-            $res["url"]=$item->data->url;
-            $res["delete_url"]=$item->data->delete_url;
-    
-            echo json_encode($res);
         }
+        curl_close($con);
+        echo $strResponse;
     }
-    if(isset($_FILES)&& !empty($_FILES)){
-        $fotosASubir=$_POST["photosId"];
-        $fotos=array_filter($_FILES,function($foto){
-            return $foto["name"][0]!="";
-        });
-        foreach($fotos as $foto){
-            for($i=0;$i<count($foto["name"]);$i++){
-                $name=$foto["name"][$i];
-                if(in_array($name,$fotosASubir)){
-                    $tmp_name=$foto["tmp_name"][$i];
-                    $extencion=getExtencion($name);
-                    $newName=stringRandom(10).$extencion;
-                    curlImgBB($tmp_name,$newName);
-                }
+    if(!empty($_POST["photosId"])){
+        $fotos=$_POST["photosId"];
+        $formatSuportPhoto=["image/png","image/jpeg","image/jpg"];
+        for($i=0;$i<count($fotos);$i+=2){
+            if(!in_array($fotos[$i+1],$formatSuportPhoto)){
+                $data["error"]="Error, Se encontro un tipo no valido";
+                break;
             }
-        };
+        }
+        if(empty($data)){
+            for($i=0;$i<count($fotos);$i+=2){
+                $extencion=getExtencion($fotos[$i+1]);
+                $newName=stringRandom(10).$extencion;
+                curlImgBB($fotos[$i],$newName);
+            };
+        }
     }
     else{
         $data["error"]="Error, No hay fotos";

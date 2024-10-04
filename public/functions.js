@@ -50,12 +50,18 @@ async function addFotos(fotos){
         img.src=await file_promise(fotos[i-1]);
         img.id="fotoUsuario-"+(i+count);
         img.setAttribute('data-id', "fotoUsuario_"+(nAdd-1)+"_"+(i-1));
+        img.setAttribute('data-type', fotos[i-1].type);
         img.alt = "userPhoto";
         img.onclick = (e) => deleteFoto(e.target);
         document.querySelector("#photos").append(img);
         var newOption=document.createElement("option");
-        newOption.setAttribute("data-id",img.getAttribute("data-id"));
-        newOption.setAttribute("value",fotos[i-1]["name"]);
+        newOption.setAttribute("name",img.getAttribute("data-id"));
+        newOption.setAttribute("value",img.src.split(',')[1]);
+        newOption.setAttribute("selected","");
+        photosId.appendChild(newOption);
+        var newOption=document.createElement("option");
+        newOption.setAttribute("data-type",img.getAttribute("data-id"));
+        newOption.setAttribute("value",fotos[i-1].type);
         newOption.setAttribute("selected","");
         photosId.appendChild(newOption);
     }
@@ -65,7 +71,9 @@ async function addFotos(fotos){
 function deleteFoto(foto){
     var photoId=foto.getAttribute("data-id");
     foto.remove();
-    var photo=document.querySelector("#photosId option[data-id='"+photoId+"']");
+    var photo=document.querySelector("#photosId option[name='"+photoId+"']");
+    photo.remove();
+    photo=document.querySelector("#photosId option[data-type='"+photoId+"']");
     photo.remove();
     count-=1;
     if(count==4){
@@ -108,12 +116,18 @@ function actualizarInputs(){
     }
 }
 
-
+/*
 const btnEnviar=document.querySelector("#enviar");
 
 let showMessage=(status, message)=>{
     btnEnviar.disabled=false;
-    console.log(message);
+    if(status=="error"){
+        alert(message)
+    }
+    else if(status=="success"){
+        console.log(message);
+        
+    }
 }
 
 btnEnviar.onclick = e =>{
@@ -121,6 +135,7 @@ btnEnviar.onclick = e =>{
     btnEnviar.disabled=true;
     const data=new FormData(document.querySelector("#newPublicacion"));
     sendData(data);
+    
 }
 const sendData = async(data)=>{
     return await fetch("./eje.php", {
@@ -140,11 +155,11 @@ const sendData = async(data)=>{
     .then(
         response=>{
             if(response.error){
-                showMessage("error",response);
+                showMessage("error",toString(response));
             }
             else{
-                console.log(response);
+                showMessage("success",toString(response));
             }
         }
     )
-}
+}*/
