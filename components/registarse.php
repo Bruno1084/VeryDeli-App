@@ -4,15 +4,15 @@
 
 <head>
     <?php 
-    require_once("../components/head.php");
-    require_once("../components/JS.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php");
     ?>
 </head>
 
 <body>
     <div class="mt-5 text-center">
         <h2 class="fw-bold">Very Deli</h2>
-        <img class="img-fluid" src="../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
+        <img class="img-fluid" src="/assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
         <h2>Registrarse</h2>
     </div>
 
@@ -21,7 +21,7 @@
     </div>
 
     <div class="container py-4">
-        <form class="formulario-registro FormularioAjax" action="../utils/registerUser.php" method="post">
+        <form class="formulario-registro FormularioAjax" action="/utils/registerUser.php" method="post">
             <div class="row justify-content-center">
                 <div class="form-group col-6 col-md-4 mb-3">
                     <label for="nombre">Nombre</label>

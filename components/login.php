@@ -3,8 +3,8 @@
 
 <head>
     <?php 
-    require_once("../components/head.php");
-    require_once("../components/JS.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php");
     ?>
 </head>
 
@@ -12,7 +12,7 @@
     
     <div class="mt-5 text-center">
         <h2 class="fw-bold">Very Deli</h2>
-        <img class="img-fluid" src="../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
+        <img class="img-fluid" src="/assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
         <h2> Iniciar Sesión</h2>
     </div>
 
@@ -21,7 +21,7 @@
     </div>
 
     <div class="container py-4">
-        <form class="formulario-registro FormularioAjax" action="../utils/iniciarSesion.php" method="post">
+        <form class="formulario-registro FormularioAjax" action="/utils/iniciarSesion.php" method="post">
             <div class="row justify-content-center">
                 <div class="form-group col-8 col-md-5 mb-3">
                     <label for="usuario">Usuario</label>
@@ -50,7 +50,7 @@
 
             <div class="row justify-content-center my-3">
                 <div class="col-8 col-md-5 text-center">
-                    <a href="../components/registarse.php" class="btn btn-amarillo btn-block">Registrarse</a>
+                    <a href="/components/registarse.php" class="btn btn-amarillo btn-block">Registrarse</a>
                 </div>
             </div>
         </form>
