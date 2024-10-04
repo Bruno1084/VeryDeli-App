@@ -7,7 +7,7 @@
       <div class="modal-content bg-modalPublicacion">
         <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
           <h1 class="modal-title fs-5" id="modalCrearPublicacionLabel">Nueva Publicación</h1>
-          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class=" btn-close btn-cerrarFormularioPublicacion" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
           <form action="#" class="form-publicacion needs-validation" novalidate method="post" enctype="multipart/form-data" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
@@ -75,11 +75,20 @@
       </div>
     </div>
   </div>
-  
-  <button class="btn" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php"); ?>
+
+  <!--BOTON PARA ABRIR EL MODAL-->
+  <div class="Container-fluid text-end">
+    <div class="row justify-content-center">
+        <div class="col-6 justify-content-center p-0">
+            <div>
+                <button class="btn mb-3" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
+            </div>
+        </div>
+    </div> 
+  </div>  
+      
   <script src="/js/functions.js"></script>
   <script src="/js/inputFotos.js"></script>
-  <script src="/public/formulario-imagenes/scripts.js"></script>
+  <script src="/js/formularioPublicaciones.js"></script>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
 </body>

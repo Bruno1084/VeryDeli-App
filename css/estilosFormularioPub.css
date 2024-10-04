@@ -49,7 +49,7 @@
 
 
 .bg-modalPublicacion{
-    background-color: rgba(75, 0, 130, 50%);
+    background-color: rgba(75, 0, 130, 90%);
     border: solid 2px #4b0082;
 }
 
@@ -82,4 +82,12 @@ filter:brightness(50%)
 display: inline-block;
 }
 
+.btn-cerrarFormularioPublicacion{
+    opacity:100%;
+    background-color: rgba(255, 0, 0, 70%);
+}
 
+.btn-cerrarFormularioPublicacion:hover{
+    opacity: 100%;
+    background-color: rgba(255, 0, 0, 100%);
+}

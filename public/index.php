@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
   <title>Very Deli</title>
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
+  
   <h1 class="text-center">Esto debería mostrar los usuarios</h1>
+
+  <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
   <?php require_once("../components/publicaciones.php");?>
   <?php require_once("../components/Footer.php");?>
   <!-- <div>
