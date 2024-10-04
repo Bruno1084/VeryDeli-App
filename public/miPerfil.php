@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require_once("../components/head.php") ?>
-    <link rel="stylesheet" href="../css/miPerfil.css">
+    <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
+    <link rel="stylesheet" href="/css/miPerfil.css">
     <title>Mi Perfil</title>
 </head>
 <body>
-<?php require_once("../components/Header.php") ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php") ?>
 
 
 
@@ -14,7 +14,7 @@
     <aside class="col-3 perfil">
         <div class="perfil_user">
             <div class="col-12 user_photo">
-                <img class="img-fluid"src="../assets/Logo.png" alt="user">
+                <img class="img-fluid"src="/assets/Logo.png" alt="user">
             </div>
             <div class="col-12 user_name">
                 <h3>User Name</h3>
@@ -31,7 +31,7 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                <img class="img-fluid" src="../assets/rating(0).png" alt="rate">
+                <img class="img-fluid" src="/assets/rating(0).png" alt="rate">
                 <p>0.0 de 0 calificaciones</p>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <div class="publicacion_cabecera col-12">
                 <div class="col-10">
                     <div class="col-2 user_photo">
-                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                     </div>
                     <div class="col-5 user_info">
                         <div class="col-12"><p>User Name</p></div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="col-auto" name=cerrar_D id="publicacion-N_AD_C">
-                    <?php require("../assets/close.svg") ?>
+                    <?php require($_SERVER['DOCUMENT_ROOT'] . "/assets/close.svg") ?>
                 </div>
             </div>
             <div class="publicacion_cuerpo col-12">
@@ -84,13 +84,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_A-N" data-bs-slide="prev">
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -203,7 +203,7 @@
         <div class="activa publicacion col-12" name="publicacion" id="publicacion-N_A">
             <div class="publicacion_cabecera col-12">
                 <div class="col-2 user_photo">
-                    <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                    <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                 </div>
                 <div class="col-5 user_info">
                     <div class="col-12"><p>User Name</p></div>
@@ -225,7 +225,7 @@
             </div>
             <div class="publicacion_pie">
                 <div class="carousel-inner">
-                    <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                    <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                 </div>
             </div>
         </div>
@@ -234,7 +234,7 @@
             <div class="publicacion_cabecera col-12">
                 <div class="col-10">
                     <div class="col-2 user_photo">
-                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                     </div>
                     <div class="col-5 user_info">
                         <div class="col-12"><p>User Name</p></div>
@@ -246,7 +246,7 @@
                     </div>
                 </div>
                 <div class="col-auto" name=cerrar_D id="comentario-N_PA_C">
-                    <?php require("../assets/close.svg") ?>
+                    <?php require($_SERVER['DOCUMENT_ROOT'] . "/assets/close.svg") ?>
                 </div>
             </div>
             <div class="publicacion_cuerpo col-12">
@@ -274,13 +274,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_PA-N" data-bs-slide="prev">
@@ -305,7 +305,7 @@
                             <div class="accordion-body">
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -317,7 +317,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -329,7 +329,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -341,7 +341,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -353,7 +353,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -365,7 +365,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -384,7 +384,7 @@
 
         <div class="col-12 comentario publicacion" name="comentario" id="comentario-N">
             <div class="col-2 user_photo">
-                <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
             </div>
             <div class="col-10 comentario_cuerpo">
                 <div class="12 comentario_cabecera_cuerpo">
@@ -403,7 +403,7 @@
             <div class="publicacion_cabecera col-12">
                 <div class="col-10">
                     <div class="col-2 user_photo">
-                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                     </div>
                     <div class="col-5 user_info">
                         <div class="col-12"><p>User Name</p></div>
@@ -415,7 +415,7 @@
                     </div>
                 </div>
                 <div class="col-auto" name=cerrar_D id="publicacion-N_CD_C">
-                    <?php require("../assets/close.svg") ?>
+                    <?php require($_SERVER['DOCUMENT_ROOT'] . "/assets/close.svg") ?>
                 </div>
             </div>
             <div class="publicacion_cuerpo col-12">
@@ -443,13 +443,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_C-N" data-bs-slide="prev">
@@ -474,7 +474,7 @@
                             <div class="accordion-body">
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -486,7 +486,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -498,7 +498,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -510,7 +510,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -522,7 +522,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -534,7 +534,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -560,7 +560,7 @@
             <div class="publicacion_cabecera col-12">
                 <div class="col-10">
                     <div class="col-2 user_photo">
-                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                     </div>
                     <div class="col-5 user_info">
                         <div class="col-12"><p>User Name</p></div>
@@ -572,7 +572,7 @@
                     </div>
                 </div>
                 <div class="col-auto" name=cerrar_D id="publicacion-N_FD_C">
-                    <?php require("../assets/close.svg") ?>
+                    <?php require($_SERVER['DOCUMENT_ROOT'] . "/assets/close.svg") ?>
                 </div>
             </div>
             <div class="publicacion_cuerpo col-12">
@@ -600,13 +600,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                         <div class="carousel-item">
-                            <img src="../assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
+                            <img src="/assets/table_photo.jpeg" class="img-fluid d-block w-100" alt="publication_photo">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_F-N" data-bs-slide="prev">
@@ -631,7 +631,7 @@
                             <div class="accordion-body">
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -643,7 +643,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -655,7 +655,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -667,7 +667,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -679,7 +679,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -691,7 +691,7 @@
                                 </div>
                                 <div class="col-12 comentario" name="comentario" id="comentario-N">
                                     <div class="col-2 user_photo">
-                                        <img class="img-fluid u_photo" src="../assets/Logo.png" alt="user">
+                                        <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                                     </div>
                                     <div class="col-10 comentario_cuerpo">
                                         <div class="12 comentario_cabecera_cuerpo">
@@ -749,8 +749,8 @@
 
 
 
-<?php require_once("../components/Footer.php") ?>
-<?php require_once("../components/JS.php") ?>
-<script src="../js/publicacion.js"></script>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php") ?>
+<script src="/js/publicacion.js"></script>
 </body>
 </html>
