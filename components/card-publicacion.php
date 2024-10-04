@@ -16,8 +16,8 @@
                 </div>
           </div>
           <div class="col-4">
-                <div class=""><p>Bruno Sosa</p></div>
-                <div class=""><p>San Luis Argentina</p></div>
+                <div class="pt-0"><p>Bruno Sosa</p></div>
+                <div class="pt-0"><p>San Luis Argentina</p></div>
           </div>
           <div class="col-5 publication_date">
                 <div class=""><p>12:30</p></div>
