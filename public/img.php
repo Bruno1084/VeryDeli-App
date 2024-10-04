@@ -23,11 +23,10 @@
             </select>
             <h2 id="addPhoto">Cargar Foto</h2>
             <div id="photos"></div>
-            <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto-0[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
+            <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
         </div>
         <button type="submit" name="enviar" id="enviar">Enviar</button>
     </form>
-    <script src="./functions.js"></script>
     <script src="./inputFotos.js"></script>
 </body>
 </html>

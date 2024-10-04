@@ -36,6 +36,9 @@
         echo $strResponse;
     }
     if(!empty($_POST["photosId"])){
+        echo "<pre>";
+        var_dump($_POST);
+        echo "</pre>";
         $fotos=$_POST["photosId"];
         $formatSuportPhoto=["image/png","image/jpeg","image/jpg"];
         for($i=0;$i<count($fotos);$i+=2){
