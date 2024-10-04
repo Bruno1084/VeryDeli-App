@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php require_once("../components/head.php") ?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
   <title>Very Deli</title>
 </head>
 <body>
