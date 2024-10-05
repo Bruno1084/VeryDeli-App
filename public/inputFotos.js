@@ -15,15 +15,17 @@ var clickAdd=function(){
 async function preVisual(e){
     var newInput=e.target;
     var fotos=newInput.files;
+    newInput.remove();
+    nuevoInput();
     if ((count+fotos.length)<=5 && fotos.length>0) {
         if (formatoFoto(fotos)) {
             await addFotos(fotos);
         } else {
             alert("Error de formato");
         }
-    } else if(fotos.length>5){
-            alert("Error. Máximo 5 fotos");
-        }
+    } else if(fotos.length>5||(count+fotos.length)>5){
+               alert("Error. Máximo 5 fotos");
+           }
 };
 
 function formatoFoto(fotos){
@@ -39,19 +41,17 @@ async function addFotos(fotos){
     for(var i=1;i<=fotos.length;i++){
         img=new Image();
         img.src=await file_promise(fotos[i-1]);
-        img.id="fotoUsuario-"+(i+count);
         img.setAttribute('data-id', "fotoUsuario_"+(count+i-1));
-        img.setAttribute('data-type', fotos[i-1].type);
         img.alt = "userPhoto";
         img.onclick = (e) => deleteFoto(e.target);
-        document.querySelector("#photos").append(img);
+        document.querySelector("#photos").appendChild(img);
         var newOption=document.createElement("option");
-        newOption.setAttribute("name",img.getAttribute("data-id"));
+        newOption.setAttribute("data-id",img.getAttribute("data-id"));
         newOption.setAttribute("value",img.src.split(',')[1]);
         newOption.setAttribute("selected","");
         photosId.appendChild(newOption);
         var newOption=document.createElement("option");
-        newOption.setAttribute("data-type",img.getAttribute("data-id"));
+        newOption.setAttribute("data-id",img.getAttribute("data-id"));
         newOption.setAttribute("value",fotos[i-1].type);
         newOption.setAttribute("selected","");
         photosId.appendChild(newOption);
@@ -72,11 +72,11 @@ let file_promise=(foto)=>{
 function deleteFoto(foto){
     var photoId=foto.getAttribute("data-id");
     foto.remove();
-    var photo=document.querySelector("#photosId option[name='"+photoId+"']");
+    var photo=document.querySelector("#photosId option[data-id='"+photoId+"']");
     photo.remove();
-    var type=document.querySelector("#photosId option[data-type='"+photoId+"']");
+    var type=document.querySelector("#photosId option[data-id='"+photoId+"']");
     type.remove();
-    actualizarFotos(photoId.split("_")[1]);
+    actualizarFotos(Number(photoId.split("_")[1]));
     count-=1;
     if(count==4){
         document.querySelector("#addPhoto").addEventListener("click",clickAdd);
@@ -85,14 +85,26 @@ function deleteFoto(foto){
 
 function actualizarFotos(i){
     var photosId=document.querySelector("#photosId");
-    for(i;i<photosId.length;i+=2){
-        photosId[i].setAttribute("name","fotoUsuario_"+i);
-        photosId[i+1].setAttribute("data-type","fotoUsuario_"+i);
+    var photos=document.querySelector("#photos").childNodes;
+    for(var j=(i*2);j<photosId.length;j+=2){
+        photosId[j].setAttribute("data-id","fotoUsuario_"+i);
+        photosId[j+1].setAttribute("data-id","fotoUsuario_"+i);
+        photos[i].setAttribute("data-id","fotoUsuario_"+i);
+        i+=1;
     }
+}
+function nuevoInput(){
+    var newInput=document.createElement('input');
+    newInput.setAttribute("type","file");
+    newInput.setAttribute("accept","image/png, image/jpeg, image/jpg");
+    newInput.setAttribute("name","addNewPhoto[]");
+    newInput.setAttribute("id","addNewPhoto");
+    newInput.setAttribute("onchange","preVisual(event)");
+    newInput.setAttribute("multiple","");
+    document.querySelector("#add").append(newInput);
 }
 
 
-/*
 const btnEnviar=document.querySelector("#enviar");
 
 let showMessage=(status, message)=>{
@@ -138,4 +150,4 @@ const sendData = async(data)=>{
             }
         }
     )
-}*/
+}

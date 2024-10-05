@@ -1,7 +1,7 @@
 <?php
     $data=array();
-    define("URL","https://api.imgbb.com/1/upload?key=edbd60e6db615da0b89a51189c5e4fe3");
     $ok="";
+    define("URL","https://api.imgbb.com/1/upload?key=".$_ENV["IMG_UP_KEY"]);
     function getExtencion($text){
         return explode("/",$text)[1];
     }
@@ -12,7 +12,6 @@
     function curlImgBB($img,$name){
         $header=array("Content-Type : application/x-www-form-urlencoded");
         $imageFinal=array("image"=>$img,"name"=>$name);
-        
         $con=curl_init();
         curl_setopt($con,CURLOPT_URL,URL);
         //hacer solicitud POST
@@ -27,18 +26,29 @@
         curl_setopt($con,CURLOPT_HTTPHEADER,$header);
 
         $strResponse=curl_exec($con);
+        
+        //Corta el proceso si la conexion dio error
+        
         if(curl_errno($con)){
             $curlError=curl_error($con);
             $data["error"]=$curlError;
             return false;
         }
         curl_close($con);
-        echo $strResponse;
+        $decode=json_decode($strResponse,true);
+        
+        //almacena las url obtenidas
+        
+        require_once("./setImages.php");
+        
+        if(setImages($decode["url"],1,$decode["delete_url"])){
+            echo json_encode("Publicacion guardada correctamente");
+        }
+        else{
+            echo json_encode("Hubo un error inesperado al querer almacenar los datos de la imagen");
+        }
     }
     if(!empty($_POST["photosId"])){
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
         $fotos=$_POST["photosId"];
         $formatSuportPhoto=["image/png","image/jpeg","image/jpg"];
         for($i=0;$i<count($fotos);$i+=2){

@@ -7,7 +7,7 @@
 </head>
 <body>
     <style>
-        .addNewPhoto{
+        #addNewPhoto{
             display:none;
         }
         #photos{
@@ -17,13 +17,13 @@
             border: solid 0.1vh black;
         }
     </style>
-    <form method="post" id="newPublicacion" action="eje.php">
+    <form id="newPublicacion">
         <div id="add">
             <select name="photosId[]" id="photosId" multiple hidden>
             </select>
             <h2 id="addPhoto">Cargar Foto</h2>
             <div id="photos"></div>
-            <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
+            <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
         </div>
         <button type="submit" name="enviar" id="enviar">Enviar</button>
     </form>
