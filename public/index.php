@@ -1,11 +1,3 @@
-<?php
-  // Requiere el autoload de Composer
-    require "../vendor/autoload.php";
-    
-  // Cargar las variables del archivo .env
-  $dotenv = Dotenv\Dotenv::createImmutable("../");
-  $dotenv->load();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +5,33 @@
   <title>Very Deli</title>
 </head>
 <body>
-  <?php require_once("../components/Header.php");?>
+  <style>
+      #addNewPhoto{
+          display:none;
+      }
+      #photos{
+          display:flex;
+          width:auto;
+          height:20vh;
+          border: solid 0.1vh black;
+      }
+      #fotosSubidas{
+          display:flex;
+          width:auto;
+          height:20vh;
+          border: solid 0.1vh black;
+      }
+  </style>
+    <?php require_once("../components/Header.php");?>
+  <div>
+    <?php require_once("../components/FormPublicacion.php");?>
+  </div>
+
   <h1>Esto debería mostrar los usuarios</h1>
   
   <div>
     <?php
-      require '../utils/getAllUsuarios.php';
+      require_once('../utils/getAllUsuarios.php');
 
       // Fetch the users
       $usuarios = getAllUsuarios();
@@ -38,5 +51,6 @@
   </div>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
+  <script src="../js/inputFotos.js"></script>
 </body>
 </html>

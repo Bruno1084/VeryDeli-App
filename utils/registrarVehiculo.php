@@ -2,7 +2,7 @@
     
 function guardarVehiculo($usId, $tipoVehiculo, $patente, $pesoSoportado, $volumenSoportado){
     try {
-        require '../database/conection.php';
+        require_once('../database/conection.php');
         $db = new DB();
         $conexion = $db->getConnection();
 

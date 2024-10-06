@@ -1,7 +1,7 @@
 <?php
 
 function getPostulacion ($id) {
-  require '../database/conection.php';
+  require_once('../database/conection.php');
 
   $db = new DB();
   $conexion = $db->getConnection();

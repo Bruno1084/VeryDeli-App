@@ -77,7 +77,7 @@ CREATE TABLE `publicaciones` (
 CREATE TABLE `imagenes` (
     `imagen_id` int AUTO_INCREMENT NOT NULL ,
     `imagen_url` varchar(255) NOT NULL ,
-    `imagen_url_delete` varchar(255) NOT NULL ,
+    `imagen_delete_url` varchar(255) NOT NULL ,
     `publicacion_id` int  NOT NULL 
     PRIMARY KEY (
         `imagen_id`
@@ -178,8 +178,8 @@ ON `publicaciones` (`usuario_transportista`);
 CREATE INDEX `idx_imagenes_imagen_url`
 ON `imagenes` (`imagen_url`);
 
-CREATE INDEX `idx_imagenes_imagen_url_delete`
-ON `imagenes` (`imagen_url_delete`);
+CREATE INDEX `idx_imagenes_imagen_delete_url`
+ON `imagenes` (`imagen_delete_url`);
 
 CREATE INDEX `idx_imagenes_publicacion_id`
 ON `imagenes` (`publicacion_id`);

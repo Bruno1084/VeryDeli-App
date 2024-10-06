@@ -38,25 +38,31 @@ function formatoFoto(fotos){
 
 async function addFotos(fotos){
     var photosId=document.querySelector("#photosId");
+    var imgOk=0;
     for(var i=1;i<=fotos.length;i++){
+        var tmpImg=null;
         img=new Image();
         img.src=await file_promise(fotos[i-1]);
-        img.setAttribute('data-id', "fotoUsuario_"+(count+i-1));
-        img.alt = "userPhoto";
-        img.onclick = (e) => deleteFoto(e.target);
-        document.querySelector("#photos").appendChild(img);
-        var newOption=document.createElement("option");
-        newOption.setAttribute("data-id",img.getAttribute("data-id"));
-        newOption.setAttribute("value",img.src.split(',')[1]);
-        newOption.setAttribute("selected","");
-        photosId.appendChild(newOption);
-        var newOption=document.createElement("option");
-        newOption.setAttribute("data-id",img.getAttribute("data-id"));
-        newOption.setAttribute("value",fotos[i-1].type);
-        newOption.setAttribute("selected","");
-        photosId.appendChild(newOption);
+        tmpImg=document.querySelector("#photosId option[value='"+(img.src.split(',')[1])+"']");
+        if(tmpImg==null){
+            img.setAttribute('data-id', "fotoUsuario_"+(count+imgOk));
+            img.alt = "userPhoto";
+            img.onclick = (e) => deleteFoto(e.target);
+            document.querySelector("#photos").appendChild(img);
+            var newOption=document.createElement("option");
+            newOption.setAttribute("data-id",img.getAttribute("data-id"));
+            newOption.setAttribute("value",img.src.split(',')[1]);
+            newOption.setAttribute("selected","");
+            photosId.appendChild(newOption);
+            var newOption=document.createElement("option");
+            newOption.setAttribute("data-id",img.getAttribute("data-id"));
+            newOption.setAttribute("value",fotos[i-1].type);
+            newOption.setAttribute("selected","");
+            photosId.appendChild(newOption);
+            imgOk+=1;
+        }
     }
-    count+=fotos.length;
+    count+=imgOk;
 }
 
 let file_promise=(foto)=>{
@@ -104,7 +110,7 @@ function nuevoInput(){
     document.querySelector("#add").append(newInput);
 }
 
-/*
+
 
 const btnEnviar=document.querySelector("#enviar");
 
@@ -114,7 +120,7 @@ let showMessage=(status, message)=>{
         alert(message)
     }
     else if(status=="success"){
-        console.log(message);
+        alert(message);
         
     }
 }
@@ -126,7 +132,7 @@ btnEnviar.onclick = e =>{
     
 }
 const sendData = async(data)=>{
-    return await fetch("./eje.php", {
+    return await fetch("../utils/ControlFormPublicacion.php", {
         method:"POST",
         body: data
     })
@@ -150,4 +156,4 @@ const sendData = async(data)=>{
             }
         }
     )
-}*/
+}

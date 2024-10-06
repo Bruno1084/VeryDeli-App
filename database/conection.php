@@ -1,4 +1,12 @@
 <?php
+
+// Requiere el autoload de Composer
+require_once('../vendor/autoload.php');
+
+// Cargar las variables del archivo .env
+$dotenv = Dotenv\Dotenv::createImmutable("../");
+$dotenv->load();
+
 class DB {
   private static $HOST;
   private static $PORT;
