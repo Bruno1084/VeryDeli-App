@@ -17,7 +17,7 @@
             border: solid 0.1vh black;
         }
     </style>
-    <form id="newPublicacion">
+    <form id="newPublicacion" method="post" action="./eje.php">
         <div id="add">
             <select name="photosId[]" id="photosId" multiple hidden>
             </select>

@@ -104,6 +104,7 @@ function nuevoInput(){
     document.querySelector("#add").append(newInput);
 }
 
+/*
 
 const btnEnviar=document.querySelector("#enviar");
 
@@ -117,7 +118,6 @@ let showMessage=(status, message)=>{
         
     }
 }
-
 btnEnviar.onclick = e =>{
     e.preventDefault();
     btnEnviar.disabled=true;
@@ -143,11 +143,11 @@ const sendData = async(data)=>{
     .then(
         response=>{
             if(response.error){
-                showMessage("error",toString(response));
+                showMessage("error",response);
             }
             else{
-                showMessage("success",toString(response));
+                showMessage("success",response);
             }
         }
     )
-}
+}*/

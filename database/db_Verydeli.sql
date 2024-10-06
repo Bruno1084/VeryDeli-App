@@ -75,9 +75,13 @@ CREATE TABLE `publicaciones` (
 );
 
 CREATE TABLE `imagenes` (
+    `imagen_id` int AUTO_INCREMENT NOT NULL ,
     `imagen_url` varchar(255) NOT NULL ,
     `imagen_url_delete` varchar(255) NOT NULL ,
     `publicacion_id` int  NOT NULL 
+    PRIMARY KEY (
+        `imagen_id`
+    )
 );
 
 CREATE TABLE `comentarios` (

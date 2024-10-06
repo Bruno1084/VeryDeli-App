@@ -1,5 +1,8 @@
 <?php
-  require "../vendor/autoload.php";
+  // Requiere el autoload de Composer
+    require "../vendor/autoload.php";
+    
+  // Cargar las variables del archivo .env
   $dotenv = Dotenv\Dotenv::createImmutable("../");
   $dotenv->load();
 ?>

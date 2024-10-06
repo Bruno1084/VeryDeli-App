@@ -15,4 +15,3 @@ function getAllPublicaciones(){
   $conexion = null;
   return $publicaciones;
 };
-?>
