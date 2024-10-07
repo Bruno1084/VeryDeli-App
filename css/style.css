@@ -1,7 +1,13 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+};
+
 body{
-    background: linear-gradient(to right, #4B0082, #A6420D) !important;
-    color: #FFFFFF;
-}
+  background-color: #F1F3F5;  
+  color: #000000;
+};
 
 
 .formulario-registro{
@@ -13,9 +19,14 @@ body{
 }
 
 .rst-pass{
-    color:#FFFFFF;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
+    color: black;
+}
+
+.rst-pass:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .btn-amarillo{
