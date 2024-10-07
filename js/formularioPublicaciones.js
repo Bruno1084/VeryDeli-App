@@ -1,6 +1,5 @@
  // Validación para el formulario
 function validarPublicacion() {
-  console.log("Iniciando validación");
   let isValid = true; 
   const titulo = document.getElementById('publicacion-titulo');
   const tituloFeedback = document.getElementById('invalid-titulo');
@@ -137,10 +136,8 @@ function validarPublicacion() {
       event.preventDefault(); 
       event.stopPropagation();
     } else {
-      console.log("formulario valido");
       const data = new FormData(form);
       sendData(data); 
-      console.log("datos enviados");
       event.preventDefault(); 
     }
   }, false);

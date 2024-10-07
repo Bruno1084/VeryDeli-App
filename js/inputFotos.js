@@ -24,8 +24,8 @@ async function preVisual(e){
             alert("Error de formato");
         }
     } else if(fotos.length>5||(count+fotos.length)>5){
-               alert("Error. Máximo 5 fotos");
-           }
+            alert("Error. Máximo 5 fotos");
+        }
 };
 
 function formatoFoto(fotos){
@@ -113,13 +113,11 @@ function nuevoInput(){
 const btnEnviar=document.querySelector("#btn-enviar");
 
 var showMessage=(status, message)=>{
-    console.log('ejecutando showMessage');
     btnEnviar.disabled=false;
     alert(message);
 }
 
 const sendData = async(data)=>{
-    console.log('ejecutando sendData');
     return await fetch("../utils/ControlFormPublicacion.php", {
         method:"POST",
         body: data
