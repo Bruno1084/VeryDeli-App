@@ -13,7 +13,7 @@
   <?php require_once("../components/publicaciones.php");?>
   <?php require_once("../components/Footer.php");?>
   <!-- <div>
-     <?php
+    <?php
       require '../utils/getAllUsuarios.php';
 
       // Fetch the users
