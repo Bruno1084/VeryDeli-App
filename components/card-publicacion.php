@@ -8,7 +8,7 @@
 </div> -->
 
 
-<div class="contenedor-fluid border border-3 rounded">
+<div class="contenedor-fluid border border-2 border-dark-subtle rounded">
         <div class="row" name="publicacion_D" id="publicacion-N_AD">
           <div class="col-3 mt-1">
                 <div>
