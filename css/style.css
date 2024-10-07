@@ -53,11 +53,24 @@ body{
     font-weight: bold;
 }
 
+.btn-gris{
+    background-color:#D9D9D9;
+    color: #000000;
+    border-radius: 30px;
+    width: 251px;
+    font-weight: bold;
+}
+.btn-gris:hover{
+    color: #FFFFFF;
+    background-color: #4B0082;
+}
+
 
 .btn-morado:hover{
     color: #FFFFFF;
     background-color: #4B0082;
 }
+
 
 
 .btn-amarillo:hover{
