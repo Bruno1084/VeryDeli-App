@@ -1,4 +1,4 @@
-<div class="Container-fluid text-center">
+<div class="container-fluid text-center">
     <div class="row justify-content-center">
         <div class="col-6 justify-content-center">
             <div>
