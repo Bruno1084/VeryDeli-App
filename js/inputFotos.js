@@ -109,37 +109,3 @@ function nuevoInput(){
     newInput.setAttribute("multiple","");
     document.querySelector("#add").append(newInput);
 }
-
-const btnEnviar=document.querySelector("#btn-enviar");
-
-var showMessage=(status, message)=>{
-    btnEnviar.disabled=false;
-    alert(message);
-}
-
-const sendData = async(data)=>{
-    return await fetch("../utils/ControlFormPublicacion.php", {
-        method:"POST",
-        body: data
-    })
-    .then(
-        response=>{
-            if(response.ok){
-                return response.json();
-            }
-            else{
-                throw "Ocurrio un error inesperado";
-            }
-        }
-    )
-    .then(
-        response=>{
-            if(response.error){
-                showMessage("error",response);
-            }
-            else{
-                showMessage("success",response);
-            }
-        }
-    )
-}

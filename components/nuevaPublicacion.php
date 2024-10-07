@@ -10,7 +10,7 @@
           <button type="button" class=" btn-close btn-cerrarFormularioPublicacion" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form action="#" class="form-publicacion needs-validation" novalidate method="post" enctype="multipart/form-data" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
+          <form action="#" class="form-publicacion needs-validation" novalidate method="post" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
             <div class="row">
               <div class="col-3 mb-3">
                 <input type="text" class="form-control " id="publicacion-titulo" name="titulo" placeholder="Titulo">

@@ -136,9 +136,7 @@ function validarPublicacion() {
       event.preventDefault(); 
       event.stopPropagation();
     } else {
-      const data = new FormData(form);
-      sendData(data); 
-      event.preventDefault(); 
+      event.submit();
     }
   }, false);
 })();
