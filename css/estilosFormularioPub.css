@@ -54,7 +54,7 @@
 }
 
 .addNewPhoto{
-  display:none;
+    display:none;
 }
 #photos {
 display: flex;
@@ -90,4 +90,12 @@ display: inline-block;
 .btn-cerrarFormularioPublicacion:hover{
     opacity: 100%;
     background-color: rgba(255, 0, 0, 100%);
+}
+
+#addNewPhoto {
+    display: none;
+}
+
+#addPhoto:hover{
+    cursor:pointer
 }
