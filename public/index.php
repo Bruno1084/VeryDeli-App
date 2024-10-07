@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
   <title>Very Deli</title>
 </head>
 <body>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php");?>
+  <?php require_once("../components/Header.php");?>
+  
   <h1 class="text-center">Esto debería mostrar los usuarios</h1>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/public/formulario-imagenes/pantalla.php") ?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicaciones.php");?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php");?>
+
+  <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
+  <?php require_once("../components/publicaciones.php");?>
+  <?php require_once("../components/Footer.php");?>
   <!-- <div>
-    <?php
-      require $_SERVER['DOCUMENT_ROOT'] . '/utils/getAllUsuarios.php';
+     <?php
+      require '../utils/getAllUsuarios.php';
 
       // Fetch the users
       $usuarios = getAllUsuarios();
@@ -31,6 +33,7 @@
     ?>
     !-->
   </div>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
+  <?php require_once("../components/Footer.php"); ?>
+  <?php require_once("../components/JS.php"); ?>
 </body>
 </html>

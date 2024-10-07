@@ -1,0 +1,93 @@
+
+/* Estilos para formulario crear publicacion */
+
+#btn-crearPublicacion{
+    background-color: rgba(255, 255, 255, 80%);
+    color: #000000;
+}
+
+#btn-crearPublicacion:hover{
+    background-color:rgba(255, 255, 255, 70%);
+    color: #000033;
+}
+
+.form-publicacion input, .form-publicacion textarea{
+    font-size:20px;
+}
+
+#publicacion-titulo{
+    font-size:30px;
+}
+
+.form-publicacion input:focus, .form-publicacion textarea:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-bottom: #FFFFFF solid 1px;
+    background-color: transparent;
+    color: white;
+}
+
+.form-publicacion input:active, .form-publicacion textarea:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-bottom: #FFFFFF solid 1px;
+}
+
+.form-publicacion input, .form-publicacion textarea{
+    background-color: transparent;
+    border: none;
+    border-radius:none;
+    border-bottom: #FFFFFF solid 1px;
+    color: white;
+}
+
+.form-publicacion input::placeholder, .form-publicacion textarea::placeholder{
+    color:white;
+}
+
+
+.bg-modalPublicacion{
+    background-color: rgba(75, 0, 130, 90%);
+    border: solid 2px #4b0082;
+}
+
+.addNewPhoto{
+  display:none;
+}
+#photos {
+display: flex;
+flex-wrap: wrap;           
+max-width: 100%;
+gap: 5px; 
+}
+
+#photos img {
+width: 100px;
+height: 100px;
+object-fit: cover;
+margin-right: 5px;
+margin-bottom: 5px;
+transition: width 5ms, height 5ms, filter 5ms;
+}
+
+#photos img:hover{
+width: 200px;
+height: 200px;
+filter:brightness(50%)
+}
+
+#addPhoto{
+display: inline-block;
+}
+
+.btn-cerrarFormularioPublicacion{
+    opacity:100%;
+    background-color: rgba(255, 0, 0, 70%);
+}
+
+.btn-cerrarFormularioPublicacion:hover{
+    opacity: 100%;
+    background-color: rgba(255, 0, 0, 100%);
+}
