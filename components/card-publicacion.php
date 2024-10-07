@@ -8,7 +8,7 @@
 </div> -->
 
 
-<div class="contenedor-fluid border border-3">
+<div class="contenedor-fluid border border-3 rounded">
         <div class="row" name="publicacion_D" id="publicacion-N_AD">
           <div class="col-3 mt-1">
                 <div>
@@ -16,12 +16,12 @@
                 </div>
           </div>
           <div class="col-4 mt-1">
-                <div class=""><p>Bruno Sosa</p></div>
-                <div class=""><p>San Luis Argentina</p></div>
+                <div><p>Bruno Sosa</p></div>
+                <div><p>San Luis Argentina</p></div>
           </div>
           <div class="col-5 mt-1">
-                <div class=""><p>12:30</p></div>
-                <div class=""><p>12703/20</p></div>
+                <div><p>12:30</p></div>
+                <div><p>12703/20</p></div>
           </div>
         </div>
         
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="">
-                   <img class="img u_photo w-50 h-50" src="" alt="user">
+                   <img class="img u_photo w-50 h-50" src="../assets/profile.svg" alt="user">
                 </div>
             </div>
             
