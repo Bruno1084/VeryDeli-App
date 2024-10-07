@@ -5,7 +5,7 @@ class DBIMG {
   private static $KEY;
 
   public function __construct () {
-      self::$KEY = $_ENV['IMG_DB_KEY'];
+      self::$KEY = "edbd60e6db615da0b89a51189c5e4fe3";
       define("URL","https://api.imgbb.com/1/upload?key=".self::$KEY);
   }
 
