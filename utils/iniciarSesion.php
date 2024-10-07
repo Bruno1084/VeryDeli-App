@@ -31,7 +31,7 @@ if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
 }
 
 //Verifica si el nombre de usuario está registrado
-$verificarUsuario = $conexion->prepare("SELECT * FROM usuarios WHERE usuario_usuario = ?");
+$verificarUsuario = $conexion->prepare("SELECT * FROM usuario WHERE usuario_usuario = ?");
 $verificarUsuario->bindValue(1, $usuario, PDO::PARAM_STR);
 $verificarUsuario->execute();
 

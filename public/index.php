@@ -14,7 +14,7 @@
   <?php require_once("../components/Footer.php");?>
   <!-- <div>
     <?php
-      require '../utils/getAllUsuarios.php';
+      require_once('../utils/getAllUsuarios.php');
 
       // Fetch the users
       $usuarios = getAllUsuarios();

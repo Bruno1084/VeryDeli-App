@@ -1,7 +1,7 @@
 <?php
 
 function getAllPublicaciones(){
-  require '../database/conection.php';
+  require_once('../database/conection.php');
   $db = new DB();
   $conexion = $db->getConnection();
 
@@ -15,4 +15,3 @@ function getAllPublicaciones(){
   $conexion = null;
   return $publicaciones;
 };
-?>

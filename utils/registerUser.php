@@ -41,27 +41,27 @@ if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
   $checkcorreo->bindValue(1, $correo, PDO::PARAM_STR);
   $checkcorreo->execute();
   if($checkcorreo->rowCount() > 0){
-    manejarError('Correo invalido','El correo ingresado ya se encuentra registrado.');
+    manejarError("Correo inválido",'El correo ingresado ya se encuentra registrado.');
     $checkcorreo = null;
     $conexion = null;
     exit();
   };
   $checkcorreo = null;
 } else{
-  manejarError('Correo invalido','El correo ingresado no es válido.');
+  manejarError("Correo inválido",'El correo ingresado no es válido.');
   $conexion = null;
   exit();
   };
 
 //Validar formato de la localidad
 if(verificarDatos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,30}', $localidad)){
-  manejarError('Localidad invalida',"La localidad ingresada no es válida");
+  manejarError('Localidad inválida',"La localidad ingresada no es válida");
   exit();
 };
 
 //Validar formato del usuario
 if(verificarDatos('[a-zA-Z0-9]{4,20}', $usuario)){
-  manejarError('Nombre de usuario invalido',"El usuario no coincide con el formato solicitado.");
+  manejarError('Nombre de usuario inválido',"El usuario no coincide con el formato solicitado.");
   exit();
 };
 
@@ -71,7 +71,7 @@ $checkUsuario->bindValue(1, $usuario, PDO::PARAM_STR);
 $checkUsuario->execute();
 
 if($checkUsuario->rowCount() > 0){
-  manejarError('Nombre de usuario invalido','El nombre de usuario ingresado ya se encuentra en uso, ingrese otro.');
+  manejarError("Usuario inválido",'El nombre de usuario ingresado ya se encuentra en uso, ingrese otro.');
   $checkUsuario = null;
   $conexion = null;
   exit();
@@ -81,7 +81,7 @@ $checkUsuario = null;
 
 // Validar formato de la contraseña
 if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
-  manejarError('Contraseña invalida','La contraseña ingresada no coincide con el formato solicitado.');
+  manejarError('Contraseña inválida','La contraseña ingresada no coincide con el formato solicitado.');
   exit();
 };
 
