@@ -1,5 +1,6 @@
  // Validación para el formulario
 function validarPublicacion() {
+  console.log("Iniciando validación");
   let isValid = true; 
   const titulo = document.getElementById('publicacion-titulo');
   const tituloFeedback = document.getElementById('invalid-titulo');
@@ -103,6 +104,7 @@ function validarPublicacion() {
   } else if (recibe.value.trim().length < 5){
     recibeFeedback.textContent = 'El nombre debe tener al menos 5 caracteres';
     recibe.classList.add('is-invalid');
+    isValid = false;
   } else {
     recibe.classList.remove('is-invalid');
     recibe.classList.add('is-valid');
@@ -128,15 +130,18 @@ function validarPublicacion() {
   return isValid; 
 }
 
-() => {
+(() => {
   const form = document.getElementById('formPublicacion');
   form.addEventListener('submit', function (event) {
     if (!validarPublicacion()) {
-    event.preventDefault();
-    event.stopPropagation();
-  } else {
-    // Enviar formulario si es válido
-    this.submit();
-  }
+      event.preventDefault(); 
+      event.stopPropagation();
+    } else {
+      console.log("formulario valido");
+      const data = new FormData(form);
+      sendData(data); 
+      console.log("datos enviados");
+      event.preventDefault(); 
+    }
   }, false);
-};
+})();

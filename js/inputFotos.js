@@ -110,28 +110,16 @@ function nuevoInput(){
     document.querySelector("#add").append(newInput);
 }
 
+const btnEnviar=document.querySelector("#btn-enviar");
 
-
-const btnEnviar=document.querySelector("#enviar");
-
-let showMessage=(status, message)=>{
+var showMessage=(status, message)=>{
+    console.log('ejecutando showMessage');
     btnEnviar.disabled=false;
-    if(status=="error"){
-        alert(message)
-    }
-    else if(status=="success"){
-        alert(message);
-        
-    }
+    alert(message);
 }
-btnEnviar.onclick = e =>{
-    e.preventDefault();
-    btnEnviar.disabled=true;
-    const data=new FormData(document.querySelector("#newPublicacion"));
-    sendData(data);
-    
-}
+
 const sendData = async(data)=>{
+    console.log('ejecutando sendData');
     return await fetch("../utils/ControlFormPublicacion.php", {
         method:"POST",
         body: data
