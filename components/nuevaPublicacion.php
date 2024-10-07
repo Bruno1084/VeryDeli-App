@@ -59,18 +59,19 @@
             </div>
 
             <div class="row">
-              <div id="add" class="col-12 mb-3">
-                <input type="text" name="photosId" id="photosId" value="" hidden>
-                <h2 id="addPhoto">Fotos ➕</h2>
-                <div id="photos"></div>
-                <input type="file" class="addNewPhoto" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto-0[]" id="addNewPhoto" multiple/>
+                <div id="add" class="col-12 mb-3">
+                  <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
+                  <label for="addNewPhoto" class="custom-file-upload"> <h2 id="addPhoto">Cargar Foto ➕</h2> </label>
+                  <select name="photosId[]" id="photosId" multiple hidden>
+                  </select>
+                  <div id="photos"></div>
                 </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-morado" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" form="formPublicacion" class="btn btn-amarillo">Crear Publicación</button>
+          <button type="submit" id="btn-enviar" form="formPublicacion" class="btn btn-amarillo">Crear Publicación</button>
         </div>
       </div>
     </div>
@@ -86,9 +87,9 @@
         </div>
     </div> 
   </div>  
-      
+  <script src="/js/formularioPublicaciones.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>       
   <script src="/js/functions.js"></script>
   <script src="/js/inputFotos.js"></script>
-  <script src="/js/formularioPublicaciones.js"></script>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
 </body>
