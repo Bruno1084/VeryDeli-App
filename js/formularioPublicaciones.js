@@ -132,11 +132,28 @@ function validarPublicacion() {
 (() => {
   const form = document.getElementById('formPublicacion');
   form.addEventListener('submit', function (event) {
+    event.preventDefault();
     if (!validarPublicacion()) {
-      event.preventDefault(); 
       event.stopPropagation();
     } else {
-      event.submit();
+      let data=new FormData(form);
+      let action = this.getAttribute("action");
+      let method = this.getAttribute("method");
+      let config = {  // Almacena las configuraciones a utilizar en el envio por fetch
+        method: method,
+        mode: "cors",
+        cache: "no-cache",
+        body: data
+      };
+      sendForm(action,config);
     }
   }, false);
 })();
+const sendForm = async(action,config)=>{
+  return await fetch(action,config)
+  .then(
+      respuesta => respuesta.text()
+  )
+  .then(
+      response=>console.log(response))
+}
