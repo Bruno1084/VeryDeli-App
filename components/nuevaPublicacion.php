@@ -1,7 +1,3 @@
-<?php
-  $apiKey="b9a4cf5a03920383d33b750bae0914a0";
-  $imgUpload="https://api.imgbb.com/1/upload";
-?>
   <div class="d-flex justify-content-center">
             <div class="form-rest my-4 col-8"></div>
   </div>
