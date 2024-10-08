@@ -2,6 +2,9 @@
   $apiKey="b9a4cf5a03920383d33b750bae0914a0";
   $imgUpload="https://api.imgbb.com/1/upload";
 ?>
+  <div class="d-flex justify-content-center">
+            <div class="form-rest my-4 col-8"></div>
+  </div>
   <div class="modal fade" id="modalCrearPublicacion" aria-hidden="true" aria-labelledby="modalCrearPublicacionLabel" tabindex="-1">
     <div class="modal-dialog modal-xl">
       <div class="modal-content bg-modalPublicacion">
@@ -10,7 +13,7 @@
           <button type="button" class=" btn-close btn-cerrarFormularioPublicacion" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form action="#" class="form-publicacion needs-validation" novalidate method="post" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
+          <form action="/utils/ControlFormPublicacion.php" class="form-publicacion needs-validation FormularioAjax" novalidate method="post" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
             <div class="row">
               <div class="col-3 mb-3">
                 <input type="text" class="form-control " id="publicacion-titulo" name="titulo" placeholder="Titulo">
@@ -67,11 +70,13 @@
                   <div id="photos"></div>
                 </div>
             </div>
+
+            <input type="hidden" name="enviado">
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-morado" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" id="btn-enviar" form="formPublicacion" class="btn btn-amarillo">Crear Publicación</button>
+          <input type="submit" id="btn-enviar" form="formPublicacion" class="btn btn-amarillo"></input>
         </div>
       </div>
     </div>
@@ -88,8 +93,7 @@
     </div> 
   </div>  
   <script src="/js/formularioPublicaciones.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>       
-  <script src="/js/functions.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
   <script src="/js/inputFotos.js"></script>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
 </body>
