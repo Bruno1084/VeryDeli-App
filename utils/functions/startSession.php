@@ -1,4 +1,3 @@
 <?php
-session_name("SESSION");
+session_name("VERY-SESSION");
 session_start();
-?>
