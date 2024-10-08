@@ -1,5 +1,4 @@
 <?php
-require_once("../utils/functions/startSession.php");
 require_once("../utils/functions/manejaError.php");
 require_once("../utils/functions/verificarObligatorios.php");
 require_once("../utils/functions/verificarDatos.php");
@@ -39,6 +38,7 @@ if($verificarUsuario->rowCount() == 1){
   $verificarUsuario = $verificarUsuario->fetch();
   //Verifica que la contraseña corresponda al usuario
   if($verificarUsuario["usuario_usuario"] == $usuario && password_verify($contrasenia, $verificarUsuario["usuario_contraseña"])){
+    require_once('../utils/functions/startSession.php');
     $_SESSION['id'] = $verificarUsuario['usuario_id'];
     $_SESSION['nombre'] = $verificarUsuario['usuario_nombre'];
     $_SESSION['apellido'] = $verificarUsuario['usuario_apellido'];
@@ -48,6 +48,8 @@ if($verificarUsuario->rowCount() == 1){
     $_SESSION['esResponsable'] = $verificarUsuario['usuario_esResponsable'];
     $_SESSION['esActivo'] = true;
     manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "../public/index.php");
+    $verificarUsuario = null;
+    $conexion = null;
   }
   else{
     manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
@@ -57,5 +59,4 @@ else{
   manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
 }
 
-$verificarUsuario = null;
-$conexion = null;
+?>
