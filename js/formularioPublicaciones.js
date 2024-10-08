@@ -135,8 +135,6 @@ function validarPublicacion() {
     if (!validarPublicacion()) {
       event.preventDefault(); 
       event.stopPropagation();
-    } else {
-      event.submit();
-    }
+    } 
   }, false);
 })();
