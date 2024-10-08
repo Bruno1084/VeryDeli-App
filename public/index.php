@@ -1,3 +1,4 @@
+<?php require_once('../utils/functions/startSession.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,32 +7,14 @@
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
-  
-  <h1 class="text-center">Esto debería mostrar los usuarios</h1>
-
   <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
   <?php require_once("../components/publicaciones.php");?>
-  <?php require_once("../components/Footer.php");?>
-  <!-- <div>
+  <div>
     <?php
-      require_once('../utils/getAllUsuarios.php');
-
-      // Fetch the users
-      $usuarios = getAllUsuarios();
-
-      // Check if there are any users
-      if (!empty($usuarios)) {
-        echo "<ul>";
-        // Loop through the users and display them
-        foreach ($usuarios as $usuario) {
-          echo "<li>" . $usuario['usuario_nombre'] . " - " . $usuario['usuario_correo'] . "</li>";
-        }
-        echo "</ul>";
-      } else {
-        echo "No hay usuarios disponibles.";
-      }
+    if(isset($_SESSION['nombre'])){
+      echo('Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!');
+    }
     ?>
-    !-->
   </div>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
