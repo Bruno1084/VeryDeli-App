@@ -135,18 +135,7 @@ function validarPublicacion() {
     event.preventDefault();
     if (!validarPublicacion()) {
       event.stopPropagation();
-    } else {
-      let data=new FormData(form);
-      let action = this.getAttribute("action");
-      let method = this.getAttribute("method");
-      let config = {  // Almacena las configuraciones a utilizar en el envio por fetch
-        method: method,
-        mode: "cors",
-        cache: "no-cache",
-        body: data
-      };
-      sendForm(action,config);
-    }
+    } 
   }, false);
 })();
 const sendForm = async(action,config)=>{

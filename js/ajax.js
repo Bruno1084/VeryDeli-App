@@ -2,6 +2,7 @@ const formularios_ajax = document.querySelectorAll(".FormularioAjax");
 
 function enviarFormularioAjax(e){
   e.preventDefault();
+  let contenedor = document.querySelector('.form-rest');
   let data = new FormData(this); // Almacena los datos del formulario
   let method = this.getAttribute("method"); // Almacena el metodo de envio
   let action = this.getAttribute("action"); // Almacena la url donde se enviara el formulario
@@ -14,12 +15,25 @@ function enviarFormularioAjax(e){
 
   // Realiza una solicitud HTTP
   fetch(action, config)
-  .then(respuesta => respuesta.text()) // Almacena la respuesta de la solicitud
-  .then(respuesta => { // Instrucciones para mostrar la respuesta
-    let contenedor = document.querySelector(".form-rest");
-    contenedor.innerHTML = respuesta;
-    this.reset();
-  });
+    
+    .then(respuesta => {
+      if (!respuesta.ok) { // Verifica si la respuesta es un error
+        throw new Error('Error en la solicitud: ' + respuesta.status);
+      }
+      return respuesta.json(); 
+    })
+    .then(data => {
+      // Muestra la respuesta en el contenedor
+      contenedor.innerHTML = data.message
+      if (data.redirect) {
+        setTimeout(() => {
+          window.location.href = data.redirect;
+        }, 2000); 
+      }
+    })
+    .catch(error => {
+      contenedor.innerHTML = '<div class="text-bg-danger p-3">Error: ' + error.message + '</div>'; // Muestra el error
+    });
 }
 
 // Asigna el evento "submit" a los formularios al cargar la página
