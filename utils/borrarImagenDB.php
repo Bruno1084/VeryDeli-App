@@ -1,6 +1,6 @@
 <?php
     function borrarImagenDB($imagen_delete_url) {
-    require_once('../database/conection.php');
+    require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     $db = new DB();
     $conexion = $db->getConnection();
 
@@ -13,7 +13,7 @@
     $conexion = null;
     
     if($response){
-        require_once("../utils/borrarImagenImgBB.php");
+        require_once($_SERVER["DOCUMENT_ROOT"]."/utils/borrarImagenImgBB.php");
         $response=borrarImagenImgBB($delete_url);
         if(!$response)return 2;    
     }

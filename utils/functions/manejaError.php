@@ -7,4 +7,3 @@ function manejarError ($titulo, $mensaje) {
   </div>';
   exit();
 };
-?>

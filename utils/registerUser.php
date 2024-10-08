@@ -1,9 +1,9 @@
 <?php
-require_once("../database/conection.php");
-require_once("../utils/functions/limpiarCadena.php");
-require_once("../utils/functions/verificarObligatorios.php");
-require_once("../utils/functions/verificarDatos.php");
-require_once("../utils/functions/manejaError.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/limpiarCadena.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/verificarObligatorios.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/verificarDatos.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/manejaError.php");
 
 $db = new DB();
 $conexion = $db->getConnection();
