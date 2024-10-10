@@ -1,11 +1,11 @@
 <?php
 
 define('ENV', [
-  'DB_HOST' => 'bjxbq3veaakujbxq3stf-mysql.services.clever-cloud.com',
-  'DB_PORT' => '3306',
-  'DB_USER' => 'uxvwofh6wijzqx32',
-  'DB_NAME' => 'bjxbq3veaakujbxq3stf',
-  'DB_PASSWORD' => 'U3UIK5YAHiWbmid8E0fh'
+  'DB_HOST' => 'mod.h.filess.io',
+  'DB_PORT' => '3307',
+  'DB_USER' => 'VeryDeliDB_wallyetare',
+  'DB_NAME' => 'VeryDeliDB_wallyetare',
+  'DB_PASSWORD' => '8ceccf7701a7f958705178390275fb31b28edf28'
 ]);
 
 class DB {
