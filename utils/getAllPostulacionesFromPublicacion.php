@@ -16,5 +16,4 @@ function getAllPostulacionesFromPublicacion ($idPublicacion) {
   $conexion = null;
 
   return $postulaciones;
-};
-?>
+}

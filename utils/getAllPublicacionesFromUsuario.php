@@ -6,9 +6,6 @@ function getAllPublicacionesFromUsuario ($idUsuario) {
   $db = new DB();
   $conexion = $db->getConnection();
 
-  $db = new DB();
-  $conexion = $db->getConnection();
-
   $sql = "SELECT * FROM publicaciones WHERE usuario_autor = ?";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
@@ -21,4 +18,3 @@ function getAllPublicacionesFromUsuario ($idUsuario) {
 
   return $publicaciones;
 };
-?>

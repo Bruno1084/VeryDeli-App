@@ -1,16 +1,18 @@
 <?php
-function getAllVehiculos($id) {
-  require '../database/conection.php';
+function getAllVehiculosFromTransportista($id) {
+  require $_SERVER["DOCUMENT_ROOT"].'/database/conection.php';
+  $db=new DB();
+  $conexion= $db->getConnection();
+    
+    $sql = "SELECT * FROM vehiculos WHERE transportista_id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1,$id,PDO::PARAM_INT);
+    $stmt->execute();
 
-  $sql = "SELECT * FROM vehiculos WHERE transportista_id = $id";
-  $resultado = $conexion->$query($sql);
-
-  if ($resultado->num_rows > 0) {
-    $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-  } else {
-    $resultado = [];
-  };
-
-  return $resultado;
+    $resultado= $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $stmt = null;
+    $conexion = null;
+  
+    return $resultado;
 }
-?>

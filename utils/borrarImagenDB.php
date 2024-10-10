@@ -5,8 +5,8 @@
     $conexion = $db->getConnection();
 
     $sql = "DELETE FROM `imagenes` WHERE `imagen_delete_url`= ?";
-    $stmt->bindParam(1, $imagen_delete_url, PDO::PARAM_INT);
     $stmt = $conexion->prepare($sql);
+    $stmt->bindParam(1, $imagen_delete_url, PDO::PARAM_INT);
 
     $response=$stmt->execute();
     $stmt = null;

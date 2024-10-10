@@ -707,9 +707,6 @@
                 </div>
             </div>
         </dialog>
-
-
-        
     </div>
     <aside class="col-3">
         <div class="col-12 postulaciones">
