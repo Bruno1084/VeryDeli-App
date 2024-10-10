@@ -60,4 +60,10 @@
 
     </div>
 
+    <div>
+        <?php
+            include "../components/comentario.php";
+            echo renderComentario("grgr", "greh", "rehe");
+        ?>
+    </div>
 </div>
