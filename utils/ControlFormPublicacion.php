@@ -43,14 +43,14 @@
       }
       $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_esActivo, usuario_transportista) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)");
       $stmtPublicacion->bindParam(1, $titulo, PDO::PARAM_STR);
-      $stmtPublicacion->bindParam(1, $descripcion, PDO::PARAM_STR);
-      $stmtPublicacion->bindParam(2, $peso);
-      $stmtPublicacion->bindParam(3, $volumen);
-      $stmtPublicacion->bindParam(4, $origen, PDO::PARAM_STR);
-      $stmtPublicacion->bindParam(5, $destino, PDO::PARAM_STR);
-      $stmtPublicacion->bindParam(6, $recibe, PDO::PARAM_STR);
-      $stmtPublicacion->bindParam(7, $telContacto, PDO::PARAM_STR);
-      $stmtPublicacion->bindParam(8, $usuarioAutor, PDO::PARAM_INT);
+      $stmtPublicacion->bindParam(2, $descripcion, PDO::PARAM_STR);
+      $stmtPublicacion->bindParam(3, $peso);
+      $stmtPublicacion->bindParam(4, $volumen);
+      $stmtPublicacion->bindParam(5, $origen, PDO::PARAM_STR);
+      $stmtPublicacion->bindParam(6, $destino, PDO::PARAM_STR);
+      $stmtPublicacion->bindParam(7, $recibe, PDO::PARAM_STR);
+      $stmtPublicacion->bindParam(8, $telContacto, PDO::PARAM_STR);
+      $stmtPublicacion->bindParam(9, $usuarioAutor, PDO::PARAM_INT);
       if ($stmtPublicacion->execute()) {
 				$idPub = $conexion->lastInsertId(); // Obtiene el ultimo id insertado
       } else {
@@ -60,7 +60,7 @@
       }
       for ($i=0;$i<count($fotos);$i+=2) {
           if (!in_array($fotos[$i+1],$formatSuportPhoto)) {
-            $data["error"]="Error, Se encontro un tipo no valido";
+            manejarError('false', 'Formato inválido', 'Se encontro un formato de imágen no valido');
             break;
           }
       }
@@ -76,14 +76,14 @@
           if (is_array($response)) {
             $urlFotos[]=$response;
           } else {
-            $data["error"]=$response;
+            manejarError('false', 'Error inesperado', $responde);
             break;
             }
           }
           if (empty($data)) {
             $response=$dbImgBB->guardarImagenesDB($urlFotos,$idPub);
             if (!$response) {
-              $data["error"]="Error al guardar las fotos en la Base de Datos";
+              manejarError('false', 'Error imagen', 'Error al almacenar la/las foto');
               require_once("../utils/getImagen.php");
               require_once("../utils/borrarImagenImgBB.php");
               foreach ($urlFotos as $foto) {
@@ -91,7 +91,7 @@
                 if (empty($tmpImg)) {
                   $response=borrarImagenImgBB($foto["delete_url"]);
                   if (!$response) {
-                    $data["error"]+="Error al querer eliminar las fotos de la nube de fotos";
+                    manejarError('false', 'Error inesperado', 'Error al intentar eliminar la/las fotos');
                     break;
                   }
                 }
@@ -105,7 +105,7 @@
               if (empty($tmpImg)) {
                 $response=borrarImagenImgBB($foto["delete_url"]);
                 if (!$response) {
-                  $data["error"]+="Error al querer eliminar las fotos de la nube de fotos";
+                  manejarError('false', 'Error inesperado', 'Error al intentar eliminar la/las fotos');
                   break;
                 }
               }
@@ -114,7 +114,7 @@
 				manejarError('true', "Publicacion creada", 'Pubicacion creada con exito', '../public/index.php');
       }
   } else {
-    $data["error"]="Error, No hay fotos";
+    manejarError('false', 'Ingrese una imagen', 'Debe ingresar como minimo una imagen, para su publicacion');
   }
   if (!empty($data)) {
     manejarError('false',"Error inesperado", json_encode($data));
