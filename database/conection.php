@@ -85,6 +85,22 @@ class DB {
     return $publicaciones;
   }
 
+  public function getAllComentariosFromPublicacion ($idPublicacion) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM comentarios WHERE publicacion_id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = null;
+    $conexion = null;
+
+    return $comentarios;
+  }
+
   public function getAllPostulacionesFromPublicacion ($idPublicacion) {
     $conexion = $this->getConnection();
 
@@ -140,7 +156,7 @@ class DB {
     $stmt->bindValue(1, $idComentario, PDO::PARAM_INT);
     $stmt->execute();  
 
-    $comentario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $comentario = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $stmt = null;
     $conexion = null;
@@ -156,7 +172,7 @@ class DB {
     $stmt->bindValue(1, $idPostulacion, PDO::PARAM_INT);
     $stmt->execute();
 
-    $postulacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $postulacion = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $stmt = null;
     $conexion = null;
@@ -172,7 +188,7 @@ class DB {
     $stmt->bindParam(1, $idPublicacion, PDO::PARAM_INT);
     $stmt->execute();
   
-    $publicacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $publicacion = $stmt->fetch(PDO::FETCH_ASSOC);
   
     $stmt = null;
     $conexion = null;
@@ -183,12 +199,12 @@ class DB {
   public function getUsuario ($idUsuario) {
     $conexion = $this->getConnection();
 
-    $sql = "SELECT * FROM usuarios WHERE id = ?";
+    $sql = "SELECT * FROM usuarios WHERE usuario_id = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
     $stmt->execute();
   
-    $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
   
     $stmt = null;
     $conexion = null;
@@ -204,7 +220,7 @@ class DB {
     $stmt->bindValue(1, $idVehiculo, PDO::PARAM_INT);
     $stmt->execute();
 
-    $vehiculo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $vehiculo = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $stmt = null;
     $conexion = null;

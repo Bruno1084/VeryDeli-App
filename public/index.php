@@ -1,34 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php require_once("../components/head.php") ?>
+  <?php require_once("../components/head.php");
+    include "../database/conection.php";
+    $DB = new DB();
+  ?>
   <title>Very Deli</title>
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
-  <?php require_once("../components/publicaciones.php");?>
-  <?php require_once("../components/Footer.php");?>
-  <!-- <div>
-     <?php
-      $DB = new DB();
-      
-      // Fetch the users
-      $usuarios = $DB->getAllUsuarios();
+  <?php 
+    include "../components/publicaciones.php";
+    $publicaciones = $DB->getAllPublicaciones();
 
-      // Check if there are any users
-      if (!empty($usuarios)) {
-        echo "<ul>";
-        // Loop through the users and display them
-        foreach ($usuarios as $usuario) {
-          echo "<li>" . $usuario['usuario_nombre'] . " - " . $usuario['usuario_correo'] . "</li>";
-        }
-        echo "</ul>";
-      } else {
-        echo "No hay usuarios disponibles.";
-      }
-    ?>
-  </div>
-  <?php require_once("../components/Footer.php"); ?>
+    echo renderPublicaciones($publicaciones);
+
+    // include "../components/publicacionExtendida.php";
+    // echo renderPublicacionExtendida("username", "profileIcon", "userLocation", "productDetail", "weight", "origin", "destination", "images");
+  ?>
+  <?php require_once("../components/Footer.php");?>
   <?php require_once("../components/JS.php"); ?>
 </body>
 </html>
