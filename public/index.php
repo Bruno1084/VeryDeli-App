@@ -10,10 +10,10 @@
   <?php require_once("../components/Footer.php");?>
   <!-- <div>
      <?php
-      require '../utils/getAllUsuarios.php';
-
+      $DB = new DB();
+      
       // Fetch the users
-      $usuarios = getAllUsuarios();
+      $usuarios = $DB->getAllUsuarios();
 
       // Check if there are any users
       if (!empty($usuarios)) {
