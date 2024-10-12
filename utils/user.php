@@ -97,15 +97,10 @@
         $stmt->bindValue(2, $correo, PDO::PARAM_STR);
         $stmt->execute();
 
-        $pass=$stmt->fetch();
+        $res=$stmt->fetch();
         $stmt=null;
         $conexion=null;
-        if($pass!=false){
-            if(password_verify($contrasenia, $pass[0])){
-                return true;
-            }
-        }
-        return false;
+        return $res;
     }
 
 
