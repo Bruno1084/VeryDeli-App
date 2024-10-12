@@ -23,7 +23,7 @@ class DB {
     self::$PASSWORD = "U3UIK5YAHiWbmid8E0fh";
   }
 
-  public static function getConnection() {
+  public static function getConnection () {
     try {
       $dsn = "mysql:host=" . self::$HOST . ";port=" . self::$PORT . ";dbname=" . self::$NAME;
       $conn = new PDO($dsn, self::$USER, self::$PASSWORD, [
@@ -36,108 +36,29 @@ class DB {
     }
   }
 
-  public static function getAllComentariosFromPublicacion($publicacion_id) {
-    
-    $conexion = self::getConnection();
-  
+  public function getAllComentarios ($idPublicacion) {
+    $conexion = $this->getConnection();
+
     $sql = "SELECT * FROM comentarios WHERE publicacion_id = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $publicacion_id, PDO::PARAM_INT);
+    $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
     $stmt->execute();
-  
+
     $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
+
     $stmt = null;
     $conexion = null;
-  
+
     return $comentarios;
   }
 
-  public static function getAllImagenesFromPublicacion ($publicacion_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM imagenes WHERE publicacion_id = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $publicacion_id, PDO::PARAM_INT);
-    $stmt->execute();
-  
-    $imagenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-    $stmt = null;
-    $conexion = null;
-  
-    return $imagenes;
+  public function getAllPostulantes () {
+    $conexion = $this->getConnection();
   }
 
-  public static function getAllPostulacionesFromPublicacion ($publicacion_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM postulaciones WHERE publicacion_id = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $publicacion_id, PDO::PARAM_INT);
-    $stmt->execute();
-  
-    $postulaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-    $stmt = null;
-    $conexion = null;
-  
-    return $postulaciones;
-  }
+  public function getAllUsuarios () {
+    $conexion = $this->getConnection();
 
-  public static function borrarImagenDB($imagen_id) {
-    
-    $conexion = self::getConnection();
-
-    $sql = "DELETE FROM imagenes WHERE imagen_id = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindParam(1, $imagen_id, PDO::PARAM_INT);
-    $response=$stmt->execute();
-
-    $stmt = null;
-    $conexion = null;
-    
-    return $response;
-  }
-
-  public static function getAllPublicaciones(){
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM publicaciones";
-    $stmt = $conexion->prepare($sql);
-    $stmt->execute();
-  
-    $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-    $stmt = null;
-    $conexion = null;
-    return $publicaciones;
-  }
-
-  public static function getAllPublicacionesFromUsuario ($usuario_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM publicaciones WHERE usuario_autor = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $usuario_id, PDO::PARAM_INT);
-    $stmt->execute();
-  
-    $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-    $stmt = null;
-    $conexion = null;
-  
-    return $publicaciones;
-  }
-
-  public static function getAllUsuarios () {
-    
-    $conexion = self::getConnection();
-    
     $sql = "SELECT * FROM usuarios";
     $stmt = $conexion->prepare($sql);
     $stmt->execute();
@@ -150,98 +71,57 @@ class DB {
     return $resultado;
   }
 
-  public static function getAllVehiculosFromTransportista($transportista_id) {
-    
-    $conexion= self::getConnection();
+  public function getAllPublicaciones () {
+    $conexion = $this->getConnection();
 
-    $sql = "SELECT * FROM vehiculos WHERE transportista_id = ?";
+    $sql = "SELECT * FROM publicaciones";
     $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1,$transportista_id,PDO::PARAM_INT);
     $stmt->execute();
 
-    $resultado= $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+    $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     $stmt = null;
     $conexion = null;
-  
-    return $resultado;
+    return $publicaciones;
   }
 
-  public static function getComentario ($comentario_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM comentarios WHERE comentario_id = ?";
+  public function getAllPostulacionesFromPublicacion ($idPublicacion) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM postulaciones WHERE publicacion_id = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $comentario_id, PDO::PARAM_INT);
+    $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
     $stmt->execute();
-  
-    $comentario = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
+
+    $postulaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     $stmt = null;
     $conexion = null;
-  
-    return $comentario;
+
+    return $postulaciones;
   }
 
-  public static function getImagen($imagen_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM imagenes WHERE imagen_id = ?";
+  public function getAllPublicacionesFromUsuario ($idUsuario) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM publicaciones WHERE usuario_autor = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $imagen_id, PDO::PARAM_STR);
+    $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
     $stmt->execute();
-  
-    $imagen = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
+
+    $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     $stmt = null;
     $conexion = null;
-  
-    return $imagen;
+
+    return $publicaciones;
   }
 
-  public static function getPostulacion($postulacion_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM postulaciones WHERE postulacion_id = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $postulacion_id, PDO::PARAM_INT);
-    $stmt->execute();
-  
-    $postulacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-    $stmt = null;
-    $conexion = null;
-  
-    return $postulacion;
-  }
+  public function getAllVehiculosFromTransportista ($id) {
+    $conexion = $this->getConnection();
 
-  public static function getUsuario($usuario_id) {
-    
-    $conexion = self::getConnection();
-  
-    $sql = "SELECT * FROM usuarios WHERE usuarioid = ?";
+    $sql = "SELECT * FROM vehiculos WHERE transportista_id = $id";
     $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $usuario_id, PDO::PARAM_INT);
-    $stmt->execute();
-  
-    $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-    $stmt = null;
-    $conexion = null;
-  
-    return $usuario;
-  }
-
-  public static function getVehiculo($vehiculo_id) {
-    
-    $conexion=self::getConnection();
-
-    $sql = "SELECT * FROM vehiculos WHERE vehiculo_id = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1,$vehiculo_id,PDO::PARAM_INT);
     $stmt->execute();
 
     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -252,7 +132,131 @@ class DB {
     return $resultado;
   }
 
+  public function getComentario ($idComentario) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM comentarios WHERE comentario_id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1, $idComentario, PDO::PARAM_INT);
+    $stmt->execute();  
+
+    $comentario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = null;
+    $conexion = null;
+
+    return $comentario;
+  }
+
+  public function getPostulacion ($idPostulacion) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM postulaciones WHERE postulacion_id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1, $idPostulacion, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $postulacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = null;
+    $conexion = null;
+
+    return $postulacion;
+  }
+
+  public function getPublicacion ($idPublicacion) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM publicaciones WHERE publicacion_id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindParam(1, $idPublicacion, PDO::PARAM_INT);
+    $stmt->execute();
   
+    $publicacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+    $stmt = null;
+    $conexion = null;
+  
+    return $publicacion;
+  }
 
+  public function getUsuario ($idUsuario) {
+    $conexion = $this->getConnection();
 
-}
+    $sql = "SELECT * FROM usuarios WHERE id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
+    $stmt->execute();
+  
+    $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+    $stmt = null;
+    $conexion = null;
+  
+    return $usuario;
+  }
+
+  public function getVehiculo ($idVehiculo) {
+    $conexion = $this->getConnection();
+
+    $sql = "SELECT * FROM vehiculos WHERE vehiculo_id = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(1, $idVehiculo, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $vehiculo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = null;
+    $conexion = null;
+  
+    return $vehiculo;
+  }
+
+  public function registrarTransportista ($usId) {
+    try {
+      $conexion = $this->getConnection();
+
+      $stmt = $conexion->prepare("INSERT INTO transportistas (transportista_id) VALUES (?)");
+      $stmt->bindValue(1, $usId, PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+        return true;
+      } else {
+        return false; // SI retorna falso significa que falló
+      }
+    } catch (PDOException $e) {
+      error_log("Error al insertar transportista: " . $e->getMessage());
+      return false;
+    } finally {
+      $stmt = null;
+      $conexion = null;
+    }
+  }
+
+  public function registrarVehiculo ($usId, $tipoVehiculo, $patente, $pesoSoportado, $volumenSoportado) {
+    try {
+      $conexion = $this->getConnection();
+
+      $stmt = $conexion->prepare("INSERT INTO vehiculos (vehiculo_patente, vehiculo_tipoVehiculo, vehiculo_pesoSoportado, vehiculo_volumenSoportado, transportista_id) VALUES (?, ?, ?, ?, ?)");
+      $stmt->bindValue(1, $patente, PDO::PARAM_STR);
+      $stmt->bindValue(2, $tipoVehiculo, PDO::PARAM_STR);
+      $stmt->bindValue(3, $pesoSoportado, PDO::PARAM_STR);
+      $stmt->bindValue(4, $volumenSoportado, PDO::PARAM_STR);
+      $stmt->bindValue(5, $usId, PDO::PARAM_INT);
+
+      return $stmt->execute();
+
+      if ($stmt->execute()) {
+        return true;
+      } else {
+        return false; // SI retorna falso significa que falló
+      }
+    } catch (PDOException $e) {
+      error_log("Error al registrar vehículo: " . $e->getMessage());
+      return false;
+    } finally {
+      $stmt = null;
+      $conexion = null;
+    }
+  }
+};

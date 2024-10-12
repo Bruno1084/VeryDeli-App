@@ -60,4 +60,17 @@
 
     </div>
 
+    <div>
+        <?php
+            include "../components/post-comentario.php";
+            echo renderPostComentario("grer", "greg");
+        ?>
+    </div>
+
+    <div>
+        <?php
+            include "../components/comentario.php";
+            echo renderComentario("grgr", "greh", "rehe");
+        ?>
+    </div>
 </div>
