@@ -1,16 +1,19 @@
 <?php
 function getVehiculo($id) {
-  require '../database/conection.php';
+  require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
 
-  $sql = "SELECT * FROM vehiculos WHERE vehiculo_id = $id";
-  $resultado = $conexion->$query($sql);
+  $db=new DB();
+  $conexion=$db->getConnection();
 
-  if ($resultado->num_rows > 0) {
-    $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
-  } else {
-    $resultado = [];
-  };
+  $sql = "SELECT * FROM vehiculos WHERE vehiculo_id = ?";
+  $stmt = $conexion->prepare($sql);
+  $stmt->bindValue(1,$id,PDO::PARAM_INT);
+  $stmt->execute();
+
+  $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $stmt = null;
+  $conexion = null;
 
   return $resultado;
 }
-?>

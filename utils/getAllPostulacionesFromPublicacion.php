@@ -1,7 +1,7 @@
 <?php
 
 function getAllPostulacionesFromPublicacion ($idPublicacion) {
-  require_once('../database/conection.php');
+  require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
   $db = new DB();
   $conexion = $db->getConnection();
 
@@ -16,5 +16,4 @@ function getAllPostulacionesFromPublicacion ($idPublicacion) {
   $conexion = null;
 
   return $postulaciones;
-};
-?>
+}

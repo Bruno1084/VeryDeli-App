@@ -54,6 +54,12 @@
                     </div>
                 </div>
 
+                <div class="row justify-content-center">
+                    <div class="form-group col-12 col-md-10 d-flex align-items-center mb-3">
+                        <input type="checkbox" class="form-check-input bg-input" id="transportista" name="serTransportista">
+                        <label class="form-check-label mx-2" for="transportista">Ser transportista</label>
+                    </div>
+                </div>
 
                 <div class="additional-fields row justify-content-center">
                     <div class="form-group col-5 mb-3">
@@ -86,13 +92,6 @@
                             <option>1,000 kg</option>
                             <option>2,000 kg</option>
                         </select>
-                    </div>
-                </div>
-
-                <div class="row justify-content-center">
-                    <div class="form-group col-12 col-md-10 d-flex align-items-center mb-3">
-                        <input type="checkbox" class="form-check-input bg-input" id="transportista" name="serTransportista">
-                        <label class="form-check-label mx-2" for="transportista">Ser transportista</label>
                     </div>
                 </div>
 

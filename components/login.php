@@ -37,7 +37,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-md-6 mb-3 text-end">
-                        <a href="#" class="rst-pass">¿Olvidó su contraseña?</a>
+                        <a href="./resetPass/emailRecuperacion.php" class="rst-pass">¿Olvidó su contraseña?</a>
                     </div>
                 </div>
 

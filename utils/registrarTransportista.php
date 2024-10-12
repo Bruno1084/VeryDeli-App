@@ -1,7 +1,7 @@
 <?php
 function registrarTransportista($usId){
     try {
-        require_once('../database/conection.php');
+        require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
         $db = new DB();
         $conexion = $db->getConnection();
 

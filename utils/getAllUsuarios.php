@@ -16,4 +16,3 @@ function getAllUsuarios () {
 
   return $resultado;
 };
-?>

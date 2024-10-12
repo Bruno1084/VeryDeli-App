@@ -10,7 +10,7 @@
     return substr(str_shuffle($txt),0, $tam);
   }
   if (isset($_POST["photosId"]) && isset($_POST['enviado'])) {
-    require_once('../utils/functions/startSession.php');
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");
     require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
     $fotos = $_POST["photosId"];
     $titulo = $_POST['titulo'];
@@ -65,7 +65,7 @@
           }
       }
       if (empty($data)) {
-        require("../database/conectionImgBB.php");
+        require($_SERVER["DOCUMENT_ROOT"]."/database/conectionImgBB.php");
         $dbImgBB=new DBIMG();
         $urlFotos=array();
         for ($i=0;$i<count($fotos);$i+=2) {
@@ -98,8 +98,8 @@
               }
             }
           } else {
-            require_once("../utils/getImagen.php");
-            require_once("../utils/borrarImagenImgBB.php");
+            require_once($_SERVER["DOCUMENT_ROOT"]."/utils/getImagen.php");
+            require_once($_SERVER["DOCUMENT_ROOT"]."/utils/borrarImagenImgBB.php");
             foreach ($urlFotos as $foto) {
               $tmpImg=getImagen($foto["imagen_url"]);
               if (empty($tmpImg)) {

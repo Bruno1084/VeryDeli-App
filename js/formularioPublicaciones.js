@@ -142,9 +142,17 @@ function validarPublicacion() {
 (() => {
   const form = document.getElementById('formPublicacion');
   form.addEventListener('submit', function (event) {
+    event.preventDefault();
     if (!validarPublicacion()) {
-      event.preventDefault(); 
       event.stopPropagation();
     } 
   }, false);
 })();
+const sendForm = async(action,config)=>{
+  return await fetch(action,config)
+  .then(
+      respuesta => respuesta.text()
+  )
+  .then(
+      response=>console.log(response))
+}

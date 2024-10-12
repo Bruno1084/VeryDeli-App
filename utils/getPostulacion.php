@@ -1,10 +1,7 @@
 <?php
 
 function getPostulacion ($id) {
-  require_once('../database/conection.php');
-
-  $db = new DB();
-  $conexion = $db->getConnection();
+  require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
 
   $db = new DB();
   $conexion = $db->getConnection();
@@ -20,5 +17,4 @@ function getPostulacion ($id) {
   $conexion = null;
 
   return $postulacion;
-};
-?>
+}

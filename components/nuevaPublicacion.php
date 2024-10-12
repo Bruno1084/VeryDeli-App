@@ -1,7 +1,3 @@
-<?php
-  $apiKey="b9a4cf5a03920383d33b750bae0914a0";
-  $imgUpload="https://api.imgbb.com/1/upload";
-?>
   <div class="d-flex justify-content-center">
             <div class="form-rest my-4 col-8"></div>
   </div>
@@ -64,7 +60,7 @@
             <div class="row">
                 <div id="add" class="col-12 mb-3">
                   <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
-                  <label for="addNewPhoto" class="custom-file-upload"> <h2 id="addPhoto">Cargar Foto ➕</h2> </label>
+                  <div class="custom-file-upload"> <h2 id="addPhoto">Cargar Foto ➕</h2> </div>
                   <select name="photosId[]" id="photosId" multiple hidden>
                   </select>
                   <div id="photos"></div>
@@ -93,7 +89,7 @@
     </div> 
   </div>  
   <script src="/js/formularioPublicaciones.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
   <script src="/js/inputFotos.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
 </body>

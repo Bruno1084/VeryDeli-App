@@ -13,10 +13,8 @@ var clickAdd=function(){
 }
 
 async function preVisual(e){
-    var newInput=e.target;
-    var fotos=newInput.files;
-    newInput.remove();
-    nuevoInput();
+    var input=e.target;
+    var fotos=input.files;
     if ((count+fotos.length)<=5 && fotos.length>0) {
         if (formatoFoto(fotos)) {
             await addFotos(fotos);
@@ -62,6 +60,9 @@ async function addFotos(fotos){
             imgOk+=1;
         }
     }
+    if(imgOk>0){
+        nuevoInput();
+    }
     count+=imgOk;
 }
 
@@ -100,6 +101,7 @@ function actualizarFotos(i){
     }
 }
 function nuevoInput(){
+    var firstChild=document.querySelector("#addNewPhoto");
     var newInput=document.createElement('input');
     newInput.setAttribute("type","file");
     newInput.setAttribute("accept","image/png, image/jpeg, image/jpg");
@@ -107,5 +109,6 @@ function nuevoInput(){
     newInput.setAttribute("id","addNewPhoto");
     newInput.setAttribute("onchange","preVisual(event)");
     newInput.setAttribute("multiple","");
-    document.querySelector("#add").append(newInput);
+    document.querySelector("#add").insertBefore(newInput,firstChild);
+    firstChild.remove();
 }
