@@ -4,7 +4,7 @@ function validarPublicacion() {
   const titulo = document.getElementById('publicacion-titulo');
   const tituloFeedback = document.getElementById('invalid-titulo');
 
-  if (titulo.value.trim() === '') {
+  if (titulo.value.trim() == '') {
     tituloFeedback.textContent = 'El título no puede estar vacío.';
     titulo.classList.add('is-invalid');
     isValid = false;
@@ -20,7 +20,7 @@ function validarPublicacion() {
   // Validar Descripción
   const descripcion = document.getElementById('publicacion-descripcion');
   const descripcionFeedback =document.getElementById('invalid-descripcion')
-  if (descripcion.value.trim() === '') {
+  if (descripcion.value.trim() == '') {
     descripcionFeedback.textContent = 'La descripción no puede estar vacía.';
     descripcion.classList.add('is-invalid');
     isValid = false;
@@ -36,12 +36,17 @@ function validarPublicacion() {
   // Validar Volumen
   const volumen = document.getElementById('publicacion-volumen');
   const volumenFeedback =document.getElementById('invalid-volumen');
-  if (volumen.value.trim() === '') {
+  const volumenValor = parseFloat(volumen.value.trim());
+  if (volumenValor == '') {
     volumenFeedback.textContent = 'El volumen es obligatorio.';
     volumen.classList.add('is-invalid');
     isValid = false;
-  } else if (isNaN(volumen.value)) {
+  } else if (isNaN(volumenValor)) {
     volumenFeedback.textContent = 'El volumen debe ser un número.';
+    volumen.classList.add('is-invalid');
+    isValid = false;
+  } else if(volumenValor <= 0){
+    volumenFeedback.textContent = 'El volumen debe ser mayor a 0';
     volumen.classList.add('is-invalid');
     isValid = false;
   } else {
@@ -52,12 +57,17 @@ function validarPublicacion() {
 // Validar Peso
   const peso = document.getElementById('publicacion-peso');
   const pesoFeedback = document.getElementById('invalid-peso');
-  if (peso.value.trim() === '') {
+  const pesoValor = parseFloat(peso.value.trim());
+  if (pesoValor == '') {
     pesoFeedback.textContent = 'El peso es obligatorio.';
     peso.classList.add('is-invalid');
     isValid = false;
-  } else if (isNaN(peso.value)) {
+  } else if (isNaN(pesoValor)) {
     pesoFeedback.textContent = 'El peso debe ser un número.';
+    peso.classList.add('is-invalid');
+    isValid = false;
+  } else if(pesoValor <= 0){
+    pesoFeedback.textContent = 'El peso debe ser mayor a 0';
     peso.classList.add('is-invalid');
     isValid = false;
   } else {
@@ -70,7 +80,7 @@ function validarPublicacion() {
   const destino = document.getElementById('publicacion-destino');
   const origenFeedback = document.getElementById('invalid-origen')
   const destinoFeedback =document.getElementById('invalid-destino');
-  if (origen.value.trim() === '') {
+  if (origen.value.trim() == '') {
     origenFeedback.textContent = 'El lugar de origen es obligatorio.';
     origen.classList.add('is-invalid');
     isValid = false;
@@ -79,7 +89,7 @@ function validarPublicacion() {
     origen.classList.add('is-valid');
     origenFeedback.textContent = '';
   }
-  if (destino.value.trim() === '') {
+  if (destino.value.trim() == '') {
     destinoFeedback.textContent = 'El lugar de destino es obligatorio.';
     destino.classList.add('is-invalid');
     isValid = false;
@@ -92,7 +102,7 @@ function validarPublicacion() {
   const regexAlfa = /^[a-zA-Z\s]+$/;
   const recibe = document.getElementById('publicacion-recibe');
   const recibeFeedback = document.getElementById('invalid-recibe');
-  if(recibe.value.trim() === ""){
+  if(recibe.value.trim() == ""){
     recibeFeedback.textContent = 'Los datos del encargado de recibir la entrega son obligatorios!';
     recibe.classList.add('is-invalid');
     isValid = false;
@@ -113,7 +123,7 @@ function validarPublicacion() {
   const contacto = document.getElementById('publicacion-contacto');
   const contactoFeedback =document.getElementById('invalid-contacto');
   const regexTelefono = /^[0-9]{10,13}$/;
-  if (contacto.value.trim() === '') {
+  if (contacto.value.trim() == '') {
     contactoFeedback.textContent = 'El teléfono de contacto es obligatorio.';
     contacto.classList.add('is-invalid');
     isValid = false;

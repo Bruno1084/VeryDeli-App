@@ -31,11 +31,11 @@
             
             <div class="row">
               <div class="col-3">
-                <input type="text" class="form-control mb-3" id="publicacion-volumen" name="volumen"  placeholder="Volumen">
+                <input type="number" step="0.01" class="form-control mb-3" id="publicacion-volumen" name="volumen"  placeholder="Volumen">
                 <div class="invalid-feedback" id="invalid-volumen"></div>
               </div>
               <div class="col-3">
-                <input type="text" class="form-control" id="publicacion-peso" name="peso"  placeholder="Peso">
+                <input type="number" step="0.01" class="form-control" id="publicacion-peso" name="peso"  placeholder="Peso">
                 <div class="invalid-feedback" id="invalid-peso"></div>
               </div>
             </div>
