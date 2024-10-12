@@ -41,7 +41,7 @@
         exit;
         }
       }
-      $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_esActivo, usuario_transportista) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)");
+      $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_esActivo, usuario_transportista) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, null)");
       $stmtPublicacion->bindParam(1, $titulo, PDO::PARAM_STR);
       $stmtPublicacion->bindParam(2, $descripcion, PDO::PARAM_STR);
       $stmtPublicacion->bindParam(3, $peso);
