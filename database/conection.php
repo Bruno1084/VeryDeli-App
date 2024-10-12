@@ -226,7 +226,7 @@ class DB {
     return $usuario;
   }
 
-  function getVehiculo($vehiculo_id) {
+  public static function getVehiculo($vehiculo_id) {
     
     $conexion=self::getConnection();
 
