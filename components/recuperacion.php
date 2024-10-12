@@ -57,7 +57,6 @@
         if (!respuesta.ok) { // Verifica si la respuesta es un error
             throw new Error('Error en la solicitud: ' + respuesta.status);
         }
-        console.log(respuesta.json());
         return respuesta.json(); 
         })
         .then(data => {
