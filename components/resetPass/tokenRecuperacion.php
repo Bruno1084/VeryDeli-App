@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/enviarToken.php");
 session_start();
 ?>
 <head>
@@ -14,7 +13,7 @@ session_start();
 <body class="container d-flex justify-content-center">
     <div class="border col-8 my-4 rounded shadow">
         <div class="text-center">
-            <img class="img-fluid" src="../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
+            <img class="img-fluid" src="../../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
             <h2> Ingrese el codigo de verificacion para continuar </h2>
         </div>
 
@@ -23,7 +22,7 @@ session_start();
         </div>
 
         <div class="container py-3">
-            <form class="formulario-recuperacion" action="../utils/validarToken.php" method="post">
+            <form class="formulario-recuperacion" action="../../utils/resetPass/validarToken.php" method="post">
                 <div class="row justify-content-center">
                     <div class="form-group col-md-6 mb-3">
                         <label for="codigo">Codigo de Verificacion</label>
@@ -41,19 +40,26 @@ session_start();
     </div>
 </body>
 <script>
-    //Obtiene la hora a la que se envio el correo de verificacion en milisegundos
+    //Boolean que indica si el codigo a pasado el limite de 8 minutos sin ser usado
     let codVencido=false;
+    //Obtiene la hora a la que se envio el correo de verificacion en milisegundos
     const tse=Number(<?php echo json_encode($_SESSION["timeSendEmail"]) ?>);
     //Obtiene la hora actual del servidor en milisegundos
     let at=Number(<?php
     date_default_timezone_set("America/Argentina/Buenos_Aires");
     echo json_encode(date("U")) ?>);
-    //Numero de untentos ingresado por el usuario
+    //Numero de intentos del usuario
     let intentos=Number(<?php echo json_encode($_SESSION["attempts"]) ?>);
     //suma 1 segundo a la hora actual obtenida, cada 1 segundo
-    setInterval(()=>{
+    let intervalo=setInterval(()=>{
+        if(at>=(tse+480)){
+            clearInterval(intervalo);
+        }
+        else{
             at+=1;
-        },1000);
+        }
+    },1000);
+    
     //correo ya validado
     const correo=JSON.stringify(<?php echo json_encode($_SESSION["email"]) ?>);
 
@@ -99,7 +105,8 @@ session_start();
             else{
                 codVencido=true;
                 let contenedor = document.querySelector('.form-rest');
-                contenedor.innerHTML = '<div class="text-bg-danger"><strong>¡Intentos agotados!</strong><br>El numero de intentos ha superado el limite de 5 intentos.</div><form id="reenviarT" method="post" action="../utils/reenviarToken.php"><input name="reenviar" hidden></input><button type="submit">Reenviar codigo de verificacion</button></form>';
+                contenedor.innerHTML = '<div class="text-bg-danger"><strong>¡Intentos agotados!</strong><br>El numero de intentos ha superado el limite de 5 intentos.</div>';
+                contenedor.innerHTML += '<form id="reenviarT" method="post" action="../../utils/resetPass/reenviarToken.php"><input name="reenviar" hidden></input><button type="submit">Reenviar codigo de verificacion</button></form>';
                 rForm=document.querySelector("#reenviarT");
                 rForm.addEventListener("submit",(e)=>{
                     e.preventDefault();
@@ -115,7 +122,7 @@ session_start();
         if(!codVencido){
             codVencido=true;
             let tmpForm=document.createElement("form");
-            tmpForm.setAttribute("action","../utils/resetToken.php");
+            tmpForm.setAttribute("action","../../utils/resetPass/resetToken.php");
             tmpForm.setAttribute("method","post");
             let tmpInput=document.createElement("input");
             tmpInput.setAttribute("type","text");
@@ -143,7 +150,7 @@ session_start();
                 // Muestra la respuesta en el contenedor
                 intentos=5;
                 tmpContenedor.innerHTML = data.message
-                tmpContenedor.innerHTML+='<form id="reenviarT" method="post" action="../utils/reenviarToken.php"><input name="reenviar" hidden></input><button type="submit">Reenviar codigo de verificacion</button></form>';
+                tmpContenedor.innerHTML += '<form id="reenviarT" method="post" action="../../utils/resetPass/reenviarToken.php"><input name="reenviar" hidden></input><button type="submit">Reenviar codigo de verificacion</button></form>';
                 rForm=document.querySelector("#reenviarT");
                 rForm.addEventListener("submit",(e)=>{
                     e.preventDefault();

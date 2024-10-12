@@ -11,7 +11,7 @@
 <body class="container d-flex justify-content-center">
     <div class="border col-8 my-4 rounded shadow">
         <div class="text-center">
-            <img class="img-fluid" src="../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
+            <img class="img-fluid" src="../../assets/Very.png" alt="Very Deli" title="Very Deli logo" width="235" height="235">
             <h2> Recuperar Contraseña </h2>
         </div>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div class="container py-3">
-            <form class="formulario-recuperacion" action="../utils/validarEmail.php" method="post">
+            <form class="formulario-recuperacion" action="../../utils/resetPass/validarEmail.php" method="post">
                 <div class="row justify-content-center">
                     <div class="form-group col-md-6 mb-3">
                         <label for="correo">Correo Electronico</label>

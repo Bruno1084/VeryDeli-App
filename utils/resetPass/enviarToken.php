@@ -37,7 +37,7 @@ function enviarToken(){
             date_default_timezone_set("America/Argentina/Buenos_Aires");
             $_SESSION["timeSendEmail"]=date("U");
             $_SESSION["attempts"]=0;
-            manejarError('true','Enviando Verificacion','Enviando codigo de verificacion al correo ingresado',"../components/tokenRecuperacion.php");
+            manejarError('true','Enviando Verificacion','Enviando codigo de verificacion al correo ingresado',"../../components/resetPass/tokenRecuperacion.php");
         }
     }
     catch(Exception $e){
