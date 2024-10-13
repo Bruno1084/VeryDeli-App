@@ -10,7 +10,7 @@
     return substr(str_shuffle($txt),0, $tam);
   }
   if (isset($_POST['enviado']) && isset($_POST['photosId'])) {
-    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");
+    require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
     require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
     $fotos = $_POST["photosId"];
     $titulo = $_POST['titulo'];
@@ -22,11 +22,12 @@
     $recibe = $_POST['recibe'];
     $telContacto = $_POST['contacto'];
     $formatSuportPhoto=["image/png","image/jpeg","image/jpg"];
-    $usuarioAutor = $_SESSION['id'];
+    $usuarioAutor = $_SESSION['user']['usuario_id'];
+    echo $usuarioAutor;
     $db = new DB();
     $conexion = $db->getConnection();
 		// Limitar cantidad de publicaciones
-    if (!$_SESSION['esResponsable']) {
+    if (!$_SESSION['user']['usuario_esResponsable']) {
       $stmtCantPublicaciones = $conexion->prepare("SELECT * FROM publicaciones WHERE usuario_autor = ? AND publicacion_esActivo = true");
       $stmtCantPublicaciones->bindParam(1, $usuarioAutor, PDO::PARAM_INT);
       if ($stmtCantPublicaciones->execute()) {
