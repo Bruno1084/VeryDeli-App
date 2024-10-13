@@ -1,6 +1,7 @@
 <?php
-    if(isset($_SESSION [""])){
-        session_unset();
-        session_destroy();
-    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
+    session_unset();
+    session_destroy();
+    setcookie("VERY-SESSION", "", time() - 3600, "/");
     header('Location: /components/login.php');
+    exit();

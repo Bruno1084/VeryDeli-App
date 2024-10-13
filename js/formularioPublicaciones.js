@@ -136,6 +136,23 @@ function validarPublicacion() {
     contacto.classList.add('is-valid');
     contactoFeedback.textContent = '';
   }
+
+  const imagen = document.getElementById('addNewPhoto');
+  const imagenes = imagen.files;
+  const imagenFeedBack = document.getElementById('invalid-photo');
+  if (imagenes.length < 1) {
+    imagenFeedBack.textContent = 'Ingrese al menos una imagen';
+    imagen.classList.add('is-invalid');
+    isValid = false;
+  } else if(imagenes.length > 5){
+    imagenFeedBack.textContent = 'Se permiten como maximo 5 imagenes';
+    imagen.classList.add('is-invalid');
+    isValid = false;
+  } else{
+    imagen.classList.remove('is-invalid');
+    imagen.classList.add('is-valid');
+    imagenFeedBack.textContent = "";
+  }
   return isValid; 
 }
 

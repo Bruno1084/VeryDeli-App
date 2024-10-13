@@ -19,11 +19,12 @@
   ?>
   <div>
     <?php
-    if(isset($_SESSION['nombre'])){
-      echo('Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!');
+    if(isset($_SESSION['user'])){
+      echo('Bienvenido '.$_SESSION['user']['usuario_nombre'].' '.$_SESSION['user']['usuario_apellido'].'!');
     }
     ?>
-  <?php require_once("../components/Footer.php");?>
+  </div>
+  <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
 </body>
 </html>

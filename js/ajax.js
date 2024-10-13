@@ -32,8 +32,25 @@ function enviarFormularioAjax(e){
       }
     })
     .catch(error => {
+      console.log(error.message);
       contenedor.innerHTML = '<div class="text-bg-danger p-3">Error: ' + error.message + '</div>'; // Muestra el error
     });
+
+    /*
+    fetch(action, config)
+    .then(response => response.text()) 
+    .then(response => {
+        console.log(response); 
+        
+        try {
+            let jsonResponse = JSON.parse(response);
+            let contenedor = document.querySelector(".form-rest");
+            contenedor.innerHTML = jsonResponse.message;
+        } catch (e) {
+            console.error("Error al parsear JSON", e);
+        }
+    });
+    */
 }
 
 // Asigna el evento "submit" a los formularios al cargar la página
