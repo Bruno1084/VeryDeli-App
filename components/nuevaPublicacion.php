@@ -64,6 +64,7 @@
                   <div class="custom-file-upload"> <h2 id="addPhoto">Cargar Foto ➕</h2> </div>
                   <select name="photosId[]" id="photosId" multiple hidden>
                   </select>
+                  <div class="invalid-feedback" id="invalid-photo"></div>
                   <div id="photos"></div>
                   
                 </div>

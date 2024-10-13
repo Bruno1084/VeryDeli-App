@@ -140,7 +140,6 @@ function validarPublicacion() {
   const imagen = document.getElementById('addNewPhoto');
   const imagenes = imagen.files;
   const imagenFeedBack = document.getElementById('invalid-photo');
-  const formatosValidos = ['image/png', 'image/jpeg' , 'image/jpg'];
   if (imagenes.length < 1) {
     imagenFeedBack.textContent = 'Ingrese al menos una imagen';
     imagen.classList.add('is-invalid');
