@@ -6,7 +6,7 @@ function renderPublicaciones ($publicaciones) {
 
     $userCache = [];
 ?>
-    <div class='container-fluid text-center border border-black'>
+    <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
                 $authorId = $p['usuario_autor'];
