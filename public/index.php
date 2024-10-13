@@ -11,8 +11,8 @@
   <?php require_once("../components/publicaciones.php");?>
   <div>
     <?php
-    if(isset($_SESSION['nombre'])){
-      echo('Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!');
+    if(isset($_SESSION['user'])){
+      echo('Bienvenido '.$_SESSION['user']['usuario_nombre'].' '.$_SESSION['user']['usuario_apellido'].'!');
     }
     ?>
   
