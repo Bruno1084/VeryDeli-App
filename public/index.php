@@ -15,9 +15,9 @@
       echo('Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!');
     }
     ?>
-  <?php require_once("../components/Footer.php");?>
   
     <?php
+      require_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
       $DB = new DB();
       
       // Fetch the users
