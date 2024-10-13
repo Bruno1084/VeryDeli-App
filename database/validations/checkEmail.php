@@ -1,13 +1,13 @@
 <?php
 
-function checkEmail ($email) {
-    require './database/conection.php';
+function checkEmail ($usuario_correo) {
+    require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $sql = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+    $sql = "SELECT COUNT(*) FROM usuarios WHERE usuario_correo = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bindValue(1, $email, PDO::PARAM_STR);
+    $stmt->bindValue(1, $usuario_correo, PDO::PARAM_STR);
     $stmt->execute();
 
     $count = $stmt->fetchColumn();
@@ -15,4 +15,3 @@ function checkEmail ($email) {
 
     return $count > 0;
 };
-?>

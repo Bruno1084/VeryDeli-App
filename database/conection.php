@@ -16,11 +16,11 @@ class DB {
   private static $PASSWORD;
 
   public function __construct () {
-    self::$HOST = ENV['DB_HOST'];
-    self::$PORT = ENV['DB_PORT'];
-    self::$USER = ENV['DB_USER'];
-    self::$NAME = ENV['DB_NAME'];
-    self::$PASSWORD = ENV['DB_PASSWORD'];
+    self::$HOST = "bjxbq3veaakujbxq3stf-mysql.services.clever-cloud.com";
+    self::$PORT = "3306";
+    self::$USER = "uxvwofh6wijzqx32";
+    self::$NAME = "bjxbq3veaakujbxq3stf";
+    self::$PASSWORD = "U3UIK5YAHiWbmid8E0fh";
   }
 
   public static function getConnection () {
