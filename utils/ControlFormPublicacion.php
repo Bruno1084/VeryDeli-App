@@ -9,7 +9,7 @@
     $txt="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     return substr(str_shuffle($txt),0, $tam);
   }
-  if (isset($_POST['enviado'])) {
+  if (isset($_POST['enviado']) && isset($_POST['photosId'])) {
     require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");
     require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
     $fotos = $_POST["photosId"];
@@ -113,6 +113,8 @@
           }
 				manejarError('true', "Publicacion creada", 'Pubicacion creada con exito', '../public/index.php');
       }
+  } else{
+    manejarError('false', 'Ingrese una imagen', 'Debe ingresar como minimo una imagen, para su publicacion');
   }
   if (!empty($data)) {
     manejarError('false',"Error inesperado", json_encode($data));
