@@ -15,14 +15,17 @@ var clickAdd=function(){
 async function preVisual(e){
     var input=e.target;
     var fotos=input.files;
+    const imagenesFeedBack = document.getElementById('invalid-photo');
     if ((count+fotos.length)<=5 && fotos.length>0) {
         if (formatoFoto(fotos)) {
             await addFotos(fotos);
         } else {
-            alert("Error de formato");
+        input.classList.add('is-invalid');
+        imagenesFeedBack.textContent = "Error de formato";
         }
     } else if(fotos.length>5||(count+fotos.length)>5){
-            alert("Error. Máximo 5 fotos");
+        input.classList.add('is-invalid');
+        imagenesFeedBack.textContent = "Error. Máximo 5 fotos";
         }
 };
 
