@@ -32,11 +32,13 @@ function validarPostulacion(){
 }
 
 (() => {
-  const form = document.querySelectorAll('.form-postularse');
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    if (!validarPostulacion()) {
-      event.stopPropagation();
-    } 
-  }, false);
+  const forms = document.querySelectorAll('.form-postularse');
+  forms.forEach(form => {
+    form.addEventListener('submit', function (event) {  
+      event.preventDefault();
+      if (!validarPostulacion()) {
+        event.stopPropagation();
+      } 
+    }, false);
+  })
 })
