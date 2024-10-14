@@ -129,7 +129,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
       <div>
         <?php
           include_once '../components/post-comentario.php';
-          echo renderPostComentario($username, "");
+          echo renderPostComentario($username, "", $idPublicacion);
         ?>
       </div>
     </div>
