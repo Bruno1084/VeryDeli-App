@@ -140,7 +140,7 @@ function validarPublicacion() {
   const imagen = document.getElementById('addNewPhoto');
   const imagenes = imagen.files;
   const imagenFeedBack = document.getElementById('invalid-photo');
-  if (imagenes.length < 1) {
+  if (imagenes.length == 0) {
     imagenFeedBack.textContent = 'Ingrese al menos una imagen';
     imagen.classList.add('is-invalid');
     isValid = false;
@@ -164,12 +164,4 @@ function validarPublicacion() {
       event.stopPropagation();
     } 
   }, false);
-})();
-const sendForm = async(action,config)=>{
-  return await fetch(action,config)
-  .then(
-      respuesta => respuesta.text()
-  )
-  .then(
-      response=>console.log(response))
-}
+})
