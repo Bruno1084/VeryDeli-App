@@ -137,21 +137,17 @@ function validarPublicacion() {
     contactoFeedback.textContent = '';
   }
 
-  const imagen = document.getElementById('addNewPhoto');
-  const imagenes = imagen.files;
+  const imagenes = document.getElementById('photosId').childElementCount;
   const imagenFeedBack = document.getElementById('invalid-photo');
-  if (imagenes.length == 0) {
+  if (imagenes == 0) {
     imagenFeedBack.textContent = 'Ingrese al menos una imagen';
-    imagen.classList.add('is-invalid');
-    isValid = false;
-  } else if(imagenes.length > 5){
-    imagenFeedBack.textContent = 'Se permiten como maximo 5 imagenes';
     imagen.classList.add('is-invalid');
     isValid = false;
   } else{
     imagen.classList.remove('is-invalid');
     imagen.classList.add('is-valid');
     imagenFeedBack.textContent = "";
+    isValid = true;
   }
   return isValid; 
 }
