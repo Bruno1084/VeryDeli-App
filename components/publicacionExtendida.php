@@ -99,13 +99,6 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
 
       <div>
         <?php
-          include_once '../components/post-comentario.php';
-          echo renderPostComentario($username, "");
-        ?>
-      </div>
-
-      <div>
-        <?php
           include_once '../components/comentario.php';
           $db = new DB();
 
@@ -130,6 +123,13 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
             );
 
           }
+        ?>
+      </div>
+
+      <div>
+        <?php
+          include_once '../components/post-comentario.php';
+          echo renderPostComentario($username, "");
         ?>
       </div>
     </div>
