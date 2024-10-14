@@ -19,7 +19,7 @@
   ?>
   <div>
     <?php
-    if(isset($_SESSION['user'])){
+    if(isset($_SESSION['user']) && !empty($_SESSION['user']['usuario_nombre'])){
       echo('Bienvenido '.$_SESSION['user']['usuario_nombre'].' '.$_SESSION['user']['usuario_apellido'].'!');
     }
     ?>
