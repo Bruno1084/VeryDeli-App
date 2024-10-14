@@ -139,4 +139,3 @@ return ob_get_clean();
 };
 ?>
 
-<script src="/js/postulacion.js"></script>
