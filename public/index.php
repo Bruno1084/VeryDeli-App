@@ -17,13 +17,6 @@
     $publicaciones = $db->getAllPublicaciones();
     echo renderPublicaciones($publicaciones);
   ?>
-  <div>
-    <?php
-    if(isset($_SESSION['user']) && !empty($_SESSION['user']['usuario_nombre'])){
-      echo('Bienvenido '.$_SESSION['user']['usuario_nombre'].' '.$_SESSION['user']['usuario_apellido'].'!');
-    }
-    ?>
-  </div>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
 </body>
