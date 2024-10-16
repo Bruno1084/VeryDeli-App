@@ -136,7 +136,7 @@ function validarPublicacion() {
     contacto.classList.add('is-valid');
     contactoFeedback.textContent = '';
   }
-
+  const imagen = document.getElementById('addNewPhoto');
   const imagenes = document.getElementById('photosId').childElementCount;
   const imagenFeedBack = document.getElementById('invalid-photo');
   if (imagenes == 0) {
