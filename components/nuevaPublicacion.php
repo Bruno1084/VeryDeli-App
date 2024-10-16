@@ -91,8 +91,5 @@
         </div>
     </div> 
   </div>  
-  <script src="/js/formularioPublicaciones.js"></script>
-  <script src="/js/inputFotos.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
 </body>

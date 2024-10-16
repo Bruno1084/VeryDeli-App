@@ -119,3 +119,13 @@ body{
 .publicacionExtendida-container{
     max-width: 45rem;
 }
+
+.publicacionExtendida-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover; 
+}
+
+.imgPubli-container {
+    gap: 1rem; 
+}
