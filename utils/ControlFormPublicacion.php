@@ -52,7 +52,7 @@
         $conexion = null;
         exit;
       }
-      $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_fecha, publicacion_esActivo, usuario_transportista) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 3)");
+      $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       date_default_timezone_set('America/Argentina/Buenos_Aires');
       $fechaActual =  date('Y-m-d H:i:s');
       $stmtPublicacion->bindParam(1, $titulo, PDO::PARAM_STR);
