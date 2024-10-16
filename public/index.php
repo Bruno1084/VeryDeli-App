@@ -3,10 +3,12 @@
 <html lang="en">
 <head>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); ?>
   <title>Very Deli</title>
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
+  
   <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
   
   <!-- Imprime todas las publicaciones en la base de datos -->
