@@ -26,23 +26,35 @@
     echo $usuarioAutor;
     $db = new DB();
     $conexion = $db->getConnection();
+    $datosUsuario = $conexion->query("SELECT * FROM usuarios WHERE usuario_id = $usuarioAutor");
 		// Limitar cantidad de publicaciones
-    if (!$_SESSION['user']['usuario_esResponsable']) {
-      $stmtCantPublicaciones = $conexion->prepare("SELECT * FROM publicaciones WHERE usuario_autor = ? AND publicacion_esActivo = true");
-      $stmtCantPublicaciones->bindParam(1, $usuarioAutor, PDO::PARAM_INT);
-      if ($stmtCantPublicaciones->execute()) {
-        if ($stmtCantPublicaciones->rowCount() > 3) {
-					manejarError('false','Limite excedido', "Has excedido el limite de publicaciones activas.");
-					$stmtCantPublicaciones = null;
-					exit;
-        }
-      } else {
-        $stmtCantPublicaciones = null;
-        manejarError('false',"Error Inesperado", "Ocurrio un error al momento de validar su cantidad de publicaciones");
-        exit;
-        }
+    if ($datosUsuario->rowCount() > 0) {
+      $datos = $datosUsuario->fetch(PDO::FETCH_ASSOC);
+      if($datos['usuario_esResponsable'] != 1) {
+        $stmtCantPublicaciones = $conexion->prepare("SELECT * FROM publicaciones WHERE usuario_autor = ? AND publicacion_esActivo = 1");
+        $stmtCantPublicaciones->bindParam(1, $usuarioAutor, PDO::PARAM_INT);
+        if ($stmtCantPublicaciones->execute()) {
+          if ($stmtCantPublicaciones->rowCount() > 3) {
+            manejarError('false','Limite excedido', "Has excedido el limite de publicaciones activas.");
+            $stmtCantPublicaciones = null;
+            exit;
+          }
+        } else {
+          $stmtCantPublicaciones = null;
+          $datosUsuario = null;
+          manejarError('false',"Error Inesperado", "Ocurrio un error al momento de validar su cantidad de publicaciones");
+          exit;
+          }
       }
-      $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_esActivo, usuario_transportista) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, null)");
+      } else {
+        manejarError('false', 'Error inesperado', 'Ocurrio un error al procesar tu solicitud');
+        $datosUsuario = null;
+        $conexion = null;
+        exit;
+      }
+      $stmtPublicacion = $conexion->prepare("INSERT INTO publicaciones (publicacion_titulo, publicacion_descr, publicacion_peso, publicacion_volumen, publicacion_origen, publicacion_destino, publicacion_nombreRecibe, publicacion_telefono, usuario_autor, publicacion_fecha, publicacion_esActivo, usuario_transportista) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 3)");
+      date_default_timezone_set('America/Argentina/Buenos_Aires');
+      $fechaActual =  date('Y-m-d H:i:s');
       $stmtPublicacion->bindParam(1, $titulo, PDO::PARAM_STR);
       $stmtPublicacion->bindParam(2, $descripcion, PDO::PARAM_STR);
       $stmtPublicacion->bindParam(3, $peso);
@@ -52,6 +64,7 @@
       $stmtPublicacion->bindParam(7, $recibe, PDO::PARAM_STR);
       $stmtPublicacion->bindParam(8, $telContacto, PDO::PARAM_STR);
       $stmtPublicacion->bindParam(9, $usuarioAutor, PDO::PARAM_INT);
+      $stmtCantPublicaciones->bindParam(10, $fechaActual, PDO::PARAM_STR);
       if ($stmtPublicacion->execute()) {
 				$idPub = $conexion->lastInsertId(); // Obtiene el ultimo id insertado
       } else {

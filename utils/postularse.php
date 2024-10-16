@@ -18,26 +18,41 @@
       $conexion = null;
       exit;
     } else {
-      if (!$_SESSION['user']['usuario_esResponsable']) {
-        $stmtCantPostulaciones = $conexion->query("SELECT * FROM postulaciones WHERE usuarios_postulante = $transportista AND postulacion_esActiva = 1");
-        if ($stmtCantPostulaciones->rowCount() == 1) {
-          manejarError('false','Limite alcanzado', "Solo puedes tener una postulacion activa.");
-          $stmtCantPostulaciones = null;
-          $stmtTransportista = null;
-          $conexion = null;
-          exit;
-        } 
+      $datosUsuario = $conexion->query("SELECT * FROM usuarios WHERE usuario_id = $transportista");
+      if ($datosUsuario->rowCount() > 0) {
+        $datos = $datosUsuario->fetch(PDO::FETCH_ASSOC);
+        if($datos['usuario_esResponsable'] != 1){
+          $stmtCantPostulaciones = $conexion->query("SELECT * FROM postulaciones WHERE usuarios_postulante = $transportista AND postulacion_esActiva = 1");
+          if ($stmtCantPostulaciones->rowCount() == 1) {
+            manejarError('false','Limite alcanzado', "Solo puedes tener una postulacion activa.");
+            $stmtCantPostulaciones = null;
+            $stmtTransportista = null;
+            $conexion = null;
+            exit;
+          } 
+        }
+      } else {
+        manejarError('false', 'Error inesperado', 'Ha ocurrido un error al procesar tu solicitud');
+        $stmtCantPostulaciones = null;
+        $stmtTransportista = null;
+        $conexion = null;
+        exit;
       }
     } 
     $stmtAutor = $conexion->query("SELECT usuario_autor FROM publicaciones WHERE publicacion_id = $pubId");
     if ($stmtAutor->rowCount() == 1) {
-      $stmtAutor = null;
-      $conexion = null;
-      manejarError('false', 'Eres el autor', 'No puedes postularte a tu propia publicacion!');
-      exit;
+      $autor = $stmtAutor->fetch(PDO::FETCH_ASSOC);
+      $autor = $autor["usuario_autor"];
+      if($autor == $transportista) {
+        $conexion = null;
+        $stmtAutor = null;
+        manejarError('false', 'Eres el autor', 'No puedes postularte a tu propia publicacion!');
+        exit;
+      }
     }
-
+    $stmtAutor = null;
     $stmtPostularse = $conexion->prepare('INSERT INTO postulaciones (usuarios_postulante, postulacion_precio, postulacion_descr, publicacion_id, postulacion_fecha) VALUES (?, ?, ?, ?, ?)');
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
     $fechaActual = date('Y-m-d H:i:s');
     $stmtPostularse->bindParam(1, $transportista, PDO::PARAM_INT);
     $stmtPostularse->bindParam(2, $monto, PDO::PARAM_STR);
