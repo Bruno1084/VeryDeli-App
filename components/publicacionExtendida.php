@@ -1,8 +1,9 @@
 <?php
-function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
-
+function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
-
+  $db = new DB();
+  $imagenes = getAllImagenesFromPublicacion($idPublicacion);  
   $commentCache = [];
   ?>
     <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
@@ -18,8 +19,8 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
         </div>
         <div class='col-6 mt-1 text-end lh-1'>
           <div>
-            <p>12:30</p>
-            <p>12703/20</p>
+            <p> <?php echo(date('H:i', strtotime($date)))?> </p>
+            <p> <?php echo(date('d/m/Y', strtotime($date)))?> </p>
           </div>
         </div>
       </div>
@@ -58,8 +59,14 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
 
       <div class='row'>
         <div class='col-12'>
-          <div class='border border-dark-3'>
-            <img class='img u_photo w-50 h-50' src='<?php echo $images; ?>' alt='product-image'>
+          <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start'>
+            <?php if (!empty($imagenes)) { //Condicional necesario porque actualmente existen publicaciones sin imagen?> 
+              <?php foreach ($imagenes as $imagen) { ?>
+                <img class='img u_photo' src='<?php echo($imagen['imagen_url']); ?>' alt='product-image'>
+              <?php } ?>
+            <?php } else { ?>
+              <p>No hay imágenes disponibles para esta publicación.</p>
+            <?php } ?>
           </div>
         </div>
       </div>
