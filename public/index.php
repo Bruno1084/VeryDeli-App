@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php") ?>
   <title>Very Deli</title>
 </head>
 <body>
