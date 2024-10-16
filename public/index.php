@@ -13,9 +13,7 @@
   <!-- Imprime todas las publicaciones en la base de datos -->
   <?php 
     require_once("../components/publicaciones.php");
-    $db = new DB();
-    $publicaciones = $db->getAllPublicaciones();
-    echo renderPublicaciones($publicaciones);
+    echo renderPublicaciones();
   ?>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
