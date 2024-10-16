@@ -1,6 +1,6 @@
 <?php
 function getAllComentariosFromPublicacion ($idPublicacion) {
-  require($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
+  require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
 
   $DB = new DB();
   $conexion = $DB->getConnection();
