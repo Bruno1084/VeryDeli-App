@@ -1,6 +1,8 @@
 <?php
 function renderPublicaciones ($publicaciones) {
-    include "../components/publicacionExtendida.php";
+    include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");
+    include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+
     $db = new DB();
     ob_start();
 
@@ -14,7 +16,7 @@ function renderPublicaciones ($publicaciones) {
                 if (isset($userCache[$authorId])) {
                     $user = $userCache[$authorId];
                 } else {
-                    $user = $db->getUsuario($authorId);
+                    $user = getUsuario($authorId);
 
                     $userCache[$authorId] = $user;
                 }
