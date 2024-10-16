@@ -1,7 +1,23 @@
 <?php
-function renderPublicaciones ($publicaciones) {
+function renderPublicaciones () {
     include "../components/publicacionExtendida.php";
+    $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $limit = 2; //Limite de publicaciones a mostrar
+    $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
+    
     $db = new DB();
+    $conexion = $db->getConnection();
+    //Obtiene los datos de la publicacion y del usuario autor
+    $publicacionesStmt = $conexion->query("
+    SELECT publicaciones.*, usuarios.usuario_nombre, usuarios.usuario_apellido, usuarios.usuario_localidad 
+    FROM publicaciones
+    JOIN usuarios ON publicaciones.usuario_autor = usuarios.usuario_id
+    LIMIT $limit OFFSET $offset;
+    ");
+    $publicaciones = $publicacionesStmt->fetchAll(PDO::FETCH_ASSOC);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
+    $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
+    $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
 
     $userCache = [];
@@ -9,23 +25,14 @@ function renderPublicaciones ($publicaciones) {
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
-                $authorId = $p['usuario_autor'];
-
-                if (isset($userCache[$authorId])) {
-                    $user = $userCache[$authorId];
-                } else {
-                    $user = $db->getUsuario($authorId);
-
-                    $userCache[$authorId] = $user;
-                }
-
-                $username = $user['usuario_nombre'] . " " . $user['usuario_apellido'];
-                $userLocation = $user['usuario_localidad'];
+                $username = $p['usuario_nombre'] . " " . $p['usuario_apellido'];
+                $userLocation = $p['usuario_localidad'];
 
                 echo renderPublicacionExtendida(
                     $p["publicacion_id"],
                     $username,
                     "",
+                    $p['publicacion_fecha'],
                     $userLocation,
                     $p["publicacion_descr"],
                     $p["publicacion_peso"],
@@ -36,6 +43,33 @@ function renderPublicaciones ($publicaciones) {
             };
         ?>
     </div>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <?php if ($pagina > 1) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <?php } ?>
+
+            <?php for ($i = 1; $i <= $paginasTotales; $i++) { ?>
+                <li class="page-item <?php echo $i == $pagina ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+            <?php } ?>
+            
+            <?php if ($pagina < $paginasTotales) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?php echo $pagina + 1; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+    </nav>
 <?php
     return ob_get_clean();
 };
