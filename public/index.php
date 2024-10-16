@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php") ?>
   <title>Very Deli</title>
 </head>
 <body>
@@ -13,8 +12,9 @@
   <!-- Imprime todas las publicaciones en la base de datos -->
   <?php 
     require_once("../components/publicaciones.php");
-    $db = new DB();
-    $publicaciones = $db->getAllPublicaciones();
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllPublicaciones.php");
+    $publicaciones = getAllPublicaciones();
+    
     echo renderPublicaciones($publicaciones);
   ?>
   <div>

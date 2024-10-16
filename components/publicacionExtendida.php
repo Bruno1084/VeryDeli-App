@@ -100,9 +100,12 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
       <div>
         <?php
           include_once '../components/comentario.php';
+          include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
+          include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+
           $db = new DB();
 
-          $comentarios = $db->getAllComentariosFromPublicacion($idPublicacion);
+          $comentarios = getAllImagenesFromPublicacion($idPublicacion);
 
           foreach ($comentarios as $c) {
             $autorId = $c['usuario_id'];
@@ -110,7 +113,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $us
             if (isset($commentCache[$autorId])) {
               $user = $commentCache[$autorId];
             } else {
-              $user = $db->getUsuario($autorId);
+              $user = getUsuario($autorId);
               $commentCache[$autorId] = $user;
             };
 
