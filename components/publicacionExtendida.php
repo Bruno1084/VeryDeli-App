@@ -112,7 +112,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
 
           $db = new DB();
 
-          $comentarios = getAllImagenesFromPublicacion($idPublicacion);
+          $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
           foreach ($comentarios as $c) {
             $autorId = $c['usuario_id'];
