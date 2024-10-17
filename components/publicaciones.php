@@ -1,20 +1,17 @@
 <?php
 function renderPublicaciones () {
-    include "../components/publicacionExtendida.php";
+    include_once "../components/publicacionExtendida.php";
+    include_once "../utils/get/getAllPublicaciones.php";
+
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 2; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
     $db = new DB();
     $conexion = $db->getConnection();
-    //Obtiene los datos de la publicacion y del usuario autor
-    $publicacionesStmt = $conexion->query("
-    SELECT publicaciones.*, usuarios.usuario_nombre, usuarios.usuario_apellido, usuarios.usuario_localidad 
-    FROM publicaciones
-    JOIN usuarios ON publicaciones.usuario_autor = usuarios.usuario_id
-    LIMIT $limit OFFSET $offset;
-    ");
-    $publicaciones = $publicacionesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $publicaciones = getAllPublicaciones(5);
+
     $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
