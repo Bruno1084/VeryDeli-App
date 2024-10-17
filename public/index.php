@@ -6,7 +6,7 @@
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php") ?>
   <title>Very Deli</title>
 </head>
-<body>
+<body style="color: D9D9D9;">
   <?php require_once("../components/Header.php");?>
   <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
   
