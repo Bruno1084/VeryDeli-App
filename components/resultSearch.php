@@ -12,8 +12,13 @@
             width: 400px;
             height: 300px;
         }
-        #info {
-            margin-top: 10px;
+        #direcciones {
+            display:flex;
+        }
+        #direcciones div div{
+            display: flex;
+            justify-content: space-between;
+            margin:10px;
         }
         #btn-container {
             height:30px;
@@ -24,155 +29,79 @@
             z-index: 1000; /* Asegura que el botón esté por encima del mapa */
         }
 
-        #btn-centra-mapa {
-            height:100%;
-            width:100%;
+        #btn-centrar-mapa {
+            height:auto;
+            width:auto;
             background-color: white;
             border:2px solid rgba(0, 0, 0, 0.2);
             color: black;
-            padding: 10px;
+            padding: 1px;
             cursor: pointer;
             border-radius: 5px;
         }
     </style>
 
-
-    <h2>Mapa interactivo</h2>
-    <div id="map"></div>
-    <div id="btn-container">
-        <button id="btn-centra-mapa" onclick="centrarEnMiUbicacion()"></button>
-    </div>
-    <div id="info">
-    <h3>Coordenadas seleccionadas:</h3>
-    <p id="coords">Haga clic en el mapa para obtener las coordenadas.</p>
-    <a href="https://www.google.com/maps/place/-33.268538232410904,-66.30599319934846">abrir maps</a>
-    </div>
+    <form action="../utils/ubicacion.php" method="post">
+        <div>
+            <h2>Mapa interactivo</h2>
+            <div id="map"></div>
+            <div id="btn-container">
+                <img src="../assets/gps-location-off.png" id="btn-centrar-mapa">
+            </div>
+            <div id="direcciones">
+                <div>
+                    <h2>Origen:</h2>
+                    <div>
+                        <label for="origen_barrio">Barrio:</label>
+                        <input type="text" name="origen_barrio">
+                    </div>
+                    <div>
+                        <label for="origen_manzana_piso">Manzana/Piso:</label>
+                        <input type="text" name="origen_manzana_piso">
+                    </div>
+                    <div>
+                        <label for="origen_casa_depto">Casa/Depto:</label>
+                        <input type="text" name="origen_casa_depto">
+                    </div>
+                    <input type="text" name="origen_coordenadas" id="coordsOrigen" hidden>
+                </div>
+                <div>
+                    <h2>Destino:</h2>
+                    <div>
+                        <label for="destino_barrio">Barrio:</label>
+                        <input type="text" name="destino_barrio">
+                    </div>
+                    <div>
+                        <label for="destino_manzana_piso">Manzana/Piso:</label>
+                        <input type="text" name="destino_manzana_piso">
+                    </div>
+                    <div>
+                        <label for="destino_casa_depto">Casa/Depto:</label>
+                        <input type="text" name="destino_casa_depto">
+                    </div>
+                    <input type="text" name="destino_coordenadas" id="coordsDestino" hidden>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
     <div>
     <h3>Búsqueda de lugar:</h3>
     <input type="text" id="search" placeholder="Ingrese un lugar">
     <button onclick="buscarLugar()">Buscar</button>
     </div>
 
-
-
-
-    <div>
-        <?php
-        
-        session_start(); 
-        /*$query = urlencode("Cerro de la Cruz, San Luis, Argentina");
-        $url="https://graphhopper.com/api/1/geocode?q=" . urlencode($query)."&key=96865858-2f5d-4a0a-9c0b-d56b3f1e20cc";
-        */
-            $query = array(
-                "q" => "San Luis, San Luis, Argentina",
-                "locale" => "",
-                "limit" => "5",
-                "provider" => "default",
-                "key" => "96865858-2f5d-4a0a-9c0b-d56b3f1e20cc"
-            );
-            
-            $curl = curl_init();
-            
-            curl_setopt_array($curl, [
-                CURLOPT_URL => "https://graphhopper.com/api/1/geocode?" . http_build_query($query),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_SSL_VERIFYPEER => false,
-            ]);
-            
-            $response = curl_exec($curl);
-            $error = curl_error($curl);
-            
-            curl_close($curl);
-            
-            if ($error) {
-                echo "cURL Error #:" . $error;
-            } else {
-                
-                $res=json_decode($response);
-                
-                $_SESSION["Ubicacion_Defecto"]=array(
-                    "Latitud"=>$res->hits[1]->point->lat,
-                    "Longitud"=>$res->hits[1]->point->lng);
-            }
-        ?>
-    </div>
-    <div>
-        <?php
-
-            $query = array(
-                "key" => "96865858-2f5d-4a0a-9c0b-d56b3f1e20cc"
-            );
-            
-            $curl = curl_init();
-            
-            $payload = array(
-                "profile" => "car",
-                "points" => array(
-                array(
-                    -32.883167,
-                    -65.222558
-                ),
-                array(
-                    -32.916652,
-                    -65.3721781
-                )
-                ),
-                "snap_preventions" => array(
-                "motorway"
-                ),
-                "details" => array(
-                "road_class",
-                "surface"
-                )
-            );
-            
-            curl_setopt_array($curl, [
-                CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json"
-                ],
-                CURLOPT_POSTFIELDS => json_encode($payload),
-                CURLOPT_PORT => "",
-                CURLOPT_URL => "https://graphhopper.com/api/1/route?" . http_build_query($query),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_SSL_VERIFYPEER => false,
-            ]);
-            
-            $response = curl_exec($curl);
-            $error = curl_error($curl);
-            
-            curl_close($curl);
-            
-            if ($error) {
-                echo "cURL Error #:" . $error;
-            } else {
-                //echo $response;
-            }
-        ?>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     
     <script>
-        var vertical=<?php echo $_SESSION["Ubicacion_Defecto"]["Latitud"]?>;
-        var horizontal=<?php echo $_SESSION["Ubicacion_Defecto"]["Longitud"]?>;
+        var vertical=-33.3020736;
+        var horizontal=-66.3369577;
         var origen=null;
         var destino=null;
         var ruta = null;
         var miUbicacion = null;
-        //Icono color Rojo
+
+        //Icono color Rojo, Origen
         var redIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
             iconSize: [25, 41],
@@ -181,7 +110,8 @@
             shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
             shadowSize: [41, 41]
         });
-        //Icono color Verde
+        
+        //Icono color Verde, Destino
         var greenIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
             iconSize: [25, 41],
@@ -190,10 +120,23 @@
             shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
             shadowSize: [41, 41]
         });
+        
+        //Icono color Azul, My Location
+        var blueIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+            iconSize: [15, 25],
+            iconAnchor: [7, 25],
+            popupAnchor: [1, -21],
+            shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+            shadowSize: [25, 25]
+        });
+        
         //Distintas capas para el mapa
         var porDefecto = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
         var simple = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png');
         var satelite = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}@2x.jpg?key=OpTD9h2MxIr6P9bmwMLz');
+        
+        
         // Inicializa el mapa centrado en una ubicación por defecto
         var map = L.map('map',{
             center:[vertical,horizontal],
@@ -217,7 +160,6 @@
             if(origen==null||destino==null){
                 let lat = e.latlng.lat;
                 let lng = e.latlng.lng;
-                document.getElementById('coords').textContent = 'Latitud: ' + lat + ', Longitud: ' + lng;
                 if(origen==null){
                     if(ruta!=null&&destino==null){
                         if(ruta!=null){
@@ -225,10 +167,12 @@
                             ruta=null;
                         };
                     }
+                    document.getElementById('coordsOrigen').value=lat+','+lng;
                     origen = L.marker([lat, lng],{ icon: redIcon }).addTo(map).bindPopup('Origen').openPopup();
                     if(destino!=null) obtenerRuta();
                     origen.on('click', function(event) {
                         // Eliminar el origen anterior
+                        document.getElementById('coordsOrigen').value="";
                         map.removeLayer(event.target);
                         origen=null;
                         // Eliminar la ruta anterior si existe
@@ -245,10 +189,12 @@
                             ruta=null;
                         };
                     }
-                    destino = L.marker([lat, lng]).addTo(map).bindPopup('Destino').openPopup();
+                    document.getElementById('coordsDestino').value=lat+','+lng;
+                    destino = L.marker([lat, lng],{ icon: greenIcon }).addTo(map).bindPopup('Destino').openPopup();
                     if(origen!=null) obtenerRuta();
                     destino.on('click', function(event) {
                         // Eliminar el destino anterior
+                        document.getElementById('coordsDestino').value="";
                         map.removeLayer(event.target);
                         destino=null;
                         // Eliminar la ruta anterior si existe
@@ -281,7 +227,7 @@
                     // Dibujar la ruta en el mapa
                     trazarRuta(leafletCoords);
                 })
-            .catch(error => console.error('Error al obtener la ruta:', error));
+            .catch(error => alert('Error al obtener la ruta'));
         }
         function trazarRuta(leafletCoords){
             if(ruta!=null){
@@ -319,21 +265,26 @@
             .catch(error => console.log('Error al buscar el lugar:', error));
         }
 
+        var btnCentrar=document.querySelector("#btn-centrar-mapa");
+        btnCentrar.addEventListener("click",()=>{
+            btnCentrar.src="../assets/gps-location-on.png";
+            centrarEnMiUbicacion();
+        });
+
         function centrarEnMiUbicacion() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    
                     // Centra el mapa en la ubicación actual
-                    map.setView([lat, lon], 13);  // 13 es el nivel de zoom que puedes ajustar
+                    map.setView([lat, lon], 25);  // 13 es el nivel de zoom que puedes ajustar
                 
                     // Añadir un marcador en la ubicación actual
                     if(miUbicacion!=null){
                         map.removeLayer(miUbicacion);
                         miUbicacion=null;
                     }
-                    miUbicacion=L.marker([lat, lon],{icon: greenIcon}).addTo(map)
+                    miUbicacion=L.marker([lat, lon],{icon: blueIcon}).addTo(map)
                         .bindPopup("Estás aquí.")
                         .openPopup();
                 }, (error) => {
@@ -344,6 +295,25 @@
             }
         }
 
+        function getMyLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const myLocation={lat:position.coords.latitude,lng: position.coords.longitude};
+                    return myLocation;
+                }, (error) => {
+                    console.log("No se pudo obtener la ubicación: " + error.message);
+                });
+            } else {
+                alert("Geolocalización no soportada por este navegador.");
+            }
+            return false;
+        }
+        function redirectGPS(){
+            myLocation=getMyLocation();
+            if(myLocation!=false){
+
+            }
+        }
     </script>
 </body>
 </html>
