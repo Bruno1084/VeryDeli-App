@@ -90,6 +90,7 @@ CREATE TABLE `comentarios` (
     `usuario_id` int  NOT NULL ,
     `comentario_mensaje` varchar(500)  NOT NULL ,
     `comentario_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `comentario_esActivo` tinyint(1) NOT NULL,
     PRIMARY KEY (
         `comentario_id`
     )

@@ -136,22 +136,18 @@ function validarPublicacion() {
     contacto.classList.add('is-valid');
     contactoFeedback.textContent = '';
   }
-
   const imagen = document.getElementById('addNewPhoto');
-  const imagenes = imagen.files;
+  const imagenes = document.getElementById('photosId').childElementCount;
   const imagenFeedBack = document.getElementById('invalid-photo');
-  if (imagenes.length < 1) {
+  if (imagenes == 0) {
     imagenFeedBack.textContent = 'Ingrese al menos una imagen';
-    imagen.classList.add('is-invalid');
-    isValid = false;
-  } else if(imagenes.length > 5){
-    imagenFeedBack.textContent = 'Se permiten como maximo 5 imagenes';
     imagen.classList.add('is-invalid');
     isValid = false;
   } else{
     imagen.classList.remove('is-invalid');
     imagen.classList.add('is-valid');
     imagenFeedBack.textContent = "";
+    isValid = true;
   }
   return isValid; 
 }
@@ -164,12 +160,4 @@ function validarPublicacion() {
       event.stopPropagation();
     } 
   }, false);
-})();
-const sendForm = async(action,config)=>{
-  return await fetch(action,config)
-  .then(
-      respuesta => respuesta.text()
-  )
-  .then(
-      response=>console.log(response))
-}
+})
