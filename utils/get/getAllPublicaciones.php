@@ -1,5 +1,5 @@
 <?php
-function getAllPublicaciones () {
+function getAllPublicaciones ($limit = 0) {
   require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
   
   $DB = new DB();
@@ -27,8 +27,18 @@ function getAllPublicaciones () {
           usuarios.usuario_nombre, 
           usuarios.usuario_apellido, 
           usuarios.usuario_localidad
-          ;";
+          ";
+
+  if ($limit > 0) {
+    $sql .= " LIMIT ?";
+  };
+
   $stmt = $conexion->prepare($sql);
+
+  if ($limit > 0) {
+    $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+  };
+
   $stmt->execute();
 
   $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
