@@ -15,10 +15,13 @@
         #direcciones {
             display:flex;
         }
+        #direcciones h2{
+            margin: 10px 5px;
+        }
         #direcciones div div{
             display: flex;
             justify-content: space-between;
-            margin:10px;
+            margin:5px 10px 10px;
         }
         #btn-container {
             height:30px;
@@ -88,6 +91,12 @@
     <div>
     <h3>Búsqueda de lugar:</h3>
     <input type="text" id="search" placeholder="Ingrese un lugar">
+    <input type="radio" name="distanciaBusqueda" id="500m" value="500" checked>
+    <label for="500m">500</label>
+    <input type="radio" name="distanciaBusqueda" id="1000m" value="1000">
+    <label for="1000m">1000</label>
+    <input type="radio" name="distanciaBusqueda" id="1500m" value="1500">
+    <label for="1500m">1500</label>
     <button onclick="buscarLugar()">Buscar</button>
     </div>
 
@@ -100,6 +109,8 @@
         var destino=null;
         var ruta = null;
         var miUbicacion = null;
+        var resBusqueda = null
+        var circle = null;
 
         //Icono color Rojo, Origen
         var redIcon = L.icon({
@@ -243,6 +254,7 @@
 
         // Función para buscar un lugar usando Nominatim
         function buscarLugar() {
+            var radio=document.querySelector("input[name='distanciaBusqueda']:checked");
             var lugar = document.getElementById('search').value;
             var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + lugar;
 
@@ -252,32 +264,54 @@
                 if (data.length > 0) {
                 var lat = data[0].lat;
                 var lon = data[0].lon;
-                map.setView([lat, lon], 13); // Recentrar mapa en el resultado
-                marker = L.marker([lat, lon]).addTo(map).bindPopup('Ubicación: ' + lugar).openPopup();
-                marker.on('click', function(e) {
+                if(resBusqueda!=null){
+                    map.removeLayer(resBusqueda);
+                }
+                if(circle!=null){
+                    map.removeLayer(circle);
+                }
+                console.log(radio.value);
+                switch(radio.value){
+                    case("500"): map.setView([lat, lon], 15);break; // Recentrar mapa en el resultado
+                    case("1000"): map.setView([lat, lon], 14);break; // Recentrar mapa en el resultado
+                    case("1500"): map.setView([lat, lon], 13);break; // Recentrar mapa en el resultado
+                    default: map.setView([lat, lon], 10); // Recentrar mapa en el resultado
+                }
+                
+                resBusqueda = L.marker([lat, lon]).addTo(map).bindPopup('Ubicación: ' + lugar).openPopup();
+                circle = L.circle([lat,lon], {
+                    color: 'blue',
+                    opacity:0.8,
+                    fillColor: '#0003ff',
+                    fillOpacity: 0.3,
+                    radius: radio.value
+                }).addTo(map);
+                resBusqueda.on('click', function(e) {
                     map.removeLayer(e.target);
+                    map.removeLayer(circle);
+                    resBusqueda=null;
+                    circle=null;
                 });
-                document.getElementById('coords').textContent = 'Latitud: ' + lat + ', Longitud: ' + lon;
                 } else {
                 alert('Lugar no encontrado');
                 }
             })
-            .catch(error => console.log('Error al buscar el lugar:', error));
+            .catch(error => alert('Error al buscar el lugar:', error));
         }
 
         var btnCentrar=document.querySelector("#btn-centrar-mapa");
         btnCentrar.addEventListener("click",()=>{
             btnCentrar.src="../assets/gps-location-on.png";
-            centrarEnMiUbicacion();
+            centrarEnMiUbicacion(btnCentrar);
         });
 
-        function centrarEnMiUbicacion() {
+        function centrarEnMiUbicacion(btnCentrar) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
                     // Centra el mapa en la ubicación actual
-                    map.setView([lat, lon], 25);  // 13 es el nivel de zoom que puedes ajustar
+                    map.setView([lat, lon], 25);  // 25 es el nivel de zoom que puedes ajustar
                 
                     // Añadir un marcador en la ubicación actual
                     if(miUbicacion!=null){
@@ -288,10 +322,12 @@
                         .bindPopup("Estás aquí.")
                         .openPopup();
                 }, (error) => {
-                    console.log("No se pudo obtener la ubicación: " + error.message);
+                    alert("No se pudo obtener la ubicación");
+                    btnCentrar.src="../assets/gps-location-off.png";
                 });
             } else {
                 alert("Geolocalización no soportada por este navegador.");
+                btnCentrar.src="../assets/gps-location-off.png";
             }
         }
 
