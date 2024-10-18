@@ -59,19 +59,19 @@
             <div class="publicacion_cuerpo col-12">
                 <div class="publication_info col-12">
                     <div>
-                        <p>Detalles del producto:</p>
+                        <p><b>Detalles del producto:</b></p>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit voluptate, veritatis, quis tempore laudantium dicta a libero esse fugiat eius impedit, doloribus quaerat sapiente reprehenderit quo iusto molestiae recusandae aspernatur ut. Itaque hic distinctio, voluptas tempora quisquam id veritatis eius?</p>
                     </div>
                     <div>
-                        <p>Peso aproximado:</p>
+                        <p><b>Peso Maximo:</b></p>
                         <p>000.00Kg</p>
                     </div>
                     <div class="publication_location col-12">
-                        <p class="publication_origin">Origen:</br>ipsum dolor sit, amet consectetur adipisicing elit.</p>
-                        <p class="publication_destiny">Destino:</br>ipsum dolor sit amet.</p>
+                        <p class="publication_origin"><b>Origen:</b></br>ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                        <p class="publication_destiny"><b>Destino</b></br>ipsum dolor sit amet.</p>
                     </div>
                     <div class="col-12 publicacion_postularse">
-                        <button name="postularse">Postularse</button>
+                        <button class="btn" name="postularse">Postularse</button>
                     </div>
                 </div>
             </div>

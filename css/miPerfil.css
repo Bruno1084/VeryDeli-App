@@ -148,7 +148,7 @@ dialog::-webkit-scrollbar-thumb{
 .postulacion{
     display:flex;
     justify-content:space-around;
-    border-top:solid 0.3vh black;
+    /* border-top:solid 0.3vh black; */
 }
 .postulacion:hover{
     cursor:pointer;
@@ -169,7 +169,7 @@ aside{
     border-radius: 8px;
     height: fit-content;
     margin: 5vh 0;
-    color:black;
+    color:#FEFFFE;
 }
 .perfil_user{
     padding:1vh;
@@ -180,11 +180,11 @@ aside{
 .perfil_user .user_photo img{
     width:50%;
     border-radius:50%;
-    background-color:black;
+    background-color:#FEFFFE;
 }
 .perfil .user_name{
     text-align:center;
-    border-bottom:solid 0.3vh black;
+    border-bottom:solid 0.3vh #FEFFFE;
 }
 .perfil_links{
     display:grid;
@@ -228,7 +228,7 @@ aside{
 
 .btn{
     background-color:#F4F2EE;
-    color: #FFFFFF;
+    color: #000000;
     border-radius: 30px;
     width: 150px;
     font-weight: bold;
