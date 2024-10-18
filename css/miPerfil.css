@@ -1,7 +1,7 @@
 
 .u_photo{
     width:10vh;
-    background-color:black;
+    /* background-color:black; */
     border-radius: 50%;
 }
 .user_photo{
@@ -28,7 +28,7 @@
 }
 .publicacion_cabecera{
     display:flex;
-    border-bottom:solid 0.4vh black;
+    border-radius: 8px;
     justify-content: space-around;
 }
 .publicacion_cabecera .col-10{
@@ -40,17 +40,16 @@
     align-items:center;
 }
 .publicacion{
-    border:solid 0.4vh black;
-    border-radius:12px;
+    border-radius: 8px;
     margin: 5vh;
     padding: 2vh;
-    background-color:antiquewhite;
+    background-color:#FEFFFE;
 }
 [name=publicacion]:hover{
     cursor:pointer;
 }
 .publicacion p{
-    color:black;
+    /* color:black; */
     margin-bottom:0.4vh;
 }
 
@@ -66,7 +65,7 @@ dialog{
     margin-bottom:1vh;
 }
 .carousel-inner{
-    border:solid 0.4vh black;
+    border-radius: 8px;
     border-radius:5%;
 }
 .img-fluid{
@@ -86,12 +85,12 @@ dialog{
 .accordion{
     --bs-accordion-btn-focus-box-shadow:none;
     --bs-accordion-active-bg:#fff;
-    --bs-accordion-active-color:#000;
+    --bs-accordion-active-color:#aaaaaa; 
     --bs-accordion-body-padding-y:0.3rem;
 }
 .comentario{
     display:flex;
-    border-bottom:solid 0.3vh black;
+    border-bottom:solid 4px #D9D9D9; 
 }
 .comentario:hover{
     cursor:pointer;
@@ -144,6 +143,7 @@ dialog::-webkit-scrollbar-thumb{
 .cuerpo{
     display:flex;
     justify-content:space-around;
+    background-color: #D9D9D9;
 }
 .postulacion{
     display:flex;
@@ -165,7 +165,7 @@ dialog::-webkit-scrollbar-thumb{
     padding:1vh;
 }
 aside{
-    background-color: antiquewhite;
+    background-color: #FEFFFE;
     border: solid 0.4vh black;
     border-radius: 12px;
     height: fit-content;
