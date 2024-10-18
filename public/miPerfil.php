@@ -31,7 +31,7 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                <img class="img-fluid" src="/assets/rating(0).png" alt="rate">
+                <img class="img-fluid" src="/assets/rating(0).svg" alt="rate">
                 <p>0.0 de 0 calificaciones</p>
             </div>
         </div>
@@ -117,7 +117,7 @@
                                     <form class="comentario_form">
                                         <div class="col-12">
                                             <textarea class="col-9 form-control" placeholder="Agregar un comentario" cols="auto" rows="5"></textarea>
-                                            <input class="col-auto" id="enviar_A" type="submit" value="Publicar" class="item">
+                                            <input class="col-auto btn" id="enviar_A" type="submit" value="Publicar" class="item">
                                         </div>
                                     </form>
                                 </div>

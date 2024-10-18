@@ -2,7 +2,7 @@
 .u_photo{
     width:10vh;
     /* background-color:black; */
-    border-radius: 50%;
+   border-radius: 8px; 
 }
 .user_photo{
     display:flex;
@@ -136,7 +136,7 @@ dialog::-webkit-scrollbar{
     
 }
 dialog::-webkit-scrollbar-thumb{
-    background-color: darkorange;
+    background-color: #FEFFFE;
     border-radius:12px;
     padding:0.2vh;
 }
@@ -166,7 +166,6 @@ dialog::-webkit-scrollbar-thumb{
 }
 aside{
     background-color: #FEFFFE;
-    border: solid 0.4vh black;
     border-radius: 12px;
     height: fit-content;
     margin: 5vh 0;
@@ -225,4 +224,17 @@ aside{
 .perfil_calificacion .calificacion_puntaje p{
     position:relative;
     top:-8vh;
+}
+
+.btn{
+    background-color:#F4F2EE;
+    color: #FFFFFF;
+    border-radius: 30px;
+    width: 150px;
+    font-weight: bold;
+}
+
+.btn:hover{
+    color: #FFFFFF;
+    background-color: #4B0082;
 }
