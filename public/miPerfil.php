@@ -395,9 +395,9 @@
             </div>
         </div>
 
-        <div class="cerrada publicacion" name="publicacion" id="publicacion-N_C">
+      <!--   <div class="cerrada publicacion" name="publicacion" id="publicacion-N_C">
 
-        </div>
+        </div> -->
 
         <dialog class="cerrada publicacion col-7" name="publicacion_D" id="publicacion-N_CD">
             <div class="publicacion_cabecera col-12">
@@ -552,9 +552,9 @@
         </dialog>
 
 
-        <div class="finalizada publicacion" name="publicacion" id="publicacion-N_F">
+     <!--    <div class="finalizada publicacion" name="publicacion" id="publicacion-N_F">
 
-        </div>
+        </div> -->
 
         <dialog class="finalizada publicacion col-7" name="publicacion_D" id="publicacion-N_FD">
             <div class="publicacion_cabecera col-12">

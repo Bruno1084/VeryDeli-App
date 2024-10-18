@@ -166,7 +166,7 @@ dialog::-webkit-scrollbar-thumb{
 }
 aside{
     background-color: #FEFFFE;
-    border-radius: 12px;
+    border-radius: 8px;
     height: fit-content;
     margin: 5vh 0;
     color:black;
