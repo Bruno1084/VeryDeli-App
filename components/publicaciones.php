@@ -10,7 +10,7 @@ function renderPublicaciones () {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicaciones(5);
+    $publicaciones = getAllPublicaciones(5, $offset);
 
     $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();

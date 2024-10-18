@@ -1,5 +1,5 @@
 <?php
-function getAllPublicaciones ($limit = 0) {
+function getAllPublicaciones ($limit = 0, $offset = 0) {
   require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
   
   $DB = new DB();
@@ -33,11 +33,19 @@ function getAllPublicaciones ($limit = 0) {
     $sql .= " LIMIT ?";
   };
 
+  if($offset > 0){
+    $sql .= "OFFSET ?";
+  }
+
   $stmt = $conexion->prepare($sql);
 
   if ($limit > 0) {
     $stmt->bindValue(1, $limit, PDO::PARAM_INT);
   };
+
+  if ($offset > 0){
+    $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+  }
 
   $stmt->execute();
 
