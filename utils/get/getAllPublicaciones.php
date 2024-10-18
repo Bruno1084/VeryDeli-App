@@ -34,7 +34,7 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
   };
 
   if($offset > 0){
-    $sql .= "OFFSET ?";
+    $sql .= " OFFSET ?";
   }
 
   $stmt = $conexion->prepare($sql);
@@ -45,7 +45,7 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
 
   if ($offset > 0){
     $stmt->bindValue(2, $offset, PDO::PARAM_INT);
-  }
+  };
 
   $stmt->execute();
 

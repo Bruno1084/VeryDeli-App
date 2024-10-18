@@ -4,7 +4,7 @@ function renderPublicaciones () {
     include_once "../utils/get/getAllPublicaciones.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 2; //Limite de publicaciones a mostrar
+    $limit = 5; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
     $db = new DB();
