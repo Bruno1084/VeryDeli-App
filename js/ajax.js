@@ -32,7 +32,6 @@ function enviarFormularioAjax(e){
       }
     })
     .catch(error => {
-      console.log(error.message);
       contenedor.innerHTML = '<div class="text-bg-danger p-3">Error: ' + error.message + '</div>'; // Muestra el error
     });
 
