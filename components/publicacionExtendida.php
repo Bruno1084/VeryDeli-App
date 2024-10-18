@@ -2,7 +2,6 @@
 function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
-  $db = new DB();
   $imagenes = getAllImagenesFromPublicacion($idPublicacion);  
   $commentCache = [];
   ?>
@@ -70,7 +69,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           </div>
         </div>
       </div>
-
+      <!-- MODAL POSTULARSE -->
       <div class="modal fade" id="modalPostularse<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalPostularseLabel<?php echo $idPublicacion ?>" tabindex="-1">
         <div class="modal-dialog modal-xl">
           <div class="modal-content bg-modalPublicacion">
@@ -79,17 +78,17 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
               <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-              <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion()">
+              <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion(<?php echo $idPublicacion?>)">
                 <div class="row">
                   <div class="col-12">
-                    <input type="number"  step="0.01" class="form-control mb-3" id="postulacion-monto" name="monto" placeholder="Monto">
-                    <div class="invalid-feedback" id="invalid-monto"></div>
+                    <input type="number"  step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="Monto">
+                    <div class="invalid-feedback" id="invalid-monto<?php echo $idPublicacion ?>"></div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <textarea style="height: 120px; max-height:120px" class="form-control" id="postulacion-descripcion" name="descripcion" placeholder="Descripcion"></textarea>
-                    <div class="invalid-feedback" id="invalid-pDescripcion"></div>
+                    <textarea style="height: 120px; max-height:120px" class="form-control" id="postulacion-descripcion<?php echo $idPublicacion ?>" name="descripcion" placeholder="Descripcion"></textarea>
+                    <div class="invalid-feedback" id="invalid-pDescripcion<?php echo $idPublicacion ?>"></div>
                   </div>
                 </div>
                 <input type="hidden" name="enviado">
@@ -109,8 +108,6 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           include_once '../components/comentario.php';
           include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
           include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
-
-          $db = new DB();
 
           $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
