@@ -169,7 +169,7 @@ aside{
     border-radius: 8px;
     height: fit-content;
     margin: 5vh 0;
-    color:#FEFFFE;
+    color:black;
 }
 .perfil_user{
     padding:1vh;
@@ -180,11 +180,11 @@ aside{
 .perfil_user .user_photo img{
     width:50%;
     border-radius:50%;
-    background-color:#FEFFFE;
+    background-color:black;
 }
 .perfil .user_name{
     text-align:center;
-    border-bottom:solid 0.3vh #FEFFFE;
+    border-bottom:solid 0.3vh black;
 }
 .perfil_links{
     display:grid;
