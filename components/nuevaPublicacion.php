@@ -11,7 +11,7 @@
         <div class="modal-body">
           <form action="/utils/ControlFormPublicacion.php" class="form-publicacion needs-validation FormularioAjax" novalidate method="post" id="formPublicacion" autocomplete="off" onsubmit="return validarPublicacion()">
             <div class="row">
-              <div class="col-3 mb-3">
+              <div class="col-md-6 col-lg-3 mb-3">
                 <input type="text" class="form-control " id="publicacion-titulo" name="titulo" placeholder="Titulo">
                 <div class="invalid-feedback" id="invalid-titulo"></div>
               </div>
@@ -29,21 +29,21 @@
 
               <div class="col-6" id="lado">
 
-                  <div class="col-6">
+                  <div class="col-md-6 col-lg-3">
                     <div class="col-10">
                       <input type="number" step="0.01" class="form-control" id="publicacion-volumen" name="volumen"  placeholder="Volumen">
                       <div class="invalid-feedback" id="invalid-volumen"></div>
                     </div>
                   </div>
 
-                  <div class="col-6">
+                  <div class="col-md-6 col-lg-3">
                     <div class="col-10">
                       <input type="number" step="0.01" class="form-control" id="publicacion-peso" name="peso"  placeholder="Peso">
                       <div class="invalid-feedback" id="invalid-peso"></div>
                       </div>
                   </div>
 
-                  <div class="col-6">
+                  <div class="col-md-6 col-lg-3">
                       <h2>Origen:</h2>
                       <div class="col-10">
                           <input type="text" class="form-control" id="publicacion-origen-barrio" name="origen_barrio" placeholder="Barrio">
@@ -60,7 +60,7 @@
                       <input type="text" name="origen_coordenadas" id="coordsOrigen" hidden>
                   </div>
 
-                  <div class="col-6">
+                  <div class="col-md-6 col-lg-3">
                       <h2>Destino:</h2>
                       <div class="col-10">
                         <input type="text" class="form-control" id="publicacion-destino-barrio" name="destino_barrio" placeholder="Barrio">
@@ -77,14 +77,14 @@
                       <input type="text" name="destino_coordenadas" id="coordsDestino" hidden>
                   </div>
 
-                  <div class="col-6">
+                  <div class="col-md-6 col-lg-3">
                     <div class="col-10">
                       <input type="text" class="form-control" id="publicacion-recibe" name="recibe"  placeholder="Encargado de Recibir">
                       <div class="invalid-feedback" id="invalid-recibe"> </div>
                     </div>
                   </div>
     
-                  <div class="col-6">
+                  <div class="col-md-6 col-lg-3">
                     <div class="col-10">
                       <input type="tel" class="form-control" id="publicacion-contacto" name="contacto"  placeholder="Telefono de Contacto">
                       <div class="invalid-feedback" id="invalid-contacto"> </div>
@@ -109,7 +109,7 @@
                 <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhoto[]" id="addNewPhoto" onchange="preVisual(event)" multiple/>
                 <div class="custom-file-upload mb-2"> <h2 id="addPhoto">Cargar Fotos ➕</h2> </div>
                 <div class="invalid-feedback" id="invalid-photos"></div>
-                <select name="photosId[]" id="photosId" multiple hidden> </select>
+                <select name="photosId[]" id="photosId" multiple hidden></select>
                 <div id="photos"></div>
               </div>
             </div>
@@ -119,7 +119,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-morado" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-morado mb-2" data-bs-dismiss="modal">Cerrar</button>
           <input type="submit" id="btn-enviar" form="formPublicacion" class="btn btn-amarillo"></input>
         </div>
       </div>

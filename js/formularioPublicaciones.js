@@ -222,6 +222,7 @@ function validarPublicacion() {
     imagenes.classList.remove('is-invalid');
     imagenes.classList.add('is-valid');
     imagenFeedBack.textContent = "";
+    isValid = true;
   }
 
   return isValid; 
@@ -240,7 +241,7 @@ function validarPublicacion() {
 const sendForm = async(action,config)=>{
   return await fetch(action,config)
   .then(
-    respuesta => console.log(respuesta.json())
+      respuesta => respuesta.text()
   )
   .then(
       response=>console.log(response))

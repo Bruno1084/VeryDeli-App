@@ -9,7 +9,7 @@
     return substr(str_shuffle($txt),0, $tam);
   }
   if (isset($_POST['enviado'])) {
-    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");
+    require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
     require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/utils/ubicacion.php");
     $usuarioAutor = $_SESSION['id'];

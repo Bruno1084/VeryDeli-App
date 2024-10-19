@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
   <link rel="stylesheet" href="../css/ubicacionEnvio.css">
+  <?php require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); ?>
   <title>Very Deli</title>
 </head>
 <body>
@@ -38,6 +39,14 @@
       } else {
         echo "No hay usuarios disponibles.";
       }
+    ?>
+    </div>
+    <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
+    
+    <!-- Imprime todas las publicaciones en la base de datos -->
+    <?php 
+      require_once("../components/publicaciones.php");
+      echo renderPublicaciones();
     ?>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>

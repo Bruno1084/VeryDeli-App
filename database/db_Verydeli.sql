@@ -68,7 +68,7 @@ CREATE TABLE `imagenes` (
     `imagen_id` int AUTO_INCREMENT NOT NULL ,
     `imagen_url` varchar(255) NOT NULL ,
     `imagen_delete_url` varchar(255) NOT NULL ,
-    `publicacion_id` int  NOT NULL 
+    `publicacion_id` int  NOT NULL, 
     PRIMARY KEY (
         `imagen_id`
     )
@@ -80,6 +80,7 @@ CREATE TABLE `comentarios` (
     `usuario_id` int  NOT NULL ,
     `comentario_mensaje` varchar(500)  NOT NULL ,
     `comentario_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `comentario_esActivo` tinyint(1) NOT NULL,
     PRIMARY KEY (
         `comentario_id`
     )
