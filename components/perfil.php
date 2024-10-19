@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
-    <link rel="stylesheet" href="/css/miPerfil.css">
-    <title>Mi Perfil</title>
-</head>
-<body>
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php") ?>
+
 
 <?php
-
 function RenderPerfilUser($usuario_id,$usuario_nombre,$usuario_apellido,$usuario_localidad,$usuario_correo,$usuario_contraseña,$usuario_esResponsable,$usuario_esActivo){
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
-  ob_start();
-  $db = new DB();
-  $imagenes = getAllImagenesFromPublicacion($idPublicacion);  
-  $commentCache = [];
- 
-?>
+
+ ?>
     <section class="col-12 cuerpo">
         <aside class="col-3 perfil">
             <div class="perfil_user">
@@ -26,6 +12,7 @@ function RenderPerfilUser($usuario_id,$usuario_nombre,$usuario_apellido,$usuario
                 </div>
                 <div class="col-12 user_name">
                     <h3><?php $usuario_nombre ?></h3>
+                    <h3><?php $usuario_apellido ?></h3>
                 </div>
             </div>
             <div class="perfil_links">
@@ -51,8 +38,8 @@ function RenderPerfilUser($usuario_id,$usuario_nombre,$usuario_apellido,$usuario
                             <img class="img-fluid u_photo" src="/assets/Logo.png" alt="user">
                         </div>
                         <div class="col-5 user_info">
-                            <div class="col-12"><p>User Name</p></div>
-                            <div class="col-12"><p>User, location</p></div>
+                            <div class="col-12"><p></p></div>
+                            <div class="col-12"><p><?php $usuario_nombre ?></p></div>
                         </div>
                         <div class="col-5 publication_date">
                             <div class="col-12 "><p>Hour</p></div>
@@ -750,10 +737,3 @@ function RenderPerfilUser($usuario_id,$usuario_nombre,$usuario_apellido,$usuario
 
 
 
-
-
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php") ?>
-<script src="/js/publicacion.js"></script>
-</body>
-</html>
