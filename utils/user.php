@@ -49,14 +49,14 @@
         $pass=$stmt->fetch();
         if($pass!=false){
             if(password_verify($contrasenia, $pass[0])){
-                $sql="SELECT * FROM usuarios WHERE usuario_usuario = ? AND usuario_contraseña = ?";
+                $sql="SELECT usuario_id FROM usuarios WHERE usuario_usuario = ? AND usuario_contraseña = ?";
                 $stmt = $conexion->prepare($sql);
                 $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
                 $stmt->bindValue(2, $pass[0], PDO::PARAM_STR);
                 $stmt->execute();
 
-                $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+                $user = $stmt->fetch();
+                
                 $stmt=null;
                 $conexion=null;
                 return $user;
