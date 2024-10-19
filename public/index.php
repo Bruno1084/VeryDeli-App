@@ -10,8 +10,9 @@
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
-  <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
-  <?php require_once("../components/publicaciones.php");?>
+  <?php include_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
   <div>
     <?php
     if(isset($_SESSION['nombre'])){
@@ -26,7 +27,7 @@
       $DB = new DB();
       
       // Fetch the users
-      $usuarios = $DB->getAllUsuarios();
+      $usuarios = getAllUsuarios();
 
       // Check if there are any users
       if (!empty($usuarios)) {
