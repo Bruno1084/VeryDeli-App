@@ -10,21 +10,19 @@
 <body>
 <?php 
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php");
- 
-   
+    require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); 
+    include_once "../components/perfil.php";
+    include_once "../utils/get/getUsuario.php";
 ?>
-
-
     <div class='container-fluid text-center cuerpo'>
         <?php
-            include_once "../components/perfil.php";
-            include_once "../utils/get/getUsuario.php";
-            require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); 
-            $idUsuario=1;
+      
+            $idUsuario=1;/* Ejemplo de un id forzado para probar  */
             $db = new DB();  
             $conexion = $db->getConnection();
             ob_start();
             $info_usuario=getUsuario($idUsuario);
+            echo $info_usuario['usuario_nombre'];/* Prueba para ver si esta tomando los datos */
             RenderPerfilUser(
                 $info_usuario['usuario_id'],
                     $info_usuario['usuario_nombre'],

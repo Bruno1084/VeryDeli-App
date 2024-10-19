@@ -11,14 +11,14 @@ function RenderPerfilUser($usuario_id,$usuario_nombre,$usuario_apellido,$usuario
                     <img class="img-fluid"src="/assets/Logo.png" alt="user">
                 </div>
                 <div class="col-12 user_name">
-                    <h3><?php $usuario_nombre ?></h3>
-                    <h3><?php $usuario_apellido ?></h3>
+                    <h3><?php echo $usuario_nombre ?></h3>
+                    <h3><?php echo $usuario_apellido ?></h3>
                 </div>
             </div>
             <div class="perfil_links">
-                <a href="#">Localidad:<?php ?></a>
-                <a href="#">Correo Electronico:<?php $usuario_correo ?></a>
-                <a href="#">Responsable:Localidad:<?php $usuario_esResponsable ?></a>
+                <a href="#">Localidad:<?php echo $usuario_localidad ?></a>
+                <a href="#">Correo Electronico:<?php echo $usuario_correo ?></a>
+                <a href="#">Responsable:Localidad:<?php echo $usuario_esResponsable ?></a>
             </div>
             <div class="perfil_calificacion">
                 <div class="calificacion_titulo">
