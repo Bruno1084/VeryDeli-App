@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
+  <link rel="stylesheet" href="../css/ubicacionEnvio.css">
   <title>Very Deli</title>
 </head>
 <body>
@@ -15,9 +17,11 @@
       echo('Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!');
     }
     ?>
-  <?php require_once("../components/Footer.php");?>
   
     <?php
+      if(isset($DB)){
+        $DB=null;
+      }
       $DB = new DB();
       
       // Fetch the users
