@@ -2,7 +2,7 @@
 function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
-  $imagenes = getAllImagenesFromPublicacion($idPublicacion);  
+  
   $commentCache = [];
   ?>
     <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
@@ -64,9 +64,9 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
       <div class='row'>
         <div class='col-12'>
           <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start'>
-            <?php if (!empty($imagenes)) { //Condicional necesario porque actualmente existen publicaciones sin imagen?> 
-              <?php foreach ($imagenes as $imagen) { ?>
-                <img class='img u_photo' src='<?php echo($imagen['imagen_url']); ?>' alt='product-image'>
+            <?php if (!empty($images)) { //Condicional necesario porque actualmente existen publicaciones sin imagen?> 
+              <?php foreach ($images as $imagen) { ?>
+                <img class='img u_photo' src='<?php echo $imagen; ?>' alt='product-image'>
               <?php } ?>
             <?php } else { ?>
               <p>No hay imágenes disponibles para esta publicación.</p>

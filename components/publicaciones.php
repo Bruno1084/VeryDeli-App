@@ -22,20 +22,20 @@ function renderPublicaciones () {
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
-                $username = $p['usuario_nombre'] . " " . $p['usuario_apellido'];
+                
                 $userLocation = $p['usuario_localidad'];
 
                 echo renderPublicacionExtendida(
                     $p["publicacion_id"],
-                    $username,
+                    $p['usuario_usuario'],
                     "",
                     $p['publicacion_fecha'],
                     $userLocation,
                     $p["publicacion_descr"],
                     $p["publicacion_peso"],
-                    $p["publicacion_origen"],
-                    $p["publicacion_destino"],
-                    ""
+                    $p["ubicacion_origen"],
+                    $p["ubicacion_destino"],
+                    json_decode($p["imagenes"])
                 );
             };
         ?>
