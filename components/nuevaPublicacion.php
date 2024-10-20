@@ -29,21 +29,21 @@
 
               <div class="col-6" id="lado">
 
-                  <div class="col-md-6 col-lg-3">
+                  <div class="col-md-6">
                     <div class="col-10">
                       <input type="number" step="0.01" class="form-control" id="publicacion-volumen" name="volumen"  placeholder="Volumen">
                       <div class="invalid-feedback" id="invalid-volumen"></div>
                     </div>
                   </div>
 
-                  <div class="col-md-6 col-lg-3">
+                  <div class="col-md-6">
                     <div class="col-10">
                       <input type="number" step="0.01" class="form-control" id="publicacion-peso" name="peso"  placeholder="Peso">
                       <div class="invalid-feedback" id="invalid-peso"></div>
                       </div>
                   </div>
 
-                  <div class="col-md-6 col-lg-3">
+                  <div class="col-md-6">
                       <h2>Origen:</h2>
                       <div class="col-10">
                           <input type="text" class="form-control" id="publicacion-origen-barrio" name="origen_barrio" placeholder="Barrio">
@@ -60,7 +60,7 @@
                       <input type="text" name="origen_coordenadas" id="coordsOrigen" hidden>
                   </div>
 
-                  <div class="col-md-6 col-lg-3">
+                  <div class="col-md-6">
                       <h2>Destino:</h2>
                       <div class="col-10">
                         <input type="text" class="form-control" id="publicacion-destino-barrio" name="destino_barrio" placeholder="Barrio">
@@ -77,14 +77,14 @@
                       <input type="text" name="destino_coordenadas" id="coordsDestino" hidden>
                   </div>
 
-                  <div class="col-md-6 col-lg-3">
+                  <div class="col-md-6">
                     <div class="col-10">
                       <input type="text" class="form-control" id="publicacion-recibe" name="recibe"  placeholder="Encargado de Recibir">
                       <div class="invalid-feedback" id="invalid-recibe"> </div>
                     </div>
                   </div>
     
-                  <div class="col-md-6 col-lg-3">
+                  <div class="col-md-6">
                     <div class="col-10">
                       <input type="tel" class="form-control" id="publicacion-contacto" name="contacto"  placeholder="Telefono de Contacto">
                       <div class="invalid-feedback" id="invalid-contacto"> </div>
@@ -140,7 +140,6 @@
 
 
   <?php require_once("../components/JS.php"); ?>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <!--<script src="/js/formularioPublicaciones.js"></script>-->
   <script src="/js/inputFotos.js"></script>
