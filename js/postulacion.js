@@ -37,12 +37,17 @@ function validarPostulacion(idPublicacion){
 (() => {
   const forms = document.querySelectorAll('.form-postularse');
   forms.forEach(form => {
-    form.addEventListener('submit', function (event) {  
+    form.addEventListener('submit', async function (event) {  
       let idPublicacion = parseInt(form.getAttribute("id").replace('formPostularse', ''));
       event.preventDefault();
-      if (!validarPostulacion(idPublicacion)) {
-        event.stopPropagation();
-      } 
+      return validado=()=>new Promise((resolve)=>{
+        if (validarPostulacion(idPublicacion)){
+          resolve(true);
+        }
+        else{
+          resolve(false);
+        }
+      });
     }, false);
   })
 })
