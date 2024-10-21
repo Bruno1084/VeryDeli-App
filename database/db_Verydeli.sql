@@ -36,6 +36,7 @@ CREATE TABLE `vehiculos` (
 
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
+    `publicacion_titulo` varchar(500)  NOT NULL ,
     `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `publicacion_descr` varchar(500)  NOT NULL ,
     `publicacion_volumen` float  NULL ,
