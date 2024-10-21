@@ -17,18 +17,22 @@ if(isset($_POST["pass"])){
         if(!$res){
             session_unset();
             session_destroy();
+            setcookie("Reset_Pass", "", time() - 3600, "/");
             manejarError('false',"Error Inesperado","Ocurrio un error al querer modificar la contraseña","../../components/login.php");
         }
         else if($res==1){
             manejarError('false',"Contraseña Inválida","La contraseña ingresada tiene que ser distinta de la usada anteriormente.");
         }
         else if(User::setEmailUserPass($_SESSION["email"],$contrasenia)){
+                session_unset();
                 session_destroy();
+                setcookie("Reset_Pass", "", time() - 3600, "/");
                 manejarError('true','Contraseña modificada','Ya puede iniciar sesion en su cuenta',"../../components/login.php");
             }
             else{
                 session_unset();
                 session_destroy();
+                setcookie("Reset_Pass", "", time() - 3600, "/");
                 manejarError('false','Error Inesperado','Ocurrio un error al querer modificar la contraseña',"../../components/login.php");
             }
     }

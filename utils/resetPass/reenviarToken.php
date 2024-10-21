@@ -9,5 +9,6 @@ if(isset($_POST["reenviar"])){
 else{
     session_unset();
     session_destroy();
+    setcookie("Reset_Pass", "", time() - 3600, "/");
     manejarError("false","Error inesperado","Ocurrio un error inesperado al intentar reenviar el codigo de verificacion","../../components/login.php");
 }
