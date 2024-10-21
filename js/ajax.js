@@ -2,12 +2,11 @@
 
 const formularios_ajax = document.querySelectorAll(".FormularioAjax");
 
-function enviarFormularioAjax(e){
-  e.preventDefault();
+async function enviarFormularioAjax(form){
   let contenedor = document.querySelector('.form-rest');
-  let data = new FormData(this); // Almacena los datos del formulario
-  let method = this.getAttribute("method"); // Almacena el metodo de envio
-  let action = this.getAttribute("action"); // Almacena la url donde se enviara el formulario
+  let data = new FormData(form); // Almacena los datos del formulario
+  let method = form.getAttribute("method"); // Almacena el metodo de envio
+  let action = form.getAttribute("action"); // Almacena la url donde se enviara el formulario
   let config = {  // Almacena las configuraciones a utilizar en el envio por fetch
     method: method,
     mode: "cors",
@@ -22,6 +21,7 @@ function enviarFormularioAjax(e){
       if (!respuesta.ok) { // Verifica si la respuesta es un error
         throw new Error('Error en la solicitud: ' + respuesta.status);
       }
+      console.log(respuesta.json());
       return respuesta.json();
     })
     .then(data => {
@@ -39,9 +39,14 @@ function enviarFormularioAjax(e){
 }
 
 // Asigna el evento "submit" a los formularios al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ()=>{
   const formularios_ajax = document.querySelectorAll(".FormularioAjax"); 
   formularios_ajax.forEach(formulario => {
-    formulario.addEventListener("submit", enviarFormularioAjax); 
+    formulario.addEventListener("submit", async(e)=>{
+      e.preventDefault();
+      if(await validado()){
+        enviarFormularioAjax(e.target);
+      }
+    }); 
   });
 });

@@ -153,20 +153,20 @@ function validarPublicacion() {
     origen.classList.add('is-invalid');
     destino.classList.add('is-invalid');
     isValid = false;
-  } else if (origen.value.trim() == '') {
+  } else if (origen.value.trim() == '' && destino.value.trim() != '') {
     mapaFeedback.textContent = 'Seleccione el origen en el mapa.';
     mapaFeedback.setAttribute("style","display:flex;flex-direction:column;align-items:center");
     origen.classList.add('is-invalid');
     isValid = false;
-  } else if (destino.value.trim() == '') {
+  } else if (destino.value.trim() == '' && origen.value.trim() != '') {
     mapaFeedback.textContent = 'Seleccione el destino en el mapa.';
     mapaFeedback.setAttribute("style","display:flex;flex-direction:column;align-items:center");
     destino.classList.add('is-invalid');
     isValid = false;
   } else {
     origen.classList.remove('is-invalid');
-    origen.classList.add('is-valid');
     destino.classList.remove('is-invalid');
+    origen.classList.add('is-valid');
     destino.classList.add('is-valid');
     mapaFeedback.textContent = '';
   }
@@ -223,7 +223,6 @@ function validarPublicacion() {
     imagenes.classList.remove('is-invalid');
     imagenes.classList.add('is-valid');
     imagenFeedBack.textContent = "";
-    isValid = true;
   }
 
   return isValid; 
@@ -233,17 +232,13 @@ function validarPublicacion() {
   const form = document.getElementById('formPublicacion');
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-    if (!validarPublicacion()) {
-      event.stopPropagation();
-    }
-
+    return validado=()=>new Promise((resolve)=>{
+      if (validarPublicacion()){
+        resolve(true);
+      }
+      else{
+        resolve(false);
+      }
+    });
   }, false);
 })();
-const sendForm = async(action,config)=>{
-  return await fetch(action,config)
-  .then(
-      respuesta => respuesta.text()
-  )
-  .then(
-      response=>console.log(response))
-}
