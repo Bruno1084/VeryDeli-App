@@ -143,6 +143,7 @@ function validarPublicacion() {
     destino_casa.classList.add('is-valid');
     destino_casa_Feedback.textContent = '';
   }
+//Validar Origen y Destino en el Mapa
   const mapaFeedback = document.querySelector('#invalid-map');
   const origen = document.querySelector('#coordsOrigen');
   const destino = document.querySelector('#coordsDestino');
