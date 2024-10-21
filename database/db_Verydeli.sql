@@ -46,7 +46,7 @@ CREATE TABLE `publicaciones` (
     `ubicacion_destino` int NOT NULL ,
     `usuario_autor` int  NOT NULL ,
     `usuario_transportista` int  NULL ,
-    `publicacion_esActivo` tinyint(1)  NOT NULL ,
+    `publicacion_esActivo` enum('0','1','2','3')  NOT NULL ,
     PRIMARY KEY (
         `publicacion_id`
     )
@@ -128,7 +128,7 @@ ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_ubicacion_origen` F
 REFERENCES `ubicaciones` (`ubicacion_id`);
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_ubicacion_destino` FOREIGN KEY(`ubicacion_destino`)
-REFERENCES `ubicaciones` (`ubicaciones_id`);
+REFERENCES `ubicaciones` (`ubicacion_id`);
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_usuario_autor` FOREIGN KEY(`usuario_autor`)
 REFERENCES `usuarios` (`usuario_id`);
