@@ -40,19 +40,17 @@ function validarReporte(idPublicacion){
 document.addEventListener('DOMContentLoaded', () => {
   const forms = document.querySelectorAll('.form-reportar');
   forms.forEach(form => {
-    form.addEventListener('submit', function (event) {  
+    form.addEventListener('submit', async function (event) {  
       event.preventDefault();
-      event.stopPropagation();
-
-      console.log("Formulario pausado");
-
-      let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
-
-      if (!validarReporte(idPublicacion)) {
-        event.preventDefault();
-        event.stopPropagation();
-        console.log("Formulario no válido");
-      }
+      return validado=()=>new Promise((resolve)=>{
+        let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
+        if (validarReporte(idPublicacion)){
+          resolve(true);
+        }
+        else{
+          resolve(false);
+        }
+      });
     }, false);
   });
 });
