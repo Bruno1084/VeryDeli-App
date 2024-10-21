@@ -58,5 +58,21 @@
     </div>
 
 </body>
+<script>
+    (() => {
+    const form = document.querySelector('.formulario-registro');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        return validado=()=>new Promise((resolve)=>{
+        if (1==1){
+            resolve(true);
+        }
+        else{
+            resolve(false);
+        }
+        });
+    }, false);
+    })();
+</script>
 
 </html>
