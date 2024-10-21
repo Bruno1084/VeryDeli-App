@@ -51,5 +51,7 @@
     ?>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
+  <script src="/js/validaciones.js"></script>
+  <script src="/js/postulacion.js"></script>
 </body>
 </html>

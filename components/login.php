@@ -6,6 +6,7 @@
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php");
     ?>
+    <script src="../js/ajax.js"></script>
 </head>
 
 <body class="container d-flex justify-content-center">
