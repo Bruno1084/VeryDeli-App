@@ -2,7 +2,7 @@
 function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
-  $db = new DB();
+
   $imagenes = getAllImagenesFromPublicacion($idPublicacion);  
   $commentCache = [];
   ?>
@@ -109,8 +109,6 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           include_once '../components/comentario.php';
           include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
           include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
-
-          $db = new DB();
 
           $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
