@@ -30,7 +30,8 @@ function enviarToken(){
         if(curl_errno($con)){
             session_unset();
             session_destroy();
-            manejarError('false','Error inesperado','Ocurrio un error inasperado al querer recuperar la contraseña');
+            setcookie("Reset_Pass", "", time() - 3600, "/");
+            manejarError('false','Error inesperado','Ocurrio un error inasperado al querer recuperar la contraseña',"../../components/login.php");
         }
         else{
             curl_close($con);
@@ -43,6 +44,7 @@ function enviarToken(){
     catch(Exception $e){
         session_unset();
         session_destroy();
-        manejarError('false','Error inesperado','Ocurrio un error inasperado al querer recuperar la contraseña');
+        setcookie("Reset_Pass", "", time() - 3600, "/");
+        manejarError('false','Error inesperado','Ocurrio un error inasperado al querer recuperar la contraseña',"../../components/login.php");
     }
 }

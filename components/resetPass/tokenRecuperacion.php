@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+session_name("Reset_Pass");
 session_start();
 ?>
 <head>

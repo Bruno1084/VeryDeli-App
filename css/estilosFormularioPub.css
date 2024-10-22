@@ -57,29 +57,30 @@
     display:none;
 }
 #photos {
-  display: flex;
-  flex-wrap: wrap;           
-  max-width: 100%;
-  gap: 5px; 
+display: flex;
+flex-wrap: wrap;           
+max-width: 50%;
+height: 103px;
+border-bottom: solid 1px #fff;
+gap: 5px; 
 }
 
 #photos img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  transition: width 5ms, height 5ms, filter 5ms;
+width: 100px;
+height: 100px;
+object-fit: cover;
+margin-left: 5px;
+transition: width 5ms, height 5ms, filter 5ms;
 }
 
 #photos img:hover{
-  width: 200px;
-  height: 200px;
-  filter:brightness(50%)
+filter:brightness(50%);
+cursor:pointer;
 }
 
 #addPhoto{
-  display: inline-block;
+display: inline-block;
+color:#fff;
 }
 
 .btn-cerrarFormularioPublicacion{

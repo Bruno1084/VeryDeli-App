@@ -55,8 +55,8 @@
                 $stmt->bindValue(2, $pass[0], PDO::PARAM_STR);
                 $stmt->execute();
 
-                $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+                $user = $stmt->fetch();
+                
                 $stmt=null;
                 $conexion=null;
                 return $user;
@@ -81,10 +81,15 @@
         $conexion=null;
         if($pass!=false){
             if(password_verify($contrasenia, $pass[0])){
-                return true;
+                return 1;
+            }
+            else{
+                return 2;
             }
         }
-        return false;
+        else{
+            return false;
+        }
     }
 
     public static function setEmailUserPass($correo,$contrasenia){
@@ -95,13 +100,11 @@
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $hashPass, PDO::PARAM_STR);
         $stmt->bindValue(2, $correo, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $res=$stmt->fetch();
-        $stmt=null;
-        $conexion=null;
-        return $res;
+        if($stmt->execute()){
+            $stmt=null;
+            $conexion=null;
+            return true;
+        }
+        else return false;
     }
-
-
   }

@@ -6,6 +6,7 @@
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php");
     ?>
+    <script src="../js/ajax.js"></script>
 </head>
 
 <body class="container d-flex justify-content-center">
@@ -57,5 +58,21 @@
     </div>
 
 </body>
+<script>
+    (() => {
+    const form = document.querySelector('.formulario-registro');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        return validado=()=>new Promise((resolve)=>{
+        if (1==1){
+            resolve(true);
+        }
+        else{
+            resolve(false);
+        }
+        });
+    }, false);
+    })();
+</script>
 
 </html>

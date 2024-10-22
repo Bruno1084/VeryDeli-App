@@ -1,26 +1,4 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- Link to schema: https://app.quickdatabasediagrams.com/?state=08knixjrx8ae&code=4%2F0AQlEd8z7H4bDZnXAaM25PgwBULZnXTolHmWcu5y8_ir9zTkugsExVTXLGeCVjLVULk_77Q&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent#/d/n4R4hi
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
-
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
--- Host: 127.0.0.1    Database: verydely
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
--- Host: 127.0.0.1    Database: verydely
--- Server version	8.0.34
--- !40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT
-
--- !40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS
--- !40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION
--- !50503 SET NAMES utf8
--- !40103 SET @OLD_TIME_ZONE=@@TIME_ZONE
--- !40103 SET TIME_ZONE='+00:00'
--- !40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0
--- !40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0
--- !40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO'
--- !40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0
--- Table structure for table `usuarios`
--- !40101 SET @saved_cs_client     = @@character_set_client
--- !50503 SET character_set_client = utf8mb4
+﻿
 CREATE TABLE `usuarios` (
     `usuario_id` int AUTO_INCREMENT NOT NULL ,
     `usuario_nombre` varchar(65)  NOT NULL ,
@@ -58,19 +36,32 @@ CREATE TABLE `vehiculos` (
 
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
+    `publicacion_titulo` varchar(500)  NOT NULL ,
     `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `publicacion_descr` varchar(500)  NOT NULL ,
     `publicacion_volumen` float  NULL ,
     `publicacion_peso` float  NULL ,
     `publicacion_nombreRecibe` varchar(100)  NULL ,
     `publicacion_telefono` varchar(15)  NULL ,
-    `publicacion_origen` varchar(100)  NULL ,
-    `publicacion_destino` varchar(100)  NULL ,
+    `ubicacion_origen` int NOT NULL ,
+    `ubicacion_destino` int NOT NULL ,
     `usuario_autor` int  NOT NULL ,
     `usuario_transportista` int  NULL ,
-    `publicacion_esActivo` tinyint(1)  NOT NULL ,
+    `publicacion_esActivo` enum('0','1','2','3')  NOT NULL ,
     PRIMARY KEY (
         `publicacion_id`
+    )
+);
+
+CREATE TABLE `ubicaciones` (
+    `ubicacion_id` int AUTO_INCREMENT NOT NULL ,
+    `ubicacion_latitud` double NOT NULL ,
+    `ubicacion_longitud` double NOT NULL ,
+    `ubicacion_barrio` varchar(100) NOT NULL ,
+    `ubicacion_manzana-piso` varchar(15) NOT NULL ,
+    `ubicacion_casa-depto` varchar(15) NOT NULL ,
+    PRIMARY KEY (
+        `ubicacion_id`
     )
 );
 
@@ -134,6 +125,12 @@ REFERENCES `usuarios` (`usuario_id`);
 ALTER TABLE `vehiculos` ADD CONSTRAINT `fk_vehiculos_transportista_id` FOREIGN KEY(`transportista_id`)
 REFERENCES `transportistas` (`transportista_id`);
 
+ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_ubicacion_origen` FOREIGN KEY(`ubicacion_origen`)
+REFERENCES `ubicaciones` (`ubicacion_id`);
+
+ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_ubicacion_destino` FOREIGN KEY(`ubicacion_destino`)
+REFERENCES `ubicaciones` (`ubicacion_id`);
+
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_usuario_autor` FOREIGN KEY(`usuario_autor`)
 REFERENCES `usuarios` (`usuario_id`);
 
@@ -175,15 +172,6 @@ ON `publicaciones` (`usuario_autor`);
 
 CREATE INDEX `idx_publicaciones_usuario_transportista`
 ON `publicaciones` (`usuario_transportista`);
-
-CREATE INDEX `idx_imagenes_imagen_url`
-ON `imagenes` (`imagen_url`);
-
-CREATE INDEX `idx_imagenes_imagen_delete_url`
-ON `imagenes` (`imagen_delete_url`);
-
-CREATE INDEX `idx_imagenes_publicacion_id`
-ON `imagenes` (`publicacion_id`);
 
 CREATE INDEX `idx_comentarios_publicacion_id`
 ON `comentarios` (`publicacion_id`);

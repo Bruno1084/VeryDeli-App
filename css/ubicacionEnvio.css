@@ -1,0 +1,48 @@
+#map {
+    margin-top: 50px;
+    width: 80%;
+    height: 100%;
+}
+#lado {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: start;
+    height: 450px;
+    align-content: space-between;
+}
+#lado h2{
+    margin: 10px 5px;
+    color: #fff;
+}
+
+#btn-container {
+    height:30px;
+    width:30px;
+    position: relative;
+    top: -3rem;
+    right: -12rem;
+    z-index: 1000; /* Asegura que el botón esté por encima del mapa */
+}
+
+#btn-centrar-mapa {
+    height:auto;
+    width:auto;
+    background-color: white;
+    border:2px solid rgba(0, 0, 0, 0.2);
+    color: black;
+    padding: 1px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.divMapa_Boton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 450px;
+}
+.cuerpo_medio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

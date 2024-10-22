@@ -15,17 +15,19 @@ var clickAdd=function(){
 async function preVisual(e){
     var input=e.target;
     var fotos=input.files;
-    const imagenesFeedBack = document.getElementById('invalid-photo');
+    const imagenesFeedBack = document.getElementById('invalid-photos');
     if ((count+fotos.length)<=5 && fotos.length>0) {
         if (formatoFoto(fotos)) {
             await addFotos(fotos);
         } else {
         input.classList.add('is-invalid');
         imagenesFeedBack.textContent = "Error de formato";
+        imagenesFeedBack.setAttribute("style","display:block");
         }
     } else if(fotos.length>5||(count+fotos.length)>5){
         input.classList.add('is-invalid');
         imagenesFeedBack.textContent = "Error. Máximo 5 fotos";
+        imagenesFeedBack.setAttribute("style","display:block");
         }
 };
 
@@ -48,6 +50,8 @@ async function addFotos(fotos){
         if(tmpImg==null){
             img.setAttribute('data-id', "fotoUsuario_"+(count+imgOk));
             img.alt = "userPhoto";
+            img.setAttribute("title","Eliminar");
+            img.setAttribute("class","img-fluid");
             img.onclick = (e) => deleteFoto(e.target);
             document.querySelector("#photos").appendChild(img);
             var newOption=document.createElement("option");

@@ -2,6 +2,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/manejaError.php");
 
 if(isset($_POST["codigo"])){
+    session_name("Reset_Pass");
     session_start();
     $codigo=$_POST["codigo"];
     
