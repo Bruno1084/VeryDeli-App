@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/manejaError.php");
 if(isset($_POST["resetToken"])){
+    session_name("Reset_Pass");
     session_start();
     $_SESSION["token"]="";
     $_SESSION["attempts"]=5;

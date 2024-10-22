@@ -4,13 +4,13 @@ function renderPublicaciones () {
     include_once "../utils/get/getAllPublicaciones.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 2; //Limite de publicaciones a mostrar
+    $limit = 5; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicaciones(5);
+    $publicaciones = getAllPublicaciones(5, $offset);
 
     $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
@@ -22,12 +22,12 @@ function renderPublicaciones () {
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
-                $username = $p['usuario_nombre'] . " " . $p['usuario_apellido'];
+                
                 $userLocation = $p['usuario_localidad'];
 
                 echo renderPublicacionAcotada(
                     $p["publicacion_id"],
-                    $username,
+                    $p['usuario_usuario'],
                     "",
                     $p['publicacion_fecha'],
                     $p["publicacion_descr"],

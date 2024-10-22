@@ -9,7 +9,9 @@
     $monto = $_POST['monto'];
     $descripcion = $_POST['descripcion'];
     $transportista = $_SESSION['user']['usuario_id'];
-
+    if(empty($monto)){
+      manejarError('false', 'Monto invalido', 'El monto es obligatorio para postularse');
+    }
     //Validar que sea transportista
     $stmtTransportista = $conexion->query("SELECT * FROM transportistas WHERE transportista_id = $transportista");
     if($stmtTransportista->rowCount() == 0){
@@ -51,14 +53,16 @@
       }
     }
     $stmtAutor = null;
+    
     $stmtPostularse = $conexion->prepare('INSERT INTO postulaciones (usuarios_postulante, postulacion_precio, postulacion_descr, publicacion_id, postulacion_fecha) VALUES (?, ?, ?, ?, ?)');
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $fechaActual = date('Y-m-d H:i:s');
     $stmtPostularse->bindParam(1, $transportista, PDO::PARAM_INT);
-    $stmtPostularse->bindParam(2, $monto, PDO::PARAM_STR);
+    $stmtPostularse->bindParam(2, $monto, PDO::PARAM_INT);
     $stmtPostularse->bindParam(3, $descripcion, PDO::PARAM_STR);
     $stmtPostularse->bindParam(4, $pubId, PDO::PARAM_INT);
     $stmtPostularse->bindParam(5, $fechaActual, PDO::PARAM_STR);
+    
     if($stmtPostularse->execute()) {
       $stmtPostularse = null;
       $conexion = null;
@@ -68,5 +72,5 @@
       $conexion = null;
       manejarError('false',"Error Inesperado", "Ocurrio un error al momento de realizar tu postulacion, intente de nuevo más tarde");
       exit;
-    }
+    } 
   }
