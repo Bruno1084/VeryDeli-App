@@ -1,10 +1,10 @@
 <?php
-function renderPublicacionAcotada ($idPublicacion, $username, $profileIcon, $date, $productDetail) {
+function renderPublicacionAcotada($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail)
+{
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
 
-  $imagenes = getAllImagenesFromPublicacion($idPublicacion);
-  $commentCache = [];
+  $images = getAllImagenesFromPublicacion($idPublicacion);
 ?>
   <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
     <div class='row p-2 border-bottom' name='publicacion_D' id='publicacion-N_AD'>
@@ -25,8 +25,16 @@ function renderPublicacionAcotada ($idPublicacion, $username, $profileIcon, $dat
       </div>
     </div>
 
-  </div>
+    <div >
+      <div>
+        <p class="my-3 text-start"><?php echo $productDetail ?></p>
+      </div>
 
+      <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-center'>
+        <img class='img u_photo img-fluid' src='<?php echo $images[0]['imagen_url'] ?>' alt='product-image'>
+      </div>
+    </div>
+  </div>
 <?php
   return ob_get_clean();
 };

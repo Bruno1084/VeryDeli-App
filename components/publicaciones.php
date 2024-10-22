@@ -27,6 +27,7 @@ function renderPublicaciones () {
 
                 echo renderPublicacionAcotada(
                     $p["publicacion_id"],
+                    $userLocation,
                     $p['usuario_usuario'],
                     "",
                     $p['publicacion_fecha'],
