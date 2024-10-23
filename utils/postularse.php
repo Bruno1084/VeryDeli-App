@@ -9,9 +9,6 @@
     $monto = $_POST['monto'];
     $descripcion = $_POST['descripcion'];
     $transportista = $_SESSION['user']['usuario_id'];
-    if(empty($monto)){
-      manejarError('false', 'Monto invalido', 'El monto es obligatorio para postularse');
-    }
     //Validar que sea transportista
     $stmtTransportista = $conexion->query("SELECT * FROM transportistas WHERE transportista_id = $transportista");
     if($stmtTransportista->rowCount() == 0){
