@@ -15,8 +15,8 @@
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
   <div>
     <?php
-    if(isset($_SESSION['nombre'])){
-      echo('Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!');
+    if(isset($_SESSION['id'])){
+      echo('Bienvenido '.$_SESSION['id'].'!');
     }
     ?>
     </div>

@@ -8,7 +8,7 @@
     $pubId = $_POST['publicacion-id'];
     $monto = $_POST['monto'];
     $descripcion = $_POST['descripcion'];
-    $transportista = $_SESSION['user']['usuario_id'];
+    $transportista = $_SESSION['id'];
     //Validar que sea transportista
     $stmtTransportista = $conexion->query("SELECT * FROM transportistas WHERE transportista_id = $transportista");
     if($stmtTransportista->rowCount() == 0){
