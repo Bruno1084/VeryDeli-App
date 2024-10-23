@@ -119,6 +119,18 @@ CREATE TABLE `administradores` (
     )
 );
 
+CREATE TABLE `publicaciones_reportadas` (
+    `reporte_id` int AUTO_INCREMENT NOT NULL ,
+    `publicacion_id` int  NOT NULL ,
+    `usuario_autor` int  NOT NULL ,
+    `reporte_motivo` varchar(30)  NOT NULL ,
+    `reporte_mensaje` varchar(255) NULL ,
+    `reporte_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (
+        `reporte_id`
+    )
+);
+
 ALTER TABLE `transportistas` ADD CONSTRAINT `fk_transportistas_transportista_id` FOREIGN KEY(`transportista_id`)
 REFERENCES `usuarios` (`usuario_id`);
 
@@ -164,6 +176,12 @@ REFERENCES `usuarios` (`usuario_id`);
 ALTER TABLE `administradores` ADD CONSTRAINT `fk_administradores_administrador_id` FOREIGN KEY(`administrador_id`)
 REFERENCES `usuarios` (`usuario_id`);
 
+ALTER TABLE `publicaciones_reportadas` ADD CONSTRAINT `fk_publicaciones_reportadas_publicacion_id` FOREIGN KEY(`publicacion_id`)
+REFERENCES `publicaciones` (`publicacion_id`);
+
+ALTER TABLE `publicaciones_reportadas` ADD CONSTRAINT `fk_publicaciones_reportadas_usuario_autor` FOREIGN KEY(`usuario_autor`)
+REFERENCES `usuarios` (`usuario_id`);
+
 CREATE INDEX `idx_vehiculos_transportista_id`
 ON `vehiculos` (`transportista_id`);
 
@@ -193,3 +211,9 @@ ON `calificaciones` (`usuario_calificado`);
 
 CREATE INDEX `idx_calificaciones_usuario_calificador`
 ON `calificaciones` (`usuario_calificador`);
+
+CREATE INDEX `idx_publicaciones_reportadas_usuario_autor`
+ON `publicaciones_reportadas` (`usuario_autor`);
+
+CREATE INDEX `idx_publicaciones_reportadas_publicacion_id`
+ON `publicaciones_reportadas` (`publicacion_id`);
