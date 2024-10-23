@@ -22,7 +22,7 @@ function getPublicacion ($idPublicacion) {
             imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
           WHERE publicaciones.publicacion_id = ?";
   $stmt = $conexion->prepare($sql);
-  $stmt->bindParam(1, $idPublicacion, PDO::PARAM_INT);
+  $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
   $stmt->execute();
 
   $publicacion = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -1,13 +1,12 @@
 <?php
-function renderPublicacionAcotada($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail)
-{
+function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
 
   $images = getAllImagenesFromPublicacion($idPublicacion);
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
-  <a href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?>'>
+  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?>'>
     <div class='row p-2 border-bottom' name='publicacion_D' id='publicacion-N_AD'>
       <div class='d-flex col-6 mt-1 text-start lh-1'>
         <div>

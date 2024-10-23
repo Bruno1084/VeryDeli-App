@@ -3,7 +3,7 @@
         <div class="col-12">
             <nav class="navbar navbar-expand-lg">
                 <div class="col-auto logoNav">
-                    <a class="navbar-brand" href="index.php">
+                    <a class="navbar-brand" href="/public/index.php">
                         <img src="/assets/Logo.png" class="img-fluid" alt="logo">
                     </a>
                 </div>

@@ -16,12 +16,17 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
             <p><?php echo $userLocation; ?></p>
           </div>
         </div>
-        <div class='col-6 mt-1 text-end lh-1'>
+        <div class='col-6 mt-1 text-end lh-1 d-flex border d-flex justify-content-end'>
           <div>
             <p> <?php echo(date('H:i', strtotime($date)))?> </p>
             <p> <?php echo(date('d/m/Y', strtotime($date)))?> </p>
           </div>
+
+          <div class="d-flex justify-content-center align-items-center">
+            <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg">
+          </div>
         </div>
+
       </div>
 
       <div class='my-3'>

@@ -129,3 +129,8 @@ body{
 .imgPubli-container {
     gap: 1rem; 
 }
+
+.publicacionExtendida-menuIcon {
+    max-width: 30px;
+    max-height: 35px;
+}
