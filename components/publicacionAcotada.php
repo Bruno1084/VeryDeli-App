@@ -6,7 +6,8 @@ function renderPublicacionAcotada($idPublicacion, $userLocation, $username, $pro
 
   $images = getAllImagenesFromPublicacion($idPublicacion);
 ?>
-  <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
+<div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
+  <a href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?>'>
     <div class='row p-2 border-bottom' name='publicacion_D' id='publicacion-N_AD'>
       <div class='d-flex col-6 mt-1 text-start lh-1'>
         <div>
@@ -34,7 +35,8 @@ function renderPublicacionAcotada($idPublicacion, $userLocation, $username, $pro
         <img class='img u_photo img-fluid' src='<?php echo $images[0]['imagen_url'] ?>' alt='product-image'>
       </div>
     </div>
-  </div>
+  </a>
+</div>
 <?php
   return ob_get_clean();
 };
