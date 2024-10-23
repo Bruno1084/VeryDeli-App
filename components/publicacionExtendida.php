@@ -66,7 +66,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start'>
             <?php if (!empty($images)) { //Condicional necesario porque actualmente existen publicaciones sin imagen?> 
               <?php foreach ($images as $imagen) { ?>
-                <img class='img u_photo' src='<?php echo $imagen; ?>' alt='product-image'>
+                <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
               <?php } ?>
             <?php } else { ?>
               <p>No hay imágenes disponibles para esta publicación.</p>

@@ -13,6 +13,7 @@ function getAllImagenesFromPublicacion ($idPublicacion) {
 
   $imagenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+  $db = null;
   $stmt = null;
   $conexion = null;
 

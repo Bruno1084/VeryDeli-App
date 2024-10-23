@@ -1,6 +1,6 @@
 <?php
 function renderPublicaciones () {
-    include_once "../components/publicacionExtendida.php";
+    include_once "../components/publicacionAcotada.php";
     include_once "../utils/get/getAllPublicaciones.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -25,17 +25,13 @@ function renderPublicaciones () {
                 
                 $userLocation = $p['usuario_localidad'];
 
-                echo renderPublicacionExtendida(
+                echo renderPublicacionAcotada(
                     $p["publicacion_id"],
+                    $userLocation,
                     $p['usuario_usuario'],
                     "",
                     $p['publicacion_fecha'],
-                    $userLocation,
                     $p["publicacion_descr"],
-                    $p["publicacion_peso"],
-                    $p["ubicacion_origen"],
-                    $p["ubicacion_destino"],
-                    json_decode($p["imagenes"])
                 );
             };
         ?>
