@@ -33,17 +33,16 @@ function validarReporte(idPublicacion){
     mensaje.classList.add('is-valid');
     mensajeFeedback.textContent = '';
   }
-
   return isValid;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
   const forms = document.querySelectorAll('.form-reportar');
   forms.forEach(form => {
     form.addEventListener('submit', async function (event) {  
+      let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
-        let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
         if (validarReporte(idPublicacion)){
           resolve(true);
         }
@@ -52,5 +51,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, false);
-  });
-});
+  })
+})
