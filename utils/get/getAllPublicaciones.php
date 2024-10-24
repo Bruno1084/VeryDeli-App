@@ -7,6 +7,7 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
 
   $sql = "SELECT 
               publicaciones.publicacion_id,
+              publicaciones.publicacion_titulo,
               publicaciones.publicacion_descr,
               publicaciones.publicacion_peso,
               publicaciones.publicacion_fecha,
@@ -21,10 +22,14 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
               usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
           JOIN 
               imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
+          WHERE
+              publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3'
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,
               usuarios.usuario_localidad
+          ORDER BY
+              publicaciones.publicacion_fecha DESC;
           ";
 
   if ($limit > 0) {
@@ -54,5 +59,4 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
   $conexion = null;
 
   return $publicaciones;
-};
-?>
+}
