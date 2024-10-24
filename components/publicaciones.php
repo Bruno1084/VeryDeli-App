@@ -1,7 +1,7 @@
 <?php
 function renderPublicaciones () {
     include_once "../components/publicacionExtendida.php";
-    include_once "../utils/get/getAllPublicaciones.php";
+    include_once "../utils/get/getAllPublicacionesActivas.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 5; //Limite de publicaciones a mostrar
@@ -10,7 +10,7 @@ function renderPublicaciones () {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicaciones(5, $offset);
+    $publicaciones = getAllPublicacionesActivas(5, $offset);
 
     $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
