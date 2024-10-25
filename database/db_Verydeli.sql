@@ -126,6 +126,7 @@ CREATE TABLE `publicaciones_reportadas` (
     `reporte_motivo` varchar(30)  NOT NULL ,
     `reporte_mensaje` varchar(255) NULL ,
     `reporte_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `reporte_activo` tinyint(1) DEFAULT 1 NOT NULL,
     PRIMARY KEY (
         `reporte_id`
     )
