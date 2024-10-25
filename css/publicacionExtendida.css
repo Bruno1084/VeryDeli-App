@@ -1,0 +1,13 @@
+#carouselPublicacion{
+    height: auto;
+}
+
+#carouselPublicacion .u_photo{
+    width: auto;
+    height: 750px;
+}
+.carousel-item-next, .carousel-item-prev, .carousel-item.active{
+    display: flex!important;
+    justify-content: center!important;
+    padding:15px !important;
+}
