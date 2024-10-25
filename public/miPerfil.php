@@ -9,6 +9,7 @@
 </head>
 <body>
 <?php 
+    require_once($_SERVER['DOCUMENT_ROOT']."/utils/functions/startSession.php");
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php");
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); 
     include_once "../components/perfil.php";
@@ -17,7 +18,8 @@
     <div class='container-fluid text-center cuerpo'>
         <?php
       
-            $idUsuario=1;/* Ejemplo de un id forzado para probar  */
+            /* $idUsuario=$_SESSION["id"]; */
+            $idUsuario=1;
             $db = new DB();  
             $conexion = $db->getConnection();
             ob_start();
