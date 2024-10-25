@@ -4,9 +4,9 @@
     require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
     require_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
     
-    $motivo = $_POST["motivo"];
+    $motivo = $_POST['motivo'];
     $mensaje = $_POST['mensaje'];
-    $publicacion = $_POST['publicacion_id'];
+    $publicacion = $_POST['publicacion-id'];
     $autor = $_SESSION['id'];
     
     $db = new DB();
@@ -18,7 +18,7 @@
     $fecha = date('Y-m-d H:i:s');
 
     //Parámetros
-    $reporteStmt->bindParam(1, $publicacion, $PDO::PARAM_INT);
+    $reporteStmt->bindParam(1, $publicacion, PDO::PARAM_INT);
     $reporteStmt->bindParam(2, $autor, PDO::PARAM_INT);
     $reporteStmt->bindParam(3, $motivo, PDO::PARAM_STR);
     $reporteStmt->bindParam(4, $mensaje, PDO::PARAM_STR);
@@ -28,7 +28,7 @@
     if($reporteStmt->execute()){
       $reporteStmt = null;
       $conexion = null;
-      manejarError('true', 'Reporte enviado', 'Hemos recivido tu reporte y pronto estaremos revisando la situacion');
+      manejarError('true', 'Reporte enviado', 'Hemos recibido tu reporte y pronto estaremos revisando la situacion');
       exit;
     } else {
       $reporteStmt = null;
