@@ -1,9 +1,9 @@
 <?php
-function renderComentario ($username, $profileIcon, $commentText) {
+function renderComentario ($comentarioN,$username, $profileIcon, $commentText) {
 
   ob_start();
 ?>
-  <div class='border-top border-bottom my-2 d-flex'>
+  <div class='border-top border-bottom my-2 d-flex' id="comentario_<?php echo$comentarioN; ?>">
     <div>
       <img class='profilePicture' src='<?php echo $profileIcon?>' alt='user-icon'>
     </div>
