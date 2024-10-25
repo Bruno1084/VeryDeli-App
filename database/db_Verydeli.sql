@@ -162,7 +162,7 @@ REFERENCES `usuarios` (`usuario_id`);
 ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_publicacion_id` FOREIGN KEY(`publicacion_id`)
 REFERENCES `publicaciones` (`publicacion_id`);
 
-ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_usuarios_postulante` FOREIGN KEY(`usuarios_postulante`)
+ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_usuario_postulante` FOREIGN KEY(`usuario_postulante`)
 REFERENCES `usuarios` (`usuario_id`);
 
 ALTER TABLE `calificaciones` ADD CONSTRAINT `fk_calificaciones_publicacion_id` FOREIGN KEY(`publicacion_id`)
@@ -201,8 +201,8 @@ ON `comentarios` (`usuario_id`);
 CREATE INDEX `idx_postulaciones_publicacion_id`
 ON `postulaciones` (`publicacion_id`);
 
-CREATE INDEX `idx_postulaciones_usuarios_postulante`
-ON `postulaciones` (`usuarios_postulante`);
+CREATE INDEX `idx_postulaciones_usuario_postulante`
+ON `postulaciones` (`usuario_postulante`);
 
 CREATE INDEX `idx_calificaciones_publicacion_id`
 ON `calificaciones` (`publicacion_id`);
