@@ -8,7 +8,7 @@
   <?php require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); ?>
   <title>Very Deli</title>
 </head>
-<body style="color: D9D9D9;">
+<body>
   <?php require_once("../components/Header.php");?>
   <?php include_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
@@ -18,27 +18,6 @@
     if(isset($_SESSION['id'])){
       echo('Bienvenido '.$_SESSION['id'].'!');
     }
-    ?>
-  
-    <?php
-      if(!isset($DB)){
-        $DB = new DB();
-      }
-      
-      // Fetch the users
-      $usuarios = getAllUsuarios();
-
-      // Check if there are any users
-      if (!empty($usuarios)) {
-        echo "<ul>";
-        // Loop through the users and display them
-        foreach ($usuarios as $usuario) {
-          echo "<li>" . $usuario['usuario_nombre'] . " - " . $usuario['usuario_correo'] . "</li>";
-        }
-        echo "</ul>";
-      } else {
-        echo "No hay usuarios disponibles.";
-      }
     ?>
     </div>
     <?php include_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>

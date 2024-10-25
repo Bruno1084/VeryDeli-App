@@ -16,12 +16,17 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
             <p><?php echo $userLocation; ?></p>
           </div>
         </div>
-        <div class='col-6 mt-1 text-end lh-1'>
+        <div class='col-6 mt-1 text-end lh-1 d-flex border d-flex justify-content-end'>
           <div>
             <p> <?php echo(date('H:i', strtotime($date)))?> </p>
             <p> <?php echo(date('d/m/Y', strtotime($date)))?> </p>
           </div>
+
+          <div class="d-flex justify-content-center align-items-center">
+            <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg">
+          </div>
         </div>
+
       </div>
 
       <div class='my-3'>
@@ -66,7 +71,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start'>
             <?php if (!empty($images)) { //Condicional necesario porque actualmente existen publicaciones sin imagen?> 
               <?php foreach ($images as $imagen) { ?>
-                <img class='img u_photo' src='<?php echo $imagen; ?>' alt='product-image'>
+                <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
               <?php } ?>
             <?php } else { ?>
               <p>No hay imágenes disponibles para esta publicación.</p>
