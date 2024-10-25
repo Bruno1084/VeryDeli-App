@@ -21,7 +21,7 @@
       if ($datosUsuario->rowCount() > 0) {
         $datos = $datosUsuario->fetch(PDO::FETCH_ASSOC);
         if($datos['usuario_esResponsable'] != 1){
-          $stmtCantPostulaciones = $conexion->query("SELECT * FROM postulaciones WHERE usuarios_postulante = $transportista AND postulacion_esActiva = 1");
+          $stmtCantPostulaciones = $conexion->query("SELECT * FROM postulaciones WHERE usuario_postulante = $transportista AND postulacion_esActiva = 1");
           if ($stmtCantPostulaciones->rowCount() == 1) {
             manejarError('false','Limite alcanzado', "Solo puedes tener una postulacion activa.");
             $stmtCantPostulaciones = null;
