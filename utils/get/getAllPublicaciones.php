@@ -15,7 +15,7 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
               publicaciones.ubicacion_destino,
               usuarios.usuario_usuario, 
               usuarios.usuario_localidad, 
-              JSON_ARRAYAGG(imagenes.imagen_url) AS imagenes
+              imagenes.imagen_url
           FROM 
               publicaciones
           JOIN 
