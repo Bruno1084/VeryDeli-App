@@ -36,6 +36,7 @@ function patchPublicacion ($id, $titulo, $fecha, $descripcion, $volumen, $peso, 
   $stmt->bindValue(8, $origen, PDO::PARAM_INT);
   $stmt->bindValue(9, $destino, PDO::PARAM_INT);
   $stmt->bindValue(10, $esActivo, PDO::PARAM_STR);
+  $stmt->bindValue(11, $id, PDO::PARAM_INT);
 
   $isExecuted = false;
 
@@ -48,5 +49,4 @@ function patchPublicacion ($id, $titulo, $fecha, $descripcion, $volumen, $peso, 
   $stmt = null;
 
   return $isExecuted;
-};
-?>
+}
