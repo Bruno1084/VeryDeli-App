@@ -11,7 +11,6 @@ function renderPublicaciones () {
     $conexion = $db->getConnection();
 
     $publicaciones = getAllPublicacionesActivas(5, $offset);
-
     $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
@@ -32,6 +31,7 @@ function renderPublicaciones () {
                     "",
                     $p['publicacion_fecha'],
                     $p["publicacion_descr"],
+                    $p["imagen_url"]
                 );
             };
         ?>
@@ -65,5 +65,4 @@ function renderPublicaciones () {
     </nav>
 <?php
     return ob_get_clean();
-};
-?>
+}
