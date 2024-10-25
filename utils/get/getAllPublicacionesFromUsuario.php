@@ -2,7 +2,7 @@
 function getAllPublicacionesFromUsuario ($idUsuario) {
   require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
 
-  $DB = new $DB();
+  $DB = new DB();
   $conexion = $DB->getConnection();
 
   $sql = "SELECT * FROM publicaciones WHERE usuario_autor = ?";
