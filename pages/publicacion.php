@@ -9,6 +9,7 @@
   <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");?>
   <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getPublicacion.php");?>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/JS.php');?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');?>
   <title>Very Deli</title>
 </head>
 <body>
@@ -16,12 +17,15 @@
   <div class="d-flex justify-content-center">
     <div class="form-rest my-4 col-8"></div>
   </div>
+  
   <?php 
     $publicacion = getPublicacion($_GET['id']);
 
     $imagenes = json_decode($publicacion['imagenes']);
 
     $ubicaciones = json_decode($publicacion["ubicaciones"]);
+    
+    echo renderPostulaciones($publicacion['publicacion_id']);
 
     echo renderPublicacionExtendida(
       $publicacion['publicacion_id'],
