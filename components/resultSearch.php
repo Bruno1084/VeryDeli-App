@@ -20,6 +20,11 @@ function isCheck($i,$check){
 </head>
 <body>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php")?>
+    <div class="addSearch">
+        <form action="#" method="GET">
+            <input class="form-control" type="text" name="addBusqueda" placeholder="Search" aria-label="Search">
+        </form>
+    </div>
     <div class="col-12 bodyRes">
         <aside class="col-3">
     <?php
