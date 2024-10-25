@@ -1,12 +1,11 @@
 <?php
 function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
-  
+  $contadorComentarios=0;
   $commentCache = [];
   ?>
     <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
-      <div class='row p-2 border-bottom' name='publicacion_D' id='publicacion-N_AD'>
+      <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-A'>
         <div class='d-flex col-6 mt-1 text-start lh-1'>
           <div>
             <img class='profilePicture' src='<?php echo $profileIcon; ?>' alt='user'>
@@ -66,16 +65,31 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
         </button>
       </div>
 
-      <div class='row'>
+      <div class='row' id="carouselPublicacion">
         <div class='col-12'>
-          <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start'>
-            <?php if (!empty($images)) { //Condicional necesario porque actualmente existen publicaciones sin imagen?> 
-              <?php foreach ($images as $imagen) { ?>
-                <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
-              <?php } ?>
-            <?php } else { ?>
-              <p>No hay imágenes disponibles para esta publicación.</p>
-            <?php } ?>
+          <div id="carouselIndicators_A" class="carousel slide imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start">
+              <div class="carousel-indicators">
+                <?php for($i=0;$i<sizeof($images);$i++) { ?>
+                  <?php $a="'".($i+1)."'";
+                   ?>
+                  <button type="button" data-bs-target="#carouselIndicators_A" data-bs-slide-to=<?php echo $i?> <?php if($i==0)echo "class='active'";?> <?php if($i==0)echo "aria-current='true'";?> aria-label=<?php echo"'Slide ".($i+1)."'"; ?>></button>
+                <?php } ?>
+              </div>
+              <div class="carousel-inner">
+                <?php $i=0; foreach ($images as $imagen) {?>
+                  <div class="carousel-item <?php if($i==0)echo"active";?>">
+                      <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
+                  </div>
+                <?php $i++;} ?>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+              </button>
           </div>
         </div>
       </div>
@@ -172,11 +186,12 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
             $username = $user["usuario_nombre"] . " " . $user["usuario_apellido"];
 
             echo renderComentario(
+              $contadorComentarios,
               $username,
               '',
               $c['comentario_mensaje']
             );
-
+            $contadorComentarios++;
           }
         ?>
       </div>
