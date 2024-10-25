@@ -40,7 +40,7 @@ function validarReporte(idPublicacion){
 document.addEventListener('DOMContentLoaded', () => {
   const forms = document.querySelectorAll('.form-reportar');
   forms.forEach(form => {
-    form.addEventListener('submit', async function (event) {  
+    form.addEventListener('submit',function (event) {  
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
         let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
