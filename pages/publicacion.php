@@ -17,6 +17,8 @@
 
     $imagenes = json_decode($publicacion['imagenes']);
 
+    $ubicaciones = json_decode($publicacion["ubicaciones"]);
+
     echo renderPublicacionExtendida(
       $publicacion['publicacion_id'],
       $publicacion['usuario_usuario'],
@@ -25,8 +27,8 @@
       $publicacion['usuario_localidad'],
       $publicacion['publicacion_descr'],
       $publicacion['publicacion_peso'],
-      $publicacion['ubicacion_origen'],
-      $publicacion['ubicacion_destino'],
+      $ubicaciones->origen->barrio,
+      $ubicaciones->destino->barrio,
       $imagenes
     );
   ?>
