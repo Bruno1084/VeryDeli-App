@@ -153,7 +153,7 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
     </div>
       <div>
         <?php
-          include_once '../components/comentario.php';
+          include_once ($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
           include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
           include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
 
@@ -191,6 +191,6 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
   <?php
   
 return ob_get_clean();
-};
-?>
+}
+
 
