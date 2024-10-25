@@ -118,6 +118,7 @@ body{
 
 .publicacionExtendida-container, .publicacionAcotada-container{
     max-width: 48rem;
+    padding-bottom: 1vh;
 }
 
 .publicacionExtendida-container img {
