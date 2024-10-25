@@ -32,5 +32,9 @@
   ?>
 
   <?php require_once("../components/Footer.php");?>  
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php")?>
+  <script src="../js/postulacion.js"></script>
+  <script src="../js/validaciones.js"></script>
+  <script src="../js/ajax.js"></script>
 </body>
 </html>
