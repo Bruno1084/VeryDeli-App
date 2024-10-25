@@ -1,10 +1,8 @@
 <?php
 function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
-    include_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionExtendida.php");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionAcotada.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPublicacionesBusqueda.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
-
-    
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 5; //Limite de publicaciones a mostrar
@@ -27,22 +25,18 @@ function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
                 
                 $userLocation = $p['usuario_localidad'];
 
-                echo renderPublicacionExtendida(
+                echo renderPublicacionAcotada(
                     $p["publicacion_id"],
+                    $userLocation,
                     $p['usuario_usuario'],
                     "",
                     $p['publicacion_fecha'],
-                    $userLocation,
                     $p["publicacion_descr"],
-                    $p["publicacion_peso"],
-                    $p["ubicacion_origen"],
-                    $p["ubicacion_destino"],
-                    array_unique(json_decode($p["imagenes"]))
+                    $p["imagen_url"]
                 );
             };
         ?>
     </div>
-
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -71,5 +65,4 @@ function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
     </nav>
 <?php
     return ob_get_clean();
-};
-?>
+}

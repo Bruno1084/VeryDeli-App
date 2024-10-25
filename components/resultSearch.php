@@ -4,6 +4,9 @@ function stateExist($arreglo){
         return ", ".$arreglo["state"];
     }
 }
+function isCheck($i,$check){
+    if($i==$check)return"checked";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,21 +14,23 @@ function stateExist($arreglo){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/head.php")?>
+    <link rel="stylesheet" href="../css/resultSearch.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <title>Resultados</title>
 </head>
 <body>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php")?>
-    <aside class="col-3">
+    <div class="col-12 bodyRes">
+        <aside class="col-3">
     <?php
-        if(isset($_GET["buscar"])){
+        if(isset($_GET["buscar"])||isset($_GET["reubicar"])){
             require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesBusqueda.php");
             if($_GET["tipoBusqueda"]=="zona"){
                 echo "<div id='resultados'>";
                 echo "<h3>Resultados:</h3>";
                 
                 $url = "https://graphhopper.com/api/1/geocode?q=".urlencode($_GET["busqueda"].", Argentina")."&key=96865858-2f5d-4a0a-9c0b-d56b3f1e20cc";
-
+    
                 // Configuración de cURL
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
@@ -39,33 +44,53 @@ function stateExist($arreglo){
 
                 curl_close($ch);
                 $data = json_decode($response, true);
-                for($i=0;$i<sizeof($data["hits"]);$i++){
-                    echo "<div class='resultado'>";
-                    echo "<label for='lugar-".($i+1)."'>Resultado ".($i+1).":</br>".$data["hits"][$i]["name"].stateExist($data["hits"][$i]).", ".$data["hits"][$i]["country"]."</label>";
-                    echo '<input type="radio" name="lugar" id="lugar-'.($i+1).'" value="'.$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"].'"></br>';
+                $coord=array();
+                $coordAMostrar=null;
+                if(isset($_GET["ubicacion"])) $coordAMostrar=$_GET["ubicacion"];
+                else $coordAMostrar=0;
+                if(sizeof($data)>0){
+                    echo "<form method='GET' action='#'>";
+                    for($i=0;$i<sizeof($data["hits"]);$i++){
+                        echo "<div class='resultado'>";
+                        echo "<label for='lugar-".($i+1)."'>Resultado ".($i+1).":</br>".$data["hits"][$i]["name"].stateExist($data["hits"][$i]).", ".$data["hits"][$i]["country"]."</label>";
+                        echo '<input type="radio" name=ubicacion id="lugar-'.($i+1).'" data-value="'.$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"].'" value="'.$i.'" '.isCheck($i,$coordAMostrar).'></br>';
+                        echo "</div>";
+                        $coord[]=$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"];
+                        if($i==$coordAMostrar){
+                            $_GET["aBuscar"]=$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"];
+                        }
+                    }
                     echo "</div>";
-                    $_GET["busqueda"]=$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"];
-                    $_GET["tipoBusqueda"]=1;
+                    echo "<input type='text' name='busqueda' value='".$_GET["busqueda"]."' hidden>";
+                    echo "<input type='text' name='tipoBusqueda' value='".$_GET["tipoBusqueda"]."' hidden>";
+                    echo "<input type='submit' name='reubicar' value='Reubicar'>";
+                    echo "</form>";
                 }
-                echo "</div>";
+                $_GET["coordenadas"]=$coord;
+                $_GET["metodoBusqueda"]=1;
+
             }
             else{
                 echo "<div id='resultados'>";
                 echo "<div>";
                 echo "</div>";
                 echo "</div>";
-                $_GET["tipoBusqueda"]=2;
+                $_GET["metodoBusqueda"]=2;
+                $_GET["aBuscar"]=$_GET["busqueda"];
             };
     ?>
-        <div id="map" style="width:300px;height:300px"></div>
-    </aside>
-    <div class="col-6">
-    <?php
-        echo renderPublicacionesBusqueda($_GET["busqueda"],$_GET["tipoBusqueda"]);
-    }
-    
-    ?>
+        </aside>
+        <div class="col-6">
+        <?php
+            echo renderPublicacionesBusqueda($_GET["aBuscar"],$_GET["metodoBusqueda"]);
+        }
+        ?>
+        </div>
+        <aside class="col-3">
+            <div id="map" style="width:300px;height:300px"></div>
+        </aside>
     </div>
+    <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php")?>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php")?>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
@@ -77,15 +102,15 @@ function stateExist($arreglo){
         window.addEventListener("load",()=>{
             var resultado1=document.querySelector("#resultados div");
             if(resultado1.classList.contains("resultado")){
-                resultado1.children[1].setAttribute("checked","");
-                lati=resultado1.children[1].value.split(",")[0];
-                longi=resultado1.children[1].value.split(",")[1];
+                var checkRes=document.querySelector("#resultados .resultado input:checked");
+                lati=checkRes.getAttribute("data-value").split(",")[0];
+                longi=checkRes.getAttribute("data-value").split(",")[1];
                 map = L.map('map').setView([lati, longi], 14); // Primera ubicacion encontrada
                 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    maxZoom: 14,
-                    minZoom: 14
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                   //maxZoom: 14,
+                    //minZoom: 14
                 }).addTo(map);
                 var label=resultado1.children[0].textContent.split(":")[0];
                 cargarPublicaciones(resultado1,label);
@@ -96,8 +121,8 @@ function stateExist($arreglo){
             if(resultadoCheck==null){
                 resultadoCheck=document.querySelector("#resultados .resultado input:checked");
                 label=resultadoCheck.previousElementSibling.textContent.split(":")[0];
-                lati=resultadoCheck.value.split(",")[0];
-                longi=resultadoCheck.value.split(",")[1];
+                lati=resultadoCheck.getAttribute("data-value").split(",")[0];
+                longi=resultadoCheck.getAttribute("data-value").split(",")[1];
                 map.removeLayer(ubicacion);
                 map.removeLayer(circle);
                 map.setView([lati, longi], 14);
@@ -127,6 +152,5 @@ function stateExist($arreglo){
         }
 
     </script>
-
 </body>
 </html>

@@ -8,13 +8,10 @@
                         publicaciones.publicacion_id,
                         publicaciones.publicacion_titulo,
                         publicaciones.publicacion_descr,
-                        publicaciones.publicacion_peso,
                         publicaciones.publicacion_fecha,
-                        publicaciones.ubicacion_origen,
-                        publicaciones.ubicacion_destino,
                         usuarios.usuario_usuario, 
                         usuarios.usuario_localidad, 
-                        JSON_ARRAYAGG(imagenes.imagen_url) AS imagenes
+                        imagenes.imagen_url
                     FROM 
                         publicaciones
                     JOIN 
@@ -29,7 +26,8 @@
                         publicaciones.publicacion_id, 
                         usuarios.usuario_usuario,
                         usuarios.usuario_localidad
-                    ";
+                    ORDER BY
+                  		publicaciones.publicacion_fecha DESC;";
     
             if ($limit > 0) {
                 $sql .= " LIMIT ?";
@@ -67,13 +65,10 @@
                     publicaciones.publicacion_id,
                     publicaciones.publicacion_titulo,
                     publicaciones.publicacion_descr,
-                    publicaciones.publicacion_peso,
                     publicaciones.publicacion_fecha,
-                    publicaciones.ubicacion_origen,
-                    publicaciones.ubicacion_destino,
                     usuarios.usuario_usuario, 
                     usuarios.usuario_localidad, 
-                    JSON_ARRAYAGG(imagenes.imagen_url) AS imagenes
+                    imagenes.imagen_url
                   FROM 
                         publicaciones
                   JOIN 
@@ -83,7 +78,11 @@
                   JOIN
                         ubicaciones ON ubicaciones.ubicacion_id = publicaciones.ubicacion_origen OR ubicaciones.ubicacion_id = publicaciones.ubicacion_destino
                   WHERE
-                        (ubicaciones.ubicacion_latitud<=? AND ubicaciones.ubicacion_latitud>=?) AND (ubicaciones.ubicacion_longitud<=? AND ubicaciones.ubicacion_longitud>=?) AND publicaciones.publicacion_esActivo='1'
+                        publicaciones.publicacion_esActivo = '1' AND 
+                        -- Cálculo de la distancia usando la fórmula Haversine
+                        ( 6371 * acos( cos( radians(?) ) * cos( radians(ubicaciones.ubicacion_latitud) ) 
+                        * cos( radians(ubicaciones.ubicacion_longitud) - radians(?) ) 
+                        + sin( radians(?) ) * sin( radians(ubicaciones.ubicacion_latitud)) ) ) <= ?
                   GROUP BY 
                         publicaciones.publicacion_id, 
                         usuarios.usuario_usuario,
@@ -97,16 +96,16 @@
             if($offset > 0){
                 $sql .= " OFFSET ?";
             }
-    
+
+            $radioK=(double)0.5;
+            $centroLat=(double)explode(",",$text)[0];
+            $centroLng=(double)explode(",",$text)[1];
+
             $stmtBusqueda = $conexion->prepare($sql);
-            $minLat=((double)explode(",",$text)[0])+5772;
-            $maxLat=((double)explode(",",$text)[0])-5772;
-            $minLng=((double)explode(",",$text)[1])+5772;
-            $maxLng=((double)explode(",",$text)[1])-5772;
-            $stmtBusqueda->bindValue(1,$minLat,PDO::PARAM_STR_NATL);
-            $stmtBusqueda->bindValue(2,$maxLat,PDO::PARAM_STR_NATL);
-            $stmtBusqueda->bindValue(3,$minLng,PDO::PARAM_STR_NATL);
-            $stmtBusqueda->bindValue(4,$maxLng,PDO::PARAM_STR_NATL);
+            $stmtBusqueda->bindValue(1,$centroLat,PDO::PARAM_STR_NATL);
+            $stmtBusqueda->bindValue(2,$centroLng,PDO::PARAM_STR_NATL);
+            $stmtBusqueda->bindValue(3,$centroLat,PDO::PARAM_STR_NATL);
+            $stmtBusqueda->bindValue(4,$radioK,PDO::PARAM_STR_NATL);
     
             if ($limit > 0) {
                 $stmtBusqueda->bindValue(5, $limit, PDO::PARAM_INT);
