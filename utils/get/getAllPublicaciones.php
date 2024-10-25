@@ -9,10 +9,7 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
               publicaciones.publicacion_id,
               publicaciones.publicacion_titulo,
               publicaciones.publicacion_descr,
-              publicaciones.publicacion_peso,
               publicaciones.publicacion_fecha,
-              publicaciones.ubicacion_origen,
-              publicaciones.ubicacion_destino,
               usuarios.usuario_usuario, 
               usuarios.usuario_localidad, 
               imagenes.imagen_url
