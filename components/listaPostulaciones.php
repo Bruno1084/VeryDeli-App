@@ -16,6 +16,9 @@
           <div class="row">
             <div class="col-12">
               <h3 class="text-center mb-4">Postulaciones</h3>
+              <?php if($postulaciones == false) :?>
+                <p class="mb-1 fw-medium text-center"> Todavía nadie se ha postulado a tu publicación 😓 </p>
+              <?php endif ?>
             </div>  
           </div>
           
