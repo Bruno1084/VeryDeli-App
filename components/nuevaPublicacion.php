@@ -128,8 +128,8 @@
 
   <!--BOTON PARA ABRIR EL MODAL-->
   <div class="Container-fluid text-end">
-    <div class="row justify-content-center">
-        <div class="col-6 justify-content-center p-0">
+    <div class="justify-content-center div-crearPublicacion">
+        <div class="justify-content-center p-0">
             <div>
                 <button class="btn mb-3" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
             </div>

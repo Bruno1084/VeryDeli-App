@@ -1,7 +1,8 @@
 <?php
-function renderPublicaciones () {
-    include_once "../components/publicacionAcotada.php";
-    include_once "../utils/get/getAllPublicacionesActivas.php";
+function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
+    include_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionAcotada.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPublicacionesBusqueda.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 5; //Limite de publicaciones a mostrar
@@ -9,8 +10,8 @@ function renderPublicaciones () {
     
     $db = new DB();
     $conexion = $db->getConnection();
-
-    $publicaciones = getAllPublicacionesActivas(5, $offset);
+    $publicaciones = getAllPublicacionesBusqueda($descr_o_ubicacion,$tipo,5, $offset);
+    
     $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
@@ -36,7 +37,6 @@ function renderPublicaciones () {
             };
         ?>
     </div>
-
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
