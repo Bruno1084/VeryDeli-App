@@ -48,6 +48,5 @@
   <script src="/js/ajax.js"></script>
   <script src="/js/validarReporte.js"></script>
   <script src="/js/cambiarEstado.js"></script>
-  <script src="/js/cancelarTransportista"></script>
 </body>
 </html>
