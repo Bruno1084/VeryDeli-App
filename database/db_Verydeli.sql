@@ -94,6 +94,7 @@ CREATE TABLE `postulaciones` (
     `postulacion_precio` float  NOT NULL ,
     `postulacion_descr` varchar(500)  NULL ,
     `postulacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `postulacion_estado` enum('0', '1', '2') NOT NULL DEFAULT '0'
     PRIMARY KEY (
         `postulacion_id`
     )
