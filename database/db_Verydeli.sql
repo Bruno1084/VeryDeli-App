@@ -120,49 +120,52 @@ CREATE TABLE `administradores` (
 );
 
 ALTER TABLE `transportistas` ADD CONSTRAINT `fk_transportistas_transportista_id` FOREIGN KEY(`transportista_id`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `vehiculos` ADD CONSTRAINT `fk_vehiculos_transportista_id` FOREIGN KEY(`transportista_id`)
-REFERENCES `transportistas` (`transportista_id`);
+REFERENCES `transportistas` (`transportista_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_ubicacion_origen` FOREIGN KEY(`ubicacion_origen`)
-REFERENCES `ubicaciones` (`ubicacion_id`);
+REFERENCES `ubicaciones` (`ubicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_ubicacion_destino` FOREIGN KEY(`ubicacion_destino`)
-REFERENCES `ubicaciones` (`ubicacion_id`);
+REFERENCES `ubicaciones` (`ubicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_usuario_autor` FOREIGN KEY(`usuario_autor`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_usuario_transportista` FOREIGN KEY(`usuario_transportista`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `imagenes` ADD CONSTRAINT `fk_imagenes_publicacion_id` FOREIGN KEY(`publicacion_id`)
-REFERENCES `publicaciones` (`publicacion_id`);
+REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `comentarios` ADD CONSTRAINT `fk_comentarios_publicacion_id` FOREIGN KEY(`publicacion_id`)
-REFERENCES `publicaciones` (`publicacion_id`);
+REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `comentarios` ADD CONSTRAINT `fk_comentarios_usuario_id` FOREIGN KEY(`usuario_id`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_publicacion_id` FOREIGN KEY(`publicacion_id`)
-REFERENCES `publicaciones` (`publicacion_id`);
+REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_usuarios_postulante` FOREIGN KEY(`usuarios_postulante`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `calificaciones` ADD CONSTRAINT `fk_calificaciones_publicacion_id` FOREIGN KEY(`publicacion_id`)
-REFERENCES `publicaciones` (`publicacion_id`);
+REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `calificaciones` ADD CONSTRAINT `fk_calificaciones_usuario_calificado` FOREIGN KEY(`usuario_calificado`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `calificaciones` ADD CONSTRAINT `fk_calificaciones_usuario_calificador` FOREIGN KEY(`usuario_calificador`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `administradores` ADD CONSTRAINT `fk_administradores_administrador_id` FOREIGN KEY(`administrador_id`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `verificaciones` ADD CONSTRAINT `fk_verificaciones_verificacion_id` FOREIGN KEY (`verificacion_id`)
+REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE INDEX `idx_vehiculos_transportista_id`
 ON `vehiculos` (`transportista_id`);
