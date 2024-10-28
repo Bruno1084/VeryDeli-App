@@ -20,11 +20,6 @@ function isCheck($i,$check){
 </head>
 <body>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php")?>
-    <div class="addSearch">
-        <form action="#" method="GET">
-            <input class="form-control" type="text" name="addBusqueda" placeholder="Search" aria-label="Search">
-        </form>
-    </div>
     <div class="col-12 bodyRes">
         <aside class="col-3">
     <?php
@@ -53,6 +48,7 @@ function isCheck($i,$check){
                 $coordAMostrar=null;
                 if(isset($_GET["ubicacion"])) $coordAMostrar=$_GET["ubicacion"];
                 else $coordAMostrar=0;
+                
                 if(sizeof($data)>0){
                     echo "<form method='GET' action='#'>";
                     for($i=0;$i<sizeof($data["hits"]);$i++){
@@ -70,6 +66,9 @@ function isCheck($i,$check){
                     echo "<input type='text' name='tipoBusqueda' value='".$_GET["tipoBusqueda"]."' hidden>";
                     echo "<input type='submit' name='reubicar' value='Reubicar'>";
                     echo "</form>";
+                }
+                else{
+
                 }
                 $_GET["coordenadas"]=$coord;
                 $_GET["metodoBusqueda"]=1;
@@ -92,7 +91,7 @@ function isCheck($i,$check){
         ?>
         </div>
         <aside class="col-3">
-            <div id="map" style="width:300px;height:300px"></div>
+            <div id="map" style="width:100%;height:35vh"></div>
         </aside>
     </div>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php")?>

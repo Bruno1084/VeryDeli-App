@@ -8,17 +8,18 @@ function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
     $limit = 5; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
-    $db = new DB();
-    $conexion = $db->getConnection();
+    
     $publicaciones = getAllPublicacionesBusqueda($descr_o_ubicacion,$tipo,5, $offset);
     
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
-    $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
+    $totalPublicaciones = sizeof($publicaciones);
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
 
     $userCache = [];
 ?>
+    <div class="cantResultSearch">
+        <h3>Total de coincidencias encontradas: <?php  echo sizeof($publicaciones);?></h3>
+    </div>
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
