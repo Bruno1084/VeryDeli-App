@@ -19,6 +19,16 @@
       echo('Bienvenido '.$_SESSION['id'].'!');
     }
     ?>
+
+    <div class="container container-fluid d-flex justify-content-center">
+      <div class="form-rest my-4 col-8">
+        <div class="text-bg-secondary d-flex justify-content-between p-3">
+          <span>Aun no has verificado tu identidad</span>
+          <button class="btn btn-rounded btn-primary">Verificar mi identidad</button>
+        </div>
+      </div>
+    </div>
+    
     </div>
     <?php require_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
     
