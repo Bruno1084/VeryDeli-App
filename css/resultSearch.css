@@ -1,3 +1,15 @@
 .bodyRes{
     display: flex;
 }
+.addSearch{
+    display: flex;
+    justify-content: center;
+    padding: 3vh 0;
+
+}
+.addSearch form{
+    width: 50%;
+}
+.aside input{
+
+}
