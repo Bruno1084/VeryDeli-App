@@ -107,9 +107,13 @@ function isCheck($i,$check){
         var lati=null;
         var longi=null;
         var map=null;
-        var radio=650;
+        var radio=1000;
         var circle=null;
         window.addEventListener("load",()=>{
+            var asideRes=document.querySelector("#aside1 .asideRes");
+            if(asideRes.childElementCount>1){
+                asideRes.setAttribute("style","border:solid 0.4vh #ff9c87");
+            }
             var resultado1=document.querySelector("#resultados div");
             if(resultado1.classList.contains("resultado")){
                 var checkRes=document.querySelector("#resultados .resultado input:checked");
@@ -117,13 +121,13 @@ function isCheck($i,$check){
                 parentCheck.setAttribute("style","background-color:#ffeaeac2;border:solid 0.1vh #ff8969ba;border-radius: 2%;");
                 lati=checkRes.getAttribute("data-value").split(",")[0];
                 longi=checkRes.getAttribute("data-value").split(",")[1];
-                map = L.map('map').setView([lati, longi], 15); // Primera ubicacion encontrada
+                map = L.map('map').setView([lati, longi], 14); // Primera ubicacion encontrada
                 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    maxZoom: 15
+                    maxZoom: 14
                 }).addTo(map);
-                var label=resultado1.children[0].textContent.split(":")[0];
+                var label=checkRes.previousElementSibling.textContent.split(":")[0];;
                 cargarPublicaciones(resultado1,label);
                 accionCheck();
             }
@@ -136,7 +140,7 @@ function isCheck($i,$check){
                 longi=resultadoCheck.getAttribute("data-value").split(",")[1];
                 map.removeLayer(ubicacion);
                 map.removeLayer(circle);
-                map.setView([lati, longi], 15);
+                map.setView([lati, longi], 14);
             }
             marcarLugar(label);
         }
