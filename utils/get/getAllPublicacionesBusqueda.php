@@ -19,7 +19,7 @@
                     JOIN 
                         imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
                     WHERE 
-                        LOWER(publicacion_descr) 
+                        LOWER(publicacion_descr) OR LOWER(publicacion_titulo) 
                     LIKE 
                         LOWER(?)
                     GROUP BY 
