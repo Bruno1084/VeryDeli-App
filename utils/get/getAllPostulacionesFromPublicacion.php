@@ -1,5 +1,5 @@
 <?php
-function getAllPostulacionesFromPublicacion ($idPostulacion) {
+function getAllPostulacionesFromPublicacion ($idPublicacion) {
   require_once ($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
 
   $DB = new DB();

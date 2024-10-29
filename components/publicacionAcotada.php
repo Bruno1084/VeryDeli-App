@@ -1,9 +1,7 @@
 <?php
-function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail) {
+function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
-
-  $images = getAllImagenesFromPublicacion($idPublicacion);
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
   <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?>'>
@@ -31,7 +29,7 @@ function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $pr
       </div>
 
       <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-center'>
-        <img class='img u_photo img-fluid' src='<?php echo $images[0]['imagen_url'] ?>' alt='product-image'>
+        <img class='img u_photo img-fluid' src='<?php echo $imagen ?>' alt='product-image'>
       </div>
     </div>
   </a>

@@ -37,11 +37,16 @@ function validarPostulacion(idPublicacion){
 (() => {
   const forms = document.querySelectorAll('.form-postularse');
   forms.forEach(form => {
-    form.addEventListener('submit', async function (event) {  
+    form.addEventListener('submit', function (event) {  
       let idPublicacion = parseInt(form.getAttribute("id").replace('formPostularse', ''));
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
         if (validarPostulacion(idPublicacion)){
+          $('#modalPostularse' + idPublicacion).modal('hide');
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
           resolve(true);
         }
         else{
@@ -50,4 +55,4 @@ function validarPostulacion(idPublicacion){
       });
     }, false);
   })
-})
+})()

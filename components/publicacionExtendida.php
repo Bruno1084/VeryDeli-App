@@ -1,27 +1,25 @@
 <?php
-function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images)
-{
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
+function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
   ob_start();
-
+  $contadorComentarios=0;
   $commentCache = [];
-?>
-  <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
-    <div class='row p-2 border-bottom' name='publicacion_D' id='publicacion-N_AD'>
-      <div class='d-flex col-6 mt-1 text-start lh-1'>
-        <div>
-          <img class='profilePicture' src='<?php echo $profileIcon; ?>' alt='user'>
+  ?>
+    <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
+      <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-A'>
+        <div class='d-flex col-6 mt-1 text-start lh-1'>
+          <div>
+            <img class='profilePicture' src='<?php echo $profileIcon; ?>' alt='user'>
+          </div>
+          <div>
+            <p><?php echo $username; ?></p>
+            <p><?php echo $userLocation; ?></p>
+          </div>
         </div>
-        <div>
-          <p><?php echo $username; ?></p>
-          <p><?php echo $userLocation; ?></p>
-        </div>
-      </div>
-      <div class='col-6 mt-1 text-end lh-1 d-flex d-flex justify-content-end'>
-        <div>
-          <p> <?php echo (date('H:i', strtotime($date))) ?> </p>
-          <p> <?php echo (date('d/m/Y', strtotime($date))) ?> </p>
-        </div>
+        <div class='col-6 mt-1 text-end lh-1 d-flex border d-flex justify-content-end'>
+          <div>
+            <p> <?php echo(date('H:i', strtotime($date)))?> </p>
+            <p> <?php echo(date('d/m/Y', strtotime($date)))?> </p>
+          </div>
 
         <div class="dropdown publicacionExtendida-menuButton-container">
           <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
@@ -73,16 +71,32 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
       </button>
     </div>
 
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src="..." alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="..." alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="..." alt="Third slide">
+      <div class='row' id="carouselPublicacion">
+        <div class='col-12'>
+          <div id="carouselIndicators_A" class="carousel slide imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start">
+              <div class="carousel-indicators">
+                <?php for($i=0;$i<sizeof($images);$i++) { ?>
+                  <?php $a="'".($i+1)."'";
+                   ?>
+                  <button type="button" data-bs-target="#carouselIndicators_A" data-bs-slide-to=<?php echo $i?> <?php if($i==0)echo "class='active'";?> <?php if($i==0)echo "aria-current='true'";?> aria-label=<?php echo"'Slide ".($i+1)."'"; ?>></button>
+                <?php } ?>
+              </div>
+              <div class="carousel-inner">
+                <?php $i=0; foreach ($images as $imagen) {?>
+                  <div class="carousel-item <?php if($i==0)echo"active";?>">
+                      <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
+                  </div>
+                <?php $i++;} ?>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+              </button>
+          </div>
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -168,11 +182,11 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
         </div>
       </div>
     </div>
-    <div>
-      <?php
-      include_once '../components/comentario.php';
-      include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
-      include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+      <div>
+        <?php
+          include_once ($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
+          include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
+          include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
 
       $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
@@ -188,25 +202,27 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
 
         $username = $user["usuario_nombre"] . " " . $user["usuario_apellido"];
 
-        echo renderComentario(
-          $username,
-          '',
-          $c['comentario_mensaje']
-        );
-      }
-      ?>
+            echo renderComentario(
+              $contadorComentarios,
+              $username,
+              '',
+              $c['comentario_mensaje']
+            );
+            $contadorComentarios++;
+          }
+        ?>
+      </div>
+
+      <div>
+        <?php
+          include_once '../components/post-comentario.php';
+          echo renderPostComentario($username, "", $idPublicacion);
+        ?>
+      </div>
     </div>
-
-    <div>
-      <?php
-      include_once '../components/post-comentario.php';
-      echo renderPostComentario($username, "", $idPublicacion);
-      ?>
-    </div>
-  </div>
-<?php
+  <?php
+  
+return ob_get_clean();
+}
 
 
-  return ob_get_clean();
-};
-?>

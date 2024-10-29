@@ -8,10 +8,7 @@
     $pubId = $_POST['publicacion-id'];
     $monto = $_POST['monto'];
     $descripcion = $_POST['descripcion'];
-    $transportista = $_SESSION['user']['usuario_id'];
-    if(empty($monto)){
-      manejarError('false', 'Monto invalido', 'El monto es obligatorio para postularse');
-    }
+    $transportista = $_SESSION['id'];
     //Validar que sea transportista
     $stmtTransportista = $conexion->query("SELECT * FROM transportistas WHERE transportista_id = $transportista");
     if($stmtTransportista->rowCount() == 0){
@@ -24,7 +21,7 @@
       if ($datosUsuario->rowCount() > 0) {
         $datos = $datosUsuario->fetch(PDO::FETCH_ASSOC);
         if($datos['usuario_esResponsable'] != 1){
-          $stmtCantPostulaciones = $conexion->query("SELECT * FROM postulaciones WHERE usuarios_postulante = $transportista AND postulacion_esActiva = 1");
+          $stmtCantPostulaciones = $conexion->query("SELECT * FROM postulaciones WHERE usuario_postulante = $transportista AND postulacion_esActiva = 1");
           if ($stmtCantPostulaciones->rowCount() == 1) {
             manejarError('false','Limite alcanzado', "Solo puedes tener una postulacion activa.");
             $stmtCantPostulaciones = null;
@@ -54,7 +51,7 @@
     }
     $stmtAutor = null;
     
-    $stmtPostularse = $conexion->prepare('INSERT INTO postulaciones (usuarios_postulante, postulacion_precio, postulacion_descr, publicacion_id, postulacion_fecha) VALUES (?, ?, ?, ?, ?)');
+    $stmtPostularse = $conexion->prepare('INSERT INTO postulaciones (usuario_postulante, postulacion_precio, postulacion_descr, publicacion_id, postulacion_fecha) VALUES (?, ?, ?, ?, ?)');
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $fechaActual = date('Y-m-d H:i:s');
     $stmtPostularse->bindParam(1, $transportista, PDO::PARAM_INT);

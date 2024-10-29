@@ -80,7 +80,7 @@ if($checkUsuario->rowCount() > 0){
 $checkUsuario = null;
 
 // Validar formato de la contraseña
-if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
+if(verificarDatos('[a-zA-Z0-9$@.\-]{5,100}', $contrasenia)){
   manejarError('false','Contraseña inválida','La contraseña ingresada no coincide con el formato solicitado.');
   exit();
 };
