@@ -9,5 +9,67 @@
     margin-top: 2.5vh;
 }
 #map{
-    border-radius: 10%;
+    border-radius: 7%;
 }
+.divMap{
+    margin-top: 5vh;
+    width: 95%;
+}
+#aside2{
+    padding: 1vh;
+    display: flex;
+    justify-content: center;
+}
+#aside1{
+    padding: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.resInputs{
+    margin-top: 0.5vh;
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+}
+.resZona{
+    width: 95%;
+}
+.resultado:hover{
+    background-color:#ffeaeac2;
+    border:solid 0.1vh #ff8969ba;
+    border-radius: 2%;
+}
+.resultado{
+    margin: 0.1vh;
+    padding: 0.5vh;
+    border: solid 0.1vh #00000000;
+}
+.resultado label{
+    cursor:pointer;
+    width: 100%;
+    font-size: 120%;
+}
+.resInputs input[type="submit"]{
+    border: solid 0.1vh #ff5f5f99;
+    background: none;
+    background-color: #f8cfc6d4;
+    font-size: 140%;
+    padding: 0.5vh;
+    border-radius: 5%;
+}
+.resInputs input[type="submit"]:hover{
+    border: solid 0.1vh #ff8969ba;
+    background-color: #ffeaeac2;
+}
+.asideRes{
+    margin: 5vh 1vh 1vh;
+    border: solid 0.4vh #ff9c87;
+    border-radius: 12px;
+    padding: 1vh;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

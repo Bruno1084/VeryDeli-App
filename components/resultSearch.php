@@ -1,7 +1,7 @@
 <?php 
 function stateExist($arreglo){
     if(isset($arreglo["state"])){
-        return ", ".$arreglo["state"];
+        return $arreglo["state"].", ";
     }
 }
 function isCheck($i,$check){
@@ -21,13 +21,14 @@ function isCheck($i,$check){
 <body>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php")?>
     <div class="col-12 bodyRes">
-        <aside class="col-3">
+        <aside class="col-3" id="aside1">
+            <div class="asideRes">
     <?php
         if(isset($_GET["buscar"])||isset($_GET["reubicar"])){
             require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesBusqueda.php");
             if($_GET["tipoBusqueda"]=="zona"){
-                echo "<div id='resultados'>";
-                echo "<h3>Resultados:</h3>";
+                echo "<div id='resultados' class='resZona'>";
+                echo "<h3>Zonas encontradas:</h3>";
                 
                 $url = "https://graphhopper.com/api/1/geocode?q=".urlencode($_GET["busqueda"].", Argentina")."&key=96865858-2f5d-4a0a-9c0b-d56b3f1e20cc";
     
@@ -53,8 +54,8 @@ function isCheck($i,$check){
                     echo "<form method='GET' action='#'>";
                     for($i=0;$i<sizeof($data["hits"]);$i++){
                         echo "<div class='resultado'>";
-                        echo "<label for='lugar-".($i+1)."'>Resultado ".($i+1).":</br>".$data["hits"][$i]["name"].stateExist($data["hits"][$i]).", ".$data["hits"][$i]["country"]."</label>";
-                        echo '<input type="radio" name=ubicacion id="lugar-'.($i+1).'" data-value="'.$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"].'" value="'.$i.'" '.isCheck($i,$coordAMostrar).'></br>';
+                        echo "<label for='lugar-".($i+1)."'>Zona ".($i+1).":</br>".$data["hits"][$i]["name"].",<br>".stateExist($data["hits"][$i]).$data["hits"][$i]["country"]."</label>";
+                        echo '<input type="radio" name=ubicacion id="lugar-'.($i+1).'" data-value="'.$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"].'" value="'.$i.'" '.isCheck($i,$coordAMostrar).' hidden></br>';
                         echo "</div>";
                         $coord[]=$data["hits"][$i]["point"]["lat"].','.$data["hits"][$i]["point"]["lng"];
                         if($i==$coordAMostrar){
@@ -62,9 +63,11 @@ function isCheck($i,$check){
                         }
                     }
                     echo "</div>";
+                    echo "<div class='resInputs'>";
                     echo "<input type='text' name='busqueda' value='".$_GET["busqueda"]."' hidden>";
                     echo "<input type='text' name='tipoBusqueda' value='".$_GET["tipoBusqueda"]."' hidden>";
                     echo "<input type='submit' name='reubicar' value='Reubicar'>";
+                    echo "</div>";
                     echo "</form>";
                 }
                 else{
@@ -75,7 +78,7 @@ function isCheck($i,$check){
 
             }
             else{
-                echo "<div id='resultados'>";
+                echo "<div id='resultados' class='resZona'>";
                 echo "<div>";
                 echo "</div>";
                 echo "</div>";
@@ -83,6 +86,7 @@ function isCheck($i,$check){
                 $_GET["aBuscar"]=$_GET["busqueda"];
             };
     ?>
+            </div>
         </aside>
         <div class="col-6">
         <?php
@@ -90,8 +94,10 @@ function isCheck($i,$check){
         }
         ?>
         </div>
-        <aside class="col-3">
-            <div id="map" style="width:100%;height:35vh"></div>
+        <aside class="col-3" id="aside2">
+            <div class="divMap">
+                <div id="map" style="width:100%;height:35vh"></div>
+            </div>
         </aside>
     </div>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php")?>
@@ -107,14 +113,15 @@ function isCheck($i,$check){
             var resultado1=document.querySelector("#resultados div");
             if(resultado1.classList.contains("resultado")){
                 var checkRes=document.querySelector("#resultados .resultado input:checked");
+                var parentCheck=checkRes.parentElement;
+                parentCheck.setAttribute("style","background-color:#ffeaeac2;border:solid 0.1vh #ff8969ba;border-radius: 2%;");
                 lati=checkRes.getAttribute("data-value").split(",")[0];
                 longi=checkRes.getAttribute("data-value").split(",")[1];
-                map = L.map('map').setView([lati, longi], 14); // Primera ubicacion encontrada
+                map = L.map('map').setView([lati, longi], 15); // Primera ubicacion encontrada
                 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                   //maxZoom: 14,
-                    //minZoom: 14
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 15
                 }).addTo(map);
                 var label=resultado1.children[0].textContent.split(":")[0];
                 cargarPublicaciones(resultado1,label);
@@ -129,7 +136,7 @@ function isCheck($i,$check){
                 longi=resultadoCheck.getAttribute("data-value").split(",")[1];
                 map.removeLayer(ubicacion);
                 map.removeLayer(circle);
-                map.setView([lati, longi], 14);
+                map.setView([lati, longi], 15);
             }
             marcarLugar(label);
         }
@@ -149,12 +156,15 @@ function isCheck($i,$check){
             inputs.forEach(input=>{
                 input.addEventListener("change",(e)=>{
                     if(e.target.checked){
+                        var prevCheck=document.querySelector("#resultados .resultado[style='background-color:#ffeaeac2;border:solid 0.1vh #ff8969ba;border-radius: 2%;']");
+                        prevCheck.setAttribute("style","");
+                        var parentCheck=e.target.parentElement;
+                        parentCheck.setAttribute("style","background-color:#ffeaeac2;border:solid 0.1vh #ff8969ba;border-radius: 2%;");
                         cargarPublicaciones();
                     }
                 });
             });
         }
-
     </script>
 </body>
 </html>
