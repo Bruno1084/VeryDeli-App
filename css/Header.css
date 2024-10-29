@@ -15,11 +15,15 @@
     margin-right:15px;
     border: solid 2px black;
 }
-#header .btnBuscar{
+#header form .btnBuscar{
     display:flex;
     align-items:center;
     justify-content:space-around;
-    height:6.5vh;
+    width: 6.5vh;
+    background-image: url(../assets/search.svg);
+    background-repeat: no-repeat;
+    background-size: 5vh;
+    background-position: left;
     border-radius:50px;
     margin-right:15px;
     border: solid 0.3vh black;
@@ -28,10 +32,15 @@
     border-bottom-left-radius:0;
     border-top-left-radius:0;
     padding:1.5vh;
+    padding-right: 3vh;
 }
-#header .btnBuscar:hover{
+#header form .tipoBusqueda:hover{
+    cursor:text;
+}
+#header form .btnBuscar:hover{
     cursor:pointer;
 }
+
 #header nav form .form-control{
     border-radius:50px 0 0 50px;
     border-right:none;
@@ -54,6 +63,33 @@
 }
 #header .buscarNav form input{
     height:6.5vh;
+}
+#header .tipoBusqueda .tipoBusqueda_hijo{
+    display: none;
+}
+#header .tipoBusqueda .tipoBusqueda_hijo label{
+    font-size: 2vh;
+}
+#header .tipoBusqueda .tipoBusqueda_hijo input{
+    width: 1.5vh;
+}
+#header .tipoBusqueda{
+    display: flex;
+    height: 6.5vh;
+    width: 15.5vh;
+    background-color: #fff;
+    border-bottom: solid 0.1vh black;
+    border-top: solid 0.1vh black;
+}
+#header .tipoBusqueda div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 0.5vh;
+    justify-content: center;
+}
+#header .tipoBusqueda div input{
+    height: auto;
 }
 #header .col-12{
     display:flex;

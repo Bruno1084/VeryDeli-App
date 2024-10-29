@@ -118,14 +118,18 @@ body{
 
 .publicacionExtendida-container, .publicacionAcotada-container{
     max-width: 48rem;
+    padding-bottom: 1vh;
 }
 
 .publicacionExtendida-container img {
-    width: 250px;
-    height: 250px;
     object-fit: cover; 
 }
 
 .imgPubli-container {
     gap: 1rem; 
+}
+
+.publicacionExtendida-menuIcon {
+    max-width: 30px;
+    max-height: 35px;
 }

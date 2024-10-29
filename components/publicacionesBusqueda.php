@@ -1,23 +1,25 @@
 <?php
-function renderPublicaciones () {
-    include_once "../components/publicacionAcotada.php";
-    include_once "../utils/get/getAllPublicacionesActivas.php";
+function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
+    include_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionAcotada.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPublicacionesBusqueda.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 5; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
-    $db = new DB();
-    $conexion = $db->getConnection();
-
-    $publicaciones = getAllPublicacionesActivas(5, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
-    $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
+    
+    $publicaciones = getAllPublicacionesBusqueda($descr_o_ubicacion,$tipo,5, $offset);
+    
+    $totalPublicaciones = sizeof($publicaciones);
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
 
     $userCache = [];
 ?>
+    <div class="cantResultSearch">
+        <h3>Total de coincidencias encontradas: <?php  echo sizeof($publicaciones);?></h3>
+    </div>
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
@@ -36,7 +38,6 @@ function renderPublicaciones () {
             };
         ?>
     </div>
-
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
