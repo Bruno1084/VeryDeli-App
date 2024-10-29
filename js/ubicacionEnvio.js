@@ -50,66 +50,91 @@ var baseMaps = {
     "Satelite": satelite
 };
 
-// Inicializa el mapa centrado en una ubicación por defecto
-var map = L.map('map',{
-    center:[vertical,horizontal],
-    zoom: 13,
-    layers:[porDefecto]
-}); // San Luis, Argentina
-L.control.layers(baseMaps).addTo(map);
+var map;
 
-
-// Detectar clics en el mapa para obtener coordenadas
-map.on('click', function(e) {
-    if(origen==null||destino==null){
-        let lat = e.latlng.lat;
-        let lng = e.latlng.lng;
-        if(origen==null){
-            if(ruta!=null&&destino==null){
-                if(ruta!=null){
-                    map.removeLayer(ruta);
-                    ruta=null;
-                };
-            }
-            document.getElementById('coordsOrigen').value=lat+','+lng;
-            origen = L.marker([lat, lng],{ icon: redIcon }).addTo(map).bindPopup('Origen').openPopup();
-            if(destino!=null) obtenerRuta();
-            origen.on('click', function(event) {
-                // Eliminar el origen anterior
-                document.getElementById('coordsOrigen').value="";
-                map.removeLayer(event.target);
-                origen=null;
-                // Eliminar la ruta anterior si existe
-                if(ruta!=null){
-                    map.removeLayer(ruta);
-                    ruta=null;
-                };
-            });
-        }
-        else if(destino==null){
-            if(ruta!=null&&origen==null){
-                if(ruta!=null){
-                    map.removeLayer(ruta);
-                    ruta=null;
-                };
-            }
-            document.getElementById('coordsDestino').value=lat+','+lng;
-            destino = L.marker([lat, lng],{ icon: greenIcon }).addTo(map).bindPopup('Destino').openPopup();
-            if(origen!=null) obtenerRuta();
-            destino.on('click', function(event) {
-                // Eliminar el destino anterior
-                document.getElementById('coordsDestino').value="";
-                map.removeLayer(event.target);
-                destino=null;
-                // Eliminar la ruta anterior si existe
-                if(ruta!=null){
-                    map.removeLayer(ruta);
-                    ruta=null;
-                };
-            });
-        }
-    }
+window.addEventListener("load",()=>{
+    map=iniciarMapa();
+    addMyLocation();
+    getMyLocation();
+    
 });
+function iniciarMapa(){
+    // Inicializa el mapa centrado en una ubicación por defecto
+    var map = L.map('map',{
+        center:[vertical,horizontal],
+        zoom: 13,
+        layers:[porDefecto]
+    }); // San Luis, Argentina
+    L.control.layers(baseMaps).addTo(map);
+    clickMap(map);
+    reCentrarMapa(map);
+    return map;
+}
+
+function addMyLocation(){
+    var divMap=document.querySelector("#map .leaflet-control-container");
+    var myLocation=document.createElement("div");
+    myLocation.setAttribute("id","btn-container");
+    var imgLocation=new Image();
+    imgLocation.src="../assets/gps-location-off.png";
+    imgLocation.setAttribute("id","btn-centrar-mapa");
+    myLocation.appendChild(imgLocation);
+    divMap.appendChild(myLocation);
+}
+
+function clickMap(map){
+    // Detectar clics en el mapa para obtener coordenadas
+    map.on('click', function(e) {
+        if(origen==null||destino==null){
+            let lat = e.latlng.lat;
+            let lng = e.latlng.lng;
+            if(origen==null){
+                if(ruta!=null&&destino==null){
+                    if(ruta!=null){
+                        map.removeLayer(ruta);
+                        ruta=null;
+                    };
+                }
+                document.getElementById('coordsOrigen').value=lat+','+lng;
+                origen = L.marker([lat, lng],{ icon: redIcon }).addTo(map).bindPopup('Origen').openPopup();
+                if(destino!=null) obtenerRuta();
+                origen.on('click', function(event) {
+                    // Eliminar el origen anterior
+                    document.getElementById('coordsOrigen').value="";
+                    map.removeLayer(event.target);
+                    origen=null;
+                    // Eliminar la ruta anterior si existe
+                    if(ruta!=null){
+                        map.removeLayer(ruta);
+                        ruta=null;
+                    };
+                });
+            }
+            else if(destino==null){
+                if(ruta!=null&&origen==null){
+                    if(ruta!=null){
+                        map.removeLayer(ruta);
+                        ruta=null;
+                    };
+                }
+                document.getElementById('coordsDestino').value=lat+','+lng;
+                destino = L.marker([lat, lng],{ icon: greenIcon }).addTo(map).bindPopup('Destino').openPopup();
+                if(origen!=null) obtenerRuta();
+                destino.on('click', function(event) {
+                    // Eliminar el destino anterior
+                    document.getElementById('coordsDestino').value="";
+                    map.removeLayer(event.target);
+                    destino=null;
+                    // Eliminar la ruta anterior si existe
+                    if(ruta!=null){
+                        map.removeLayer(ruta);
+                        ruta=null;
+                    };
+                });
+            }
+        }
+    });
+}
 
 function obtenerRuta() {
     var tmpOrigen = origen.getLatLng();
@@ -145,12 +170,13 @@ function trazarRuta(leafletCoords){
     }).addTo(map);
 }
 
-
-var btnCentrar=document.querySelector("#btn-centrar-mapa");
-btnCentrar.addEventListener("click",()=>{
-    btnCentrar.src="../assets/gps-location-on.png";
-    centrarEnMiUbicacion(btnCentrar);
-});
+function getMyLocation(){
+    var btnCentrar=document.querySelector("#btn-centrar-mapa");
+    btnCentrar.addEventListener("click",()=>{
+        btnCentrar.src="../assets/gps-location-on.png";
+        centrarEnMiUbicacion(btnCentrar);
+    });
+}
 
 function centrarEnMiUbicacion(btnCentrar) {
     if (navigator.geolocation) {
@@ -178,8 +204,10 @@ function centrarEnMiUbicacion(btnCentrar) {
     }
 }
 
-var modal=document.querySelector("#modalCrearPublicacion");
-modal.addEventListener('shown.bs.modal', function () {
-    map.invalidateSize();  // Recalcula el tamaño del mapa
-    map.setView([vertical, horizontal], 13);  // Recentrar el mapa en las coordenadas deseadas
-});
+function reCentrarMapa(map){
+    var modal=document.querySelector("#modalCrearPublicacion");
+    modal.addEventListener('shown.bs.modal', function () {
+        map.invalidateSize();  // Recalcula el tamaño del mapa
+        map.setView([vertical, horizontal], 13);  // Recentrar el mapa en las coordenadas deseadas
+    });
+}

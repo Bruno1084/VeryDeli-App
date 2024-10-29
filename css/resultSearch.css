@@ -1,15 +1,13 @@
 .bodyRes{
     display: flex;
 }
-.addSearch{
+.cantResultSearch{
     display: flex;
     justify-content: center;
-    padding: 3vh 0;
-
+    padding: 1vh;
+    text-align: center;
+    margin-top: 2.5vh;
 }
-.addSearch form{
-    width: 50%;
-}
-.aside input{
-
+#map{
+    border-radius: 10%;
 }
