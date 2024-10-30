@@ -73,7 +73,7 @@
         if($stmt->rowCount()==1)$correoAutor=$stmt->fetch(PDO::FETCH_ASSOC);
       }
       $mensaje="";
-      if(!enviarNotificacion($autor,$mensaje)){
+      if(!enviarNotificacion($autor,$mensaje,$pubId)){
       }
       if(!enviarEmailNotificacion($correoAutor,$mensaje)){
       }

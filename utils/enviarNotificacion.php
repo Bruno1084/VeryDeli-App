@@ -30,7 +30,8 @@ function enviarEmailNotificacion($correoDestino, $mensaje){
             "from"=> "VeriDeli <onboarding@resend.dev>",
             "to"=> $correoDestino,
             "subject"=> "Recuperacion de contraseña",
-            "html"=> "<h2 style='font-size: 20px; color: #333;'>".$mensaje."</h2>"
+            "html"=> "<h2 style='font-size: 20px; color: #333;'>".$mensaje."</h2>
+                     <p>Ingresa a tu cuenta para ver quien ha sido</p>"
             );
         $email=json_encode($email);
 
