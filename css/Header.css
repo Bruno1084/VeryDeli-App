@@ -1,13 +1,17 @@
 #header .perfilNav .navbar-nav .dropdown-menu{
     position:absolute;
 }
-#header .perfilNav .dropdown-toggle::after{
+#header .perfilNav .dropdown-toggle::after,#header .notifications .dropdown-toggle::after{
     display:none;
 }
 #header .perfilNav img{
     border-radius:50%;
     width:8vh;
     border:solid 0.2vh black;
+}
+#header .notifications img{
+    width:3vh;
+
 }
 #header .btnBuscar::before{
     border-radius:50%;

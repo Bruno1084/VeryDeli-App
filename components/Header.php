@@ -25,6 +25,35 @@
                         </form>
                     </div>
                 </div>
+                <div class="col-auto notifications">
+                    <?php
+                    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
+                    $notificaciones=getNotificacionesActivasFromUsuario(); ?>
+                <ul class="navbar-nav me-auto mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
+                                <img src="/assets/bell.png" class="img-fluid" alt="notify">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <?php 
+                                    if(sizeof($notificaciones)>0){
+                                        foreach($notificaciones as $notify){?>
+                                            <li><a class="dropdown-item" href="#"><?php echo $notify["notificacion_mensaje"] ?></a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                            <?php       }
+                                    }
+                                    else{
+                                ?>
+                                        <li><p class="dropdown-item">Nada por aqui</p></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                <?php
+                                    }
+                                ?>
+                                <li><a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-auto perfilNav">
                     <ul class="navbar-nav me-auto mb-lg-0">
                         <li class="nav-item dropdown">

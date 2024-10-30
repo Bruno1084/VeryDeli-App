@@ -119,6 +119,32 @@ CREATE TABLE `administradores` (
     )
 );
 
+CREATE TABLE `verificaciones` (
+    `verificacion_id` INT NOT NULL AUTO_INCREMENT ,
+    `verificacion_foto-doc1` VARCHAR(255) NOT NULL ,
+    `verificacion_foto-doc2` VARCHAR(255) NULL ,
+    `verificacion_foto-boleta1` VARCHAR(255) NOT NULL ,
+    `verificacion_foto-boleta2` VARCHAR(255) NULL ,
+    `verificacion_tipo-doc` enum('1','2','3','4') NOT NULL ,
+    `verificacion_tipo-boleta` enum('1','2','3','4') NOT NULL ,
+    `verificacion_estado` BOOLEAN NOT NULL ,
+    `usuario_id` INT NOT NULL ,
+    PRIMARY KEY (
+        `verificacion_id`
+    )
+);
+
+CREATE TABLE `notificaciones` (
+    `notificacion_id` INT NOT NULL AUTO_INCREMENT ,
+    `notificacion_mensaje` VARCHAR(255) NOT NULL ,
+    `notificacion_estado` BOOLEAN NOT NULL ,
+    `usuario_id` INT NOT NULL ,
+    `publicacion_id` INT NULL,
+    PRIMARY KEY (
+        `notificacion_id`
+    )
+);
+
 ALTER TABLE `transportistas` ADD CONSTRAINT `fk_transportistas_transportista_id` FOREIGN KEY(`transportista_id`)
 REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -164,8 +190,14 @@ REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `administradores` ADD CONSTRAINT `fk_administradores_administrador_id` FOREIGN KEY(`administrador_id`)
 REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `verificaciones` ADD CONSTRAINT `fk_verificaciones_verificacion_id` FOREIGN KEY (`verificacion_id`)
+ALTER TABLE `verificaciones` ADD CONSTRAINT `fk_verificaciones_usuario_id` FOREIGN KEY (`usuario_id`)
 REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `notificaciones` ADD CONSTRAINT `fk_notificaciones_usuario_id` FOREIGN KEY (`usuario_id`)
+REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `notificaciones` ADD CONSTRAINT `fk_notificaciones_publicacion_id` FOREIGN KEY (`publicacion_id`)
+REFERENCES `publicaciones`(`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE INDEX `idx_vehiculos_transportista_id`
 ON `vehiculos` (`transportista_id`);
