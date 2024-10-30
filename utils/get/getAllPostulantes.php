@@ -5,7 +5,7 @@ function getAllPostulaciones ($idPublicacion) {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT * FROM postulaciones FROM WHERE postulacion_id = ?";
+  $sql = "SELECT * FROM postulaciones WHERE postulacion_id = ?";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
   $stmt->execute();

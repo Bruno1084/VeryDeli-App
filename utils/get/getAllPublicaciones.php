@@ -9,13 +9,10 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
               publicaciones.publicacion_id,
               publicaciones.publicacion_titulo,
               publicaciones.publicacion_descr,
-              publicaciones.publicacion_peso,
               publicaciones.publicacion_fecha,
-              publicaciones.ubicacion_origen,
-              publicaciones.ubicacion_destino,
               usuarios.usuario_usuario, 
               usuarios.usuario_localidad, 
-              JSON_ARRAYAGG(imagenes.imagen_url) AS imagenes
+              imagenes.imagen_url
           FROM 
               publicaciones
           JOIN 

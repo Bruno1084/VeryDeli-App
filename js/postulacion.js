@@ -42,6 +42,11 @@ function validarPostulacion(idPublicacion){
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
         if (validarPostulacion(idPublicacion)){
+          $('#modalPostularse' + idPublicacion).modal('hide');
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
           resolve(true);
         }
         else{

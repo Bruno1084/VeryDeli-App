@@ -94,9 +94,7 @@
               </div>
 
               <div class="col-6 divMapa_Boton">
-                  <div id="map"></div>
-                  <div id="btn-container">
-                    <img src="../assets/gps-location-off.png" id="btn-centrar-mapa">
+                  <div id="map">
                   </div>
                   <div class="col-12" style="height: 21px;"><div class="invalid-feedback" id="invalid-map"></div></div>
               </div>
@@ -141,7 +139,6 @@
 
   <?php require_once("../components/JS.php"); ?>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <!--<script src="/js/formularioPublicaciones.js"></script>-->
   <script src="/js/inputFotos.js"></script>
   <script src="../js/ubicacionEnvio.js"></script>
   <script src="../js/formularioPublicaciones.js"></script>

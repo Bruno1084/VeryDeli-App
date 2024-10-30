@@ -3,5 +3,5 @@
     session_unset();
     session_destroy();
     setcookie("VERY-SESSION", "", time() - 3600, "/");
-    header('Location: /components/login.php');
+    header('Location: /public/index.php');
     exit();

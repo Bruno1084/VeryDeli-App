@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
     <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
     <link rel="stylesheet" href="/css/miPerfil.css">
     <title>Mi Perfil</title>
@@ -61,7 +62,7 @@
     </div>
 
 
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
+<?php echo $_SESSION["id"]; require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php") ?>
 <script src="/js/publicacion.js"></script>
 </body>
