@@ -1,17 +1,18 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
-function enviarNotificacion($idUsuario_destino,$mensaje){
+function enviarNotificacion($idUsuario_destino,$mensaje,$idPublicacion_origen){
     if(isset($db)){
         $db=null;   
     }
     $db=new DB();
     $connection=$db->getConnection();
-    $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_estado`, `usuario_id`) VALUES ( ? , '0', ? )";
+    $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_estado`, `usuario_id`, `publicacion_id`) VALUES (?,'0',?,?)";
 
     $stmt=$connection->prepare($sql);
 
     $stmt->bindParam(1,$mensaje,PDO::PARAM_STR);
-    $stmt->bindParam(2,$idUsuario_destino,PDO::PARAM_STR);
+    $stmt->bindParam(2,$idUsuario_destino,PDO::PARAM_INT);
+    $stmt->bindParam(3,$idPublicacion_origen,PDO::PARAM_INT);
 
     $res=$stmt->execute();
     $stmt=null;
