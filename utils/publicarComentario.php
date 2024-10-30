@@ -10,7 +10,7 @@
     $stmtComentario = $conexion->prepare('INSERT INTO comentarios (publicacion_id, usuario_id, comentario_mensaje, comentario_fecha) VALUES (?, ?, ?, ?)');
     $fechaActual = date('Y-m-d H:i:s');
     $stmtComentario->bindParam(1, $pubId, PDO::PARAM_INT);
-    $stmtComentario->bindParam(2, $_SESSION['user']['usuario_id'], PDO::PARAM_INT);
+    $stmtComentario->bindParam(2, $_SESSION['id'], PDO::PARAM_INT);
     $stmtComentario->bindParam(3, $comentario, PDO::PARAM_STR);
     $stmtComentario->bindParam(4, $fechaActual, PDO::PARAM_STR);
     if ($stmtComentario->execute()) {

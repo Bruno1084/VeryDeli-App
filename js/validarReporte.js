@@ -33,18 +33,22 @@ function validarReporte(idPublicacion){
     mensaje.classList.add('is-valid');
     mensajeFeedback.textContent = '';
   }
-
   return isValid;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
   const forms = document.querySelectorAll('.form-reportar');
   forms.forEach(form => {
-    form.addEventListener('submit',function (event) {  
+    form.addEventListener('submit', function (event) {  
+      let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
-        let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
         if (validarReporte(idPublicacion)){
+          $('#modalReportar' + idPublicacion).modal('hide');
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
           resolve(true);
         }
         else{
@@ -52,5 +56,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, false);
-  });
-});
+  })
+})()
