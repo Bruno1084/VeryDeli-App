@@ -1,9 +1,4 @@
-#header .perfilNav .navbar-nav .dropdown-menu{
-    position:absolute;
-}
-#header .perfilNav .dropdown-toggle::after{
-    display:none;
-}
+
 #header .perfilNav img{
     border-radius:50%;
     width:8vh;
