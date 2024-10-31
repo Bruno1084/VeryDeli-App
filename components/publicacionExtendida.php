@@ -1,25 +1,30 @@
 <?php
-function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
-  ob_start();
-  $contadorComentarios=0;
+function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
+  $contadorComentarios = 0;
   $commentCache = [];
-  ?>
-    <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
-      <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-A'>
-        <div class='d-flex col-6 mt-1 text-start lh-1'>
-          <div>
-            <img class='profilePicture' src='<?php echo $profileIcon; ?>' alt='user'>
-          </div>
-          <div>
-            <p><?php echo $username; ?></p>
-            <p><?php echo $userLocation; ?></p>
-          </div>
+  include_once '../components/post-comentario.php';
+  include_once($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+
+  ob_start();
+?>
+  <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
+    <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-A'>
+      <div class='d-flex col-6 mt-1 text-start lh-1'>
+        <div>
+          <img class='profilePicture' src='<?php echo $profileIcon; ?>' alt='user'>
         </div>
-        <div class='col-6 mt-1 text-end lh-1 d-flex border d-flex justify-content-end'>
-          <div>
-            <p> <?php echo(date('H:i', strtotime($date)))?> </p>
-            <p> <?php echo(date('d/m/Y', strtotime($date)))?> </p>
-          </div>
+        <div>
+          <p><?php echo $username; ?></p>
+          <p><?php echo $userLocation; ?></p>
+        </div>
+      </div>
+      <div class='col-6 mt-1 text-end lh-1 d-flex border d-flex justify-content-end'>
+        <div>
+          <p> <?php echo (date('H:i', strtotime($date))) ?> </p>
+          <p> <?php echo (date('d/m/Y', strtotime($date))) ?> </p>
+        </div>
 
         <div class="dropdown publicacionExtendida-menuButton-container">
           <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
@@ -71,123 +76,52 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
       </button>
     </div>
 
-      <div class='row' id="carouselPublicacion">
-        <div class='col-12'>
-          <div id="carouselIndicators_A" class="carousel slide imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start">
-              <div class="carousel-indicators">
-                <?php for($i=0;$i<sizeof($images);$i++) { ?>
-                  <?php $a="'".($i+1)."'";
-                   ?>
-                  <button type="button" data-bs-target="#carouselIndicators_A" data-bs-slide-to=<?php echo $i?> <?php if($i==0)echo "class='active'";?> <?php if($i==0)echo "aria-current='true'";?> aria-label=<?php echo"'Slide ".($i+1)."'"; ?>></button>
-                <?php } ?>
-              </div>
-              <div class="carousel-inner">
-                <?php $i=0; foreach ($images as $imagen) {?>
-                  <div class="carousel-item <?php if($i==0)echo"active";?>">
-                      <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
-                  </div>
-                <?php $i++;} ?>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-              </button>
+    <div class='row' id="carouselPublicacion">
+      <div class='col-12'>
+        <div id="carouselIndicators_A" class="carousel slide imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start">
+          <div class="carousel-indicators">
+            <?php for ($i = 0; $i < sizeof($images); $i++) { ?>
+              <?php $a = "'" . ($i + 1) . "'";
+              ?>
+              <button type="button" data-bs-target="#carouselIndicators_A" data-bs-slide-to=<?php echo $i ?> <?php if ($i == 0) echo "class='active'"; ?> <?php if ($i == 0) echo "aria-current='true'"; ?> aria-label=<?php echo "'Slide " . ($i + 1) . "'"; ?>></button>
+            <?php } ?>
           </div>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-
-
-    <!-- MODAL POSTULARSE -->
-    <div class="modal fade" id="modalPostularse<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalPostularseLabel<?php echo $idPublicacion ?>" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-modalPublicacion">
-          <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
-            <h1 class="modal-title fs-5" id="modalPostularseLabel<?php echo $idPublicacion ?>">Postularse</h1>
-            <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-            <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion(<?php echo $idPublicacion ?>)">
-              <div class="row">
-                <div class="col-12">
-                  <input type="number" step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="Monto">
-                  <div class="invalid-feedback" id="invalid-monto<?php echo $idPublicacion ?>"></div>
-                </div>
+          <div class="carousel-inner">
+            <?php $i = 0;
+            foreach ($images as $imagen) { ?>
+              <div class="carousel-item <?php if ($i == 0) echo "active"; ?>">
+                <img class='img u_photo img-fluid' src='<?php echo $imagen; ?>' alt='product-image'>
               </div>
-              <div class="row">
-                <div class="col-12">
-                  <textarea style="height: 120px; max-height:120px" class="form-control" id="postulacion-descripcion<?php echo $idPublicacion ?>" name="descripcion" placeholder="Descripcion"></textarea>
-                  <div class="invalid-feedback" id="invalid-pDescripcion<?php echo $idPublicacion ?>"></div>
-                </div>
-              </div>
-              <input type="hidden" name="enviado">
-              <input type="hidden" name="publicacion-id" value="<?php echo $idPublicacion ?>">
-            </form>
+            <?php $i++;
+            } ?>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-morado mb-2" data-bs-dismiss="modal">Cerrar</button>
-            <input type="submit" id="btn-enviar" form="formPostularse<?php echo $idPublicacion ?>" class="btn btn-amarillo"></input>
-          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators_A" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
 
-    <!-- MODAL REPORTAR -->
-    <div class="modal fade" id="modalReportar<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalReportarLabel<?php echo $idPublicacion ?>" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-modalPublicacion">
-          <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
-            <h1 class="modal-title fs-5" id="modalReportarLabel<?php echo $idPublicacion ?>">Reportar Publicacion</h1>
-            <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-            <form action="/utils/reportar.php" class="form-publicacion form-reportar needs-validation FormularioAjax" method="post" id="formReportar<?php echo $idPublicacion ?>" novalidate>
-              <div class="row">
-                <div class="col-12">
-                  <select class="form-select" aria-label="Default select example" name="motivo" id="input-motivo<?php echo $idPublicacion ?>">
-                    <option selected disabled>Seleccione un motivo...</option>
-                    <option value="spam">Spam</option>
-                    <option value="lenguaje inapropiado">Lenguaje inapropiado</option>
-                    <option value="otro">Otro</option>
-                  </select>
-                  <div class="invalid-feedback" id="invalid-motivo<?php echo $idPublicacion ?>"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <textarea style="height: 120px; max-height:120px" class="form-control" id="reporte-mensaje<?php echo $idPublicacion ?>" name="mensaje" placeholder="Mensaje"></textarea>
-                  <div class="invalid-feedback" id="invalid-reporteMensaje<?php echo $idPublicacion ?>"></div>
-                </div>
-              </div>
-              <input type="hidden" name="reporteEnviado">
-              <input type="hidden" name="publicacion-id" value="<?php echo $idPublicacion ?>">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-morado mb-2" data-bs-dismiss="modal">Cerrar</button>
-            <input type="submit" id="btn-enviar" form="formReportar<?php echo $idPublicacion ?>" class="btn btn-amarillo"></input>
-          </div>
-        </div>
-      </div>
-    </div>
-      <div>
-        <?php
-          include_once ($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
-          include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
-          include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+    <!-- POSTEAR COMENTARIO -->
+    <?php echo renderPostComentario($username, "", $idPublicacion); ?>
 
+
+    <!-- COMENTARIOS DE USUARIOS -->
+    <div>
+      <?php
       $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
       foreach ($comentarios as $c) {
@@ -202,27 +136,95 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
 
         $username = $user["usuario_nombre"] . " " . $user["usuario_apellido"];
 
-            echo renderComentario(
-              $contadorComentarios,
-              $username,
-              '',
-              $c['comentario_mensaje']
-            );
-            $contadorComentarios++;
-          }
-        ?>
-      </div>
+        echo renderComentario(
+          $contadorComentarios,
+          $username,
+          '',
+          $c['comentario_mensaje']
+        );
+        $contadorComentarios++;
+      }
+      ?>
+    </div>
+  </div>
 
-      <div>
-        <?php
-          include_once '../components/post-comentario.php';
-          echo renderPostComentario($username, "", $idPublicacion);
-        ?>
+
+  <!-- MODAL POSTULARSE -->
+  <div class="modal fade" id="modalPostularse<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalPostularseLabel<?php echo $idPublicacion ?>" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-modalPublicacion">
+        <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
+          <h1 class="modal-title fs-5" id="modalPostularseLabel<?php echo $idPublicacion ?>">Postularse</h1>
+          <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion(<?php echo $idPublicacion ?>)">
+            <div class="row">
+              <div class="col-12">
+                <input type="number" step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="Monto">
+                <div class="invalid-feedback" id="invalid-monto<?php echo $idPublicacion ?>"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <textarea style="height: 120px; max-height:120px" class="form-control" id="postulacion-descripcion<?php echo $idPublicacion ?>" name="descripcion" placeholder="Descripcion"></textarea>
+                <div class="invalid-feedback" id="invalid-pDescripcion<?php echo $idPublicacion ?>"></div>
+              </div>
+            </div>
+            <input type="hidden" name="enviado">
+            <input type="hidden" name="publicacion-id" value="<?php echo $idPublicacion ?>">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-morado mb-2" data-bs-dismiss="modal">Cerrar</button>
+          <input type="submit" id="btn-enviar" form="formPostularse<?php echo $idPublicacion ?>" class="btn btn-amarillo"></input>
+        </div>
       </div>
     </div>
-  <?php
-  
-return ob_get_clean();
-}
+  </div>
 
 
+  <!-- MODAL REPORTAR -->
+  <div class="modal fade" id="modalReportar<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalReportarLabel<?php echo $idPublicacion ?>" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-modalPublicacion">
+        <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
+          <h1 class="modal-title fs-5" id="modalReportarLabel<?php echo $idPublicacion ?>">Reportar Publicacion</h1>
+          <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/utils/reportar.php" class="form-publicacion form-reportar needs-validation FormularioAjax" method="post" id="formReportar<?php echo $idPublicacion ?>" novalidate>
+            <div class="row">
+              <div class="col-12">
+                <select class="form-select" aria-label="Default select example" name="motivo" id="input-motivo<?php echo $idPublicacion ?>">
+                  <option selected disabled>Seleccione un motivo...</option>
+                  <option value="spam">Spam</option>
+                  <option value="lenguaje inapropiado">Lenguaje inapropiado</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <div class="invalid-feedback" id="invalid-motivo<?php echo $idPublicacion ?>"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <textarea style="height: 120px; max-height:120px" class="form-control" id="reporte-mensaje<?php echo $idPublicacion ?>" name="mensaje" placeholder="Mensaje"></textarea>
+                <div class="invalid-feedback" id="invalid-reporteMensaje<?php echo $idPublicacion ?>"></div>
+              </div>
+            </div>
+            <input type="hidden" name="reporteEnviado">
+            <input type="hidden" name="publicacion-id" value="<?php echo $idPublicacion ?>">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-morado mb-2" data-bs-dismiss="modal">Cerrar</button>
+          <input type="submit" id="btn-enviar" form="formReportar<?php echo $idPublicacion ?>" class="btn btn-amarillo"></input>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+<?php
+  return ob_get_clean();
+};
+?>
