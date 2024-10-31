@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");?>
   <link rel="stylesheet" href="../css/publicacionExtendida.css">
-  <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");?>
-  <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");?>
-  <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getPublicacion.php");?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/JS.php');?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');?>
+  <?php 
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getPublicacion.php");
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAutorPublicacion.php");
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/components/JS.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
+  ?>
+  
   <title>Very Deli</title>
 </head>
 <body>
@@ -20,12 +25,13 @@
   
   <?php 
     $publicacion = getPublicacion($_GET['id']);
-
+    $autor = getAutorPublicacion($_GET['id']);
     $imagenes = json_decode($publicacion['imagenes']);
 
     $ubicaciones = json_decode($publicacion["ubicaciones"]);
-    
-    echo renderPostulaciones($publicacion['publicacion_id']);
+    //if($_SESSION['id'] == $autor){
+      echo renderPostulaciones($publicacion['publicacion_id']);
+    //}
 
     echo renderPublicacionExtendida(
       $publicacion['publicacion_id'],
@@ -48,5 +54,6 @@
   <script src="/js/ajax.js"></script>
   <script src="/js/validarReporte.js"></script>
   <script src="/js/cambiarEstado.js"></script>
+  <script src="/js/validarCalificacion.js"></script>
 </body>
 </html>
