@@ -1,9 +1,17 @@
-
 #header .perfilNav img{
     border-radius:50%;
     width:8vh;
     border:solid 0.2vh black;
 }
+
+#header .dropdown-toggle::after {
+    content: none;
+};
+
+#header #profileMenu {
+    right: 0;
+};
+
 #header .btnBuscar::before{
     border-radius:50%;
     padding:6px;

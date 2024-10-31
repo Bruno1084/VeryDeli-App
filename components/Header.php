@@ -27,10 +27,10 @@
                 </div>
                 <div class="col-auto perfilNav">
                     <div class="dropdown">
-                        <button class="dropdown-toggle" href="#" id="profileButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn dropdown-toggle" id="profileButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="/assets/user.png" class="img-fluid" alt="account">
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="profileButton">
+                        <div class="dropdown-menu" id="profileMenu" aria-labelledby="profileButton">
                             <a class="dropdown-item" href="/public/miPerfil.php">Mi Perfil</a>
                             <a class="dropdown-item" href="/utils/functions/cerrarSesion.php">Cerrar Sesion</a>
                         </div>
