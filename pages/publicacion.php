@@ -8,7 +8,6 @@
   <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");?>
   <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");?>
   <?php include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getPublicacion.php");?>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/JS.php');?>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');?>
   <title>Very Deli</title>
 </head>

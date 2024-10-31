@@ -27,8 +27,17 @@
                 </div>
                 <div class="col-auto notifications">
                     <?php
+                    function idIsNull($pubId){
+                        if($pubId==null){
+                            return "#";
+                        }
+                        else{
+                            return "http://localhost:3000/pages/publicacion.php?id=".$pubId;
+                        }
+                    }
                     require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
-                    $notificaciones=getNotificacionesActivasFromUsuario(); ?>
+                    $notificaciones=getNotificacionesActivasFromUsuario(); 
+                    ?>
                 <ul class="navbar-nav me-auto mb-lg-0">
                         <li class="nav-item dropdown">
                             <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
@@ -38,7 +47,7 @@
                                 <?php 
                                     if(sizeof($notificaciones)>0){
                                         foreach($notificaciones as $notify){?>
-                                            <li><a class="dropdown-item" href="#"><?php echo $notify["notificacion_mensaje"] ?></a></li>
+                                            <li><a class="dropdown-item" href=<?php echo idIsNull($notify["publicacion_id"])?>><?php echo $notify["notificacion_mensaje"] ?></a></li>
                                             <li><hr class="dropdown-divider"></li>
                             <?php       }
                                     }

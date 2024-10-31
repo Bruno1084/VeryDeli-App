@@ -5,7 +5,7 @@ function getNotificacionesActivasFromUsuario(){
     $db=new DB();
     $connection=$db->getConnection();
 
-    $sql="SELECT notificacion_mensaje FROM notificaciones WHERE notificacion_estado = '0' AND usuario_id = ?";
+    $sql="SELECT notificacion_mensaje, publicacion_id FROM notificaciones WHERE notificacion_estado = '0' AND usuario_id = ?";
 
     $stmt=$connection->prepare($sql);
 

@@ -27,9 +27,9 @@ function enviarEmailNotificacion($correoDestino, $mensaje){
         $header[]='Authorization: Bearer re_fGxfLUby_JSUJpNnFyBnfNXgxmYYSCv34';
         $header[]='Content-Type: application/json';
         $email=array(
-            "from"=> "VeriDeli <onboarding@resend.dev>",
+            "from"=> "VeryDeli <onboarding@resend.dev>",
             "to"=> $correoDestino,
-            "subject"=> "Recuperacion de contraseña",
+            "subject"=> "Notificacion",
             "html"=> "<h2 style='font-size: 20px; color: #333;'>".$mensaje."</h2>
                      <p>Ingresa a tu cuenta para ver quien ha sido</p>"
             );

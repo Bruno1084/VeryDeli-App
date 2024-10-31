@@ -67,16 +67,17 @@
       
       $sql="SELECT usuario_correo FROM usuarios WHERE usuario_id = ?";
       $stmt=$conexion->prepare($sql);
-      $stmt->bindParam(1,$autor);
+      $stmt->bindParam(1,$autor,PDO::PARAM_INT);
       $correoAutor=null;
       if($stmt->execute()){
-        if($stmt->rowCount()==1)$correoAutor=$stmt->fetch(PDO::FETCH_ASSOC);
+        if($stmt->rowCount()>0){
+          $correoAutor=$stmt->fetch(PDO::FETCH_ASSOC);
+          $correoAutor=$correoAutor["usuario_correo"];
+        }
       }
-      $mensaje="";
-      if(!enviarNotificacion($autor,$mensaje,$pubId)){
-      }
-      if(!enviarEmailNotificacion($correoAutor,$mensaje)){
-      }
+      $mensaje="¡Alguien se a postulado a tu publicacion!";
+      enviarNotificacion($autor,$mensaje,$pubId);
+      if($correoAutor!=false&&$correoAutor!=null)enviarEmailNotificacion($correoAutor,$mensaje);
       $stmt=null;
       $conexion = null;
       manejarError('true', "Postulacion Realizada", 'Postulacion registrada con exito', '../public/index.php?#');
