@@ -71,8 +71,8 @@
                             <img src="/assets/user.png" class="img-fluid" alt="account">
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/public/miPerfil.php">Mi Perfil</a>
-                            <a class="dropdown-item" href="/utils/functions/cerrarSesion.php">Cerrar Sesion</a>
+                            <a class="dropdown-item" href="../public/miPerfil.php">Mi Perfil</a>
+                            <a class="dropdown-item" href="../utils/functions/cerrarSesion.php">Cerrar Sesion</a>
                         </div>
                     </div>
                 </div>
