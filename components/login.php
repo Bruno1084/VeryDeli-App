@@ -22,7 +22,7 @@
         </div>
 
         <div class="container py-3">
-            <form class="formulario-registro FormularioAjax" action="../utils/iniciarSesion.php" method="post">
+            <form class="formulario-registro FormularioAjax" action="/utils/iniciarSesion.php" method="post">
                 <div class="row justify-content-center">
                     <div class="form-group col-md-6 mb-3">
                         <label for="usuario">Usuario</label>

@@ -36,9 +36,9 @@ if($res!=false){
     //Inicia la sesion y almacena el id del usuario en la sesion
     require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
     $_SESSION['id'] = $res[0];
-    manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "../public/index.php");
+    manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "/public/index.php");
   }
   else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
 }
 else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
-
+?>

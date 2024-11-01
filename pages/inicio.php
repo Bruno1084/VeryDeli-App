@@ -9,7 +9,7 @@
   <title>Very Deli</title>
 </head>
 <body>
-  <?php require_once("../components/Header.php");?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");?>
   <?php require_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
@@ -25,6 +25,17 @@
           <span>Aún no has verificado tu identidad</span>
           <button class="btn btn-primary" id="btn-verificarUsuario" data-bs-target="#modalVerificar" data-bs-toggle="modal">Verificar mi identidad</button>
         </div>
+      </div>
+    </div>
+    <div>
+      <div class="container container-fluid d-flex justify-content-center">
+        <div class="form-rest my-4 col-8">
+            <div class="text-bg-secondary d-flex justify-content-between p-3">
+              <span>Aun no has verificado tu identidad</span>
+              <button class="btn btn-rounded btn-primary">Verificar mi identidad</button>
+            </div>
+        </div>
+      </div>
     </div>
 
     <!-- Modal verificar -->

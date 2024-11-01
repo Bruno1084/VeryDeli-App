@@ -13,6 +13,15 @@
     width:3vh;
 
 }
+
+#header .dropdown-toggle::after {
+    content: none;
+};
+
+#header #profileMenu {
+    right: 0;
+};
+
 #header .btnBuscar::before{
     border-radius:50%;
     padding:6px;
