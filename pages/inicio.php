@@ -128,7 +128,7 @@
     </div>
     <?php require_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
     
-    <!-- Imprime todas las publicaciones en la base de datos -->
+    <!-- Imprime todas las publicaciones activas en la base de datos -->
     <?php 
       require_once("../components/publicaciones.php");
       echo renderPublicaciones();
