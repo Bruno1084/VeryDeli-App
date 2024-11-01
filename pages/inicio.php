@@ -9,12 +9,17 @@
   <title>Very Deli</title>
 </head>
 <body>
-  <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");?>
+  <?php require_once("../components/Header.php");?>
   <?php require_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
-
   <div>
+    <?php
+    if(isset($_SESSION['id'])){
+      echo('Bienvenido '.$_SESSION['id'].'!');
+    }
+    ?>
+
     <div class="container container-fluid d-flex justify-content-center">
       <div class="form-rest my-4 col-8">
         <div class="text-bg-secondary d-flex justify-content-between p-3">
@@ -34,6 +39,7 @@
     ?>
   <?php require_once("../components/Footer.php"); ?>
   <?php require_once("../components/JS.php"); ?>
-   <script src="../js/postulacion.js"></script>
+  <script src="../js/validaciones.js"></script>
+  <script src="../js/postulacion.js"></script>
 </body>
 </html>

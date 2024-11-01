@@ -10,4 +10,3 @@ if(empty($_SESSION)){
 else{
   require_once($_SERVER["DOCUMENT_ROOT"]."/pages/inicio.php");
 }
-?>
