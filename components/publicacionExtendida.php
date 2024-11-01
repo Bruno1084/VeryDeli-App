@@ -22,7 +22,13 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           </div>
 
           <div class="d-flex justify-content-center align-items-center">
-            <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg">
+            <div class="dropdown">
+              <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+              
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
