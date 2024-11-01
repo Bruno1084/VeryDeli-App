@@ -82,8 +82,8 @@
     height: 6.5vh;
     width: 15.5vh;
     background-color: #fff;
-    border-bottom: solid 0.1vh black;
-    border-top: solid 0.1vh black;
+    border-bottom: solid 0.3vh black;
+    border-top: solid 0.3vh black;
 }
 #header .tipoBusqueda div{
     display: flex;
