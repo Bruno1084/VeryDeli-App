@@ -11,6 +11,17 @@
     justify-content: center!important;
     padding:15px !important;
 }
+#carouselIndicators_A button.carousel-control-next:hover, #carouselIndicators_A button.carousel-control-prev:hover{
+    background-color: #0000005e;
+}
+#carouselIndicators_A button.carousel-control-next, #carouselIndicators_A button.carousel-control-prev{
+    width: 8%;
+}
+
+#carouselIndicators_A .carousel-indicators button{
+    border: solid 0.1vh #0000008c;
+    border-radius: 5px;
+}
 
 .postulacion{
     display:flex;
