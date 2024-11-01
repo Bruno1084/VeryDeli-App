@@ -26,15 +26,18 @@
                     </div>
                 </div>
                 <div class="col-auto perfilNav">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" id="profileButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="/assets/user.png" class="img-fluid" alt="account">
-                        </button>
-                        <div class="dropdown-menu" id="profileMenu" aria-labelledby="profileButton">
-                            <a class="dropdown-item" href="/public/miPerfil.php">Mi Perfil</a>
-                            <a class="dropdown-item" href="/utils/functions/cerrarSesion.php">Cerrar Sesion</a>
-                        </div>
-                    </div>
+                    <ul class="navbar-nav me-auto mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
+                                <img src="/assets/user.png" class="img-fluid" alt="account">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="/public/miPerfil.php">Mi Perfil</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/utils/functions/cerrarSesion.php">Cerrar Sesion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </div>
