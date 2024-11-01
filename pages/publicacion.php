@@ -55,5 +55,6 @@
   <script src="/js/validarReporte.js"></script>
   <script src="/js/cambiarEstado.js"></script>
   <script src="/js/validarCalificacion.js"></script>
+  <script src="/js/finalizarPublicacion.js"></script>
 </body>
 </html>
