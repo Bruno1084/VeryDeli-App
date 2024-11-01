@@ -1,69 +1,89 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
-    <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
+    <?php require($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
+    <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/head.php") ?>
     <link rel="stylesheet" href="/css/miPerfil.css">
     <title>Mi Perfil</title>
-
 </head>
 <body>
-<?php 
-    require_once($_SERVER['DOCUMENT_ROOT']."/utils/functions/startSession.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php");
-    /* require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); */ 
-    include_once "../components/perfil.php";
-    include_once "../utils/get/getUsuario.php";
-    include_once "../utils/get/getAllPublicacionesFromUsuario.php"; 
+<?php
+    require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");
+    require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
+    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getUsuario.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesUser.php");
 ?>
-    <div class='container-fluid text-center cuerpo'>
-        <?php
-          /*   $db = new DB();  
-            $conexion = $db->getConnection();
-            ob_start();  */            /* $idUsuario=1;  */
-            if(isset($_SESSION))echo "hola";
-            echo "<pre>";
+<?php
+    $info_usuario=getUsuario($_SESSION["id"]);
+    function esRes($esResponsable){
+        if($esResponsable==0){
+            return "<p>Responsable</p>";
+        }
+        else{
+            return "<p>No Responsable</p>";
+        }
+    }
+    
+            
+?>
+<section class="col-12 cuerpo">
+    <aside class="col-3 perfil">
+        <div class="perfil_user">
+            <div class="col-12 user_photo">
+                <img class="img-fluid"src="/assets/Logo.png" alt="user">
+            </div>
+            <div class="col-12 user_name">
+                <h3><?php echo $info_usuario['usuario_nombre']; ?></h3>
+                <h3><?php echo $info_usuario['usuario_apellido']; ?></h3>
+            </div>
+        </div>
+        <div class="perfil_links">
+            <a href="#">Localidad:<?php echo $info_usuario['usuario_localidad']; ?></a>
+            <a href="#">Correo Electronico:<?php echo $info_usuario['usuario_correo']; ?></a>
+            <?php echo esRes($info_usuario["usuario_esResponsable"])?>
+        </div>
+        <div class="perfil_calificacion">
+            <div class="calificacion_titulo">
+                <h3>Calificacion</h3>
+            </div>
+            <div class="calificacion_puntaje">
+                <img class="img-fluid" src="/assets/rating(0).svg" alt="rate">
+                <p>0.0 de 0 calificaciones</p>
+            </div>
+        </div>
+    </aside>
+    <div class="col-5 contenedor">
+        
+        <?php echo renderPublicacionesUser() ?>
 
-            var_dump($_SESSION);
-            
-            echo "</pre>";
-            $idUsuario=$_SESSION["id"]; 
-            $info_usuario=getUsuario($idUsuario);
-            $info_publicaciones=getAllPublicacionesFromUsuario($idUsuario);
-            
-            echo $info_usuario['usuario_nombre'];/* Prueba para ver si esta tomando los datos del usuario  */
-            echo $info_publicacion['publicacion_titulo'];/* Prueba para ver si esta tomando los datos de la publicacion */
-            RenderPerfilUser(
-                    /* Informacion del usuario */
-                    $info_usuario['usuario_id'],
-                    $info_usuario['usuario_nombre'],
-                    $info_usuario['usuario_apellido'],
-                    $info_usuario['usuario_localidad'],
-                    $info_usuario['usuario_correo'],
-                    $info_usuario["usuario_contraseña"],
-                    $info_usuario['usuario_esResponsable'],
-                    $info_usuario['usuario_esActivo'],
-                    /* Informacion de la publicacion */
-                    $info_publicacion['publicacion_titulo'],
-                    $info_publicacion['publicacion_fecha'],
-                    $info_publicacion['publicacion_descr'],
-                    $info_publicacion['publicacion_volumen'],
-                    $info_publicacion['publicacion_peso'],
-                    $info_publicacion['publicacion_nombreRecibe'],
-                    $info_publicacion['publicacion_telefono'],
-                    $info_publicacion['ubicacion_origen'],
-                    $info_publicacion['ubicacion_destino'],
-                    $info_publicacion['usuario_autor'],
-                    $info_publicacion['usuario_transportista'],
-                    $info_publicacion['publicacion_esActivo'], 
-                );
-        ?>
     </div>
-
-
-<?php echo $_SESSION["id"]; require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
+    <aside class="col-3">
+        <div class="col-12 postulaciones">
+            <div class="col-12 postulacion_titulo">
+                <h3>Postulaciones</h3>
+            </div>
+            <div>
+                <div class="col-12 postulacion" name="postulacionP" id="postulacionP-N">
+                    <p>Pendiente</p>
+                    <p>20/12/2023</p>
+                </div>
+                <div class="col-12 postulacion" name="postulacionA" id="postulacionA-N">
+                    <p>Aceptada</p>
+                    <p>20/12/2023</p>
+                </div>
+                <div class="col-12 postulacion" name="postulacionR" id="postulacionR-N">
+                    <p>Rechazada</p>
+                    <p>20/12/2023</p>
+                </div>
+                <div class="col-12 postulacion" name="postulacionF" id="postulacionF-N">
+                    <p>Finalizada</p>
+                    <p>20/12/2023</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+</section>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php") ?>
-<script src="/js/publicacion.js"></script>
 </body>
 </html>
