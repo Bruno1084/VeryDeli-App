@@ -1,3 +1,4 @@
+<?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/CSS.php")?>
 <header id="header" class="conainer-fluid ">
     <div class="content-fluid">
         <div class="col-12">
@@ -32,11 +33,11 @@
                             return "#";
                         }
                         else{
-                            return "http://localhost:3000/pages/publicacion.php?id=".$pubId;
+                            return "../pages/publicacion.php?id=".$pubId;
                         }
                     }
                     require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
-                    $notificaciones=getNotificacionesActivasFromUsuario(); 
+                    $notificaciones=getNotificacionesActivasFromUsuario(5); 
                     ?>
                 <ul class="navbar-nav me-auto mb-lg-0">
                         <li class="nav-item dropdown">
@@ -49,26 +50,27 @@
                                         foreach($notificaciones as $notify){?>
                                             <li><a class="dropdown-item" href=<?php echo idIsNull($notify["publicacion_id"])?>><?php echo $notify["notificacion_mensaje"] ?></a></li>
                                             <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a></li>
                             <?php       }
                                     }
                                     else{
                                 ?>
                                         <li><p class="dropdown-item">Nada por aqui</p></li>
                                         <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="../components/Notificaciones.php">Ver Todo</a></li>
                                 <?php
                                     }
                                 ?>
-                                <li><a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="col-auto perfilNav">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" id="profileButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/assets/user.png" class="img-fluid" alt="account">
                         </button>
-                        <div class="dropdown-menu" id="profileMenu" aria-labelledby="profileButton">
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="/public/miPerfil.php">Mi Perfil</a>
                             <a class="dropdown-item" href="/utils/functions/cerrarSesion.php">Cerrar Sesion</a>
                         </div>
@@ -78,3 +80,4 @@
         </div>
     </div>
 </header>
+<? require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php");?>

@@ -32,7 +32,7 @@
 
 
 
-   // Perfile dropdown event listener
+   /*/ Perfile dropdown event listener
    const btn = document.getElementById('profileButton');
    const profileMenu = document.getElementById('profileMenu');
 
@@ -44,5 +44,5 @@
         profileMenu.style.display = 'block';
         profileMenu.style.right = 0;
     }
-   });
+   });*/
 })()
