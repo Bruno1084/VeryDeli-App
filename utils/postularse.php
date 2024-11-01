@@ -10,6 +10,7 @@
     $descripcion = $_POST['descripcion'];
     $transportista = $_SESSION['id'];
     $autor=null;
+    $datos=null;
     if(empty($monto)){
       manejarError('false', 'Monto invalido', 'El monto es obligatorio para postularse');
     }
@@ -20,9 +21,10 @@
       $conexion = null;
       manejarError('false', 'Usuario Transportista', 'Para postularse a una publicacion usted debe ser transportista');
     } else {
-      $datosUsuario = $conexion->query("SELECT usuario_esResponsable FROM usuarios WHERE usuario_id = $transportista");
+      $datosUsuario = $conexion->query("SELECT usuario_esResponsable, usuario_usuario FROM usuarios WHERE usuario_id = $transportista");
       if ($datosUsuario->rowCount() > 0) {
         $datos = $datosUsuario->fetch(PDO::FETCH_ASSOC);
+        $stmtCantPostulaciones = $conexion->query("SELECT usuario_postulante AS postulante FROM postulaciones WHERE usuario_postulante = $transportista AND postulacion_estado = '0'");
         if($datos['usuario_esResponsable'] != 1){
           $stmtCantPostulaciones = $conexion->query("SELECT usuario_postulante AS postulante FROM postulaciones WHERE usuario_postulante = $transportista AND postulacion_estado = '0'");
           if ($stmtCantPostulaciones->rowCount()>0){
@@ -32,15 +34,13 @@
             manejarError('false','Limite alcanzado', "Solo puedes tener una postulacion activa.");
           }
         }
-        else{
-          $stmtCantPostulaciones = $conexion->query("SELECT usuario_postulante AS postulante FROM postulaciones WHERE usuario_postulante = $transportista AND postulacion_estado = '0' AND publicacion_id = $pubId");
-          if ($stmtCantPostulaciones->rowCount()>0){
-            $stmtCantPostulaciones = null;
-            $stmtTransportista = null;
-            $conexion = null;
-            manejarError('false','Postulacion existente', "Ya tienes una postulacion pendiente en esta publicacion.");
-          }
-          
+        // Valida si ya el transportista ya tiene una postulacion pendiente un la publicacion
+        $stmtCantPostulaciones = $conexion->query("SELECT usuario_postulante AS postulante FROM postulaciones WHERE usuario_postulante = $transportista AND postulacion_estado = '0' AND publicacion_id = $pubId");
+        if ($stmtCantPostulaciones->rowCount()>0){
+          $stmtCantPostulaciones = null;
+          $stmtTransportista = null;
+          $conexion = null;
+          manejarError('false','Postulacion existente', "Ya tienes una postulacion pendiente en esta publicacion.");
         }
       } else {
         $stmtCantPostulaciones = null;
@@ -85,7 +85,7 @@
           $correoAutor=$correoAutor["usuario_correo"];
         }
       }
-      $mensaje="¡Alguien se a postulado a tu publicacion!";
+      $mensaje="¡".$datos['usuario_usuario']." se a postulado a tu publicacion!";
       enviarNotificacion($autor,$mensaje,$fechaActual,$pubId);
       if($correoAutor!=false&&$correoAutor!=null)enviarEmailNotificacion($correoAutor,$mensaje);
       $stmt=null;

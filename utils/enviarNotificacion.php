@@ -6,14 +6,14 @@ function enviarNotificacion($idUsuario_destino,$mensaje,$fechaActual,$idPublicac
     }
     $db=new DB();
     $connection=$db->getConnection();
-    $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_fecha`, `notificacion_estado`, `usuario_id`, `publicacion_id`) VALUES (?,'0',?,?)";
+    $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_fecha`, `usuario_id`, `publicacion_id`) VALUES (?,?,?,?)";
 
     $stmt=$connection->prepare($sql);
 
     $stmt->bindParam(1,$mensaje,PDO::PARAM_STR);
-    $stmt->bindParam(1,$fechaActual,PDO::PARAM_STR_NATL);
-    $stmt->bindParam(2,$idUsuario_destino,PDO::PARAM_INT);
-    $stmt->bindParam(3,$idPublicacion_origen,PDO::PARAM_INT);
+    $stmt->bindParam(2,$fechaActual,PDO::PARAM_STR);
+    $stmt->bindParam(3,$idUsuario_destino,PDO::PARAM_INT);
+    $stmt->bindParam(4,$idPublicacion_origen,PDO::PARAM_INT);
 
     $res=$stmt->execute();
     $stmt=null;
@@ -32,7 +32,7 @@ function enviarEmailNotificacion($correoDestino, $mensaje){
             "to"=> $correoDestino,
             "subject"=> "Notificacion",
             "html"=> "<h2 style='font-size: 20px; color: #333;'>".$mensaje."</h2>
-                     <p>Ingresa a tu cuenta para ver quien ha sido</p>"
+                     <p>Ingresa a tu cuenta para ver mas detalles</p>"
             );
         $email=json_encode($email);
 
