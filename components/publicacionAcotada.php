@@ -1,6 +1,6 @@
 <?php
 function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
+
   ob_start();
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>

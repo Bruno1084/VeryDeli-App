@@ -130,6 +130,8 @@ body{
 }
 
 .publicacionExtendida-menuIcon {
-    max-width: 30px;
-    max-height: 35px;
+    border: 1px solid black;
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
 }
