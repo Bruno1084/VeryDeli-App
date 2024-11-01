@@ -17,12 +17,12 @@
           <div class="row">
             <div class="col-12">
               <h3 class="text-center mb-4">Postulaciones</h3>
-              <?php if($postulaciones == false) :?>
+              <?php if($postulaciones == false) {?>
                 <p class="mb-1 fw-medium text-center"> Todavía nadie se ha postulado a tu publicación 😓 </p>
-              <?php endif ?>
+              
             </div>  
           </div>
-          
+          <?php } else {?>
           <?php 
           switch ($publicacion['publicacion_esActivo']):
             default:
@@ -42,7 +42,6 @@
                   $bgEstado = 'btn btn-danger';
                 break;
               }
-            
           ?>
           <div class="row mb-3 align-items-center border p-2 rounded" id="postulacionP-<?= $nombreUsuario ?>">
             <div class="col-md-8">
@@ -98,6 +97,7 @@
     $usuario = getUsuario($postulacion['usuario_postulante']);
     require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
     $calificaciones = getCalificacionesFromPublicacion($idPublicacion);
+    $count = 0;
     if(!empty($calificaciones)){
       $count = 0;
       foreach($calificaciones as $calificacion){
@@ -119,6 +119,7 @@
 <?php 
   break;
   endswitch;
+  }
 ?>
   </div>
     </section>
