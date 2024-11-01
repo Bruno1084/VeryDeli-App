@@ -137,6 +137,6 @@
   <?php require_once("../components/JS.php"); ?>
   <script src="../js/validarReporte.js"></script>
   <script src="../js/postulacion.js"></script>
-  <script src="/js/verificarUsuario.js"></script>
+  <script src="../js/verificarUsuario.js"></script>
 </body>
 </html>
