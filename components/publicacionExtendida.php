@@ -106,6 +106,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
         </div>
       </div>
     </div>
+    <!--
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
@@ -114,6 +115,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
+    -->
 
     <!-- POSTEAR COMENTARIO -->
     <?php echo renderPostComentario($username, "", $idPublicacion); ?>
@@ -155,7 +157,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       <div class="modal-content bg-modalPublicacion">
         <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
           <h1 class="modal-title fs-5" id="modalPostularseLabel<?php echo $idPublicacion ?>">Postularse</h1>
-          <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class="btn-close" id="cerrarModalPostular<?php echo $idPublicacion ?>"  data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
           <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion(<?php echo $idPublicacion ?>)">
@@ -190,7 +192,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       <div class="modal-content bg-modalPublicacion">
         <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
           <h1 class="modal-title fs-5" id="modalReportarLabel<?php echo $idPublicacion ?>">Reportar Publicacion</h1>
-          <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class="btn-close" id="cerrarModalReportar<?php echo $idPublicacion ?>" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
           <form action="/utils/reportar.php" class="form-publicacion form-reportar needs-validation FormularioAjax" method="post" id="formReportar<?php echo $idPublicacion ?>" novalidate>
