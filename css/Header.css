@@ -1,4 +1,4 @@
-#header .perfilNav .navbar-nav .dropdown-menu{
+#header .dropdown-menu{
     position:absolute;
 }
 #header .perfilNav .dropdown-toggle::after,#header .notifications .dropdown-toggle::after{
@@ -11,8 +11,18 @@
 }
 #header .notifications img{
     width:3vh;
-
 }
+#header .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    border-color: none;
+}
+#header .notifications .dropdown-menu[data-bs-popper] {
+margin-top: 2.7vh;
+}
+#header .dropdown-menu[data-bs-popper] {
+    right: 0;
+    left: auto;
+}
+
 
 #header .dropdown-toggle::after {
     content: none;
