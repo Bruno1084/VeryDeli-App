@@ -43,20 +43,8 @@
                     $info_usuario['usuario_correo'],
                     $info_usuario["usuario_contraseña"],
                     $info_usuario['usuario_esResponsable'],
-                    $info_usuario['usuario_esActivo'],
-                    /* Informacion de la publicacion */
-                    $info_publicacion['publicacion_titulo'],
-                    $info_publicacion['publicacion_fecha'],
-                    $info_publicacion['publicacion_descr'],
-                    $info_publicacion['publicacion_volumen'],
-                    $info_publicacion['publicacion_peso'],
-                    $info_publicacion['publicacion_nombreRecibe'],
-                    $info_publicacion['publicacion_telefono'],
-                    $info_publicacion['ubicacion_origen'],
-                    $info_publicacion['ubicacion_destino'],
-                    $info_publicacion['usuario_autor'],
-                    $info_publicacion['usuario_transportista'],
-                    $info_publicacion['publicacion_esActivo'], 
+                    $info_usuario['usuario_esActivo'];
+            
                 );
         ?>
     </div>
