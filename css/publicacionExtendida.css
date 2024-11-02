@@ -6,6 +6,8 @@
     width: auto;
     height: auto;
 }
+
+
 .carousel-item-next, .carousel-item-prev, .carousel-item.active{
     display: flex!important;
     justify-content: center!important;
@@ -16,8 +18,12 @@
 }
 #carouselIndicators_A button.carousel-control-next, #carouselIndicators_A button.carousel-control-prev{
     width: 8%;
+    margin: 15px;
 }
 
+#carouselIndicators_A .carousel-indicators{
+    margin-bottom: 18px;
+}
 #carouselIndicators_A .carousel-indicators button{
     border: solid 0.1vh #0000008c;
     border-radius: 5px;
