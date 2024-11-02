@@ -125,12 +125,10 @@
   </div>
 
   <!--BOTON PARA ABRIR EL MODAL-->
-  <div class="Container-fluid text-end">
-    <div class="justify-content-center div-crearPublicacion">
-        <div class="justify-content-center p-0">
-            <div>
-                <button class="btn mb-3" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
-            </div>
+  <div class="Container-fluid text-end col-12">
+    <div class="div-crearPublicacion">
+        <div class="p-0 col-3">
+          <button class="btn mb-3" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
         </div>
     </div> 
   </div>  
@@ -144,4 +142,3 @@
   <script src="../js/formularioPublicaciones.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/ajax.js"></script>
-</body>

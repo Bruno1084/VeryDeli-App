@@ -15,6 +15,10 @@ $correo = $_POST['correo'];
 $localidad = $_POST['localidad'];
 $usuario = $_POST['usuario'];
 $contrasenia = $_POST['contraseña'];
+$tipoVehiculo = $_POST["tipoVehiculo"];
+$patente = $_POST["patente"];
+$pesoSoportado =(double) str_replace(",","",(explode(" ",$_POST["pesoSoportado"])[0]));
+$volumenSoportado =(double) explode(" ",$_POST["volumenSoportado"])[0];
 
 //Verificar campos obligatorios
 if(!verificarCamposObligatorios([$nombre, $apellido, $correo, $localidad, $usuario, $contrasenia])){
@@ -85,6 +89,11 @@ if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
   exit();
 };
 
+// Validar patente del Transportista
+if(isset($_POST["serTransportista"])){
+
+}
+
 //Generar hash de la contraseña con BCRYPT y costo 10
 $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
 
@@ -99,8 +108,25 @@ $stmt->bindValue(5, $usuario, PDO::PARAM_STR);
 $stmt->bindValue(6, $contrasenia, PDO::PARAM_STR);
 
 if ($stmt->execute()){
+  $stmt=null;
+  if(isset($_POST["serTransportista"])){
+    $idUser=$conexion->lastInsertId();
+    $conexion=null;
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/registrarTransportista.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/registrarVehiculo.php");
+
+    if(!registrarTransportista($idUser))
+      manejarError("false","Registro parcial","Error al registrar como transportista","../components/login.php");
+    
+    if(!registrarVehiculo_Sing_up($idUser,$tipoVehiculo,$patente,$pesoSoportado,$volumenSoportado))
+      manejarError("false","Registro parcial","Error al registrar el vehiculo", "../components/login.php");
+    
+  }
+  else $conexion=null;
   manejarError('true', 'Registrado con exito', "", "../components/login.php");
 } else {
+  $stmt=null;
+  $conexion=null;
 manejarError('false','Ocurrio un error inesperado','Error al registrar el usuario. Intente de nuevo más tarde.');
 };
 

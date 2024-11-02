@@ -33,7 +33,7 @@ if($res!=false){
   //Verifica que la contraseña corresponda al usuario
   $res=User::userPassExist($usuario,$contrasenia);
   if($res!=false){
-    //Inicia la sesion y almacena al usuario como arreglo asociativo en la sesion
+    //Inicia la sesion y almacena el id del usuario en la sesion
     require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
     $_SESSION['id'] = $res[0];
     manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "../public/index.php");

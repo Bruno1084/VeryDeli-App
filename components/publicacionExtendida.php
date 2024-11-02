@@ -53,10 +53,59 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           </div>
         </div>
       </div>
+    </div>
+    <!--
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    -->
 
-      <div class='my-4 d-flex justify-content-between align-items-center'>
-        <div>
-          <button type='button' class='btn btn-gris btn-md'  data-bs-target="#modalPostularse<?php echo $idPublicacion ?>" data-bs-toggle="modal">Postularse</button>
+    <!-- POSTEAR COMENTARIO -->
+    <?php echo renderPostComentario($username, "", $idPublicacion); ?>
+
+
+    <!-- COMENTARIOS DE USUARIOS -->
+    <div>
+      <?php
+      $comentarios = getAllComentariosFromPublicacion($idPublicacion);
+
+      foreach ($comentarios as $c) {
+        $autorId = $c['usuario_id'];
+
+        if (isset($commentCache[$autorId])) {
+          $user = $commentCache[$autorId];
+        } else {
+          $user = getUsuario($autorId);
+          $commentCache[$autorId] = $user;
+        };
+
+        $username = $user["usuario_nombre"] . " " . $user["usuario_apellido"];
+
+        echo renderComentario(
+          $contadorComentarios,
+          $username,
+          '',
+          $c['comentario_mensaje']
+        );
+        $contadorComentarios++;
+      }
+      ?>
+    </div>
+  </div>
+
+
+  <!-- MODAL POSTULARSE -->
+  <div class="modal fade" id="modalPostularse<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalPostularseLabel<?php echo $idPublicacion ?>" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-modalPublicacion">
+        <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
+          <h1 class="modal-title fs-5" id="modalPostularseLabel<?php echo $idPublicacion ?>">Postularse</h1>
+          <button type="button" class="btn-close" id="cerrarModalPostular<?php echo $idPublicacion ?>"  data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <button type="button" class="btn btn-outline-danger btn-md" data-bs-target="#modalReportar<?php echo $idPublicacion ?>" data-bs-toggle="modal">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flag" viewBox="0 0 16 16">
@@ -126,14 +175,29 @@ function renderPublicacionExtendida($idPublicacion, $username, $profileIcon, $da
           </div>
         </div>
     </div>
-    
-    <!-- MODAL REPORTAR -->
-    <div class="modal fade" id="modalReportar<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalReportarLabel<?php echo $idPublicacion ?>" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content bg-modalPublicacion">
-            <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
-              <h1 class="modal-title fs-5" id="modalReportarLabel<?php echo $idPublicacion ?>">Reportar Publicacion</h1>
-              <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  </div>
+
+
+  <!-- MODAL REPORTAR -->
+  <div class="modal fade" id="modalReportar<?php echo $idPublicacion ?>" aria-hidden="true" aria-labelledby="modalReportarLabel<?php echo $idPublicacion ?>" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-modalPublicacion">
+        <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
+          <h1 class="modal-title fs-5" id="modalReportarLabel<?php echo $idPublicacion ?>">Reportar Publicacion</h1>
+          <button type="button" class="btn-close" id="cerrarModalReportar<?php echo $idPublicacion ?>" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/utils/reportar.php" class="form-publicacion form-reportar needs-validation FormularioAjax" method="post" id="formReportar<?php echo $idPublicacion ?>" novalidate>
+            <div class="row">
+              <div class="col-12">
+                <select class="form-select" aria-label="Default select example" name="motivo" id="input-motivo<?php echo $idPublicacion ?>">
+                  <option selected disabled>Seleccione un motivo...</option>
+                  <option value="spam">Spam</option>
+                  <option value="lenguaje inapropiado">Lenguaje inapropiado</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <div class="invalid-feedback" id="invalid-motivo<?php echo $idPublicacion ?>"></div>
+              </div>
             </div>
             <div class="modal-body">
               <form action="/utils/reportar.php" class="form-publicacion form-reportar needs-validation FormularioAjax" method="post" id="formReportar<?php echo $idPublicacion ?>" novalidate  >

@@ -37,7 +37,7 @@ CREATE TABLE `vehiculos` (
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_titulo` varchar(500)  NOT NULL ,
-    `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `publicacion_fecha` DATETIME DEFAULT ,
     `publicacion_descr` varchar(500)  NOT NULL ,
     `publicacion_volumen` float  NULL ,
     `publicacion_peso` float  NULL ,
@@ -80,7 +80,7 @@ CREATE TABLE `comentarios` (
     `publicacion_id` int  NOT NULL ,
     `usuario_id` int  NOT NULL ,
     `comentario_mensaje` varchar(500)  NOT NULL ,
-    `comentario_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `comentario_fecha` DATETIME DEFAULT ,
     `comentario_esActivo` tinyint(1) NOT NULL,
     PRIMARY KEY (
         `comentario_id`
@@ -93,7 +93,7 @@ CREATE TABLE `postulaciones` (
     `usuario_postulante` int  NOT NULL ,
     `postulacion_precio` float  NOT NULL ,
     `postulacion_descr` varchar(500)  NULL ,
-    `postulacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `postulacion_fecha` DATETIME DEFAULT ,
     `postulacion_estado` enum('0', '1', '2') NOT NULL DEFAULT '0'
     PRIMARY KEY (
         `postulacion_id`
@@ -106,7 +106,7 @@ CREATE TABLE `calificaciones` (
     `usuario_calificado` int  NOT NULL ,
     `usuario_calificador` int  NOT NULL ,
     `calificacion_puntaje` enum('1','2','3','4','5')  NOT NULL ,
-    `calificacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `calificacion_fecha` DATETIME DEFAULT ,
     PRIMARY KEY (
         `calificacion_id`
     )
@@ -120,13 +120,39 @@ CREATE TABLE `administradores` (
     )
 );
 
+CREATE TABLE `verificaciones` (
+    `verificacion_id` INT NOT NULL AUTO_INCREMENT ,
+    `verificacion_foto-doc1` VARCHAR(255) NOT NULL ,
+    `verificacion_foto-doc2` VARCHAR(255) NULL ,
+    `verificacion_foto-boleta1` VARCHAR(255) NOT NULL ,
+    `verificacion_foto-boleta2` VARCHAR(255) NULL ,
+    `verificacion_tipo-doc` enum('1','2','3','4') NOT NULL ,
+    `verificacion_tipo-boleta` enum('1','2','3','4') NOT NULL ,
+    `verificacion_estado` BOOLEAN NOT NULL DEFAULT '0',
+    `usuario_id` INT NOT NULL ,
+    PRIMARY KEY (
+        `verificacion_id`
+    )
+);
+
+CREATE TABLE `notificaciones` (
+    `notificacion_id` INT NOT NULL AUTO_INCREMENT ,
+    `notificacion_mensaje` VARCHAR(255) NOT NULL ,
+    `notificacion_estado` BOOLEAN NOT NULL ,
+    `notificacion_fecha` DATETIME DEFAULT,
+    `usuario_id` INT NOT NULL ,
+    `publicacion_id` INT NULL,
+    PRIMARY KEY (
+        `notificacion_id`
+    )
+);
 CREATE TABLE `publicaciones_reportadas` (
     `reporte_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_id` int  NOT NULL ,
     `usuario_autor` int  NOT NULL ,
     `reporte_motivo` varchar(30)  NOT NULL ,
     `reporte_mensaje` varchar(255) NULL ,
-    `reporte_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `reporte_fecha` DATETIME DEFAULT ,
     `reporte_activo` tinyint(1) DEFAULT 1 NOT NULL,
     PRIMARY KEY (
         `reporte_id`
@@ -178,8 +204,14 @@ REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `administradores` ADD CONSTRAINT `fk_administradores_administrador_id` FOREIGN KEY(`administrador_id`)
 REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `verificaciones` ADD CONSTRAINT `fk_verificaciones_verificacion_id` FOREIGN KEY (`verificacion_id`)
+ALTER TABLE `verificaciones` ADD CONSTRAINT `fk_verificaciones_usuario_id` FOREIGN KEY (`usuario_id`)
 REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `notificaciones` ADD CONSTRAINT `fk_notificaciones_usuario_id` FOREIGN KEY (`usuario_id`)
+REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `notificaciones` ADD CONSTRAINT `fk_notificaciones_publicacion_id` FOREIGN KEY (`publicacion_id`)
+REFERENCES `publicaciones`(`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `publicaciones_reportadas` ADD CONSTRAINT `fk_publicaciones_reportadas_publicacion_id` FOREIGN KEY(`publicacion_id`)
 REFERENCES `publicaciones` (`publicacion_id`);

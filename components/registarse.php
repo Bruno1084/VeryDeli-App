@@ -4,7 +4,6 @@
 <head>
     <?php
     require_once("../components/head.php");
-    require_once("../components/JS.php");
     ?>
 </head>
 
@@ -110,6 +109,25 @@
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="../js/ajax.js"></script>
+    <script>
+        (() => {
+        const form = document.querySelector('.formulario-registro');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            return validado=()=>new Promise((resolve)=>{
+            if (1==1){
+                resolve(true);
+            }
+            else{
+                resolve(false);
+            }
+            });
+        }, false);
+        })();
+</script>
     <script>
         // Si selecciona la opcion de ser transportista habilita los campos
         document.getElementById('transportista').addEventListener('change', function() {

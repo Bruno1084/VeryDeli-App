@@ -1,13 +1,9 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/functions/manejaError.php");
-  
-  function getExtencion($text){
-    return ".".explode("/",$text)[1];
-  }
-	function stringRandom(int $tam):string{
-    $txt="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($txt),0, $tam);
-  }
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/getExtension.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/stringRandom.php');
+	
+
   if (isset($_POST['enviado'])) {
     require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
     require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
