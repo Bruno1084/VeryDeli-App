@@ -27,19 +27,19 @@
             
 ?>
 <section class="col-12 cuerpo">
-    <aside class="col-3 perfil">
+    <aside class="col-2 perfil shadow border border-dark-subtle rounded">
         <div class="perfil_user">
             <div class="col-12 user_photo">
                 <img class="img-fluid"src="/assets/Logo.png" alt="user">
             </div>
             <div class="col-12 user_name">
-                <h3><?php echo $info_usuario['usuario_nombre']; ?></h3>
-                <h3><?php echo $info_usuario['usuario_apellido']; ?></h3>
+                <h4><?php echo $info_usuario['usuario_nombre']; ?></h4>
+                <h4><?php echo $info_usuario['usuario_apellido']; ?></h4>
             </div>
         </div>
         <div class="perfil_links">
-            <a href="#">Localidad:<?php echo $info_usuario['usuario_localidad']; ?></a>
-            <a href="#">Correo Electronico:<?php echo $info_usuario['usuario_correo']; ?></a>
+            <p>Localidad: <?php echo $info_usuario['usuario_localidad']; ?></p>
+            <a href="mailTo:<?php echo $info_usuario['usuario_correo']; ?>"><?php echo $info_usuario['usuario_correo']; ?></a>
             <?php echo esRes($info_usuario["usuario_esResponsable"])?>
         </div>
         <div class="perfil_calificacion">
@@ -52,13 +52,13 @@
             </div>
         </div>
     </aside>
-    <div class="col-5 contenedor">
+    <div class="col-7 contenedor">
         
         <?php echo renderPublicacionesUser() ?>
 
     </div>
-    <aside class="col-3">
-        <div class="col-12 postulaciones">
+    <aside class="col-2">
+        <div class="col-12 postulaciones  shadow border border-dark-subtle rounded">
             <div class="col-12 postulacion_titulo">
                 <h3>Postulaciones</h3>
             </div>
