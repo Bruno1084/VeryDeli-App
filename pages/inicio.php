@@ -10,7 +10,7 @@
   <title>Very Deli</title>
 </head>
 <body>
-  <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");?>
+  <?php require_once("../components/Header.php");?>
   <?php require_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
