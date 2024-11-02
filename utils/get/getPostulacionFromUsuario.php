@@ -5,7 +5,7 @@ function getPostulacionFromUsuario ($idUsuario) {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT postulaciones.postulacion_fecha,postulaciones.postulacion_estado FROM postulaciones WHERE $idUsuario = postulaciones.usuario_postulante";
+  $sql = "SELECT postulaciones.postulacion_fecha,postulaciones.postulacion_estado FROM postulaciones WHERE ? = postulaciones.usuario_postulante";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
   $stmt->execute();

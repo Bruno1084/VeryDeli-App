@@ -1,4 +1,4 @@
-<?php require_once('../utils/functions/startSession.php') ?>
+<?php require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
   <title>Very Deli</title>
 </head>
 <body>
-  <?php require_once("../components/Header.php");?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php");?>
   <?php require_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
@@ -100,11 +100,11 @@
     
     <!-- Imprime todas las publicaciones activas en la base de datos -->
     <?php 
-      require_once("../components/publicaciones.php");
+      require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php");
       echo renderPublicaciones();
     ?>
-  <?php require_once("../components/Footer.php"); ?>
-  <?php require_once("../components/JS.php"); ?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php"); ?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php"); ?>
   <script src="../js/verificarUsuario.js"></script>
   <script src="../js/validarReporte.js"></script>
   <script src="../js/postulacion.js"></script>
