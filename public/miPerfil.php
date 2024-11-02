@@ -11,10 +11,20 @@
     require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getUsuario.php");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getPostulacionFromUsuario.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesUser.php");
 ?>
 <?php
     $info_usuario=getUsuario($_SESSION["id"]);
+    $info_postulaciones=getPostulacionFromUsuario($_SESSION["id"]);
+     function esPost($info_postulaciones){
+        if(empty($info_postulaciones)){
+            return "1";
+        }
+        else{
+            return "0";
+        }         
+    }
     function esRes($esResponsable){
         if($esResponsable==1){
             return "<p>Responsable</p>";
@@ -60,25 +70,31 @@
     <aside class="col-2">
         <div class="col-12 postulaciones  shadow border border-dark-subtle rounded">
             <div class="col-12 postulacion_titulo">
-                <h3>Postulaciones</h3>
+                <?php 
+                if(esPost($info_postulaciones)==1){
+                    echo "<h6>No tiene Postulaciones Activas</h6>";
+                }
+                else{
+                    echo "<h6>Postulaciones</h6>";
+                }
+             ?>
             </div>
             <div>
-                <div class="col-12 postulacion" name="postulacionP" id="postulacionP-N">
-                    <p>Pendiente</p>
-                    <p>20/12/2023</p>
-                </div>
-                <div class="col-12 postulacion" name="postulacionA" id="postulacionA-N">
-                    <p>Aceptada</p>
-                    <p>20/12/2023</p>
-                </div>
-                <div class="col-12 postulacion" name="postulacionR" id="postulacionR-N">
-                    <p>Rechazada</p>
-                    <p>20/12/2023</p>
-                </div>
-                <div class="col-12 postulacion" name="postulacionF" id="postulacionF-N">
-                    <p>Finalizada</p>
-                    <p>20/12/2023</p>
-                </div>
+                <?php 
+                if(esPost($info_postulaciones)==1){
+                    echo "<p>sin informacion</p>";
+                }
+                else{ 
+                    foreach($info_postulaciones as $postulacion): 
+                    ?>
+                        <div class="col-12 postulacion" name="postulacionP" id="postulacionP-N">
+                            <p><?php $info_postulacion["postulacion_estado"]?></p>
+                            <p><?php $info_postulacion["postulacion_fecha"]?></p>
+                        </div>
+                    <?php 
+                    endforeach;   
+                }
+                ?>
             </div>
         </div>
     </aside>
