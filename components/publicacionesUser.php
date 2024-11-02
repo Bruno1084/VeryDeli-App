@@ -1,7 +1,8 @@
 <?php
-function renderPublicacionesUser() {
-    include_once "../components/publicacionAcotada.php";
-    include_once "../utils/get/getAllPublicacionesFromUsuario.php";
+function renderPubsAndComsUser() {
+    include_once $_SERVER["DOCUMENT_ROOT"]."/components/publicacionAcotada.php";
+    require_once($_SERVER["DOCUMENT_ROOT"]."/components/comentario.php");
+    include_once $_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPubsAndComsFromUser.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 5; //Limite de publicaciones a mostrar
@@ -10,29 +11,42 @@ function renderPublicacionesUser() {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicacionesFromUsuario($_SESSION["id"],5, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
+    $pubYcom = getAllPubsAndComsFromUser($_SESSION["id"],$limit, $offset);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones WHERE usuario_autor=".$_SESSION["id"]);
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
-    $paginasTotales = ceil($totalPublicaciones / $limit);
+    $totalComentariosStmt = $conexion->query("SELECT COUNT(*) FROM comentarios WHERE usuario_id=".$_SESSION["id"]);
+    $totalComentarios = $totalComentariosStmt->fetchColumn();
+    $paginasTotales = ceil(($totalComentarios+$totalPublicaciones) / $limit);
+    
+    $db=null;
+    $conexion=null;
+    
     ob_start();
-
+    
     $userCache = [];
 ?>
     <div class='container-fluid text-center'>
         <?php
-            foreach ($publicaciones as $p) {
-                
-                $userLocation = $p['usuario_localidad'];
-
-                echo renderPublicacionAcotada(
-                    $p["publicacion_id"],
-                    $userLocation,
-                    $p['usuario_usuario'],
-                    "",
-                    $p['publicacion_fecha'],
-                    $p["publicacion_descr"],
-                    $p["imagen_url"]
-                );
+            foreach ($pubYcom as $pOc) {
+                if($pOc["tipo"]=="publicacion"){
+                    echo renderPublicacionAcotada(
+                        $pOc["publicacion_id"],
+                        $pOc['usuario_localidad'],
+                        $pOc['usuario_usuario'],
+                        "",
+                        $pOc['publicacion_fecha'],
+                        $pOc["publicacion_descr"],
+                        $pOc["imagen_url"]
+                    );
+                }
+                else{
+                    echo renderComentario(
+                        $pOc["comentario_id"],
+                        $pOc["usuario_usuario"],
+                        "",
+                        $pOc["comentario_mensaje"]
+                    );
+                }
             };
         ?>
     </div>
