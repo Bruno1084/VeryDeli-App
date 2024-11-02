@@ -44,7 +44,10 @@ function renderPubsAndComsUser() {
                         $pOc["comentario_id"],
                         $pOc["usuario_usuario"],
                         "",
-                        $pOc["comentario_mensaje"]
+                        $pOc["comentario_fecha"],
+                        $pOc["comentario_mensaje"],
+                        true,
+                        $pOc["publicacion_id"]
                     );
                 }
             };

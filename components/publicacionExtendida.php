@@ -142,6 +142,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
           $contadorComentarios,
           $username,
           '',
+          $c["comentario_fecha"],
           $c['comentario_mensaje']
         );
         $contadorComentarios++;
