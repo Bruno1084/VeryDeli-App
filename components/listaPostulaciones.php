@@ -94,6 +94,7 @@
 <?php
     break;
     case '3':
+    $count=0;
     $postulacion = getTransportistaPublicacion($idPublicacion);
     $usuario = getUsuario($postulacion['usuario_postulante']);
     require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
