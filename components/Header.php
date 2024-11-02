@@ -28,42 +28,40 @@
                 </div>
                 <div class="col-auto notifications">
                     <?php
-                    function idIsNull($pubId){
-                        if($pubId==null){
-                            return "#";
+                        function idIsNull($pubId){
+                            if($pubId==null){
+                                return "#";
+                            }
+                            else{
+                                return "../pages/publicacion.php?id=".$pubId;
+                            }
                         }
-                        else{
-                            return "../pages/publicacion.php?id=".$pubId;
-                        }
-                    }
-                    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
-                    $notificaciones=getNotificacionesActivasFromUsuario(5); 
+                        require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
+                        $notificaciones=getNotificacionesActivasFromUsuario(5); 
                     ?>
-                <ul class="navbar-nav me-auto mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
+                    <div class="dropdown">
+                            <button class="btn dropdown-toggle py-2 px-0 px-lg-2 d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
                                 <img src="/assets/bell.png" class="img-fluid" alt="notify">
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <div class="dropdown-menu dropdown-menu-end">
                                 <?php 
                                     if(sizeof($notificaciones)>0){
                                         foreach($notificaciones as $notify){?>
-                                            <li><a class="dropdown-item" href=<?php echo idIsNull($notify["publicacion_id"])?>><?php echo $notify["notificacion_mensaje"] ?></a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a></li>
-                            <?php       }
+                                            <a class="dropdown-item" href=<?php echo idIsNull($notify["publicacion_id"])?>><?php echo $notify["notificacion_mensaje"] ?></a>
+                                            <hr class="dropdown-divider">
+                                            <a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a>
+                                <?php       }
                                     }
                                     else{
                                 ?>
-                                        <li><p class="dropdown-item">Nada por aqui</p></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="../components/Notificaciones.php">Ver Todo</a></li>
+                                        <p class="dropdown-item">Nada por aqui</p>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item" href="../components/Notificaciones.php">Ver Todo</a>
                                 <?php
                                     }
                                 ?>
-                            </ul>
-                        </li>
-                    </ul>
+                            </div>
+                    </div>
                 </div>
                 <div class="col-auto perfilNav">
                     <div class="dropdown">

@@ -98,16 +98,3 @@ aside{
     position:relative;
     top:-8vh;
 }
-
-.btn{
-    background-color:#F4F2EE;
-    color: #000000;
-    border-radius: 30px;
-    width: 150px;
-    font-weight: bold;
-}
-
-.btn:hover{
-    color: #FFFFFF;
-    background-color: #4B0082;
-}
