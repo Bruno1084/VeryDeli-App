@@ -16,7 +16,7 @@
 <?php
     $info_usuario=getUsuario($_SESSION["id"]);
     function esRes($esResponsable){
-        if($esResponsable==0){
+        if($esResponsable==1){
             return "<p>Responsable</p>";
         }
         else{
@@ -54,7 +54,7 @@
     </aside>
     <div class="col-7 contenedor">
         
-        <?php echo renderPublicacionesUser() ?>
+        <?php echo renderPubsAndComsUser() ?>
 
     </div>
     <aside class="col-2">
