@@ -7,7 +7,7 @@ function renderComentario ($comentarioId ,$username, $profileIcon, $comFecha, $c
 
     ?>
     <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3' id="comentario_<?php echo$comentarioId; ?>">
-      <a class="<?php echo 'text-reset text-decoration-none'?>" href="<?php echo '../pages/publicacion.php?id='.$idPub?>">
+      <a class="text-reset text-decoration-none" href="<?php echo '../pages/publicacion.php?id='.$idPub?>">
         <div class="row p-2 border-bottom">
           <div class="d-flex col-6 mt-1 text-start lh-1">
             <div>

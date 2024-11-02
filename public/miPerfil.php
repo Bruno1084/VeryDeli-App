@@ -11,12 +11,12 @@
     require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getUsuario.php");
-    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getPostulacionFromUsuario.php");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPostulacionFromUsuario.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesUser.php");
 ?>
 <?php
     $info_usuario=getUsuario($_SESSION["id"]);
-    $info_postulaciones=getPostulacionFromUsuario($_SESSION["id"]);
+    $info_postulaciones=getAllPostulacionFromUsuario($_SESSION["id"]);
      function esPost($info_postulaciones){
         if(empty($info_postulaciones)){
             return "1";
@@ -24,6 +24,17 @@
         else{
             return "0";
         }         
+    }
+    function estadoPost($estado){
+        if($estado==0){
+            return "Pendiente";
+        }
+        else if($estado==1){
+            return "Aceptada";
+        }
+        else if($estado==2){
+            return "Rechazada";
+        }
     }
     function esRes($esResponsable){
         if($esResponsable==1){
@@ -88,8 +99,10 @@
                     foreach($info_postulaciones as $postulacion): 
                     ?>
                         <div class="col-12 postulacion" name="postulacionP" id="postulacionP-N">
-                            <p><?php $info_postulacion["postulacion_estado"]?></p>
-                            <p><?php $info_postulacion["postulacion_fecha"]?></p>
+                            <a class="text-reset text-decoration-none d-flex" href="<?php echo '../pages/publicacion.php?id='.$postulacion["publicacion_id"] ?>">
+                                <p><?php echo estadoPost($postulacion["postulacion_estado"])?></p>
+                                <p><?php echo date('H:i d/m/Y', strtotime($postulacion["postulacion_fecha"]))?></p>
+                            </a>
                         </div>
                     <?php 
                     endforeach;   
