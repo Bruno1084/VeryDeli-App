@@ -47,23 +47,27 @@
         }
     }
     function estadoCalif($promedio){
-        
-        if($promedio >= 1 && $promedio < 2){
-            return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
-        }
-        else if($promedio >= 2 && $promedio < 3){
-            return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
-        }
-        else if($promedio >= 3 && $promedio < 4){
-            return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
-        }
-        else if($promedio >= 4 && $promedio < 5){
-            return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
-        }
-        else if($promedio >= 5 && $promedio < 6){
-            return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
-        }
-        else{
+        if($promedio!=false){
+            $promedio=$promedio["calificacion_promedio"];
+            if($promedio >= 1 && $promedio < 2){
+                return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
+            }
+            else if($promedio >= 2 && $promedio < 3){
+                return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
+            }
+            else if($promedio >= 3 && $promedio < 4){
+                return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
+            }
+            else if($promedio >= 4 && $promedio < 5){
+                return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
+            }
+            else if($promedio >= 5 && $promedio < 6){
+                return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
+            }
+            else{
+                return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
+            }
+        }else{
             return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
         }
     }
@@ -92,7 +96,7 @@
             </div>
             <div class="calificacion_puntaje">
                
-                <?php echo estadoCalif($promedio["AVG(calificacion_puntaje)"]) ?> 
+                <?php echo estadoCalif($promedio) ?> 
             </div> 
         </div>
     </aside>
