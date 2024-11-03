@@ -106,7 +106,7 @@
             <div class="col-12 postulacion_titulo">
                 <?php 
                 if(esPost($info_postulaciones)==1){
-                    echo "<h6>No tiene Postulaciones Activas</h6>";
+                    echo "<h6>Sin Postulaciones</h6>";
                 }
                 else{
                     echo "<h6>Postulaciones</h6>";
@@ -116,13 +116,13 @@
             <div>
                 <?php 
                 if(esPost($info_postulaciones)==1){
-                    echo "<p>sin informacion</p>";
+                    echo "<div class='col-12 postulacion' name='postulacion'><p class='text-center'>sin informacion</p></div>";
                 }
                 else{ 
                     foreach($info_postulaciones as $postulacion): 
                     ?>
-                        <div class="col-12 postulacion" name="postulacionP" id="postulacionP-N">
-                            <a class="text-reset text-decoration-none d-flex" href="<?php echo '../pages/publicacion.php?id='.$postulacion["publicacion_id"] ?>">
+                        <div class="col-12" name="postulacion">
+                            <a class="text-reset text-decoration-none d-flex postulacion" href="<?php echo '../pages/publicacion.php?id='.$postulacion["publicacion_id"] ?>">
                                 <p><?php echo estadoPost($postulacion["postulacion_estado"])?></p>
                                 <p><?php echo date('H:i d/m/Y', strtotime($postulacion["postulacion_fecha"]))?></p>
                             </a>
