@@ -91,8 +91,8 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                    
-                <?php echo estadoCalif($promedio) ?> 
+               
+                <?php echo estadoCalif($promedio["AVG(calificacion_puntaje)"]) ?> 
             </div> 
         </div>
     </aside>
