@@ -18,4 +18,3 @@ function getComentario ($idComentario) {
 
   return $comentario;
 }
-?>

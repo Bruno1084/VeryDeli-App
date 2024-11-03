@@ -19,9 +19,13 @@
                     JOIN 
                         imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
                     WHERE 
-                        LOWER(publicacion_descr) OR LOWER(publicacion_titulo) 
-                    LIKE 
-                        LOWER(?)
+                            LOWER(publicacion_titulo)
+                        LIKE 
+                            LOWER(?)
+                        OR
+                            LOWER(publicacion_descr)
+                        LIKE 
+                            LOWER(?)
                     GROUP BY 
                         publicaciones.publicacion_id, 
                         usuarios.usuario_usuario,
@@ -40,13 +44,14 @@
             $stmtBusqueda = $conexion->prepare($sql);
     
             $stmtBusqueda->bindValue(1,"%".$text."%",PDO::PARAM_STR);
+            $stmtBusqueda->bindValue(2,"%".$text."%",PDO::PARAM_STR);
     
             if ($limit > 0) {
-                $stmtBusqueda->bindValue(2, $limit, PDO::PARAM_INT);
+                $stmtBusqueda->bindValue(3, $limit, PDO::PARAM_INT);
             };
     
             if ($offset > 0){
-                $stmtBusqueda->bindValue(3, $offset, PDO::PARAM_INT);
+                $stmtBusqueda->bindValue(4, $offset, PDO::PARAM_INT);
             };
     
             $stmtBusqueda->execute();
@@ -97,7 +102,7 @@
                 $sql .= " OFFSET ?";
             }
 
-            $radioK=(double)0.5;
+            $radioK=(double)1;
             $centroLat=(double)explode(",",$text)[0];
             $centroLng=(double)explode(",",$text)[1];
 

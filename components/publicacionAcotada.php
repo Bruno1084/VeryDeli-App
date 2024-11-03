@@ -36,5 +36,4 @@ function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $pr
 </div>
 <?php
   return ob_get_clean();
-};
-?>
+}

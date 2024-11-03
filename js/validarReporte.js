@@ -44,7 +44,7 @@ function validarReporte(idPublicacion){
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
         if (validarReporte(idPublicacion)){
-          $('#modalReportar' + idPublicacion).modal('hide');
+          document.querySelector('#cerrarModalReportar' + idPublicacion).click();
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
