@@ -12,11 +12,13 @@
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPostulacionFromUsuario.php");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getCalificacionesFromUsuario.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesUser.php");
 ?>
 <?php
     $info_usuario=getUsuario($_SESSION["id"]);
     $info_postulaciones=getAllPostulacionFromUsuario($_SESSION["id"]);
+    $info_calificacion=getCalificacionesFromUsuario($_SESSION["id"]);
      function esPost($info_postulaciones){
         if(empty($info_postulaciones)){
             return "1";
@@ -44,6 +46,30 @@
             return "<p>No Responsable</p>";
         }
     }
+     function estadoCalif($calificacion){
+       
+        if($calificacion == '1'){
+            return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
+        }
+        else if($calificacion == '2'){
+            return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
+        }
+        else if($calificacion == '3'){
+            return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
+        }
+        else if($calificacion == '4'){
+            return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
+        }
+        else if($calificacion == '5'){
+            return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
+        }
+        else if($calificacion == '6'){
+            return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
+        }
+        else{
+            return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
+        }
+    }
     
             
 ?>
@@ -68,8 +94,8 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                <img class="img-fluid" src="/assets/rating(0).svg" alt="rate">
-                <p>0.0 de 0 calificaciones</p>
+                <?php echo "My variable value is: " . $info_calificacion["calificacion_puntaje"];  ?>
+              <?php estadoCalif($info_calificacion['calificacion_puntaje']); ?>
             </div>
         </div>
     </aside>
