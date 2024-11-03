@@ -12,7 +12,7 @@
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPostulacionFromUsuario.php");
-    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAVGCalificacionesFromUsuario");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAVGCalificacionesFromUsuario.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesUser.php");
 ?>
 <?php
