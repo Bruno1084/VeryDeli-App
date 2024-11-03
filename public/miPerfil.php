@@ -94,8 +94,8 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                <?php echo "My variable value is: " . $info_calificacion["calificacion_puntaje"];  ?>
-              <?php estadoCalif($info_calificacion['calificacion_puntaje']); ?>
+                <?php echo "Valor de la calificacion es: ".$info_calificacion[1];  ?>
+                <?php estadoCalif($info_calificacion['calificacion_puntaje']); ?>
             </div>
         </div>
     </aside>
