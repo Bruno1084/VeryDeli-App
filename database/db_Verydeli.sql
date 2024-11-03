@@ -105,7 +105,7 @@ CREATE TABLE `calificaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_calificado` int  NOT NULL ,
     `usuario_calificador` int  NOT NULL ,
-    `calificacion_puntaje` enum('1','2','3','4','5')  NOT NULL ,
+    `calificacion_puntaje` enum(1,2,3,4,5)  NOT NULL ,
     `calificacion_fecha` DATETIME DEFAULT ,
     PRIMARY KEY (
         `calificacion_id`
