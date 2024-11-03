@@ -94,7 +94,9 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                <?php echo estadoCalif($info_calificacion["calificacion_puntaje"]); ?>
+                
+                <?php echo json_encode($info_calificacion);   ?>
+                <?php echo estadoCalif($info_calificacion['calificacion_puntaje']) ?> 
             </div> 
         </div>
     </aside>

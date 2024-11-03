@@ -8,7 +8,7 @@ function getCalificacionesFromUsuario($idUsuario) {
   $sql = "SELECT calificaciones.calificacion_puntaje 
           FROM calificaciones 
           WHERE ? = calificaciones.usuario_calificado
-          ";
+        ";
           
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
