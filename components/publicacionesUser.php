@@ -5,7 +5,7 @@ function renderPubsAndComsUser() {
     include_once $_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPubsAndComsFromUser.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 5; //Limite de publicaciones a mostrar
+    $limit = 10; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
     $db = new DB();
@@ -39,7 +39,7 @@ function renderPubsAndComsUser() {
                         $pOc["imagen_url"]
                     );
                 }
-                else{
+                elseif($pOc["tipo"]=="publicacion"){
                     echo renderComentario(
                         $pOc["comentario_id"],
                         $pOc["usuario_usuario"],
