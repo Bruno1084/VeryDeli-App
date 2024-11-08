@@ -12,6 +12,20 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
   <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
     <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-A'>
       <div class='d-flex col-6 mt-1 text-start lh-1'>
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="dropdown">
+              <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+              
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class='my-3'>
         <div>
           <img class='profilePicture' src='<?php echo $profileIcon; ?>' alt='user'>
         </div>
