@@ -55,3 +55,8 @@ aside{
     margin: 5vh 0;
     color:black;
 }
+
+#publicacion-A .dropdown-menu{
+    right: 0!important;
+    left: auto!important;
+}

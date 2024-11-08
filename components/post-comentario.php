@@ -14,7 +14,7 @@ function renderPostComentario ($username, $profileIcon, $idPublicacion) {
           <form action='/utils/publicarComentario.php' method='post' id='formComentar$idPublicacion' autocomplete='off'>
             <div class='row'>
             <div class='col-9'>
-              <input class='comentario-descripcion w-100 border rounded py-1' name='comentario' required type='text' placeholder='Escribe un comentario'>
+              <input class='comentario-descripcion w-100 border rounded p-1' name='comentario' required type='text' placeholder='Escribe un comentario'>
             </div>
             <div class='col-3'>
               <input type='submit' id='btn-enviar' form='formComentar$idPublicacion' class='btn'></input>
