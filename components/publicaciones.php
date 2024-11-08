@@ -10,8 +10,8 @@ function renderPublicaciones () {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicacionesActivas(5, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
+    $publicaciones = getAllPublicacionesActivas($limit, $offset);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones WHERE publicacion_esActivo='1'");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
