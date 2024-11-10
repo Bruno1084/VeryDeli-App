@@ -4,11 +4,7 @@
 #header .perfilNav .dropdown-toggle::after,#header .notifications .dropdown-toggle::after{
     display:none;
 }
-#header .perfilNav img{
-    border-radius:50%;
-    width:8vh;
-    border:solid 0.2vh black;
-}
+
 #header .notifications img{
     width:3vh;
 }
@@ -21,6 +17,7 @@
 }
 #header .notYprof{
     align-items: center;
+    justify-content: center;
 }
 
 #header .dropdown-toggle::after {
@@ -142,4 +139,92 @@
     display:flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+
+/*perfil*/
+
+#header .perfilNav button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 10vh;
+    height: 10vh;
+}
+
+#header .perfilNav .divFoto{
+    position: relative;
+    display: flex;
+    width: 8vh;
+    height: 8vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#header .perfilNav .divFoto img{
+    border-radius: 50%; /* Redondea la foto de perfil */
+    position: relative;
+    z-index: 2; /* Coloca la foto de perfil sobre el borde decorativo */
+    width: 7vh;
+    height: 7vh;
+}
+
+#header .perfilNav .fondoFoto{
+    position: absolute;
+}
+
+#header .perfilNav .userFoto, #header .perfilNav .fondoFoto{
+    background-color: #fff;
+    border-radius: 50%;
+    width: 7vh;
+    height: 7vh;
+}
+#header .perfilNav .userFoto{
+    border: solid 0.1vh black;
+}
+
+#header .perfilNav .decoFoto1 {
+    position: absolute;
+    width: 10.5vh;
+    max-width: none;
+    z-index: 3;
+    margin-left: 0.3vh;
+    margin-bottom: 0.1vh;
+}
+#header .perfilNav .decoFoto2 {
+    position: absolute;
+    width: 8.5vh;
+    z-index: 3;
+}
+#header .perfilNav .decoFoto3 {
+    position: absolute;
+    width: 9vh;
+    z-index: 13;
+    margin-bottom: 0.1vh;
+}
+#header .perfilNav .decoFoto4 {
+    position: absolute;
+    width: 8vh;
+    z-index: 3;
+}
+#header .perfilNav .decoFoto5 {
+    position: absolute;
+    width: 8vh;
+    z-index: 3;
+}
+#header .perfilNav .decoFoto6 {
+    position: absolute;
+    width: 7.8vh;
+    z-index: 3;
+    margin-right: 0.8vh;
+    margin-bottom: 0.3vh;
+}
+#header .perfilNav .decoFoto7 {
+    position: absolute;
+    width: 8.5vh;
+    z-index: 3;
+    margin-bottom: 0.4vh;
+    margin-right: 0.2vh;
 }
