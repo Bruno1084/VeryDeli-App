@@ -10,6 +10,7 @@ function getPublicacion ($idPublicacion) {
             publicaciones.publicacion_descr,
             publicaciones.publicacion_peso,
             publicaciones.publicacion_fecha,
+            publicaciones.publicacion_esActivo,
             usuarios.usuario_usuario, 
             usuarios.usuario_localidad,
             JSON_OBJECT(
