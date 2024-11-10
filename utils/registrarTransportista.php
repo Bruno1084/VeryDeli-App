@@ -9,17 +9,13 @@ function registrarTransportista ($usId) {
     $stmt = $conexion->prepare("INSERT INTO transportistas (transportista_id) VALUES (?)");
     $stmt->bindValue(1, $usId, PDO::PARAM_INT);
 
-    if ($stmt->execute()) {
-      return true;
-    } else {
-      return false; // SI retorna falso significa que falló
-    }
-  } catch (PDOException $e) {
-    error_log("Error al insertar transportista: " . $e->getMessage());
-    return false;
-  } finally {
+    $res=$stmt->execute();
     $stmt = null;
     $conexion = null;
+
+    return $res;
+    
+  } catch (PDOException $e) {
+    return false;
   }
-};
-?>
+}
