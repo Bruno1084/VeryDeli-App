@@ -6,7 +6,7 @@
         $db=new DB();
         $conexion=$db->getConnection();
         
-        $sql="SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = ?";
+        $sql="SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = ? AND usuario_esActivo=1";
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
         $stmt->execute();
@@ -23,7 +23,7 @@
         $db=new DB();
         $conexion=$db->getConnection();
         
-        $sql="SELECT usuario_correo FROM usuarios WHERE usuario_correo = ?";
+        $sql="SELECT usuario_correo FROM usuarios WHERE usuario_correo = ? AND usuario_esActivo=1";
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $correo, PDO::PARAM_STR);
         $stmt->execute();
@@ -41,7 +41,7 @@
         $db=new DB();
         $conexion=$db->getConnection();
         
-        $sql="SELECT usuario_contraseña FROM usuarios WHERE usuario_usuario = ?";
+        $sql="SELECT usuario_contraseña FROM usuarios WHERE usuario_usuario = ? AND usuario_esActivo=1";
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
         $stmt->execute();
@@ -49,13 +49,34 @@
         $pass=$stmt->fetch();
         if($pass!=false){
             if(password_verify($contrasenia, $pass[0])){
-                $sql="SELECT usuario_id FROM usuarios WHERE usuario_usuario = ? AND usuario_contraseña = ?";
+                $sql="  SELECT 
+                            usuarios.usuario_id, 
+                            usuarios.usuario_esResponsable,
+                            usuarios.usuario_esVerificado, 
+                            CASE WHEN administradores.administrador_id IS NOT NULL THEN 1 ELSE 0 END AS usuario_esAdmin,
+                            CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
+                            CASE WHEN usuarios.usuario_esVerificado = '1' THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto
+                        FROM 
+                            usuarios
+                        LEFT JOIN 
+                            administradores ON administradores.administrador_id = usuarios.usuario_id
+                        LEFT JOIN 
+                            fotosPerfil ON fotosPerfil.usuario_id = usuarios.usuario_id AND fotosPerfil.imagen_estado = 1
+                        LEFT JOIN 
+                        	userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
+                        LEFT JOIN
+                            marcos ON marcos.marco_id = userMarcoFoto.marco_id
+                        WHERE 
+                            usuarios.usuario_usuario = ? 
+                            AND usuarios.usuario_contraseña = ?
+                            AND usuarios.usuario_esActivo = 1";
+                
                 $stmt = $conexion->prepare($sql);
                 $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
                 $stmt->bindValue(2, $pass[0], PDO::PARAM_STR);
                 $stmt->execute();
 
-                $user = $stmt->fetch();
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 $stmt=null;
                 $conexion=null;
