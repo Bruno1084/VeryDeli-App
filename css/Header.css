@@ -1,7 +1,7 @@
-#header .perfilNav .navbar-nav .dropdown-menu{
+#header .dropdown-menu{
     position:absolute;
 }
-#header .perfilNav .dropdown-toggle::after{
+#header .perfilNav .dropdown-toggle::after,#header .notifications .dropdown-toggle::after{
     display:none;
 }
 #header .perfilNav img{
@@ -9,6 +9,28 @@
     width:8vh;
     border:solid 0.2vh black;
 }
+#header .notifications img{
+    width:3vh;
+}
+#header .notifications .dropdown-menu[data-bs-popper] {
+    margin-top: 2.7vh;
+}
+#header .dropdown-menu[data-bs-popper] {
+    right: 0;
+    left: auto;
+}
+#header .notYprof{
+    align-items: center;
+}
+
+#header .dropdown-toggle::after {
+    content: none;
+};
+
+#header #profileMenu {
+    right: 0;
+};
+
 #header .btnBuscar::before{
     border-radius:50%;
     padding:6px;
@@ -57,7 +79,7 @@
     align-items: center;
     justify-content: flex-end;
     width:100%;
-    margin-right: 0;
+    margin-left: 15px;
     padding-right: 0;
     border-right: 0;
 }
@@ -78,8 +100,8 @@
     height: 6.5vh;
     width: 15.5vh;
     background-color: #fff;
-    border-bottom: solid 0.1vh black;
-    border-top: solid 0.1vh black;
+    border-bottom: solid 0.3vh black;
+    border-top: solid 0.3vh black;
 }
 #header .tipoBusqueda div{
     display: flex;

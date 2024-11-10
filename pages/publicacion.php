@@ -10,7 +10,6 @@
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getPublicacion.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAutorPublicacion.php");
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/components/JS.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
   ?>

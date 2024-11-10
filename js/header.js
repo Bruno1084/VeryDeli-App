@@ -29,4 +29,20 @@
             tipo.addEventListener("hover",tipo.setAttribute("style","cursor:text"));
         }
    });
+
+
+
+   /*/ Perfile dropdown event listener
+   const btn = document.getElementById('profileButton');
+   const profileMenu = document.getElementById('profileMenu');
+
+   btn.addEventListener('click', () => {
+
+    if (profileMenu.style.display === 'block') {
+        profileMenu.style.display = 'none';
+    } else {
+        profileMenu.style.display = 'block';
+        profileMenu.style.right = 0;
+    }
+   });*/
 })()
