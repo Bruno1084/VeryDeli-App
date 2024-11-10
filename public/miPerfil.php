@@ -12,13 +12,13 @@
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPostulacionFromUsuario.php");
-    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getCalificacionesFromUsuario.php");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAVGCalificacionesFromUsuario.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesUser.php");
 ?>
 <?php
     $info_usuario=getUsuario($_SESSION["id"]);
     $info_postulaciones=getAllPostulacionFromUsuario($_SESSION["id"]);
-    $info_calificacion=getCalificacionesFromUsuario($_SESSION["id"]);
+    $promedio=getAVGCalificacionesFromUsuario($_SESSION["id"]);
      function esPost($info_postulaciones){
         if(empty($info_postulaciones)){
             return "1";
@@ -46,27 +46,28 @@
             return "<p>No Responsable</p>";
         }
     }
-     function estadoCalif($calificacion){
-       
-        if($calificacion == '1'){
-            return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
-        }
-        else if($calificacion == '2'){
-            return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
-        }
-        else if($calificacion == '3'){
-            return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
-        }
-        else if($calificacion == '4'){
-            return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
-        }
-        else if($calificacion == '5'){
-            return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
-        }
-        else if($calificacion == '6'){
-            return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
-        }
-        else{
+    function estadoCalif($promedio){
+        if($promedio!=false){
+            $promedio=$promedio["calificacion_promedio"];
+            if($promedio >= 1 && $promedio < 2){
+                return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
+            }
+            else if($promedio >= 2 && $promedio < 3){
+                return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
+            }
+            else if($promedio >= 3 && $promedio < 4){
+                return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
+            }
+            else if($promedio >= 4 && $promedio < 5){
+                return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
+            }
+            else if($promedio >= 5 && $promedio < 6){
+                return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
+            }
+            else{
+                return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
+            }
+        }else{
             return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
         }
     }
@@ -94,7 +95,8 @@
                 <h3>Calificacion</h3>
             </div>
             <div class="calificacion_puntaje">
-                <?php echo estadoCalif($info_calificacion['calificacion_puntaje']) ?> 
+               
+                <?php echo estadoCalif($promedio) ?> 
             </div> 
         </div>
     </aside>
@@ -108,7 +110,7 @@
             <div class="col-12 postulacion_titulo">
                 <?php 
                 if(esPost($info_postulaciones)==1){
-                    echo "<h6>No tiene Postulaciones Activas</h6>";
+                    echo "<h6>Sin Postulaciones</h6>";
                 }
                 else{
                     echo "<h6>Postulaciones</h6>";
@@ -118,13 +120,13 @@
             <div>
                 <?php 
                 if(esPost($info_postulaciones)==1){
-                    echo "<p>sin informacion</p>";
+                    echo "<div class='col-12 postulacion' name='postulacion'><p class='text-center'>sin informacion</p></div>";
                 }
                 else{ 
                     foreach($info_postulaciones as $postulacion): 
                     ?>
-                        <div class="col-12 postulacion" name="postulacionP" id="postulacionP-N">
-                            <a class="text-reset text-decoration-none d-flex" href="<?php echo '../pages/publicacion.php?id='.$postulacion["publicacion_id"] ?>">
+                        <div class="col-12" name="postulacion">
+                            <a class="text-reset text-decoration-none d-flex postulacion" href="<?php echo '../pages/publicacion.php?id='.$postulacion["publicacion_id"] ?>">
                                 <p><?php echo estadoPost($postulacion["postulacion_estado"])?></p>
                                 <p><?php echo date('H:i d/m/Y', strtotime($postulacion["postulacion_fecha"]))?></p>
                             </a>
