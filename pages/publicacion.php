@@ -31,11 +31,11 @@
     //if($_SESSION['id'] == $autor){
       echo renderPostulaciones($publicacion['publicacion_id']);
     //}
-
+    $foto=array("foto"=>$publicacion["usuario_fotoPerfil"],"marco"=>$publicacion["usuario_marcoFoto"]);
     echo renderPublicacionExtendida(
       $publicacion['publicacion_id'],
       $publicacion['usuario_usuario'],
-      "",
+      $foto,
       $publicacion['publicacion_fecha'],
       $publicacion['usuario_localidad'],
       $publicacion['publicacion_descr'],

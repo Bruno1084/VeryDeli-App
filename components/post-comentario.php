@@ -1,26 +1,23 @@
 <?php
 function renderPostComentario ($username, $profileIcon, $idPublicacion) {
   return ("
-    <div class='border-top border-bottom my-2 py-1 d-flex'>
-      <div>
-        <img class='profilePicture' src='$profileIcon' alt='user-icon'>
-      </div>
-      <div class='text-start w-100'>
-        <div>
+    <div class='post-comentario border-top border-bottom my-2 py-1 d-flex'>
+      ".obtenerFoto($profileIcon)."
+      <div class='dataComentario text-start col-10'>
+        <div user-post>
           <p>$username</p>
         </div>
-
-        <div>
+        <div class='col-12'>
           <form action='/utils/publicarComentario.php' method='post' id='formComentar$idPublicacion' autocomplete='off'>
             <div class='row'>
-            <div class='col-9'>
-              <input class='comentario-descripcion w-100 border rounded p-1' name='comentario' required type='text' placeholder='Escribe un comentario'>
-            </div>
-            <div class='col-3'>
-              <input type='submit' id='btn-enviar' form='formComentar$idPublicacion' class='btn'></input>
-            </div>
-            <input type='hidden' name='publicacion-id' value='$idPublicacion'>
-            <input type='hidden' name='enviado'>
+              <div class='col-10'>
+                <textarea class='comentario-descripcion w-100 border rounded p-1' name='comentario' required placeholder='Escribe un comentario'></textarea>
+              </div>
+              <div class='col-2 boton-postC'>
+                <input type='submit' id='btn-enviar' form='formComentar$idPublicacion' class='btn border'></input>
+              </div>
+              <input type='hidden' name='publicacion-id' value='$idPublicacion'>
+              <input type='hidden' name='enviado'>
             </div>
           </form>
         </div>
@@ -28,4 +25,3 @@ function renderPostComentario ($username, $profileIcon, $idPublicacion) {
     </div>
   ");
 };
-?>

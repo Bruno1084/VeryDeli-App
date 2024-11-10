@@ -15,20 +15,25 @@ function renderPublicaciones () {
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
-
+    $db=null;
+    $conexion=null;
+    $totalPublicacionesStmt=null;
     $userCache = [];
+
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getMarcoUser.php");
+    
 ?>
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
                 
                 $userLocation = $p['usuario_localidad'];
-
+                $foto=array("foto"=>$p["usuario_fotoPerfil"],"marco"=>$p["usuario_marcoFoto"]);
                 echo renderPublicacionAcotada(
                     $p["publicacion_id"],
                     $userLocation,
                     $p['usuario_usuario'],
-                    "",
+                    $foto,
                     $p['publicacion_fecha'],
                     $p["publicacion_descr"],
                     $p["imagen_url"]

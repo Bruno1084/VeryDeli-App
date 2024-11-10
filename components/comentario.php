@@ -1,23 +1,23 @@
 <?php
-function renderComentario ($comentarioId ,$username, $profileIcon, $comFecha, $commentText, $a=false, $idPub=null) {
+function renderComentario ($comentarioCount, $comentarioId ,$username, $profileIcon, $comFecha, $commentText, $a=false, $idPub=null) {
 
   ob_start();
 ?>
   <?php if($a && $idPub!=null){
 
     ?>
-    <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3' id="comentario_<?php echo$comentarioId; ?>">
+    <div class='comentario publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3' id="comentario_<?php echo$comentarioId; ?>">
       <a class="text-reset text-decoration-none" href="<?php echo '../pages/publicacion.php?id='.$idPub?>">
         <div class="row p-2 border-bottom">
-          <div class="d-flex col-6 mt-1 text-start lh-1">
-            <div>
-              <img class='profilePicture' src='<?php echo $profileIcon?>' alt='user-icon'>
-            </div>
+          <div class="d-flex col-6 mt-1 text-start lh-1 datosUsuario">
+
+            <?php echo obtenerFoto($profileIcon);?>
+
             <div>
               <p><?php echo $username?></p>
             </div>
           </div>
-          <div class="col-6 mt-1 text-end lh-1">
+          <div class="dataComentario col-6 mt-1 text-end lh-1">
             <div>
               <p><?php echo (date('H:i', strtotime($comFecha))) ?></p>
               <p><?php echo (date('d/m/Y', strtotime($comFecha))) ?></p>
@@ -36,21 +36,22 @@ function renderComentario ($comentarioId ,$username, $profileIcon, $comFecha, $c
   } 
   else{
   ?>
-    <div class='border-top border-bottom my-2 d-flex' id="comentario_<?php echo$comentarioId; ?>">
-      <div>
-        <img class='profilePicture' src='<?php echo $profileIcon?>' alt='user-icon'>
-      </div>
-      <div class='text-start col-11'>
+    <div class='comentario border-top border-bottom my-2 d-flex' id="comentario_<?php echo$comentarioCount; ?> data-id='<?php echo $comentarioId?>'">
+      
+      <?php echo obtenerFoto($profileIcon);?>
+      
+      <div class='dataComentario text-start col-11'>
         <div class="d-flex col-12 mt-1 text-start lh-1">
-          <div class="col-6">
-            <p><?php echo $username?></p>
+          <div class="col-6 mt-1 text-start lh-1">
+            <p class="comentario-user"><?php echo $username?></p>
           </div>
           <div class="col-6 mt-1 text-end lh-1">
-            <p><?php echo (date('H:i d/m/Y', strtotime($comFecha))) ?></p>
+            <p class="comentario-fecha"><?php echo (date('d/m/Y', strtotime($comFecha))) ?></p>
           </div>
         </div>
-        <div>
-          <p class='comentario-descripcion'><?php echo $commentText?></p>
+        <div class="d-flex">
+          <p class='comentario-descripcion col-11'><?php echo $commentText?></p>
+          <p class="comentario-hora text-end col-1"><?php echo (date('H:i', strtotime($comFecha))) ?></p>
         </div>
       </div>
       <?php if($a && $idPub!=null) echo "</a>"; ?>
