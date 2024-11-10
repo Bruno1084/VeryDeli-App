@@ -22,7 +22,7 @@ function obtenerFoto($fYm){
 function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
   $contadorComentarios = 0;
   $commentCache = [];
-  include_once '../components/post-comentario.php';
+  include_once($_SERVER["DOCUMENT_ROOT"] . '/components/postComentario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");

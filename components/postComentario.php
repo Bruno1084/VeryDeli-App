@@ -1,11 +1,6 @@
 <?php
-function renderPostComentario ($profileIcon, $idPublicacion) {
+function renderPostComentario ($username, $profileIcon, $idPublicacion) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
-  $idUser = $_SESSION['id'];
-  $user = getUsuario($idUser);
-
-  $username = $user['usuario_usuario'];
 
   return ("
     <div class='post-comentario border-top border-bottom my-2 py-1 d-flex'>

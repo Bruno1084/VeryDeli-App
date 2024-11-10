@@ -123,7 +123,9 @@ aside{
 }
 
 .comentario .defaultPicture{
+    margin: 1vh 0;
     height: auto;
+    padding-bottom: 0;
 }
 
 .defaultPicture img{
