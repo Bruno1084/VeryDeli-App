@@ -24,7 +24,7 @@ function renderCalificarTransportista($usuario, $postulacion, $idPublicacion){ ?
     <div class="modal-dialog modal-lg">
       <div class="modal-content bg-modalPublicacion">
         <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
-          <h1 class="modal-title fs-5" id="modalCalificarLabel">Reportar Publicacion</h1>
+          <h1 class="modal-title fs-5" id="modalCalificarLabel">Calificar Transportista</h1>
           <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
