@@ -1,6 +1,6 @@
 <?php
-function getCalificacionesFromPublicacion ($idPublicacion) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
+function getPostRatingUsuario ($idPublicacion, $idUsuario) {
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
 
   $DB = new DB();
   $conexion = $DB->getConnection();
@@ -22,17 +22,18 @@ function getCalificacionesFromPublicacion ($idPublicacion) {
     JOIN 
     usuarios AS usuario_calificado ON calificaciones.usuario_calificado = usuario_calificado.usuario_id
     WHERE 
-    publicaciones.publicacion_id = ?;
+    publicaciones.publicacion_id = ? AND calificaciones.usuario_calificador = ?;
       ";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
+  $stmt->bindValue(2, $idUsuario, PDO::PARAM_INT);
   $stmt->execute();  
 
-  $calificaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $calificacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $DB = null;
   $stmt = null;
   $conexion = null;
 
-  return $calificaciones;
+  return $calificacion;
 }

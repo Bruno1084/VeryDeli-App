@@ -5,7 +5,10 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
   <link rel="stylesheet" href="../css/ubicacionEnvio.css">
-  <link rel="stylesheet" href="../css/verificacion.css">
+  <link rel="stylesheet" href="../css/publicacionAcotada.css">
+  <?php
+    if($_SESSION["esVerificado"]==0) echo '<link rel="stylesheet" href="../css/verificacion.css">';
+  ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); ?>
   <title>Very Deli</title>
 </head>
@@ -15,10 +18,8 @@
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
   <div>
-    <?php
-    if(isset($_SESSION['id'])){
-      echo('Bienvenido '.$_SESSION['id'].'!');
-    }
+    <?php 
+      if($_SESSION["esVerificado"]==0){
     ?>
     <div>
       <div class="container container-fluid d-flex justify-content-center">
@@ -30,14 +31,14 @@
         </div>
       </div>
     </div>
-
+    
     <!-- Modal verificar -->
     <div class="modal fade" id="modalVerificar" aria-hidden="true" aria-labelledby="modalVerificarLabel" tabindex="-1">
         <div class="modal-dialog modal-lg">
           <div class="modal-content bg-modalPublicacion">
             <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
               <h1 class="modal-title fs-5" id="modalVerificarLabel">Verificar identidad</h1>
-              <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              <button type="button" id="cerrarModVerify" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
               <form action="/utils/verificar.php" class="form-publicacion form-verificar needs-validation FormularioAjax" method="post" id="formVerificar" novalidate  >
@@ -96,6 +97,11 @@
         </div>
     
     </div>
+    
+    <?php    
+      }
+    ?>
+
     <?php require_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
     
     <!-- Imprime todas las publicaciones activas en la base de datos -->
@@ -105,7 +111,9 @@
     ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php"); ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php"); ?>
-  <script src="../js/verificarUsuario.js"></script>
+  <?php
+    if($_SESSION["esVerificado"]==0) echo '<script src="../js/verificarUsuario.js"></script>';  
+  ?>
   <script src="../js/validarReporte.js"></script>
   <script src="../js/postulacion.js"></script>
 </body>

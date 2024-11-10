@@ -5,7 +5,14 @@ function getUsuario ($idUsuario) {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT * FROM usuarios WHERE usuario_id = ?";
+  $sql = "SELECT usuario_nombre, 
+                 usuario_apellido, 
+                 usuario_correo, 
+                 usuario_contraseña,
+                 usuario_localidad,
+                 usuario_usuario
+          FROM usuarios 
+          WHERE usuario_id = ?";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
   $stmt->execute();

@@ -31,7 +31,8 @@
                         usuarios.usuario_usuario,
                         usuarios.usuario_localidad
                     ORDER BY
-                  		publicaciones.publicacion_fecha DESC;";
+                  		publicaciones.publicacion_fecha DESC
+                    ";
     
             if ($limit > 0) {
                 $sql .= " LIMIT ?";
@@ -93,7 +94,8 @@
                         usuarios.usuario_usuario,
                         usuarios.usuario_localidad
                   ORDER BY
-                  		publicaciones.publicacion_fecha DESC;";
+                  		publicaciones.publicacion_fecha DESC
+                ";
             if ($limit > 0) {
                 $sql .= " LIMIT ?";
             };

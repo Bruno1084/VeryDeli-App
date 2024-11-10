@@ -10,23 +10,31 @@ function getAllPublicacionesActivas($limit = 0, $offset = 0) {
               publicaciones.publicacion_titulo,
               publicaciones.publicacion_descr,
               publicaciones.publicacion_fecha,
+              CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
               usuarios.usuario_usuario, 
               usuarios.usuario_localidad,
+              CASE WHEN usuarios.usuario_esVerificado = '1' THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto,
               imagenes.imagen_url
           FROM 
               publicaciones
-          JOIN 
+          LEFT JOIN 
               usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
-          JOIN 
+          LEFT JOIN 
               imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
-          WHERE
+          LEFT JOIN 
+              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+          LEFT JOIN 
+              userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
+          LEFT JOIN
+              marcos ON marcos.marco_id = userMarcoFoto.marco_id
+          WHERE 
               publicaciones.publicacion_esActivo='1'
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,
               usuarios.usuario_localidad
           ORDER BY
-              publicaciones.publicacion_fecha DESC;
+              publicaciones.publicacion_fecha DESC
           ";
 
   if ($limit > 0) {

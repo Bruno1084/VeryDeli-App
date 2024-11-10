@@ -159,6 +159,32 @@ CREATE TABLE `publicaciones_reportadas` (
     )
 );
 
+CREATE TABLE `fotosPerfil` (
+    `usuario_id` INT NOT NULL , 
+    `imagen_url` varchar(255) NOT NULL , 
+    `imagen_delete_url` varchar(255) NOT NULL , 
+    `imagen_estado` tinyint(1) DEFAULT 1 NOT NULL,
+    PRIMARY KEY (
+        `imagen_url`, `usuario_id`
+    )
+);
+
+CREATE TABLE `userMarcoFoto` (
+    `marco_id` INT NOT NULL DEFAULT '1', 
+    `usuario_id` INT NOT NULL , 
+    UNIQUE `idx_userMarcoFoto_usuario_id` (
+        `usuario_id`
+    )
+);
+
+CREATE TABLE `marcos` (
+    `marco_id` INT NOT NULL , 
+    `marco_url` varchar(255) NOT NULL ,
+    PRIMARY KEY (
+        `marco_id`
+    )
+);
+
 ALTER TABLE `transportistas` ADD CONSTRAINT `fk_transportistas_transportista_id` FOREIGN KEY(`transportista_id`)
 REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -218,6 +244,15 @@ REFERENCES `publicaciones` (`publicacion_id`);
 
 ALTER TABLE `publicaciones_reportadas` ADD CONSTRAINT `fk_publicaciones_reportadas_usuario_autor` FOREIGN KEY(`usuario_autor`)
 REFERENCES `usuarios` (`usuario_id`);
+
+ALTER TABLE `fotosPerfil` ADD CONSTRAINT `fk_fotosPerfil_usuario_id` FOREIGN KEY (`usuario_id`) 
+REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `userMarcoFoto` ADD CONSTRAINT `fk_userMarcoFoto_usuario_id` FOREIGN KEY (`usuario_id`) 
+REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `userMarcoFoto` ADD CONSTRAINT `fk_userMarcoFoto_marco_id` FOREIGN KEY (`marco_id`) 
+REFERENCES `marcos`(`marco_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE INDEX `idx_vehiculos_transportista_id`
 ON `vehiculos` (`transportista_id`);

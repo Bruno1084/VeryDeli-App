@@ -15,7 +15,7 @@ function getAllPubsAndComsFromUser($idUser, $limit = 0, $offset = 0){
             FROM comentarios
             WHERE comentarios.comentario_esActivo='1'
             AND comentarios.usuario_id=?
-            ORDER BY fecha DESC;
+            ORDER BY fecha DESC
         ";
 
     if ($limit > 0) {

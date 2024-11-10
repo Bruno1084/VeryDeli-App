@@ -28,14 +28,16 @@
     $imagenes = json_decode($publicacion['imagenes']);
 
     $ubicaciones = json_decode($publicacion["ubicaciones"]);
-    //if($_SESSION['id'] == $autor){
+    if($_SESSION['id'] == $autor['usuario_autor']){
       echo renderPostulaciones($publicacion['publicacion_id']);
-    //}
+    }
+    
+    $foto=array("foto"=>$publicacion["usuario_fotoPerfil"],"marco"=>$publicacion["usuario_marcoFoto"]);
 
     echo renderPublicacionExtendida(
       $publicacion['publicacion_id'],
       $publicacion['usuario_usuario'],
-      "",
+      $foto,
       $publicacion['publicacion_fecha'],
       $publicacion['usuario_localidad'],
       $publicacion['publicacion_descr'],
