@@ -14,7 +14,7 @@ if (isset($_POST["enviado"])) {
   $stmtComentario->bindParam(3, $comentario, PDO::PARAM_STR);
   $stmtComentario->bindParam(4, $fechaActual, PDO::PARAM_STR);
   if ($stmtComentario->execute()) {
-    header('Location: ../public/index.php');
+    header('Location: /pages/publicacion.php?id=' . $pubId);
     $stmtComentario = null;
     $conexion = null;
     exit;
@@ -22,7 +22,7 @@ if (isset($_POST["enviado"])) {
     $conexion = null;
     $stmtComentario = null;
     echo '
-        <script> alert("Error al publicar el comentario, intente de nuevo más tarde.") <script>
+        <script> alert("Error al publicar el comentario, intente de nuevo más tarde.") </script>
       ';
     exit;
   }

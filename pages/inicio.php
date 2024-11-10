@@ -15,11 +15,6 @@
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
   <div>
-    <?php
-    if(isset($_SESSION['id'])){
-      echo('Bienvenido '.$_SESSION['id'].'!');
-    }
-    ?>
     <div>
       <div class="container container-fluid d-flex justify-content-center">
         <div class="form-rest my-4 col-8">
