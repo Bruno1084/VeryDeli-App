@@ -6,6 +6,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
 
   ob_start();
 ?>
@@ -26,12 +27,20 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
           <p> <?php echo (date('d/m/Y', strtotime($date))) ?> </p>
         </div>
 
-        <div class="dropdown publicacionExtendida-menuButton-container">
-          <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</a></li>
-          </ul>
-        </div>
+        <?php 
+              require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAutorPublicacion.php");
+              $autor = getAutorPublicacion($idPublicacion);
+              if($_SESSION['id'] == $autor['usuario_autor']){
+                echo '
+                <div class="dropdown publicacionExtendida-menuButton-container">
+                  <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</a></li>
+                  </ul>
+                </div>';
+              }
+            ?>
+        
 
       </div>
     </div>
@@ -64,7 +73,25 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
 
     <div class='my-4 d-flex justify-content-between align-items-center'>
       <div>
+        <?php  
+        $db = new DB();
+        $conexion = $db->getConnection();
+        $db = null;
+        $publicacion = $conexion->query("SELECT publicaciones.publicacion_esActivo FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch(PDO::FETCH_ASSOC); 
+        if ($publicacion['publicacion_esActivo'] != 3){ ?>
         <button type='button' class='btn btn-gris btn-md' data-bs-target="#modalPostularse<?php echo $idPublicacion ?>" data-bs-toggle="modal">Postularse</button>
+        <?php } else {
+          require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
+          require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
+          $postulacion = getTransportistaPublicacion($idPublicacion);
+          if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_postulante']) == false) {
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
+            renderCalificarUsuario($idPublicacion);
+          }
+        }
+        $conexion = null;
+        $publicacion = null
+        ?>
       </div>
       <button type="button" class="btn btn-outline-danger btn-md" data-bs-target="#modalReportar<?php echo $idPublicacion ?>" data-bs-toggle="modal">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flag" viewBox="0 0 16 16">
@@ -222,6 +249,8 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       </div>
     </div>
   </div>
+
+
 
   </div>
 <?php
