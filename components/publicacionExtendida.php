@@ -142,7 +142,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
     -->
 
     <!-- POSTEAR COMENTARIO -->
-    <?php echo renderPostComentario($username, "", $idPublicacion); ?>
+    <?php echo renderPostComentario($username, $idPublicacion); ?>
 
 
     <!-- COMENTARIOS DE USUARIOS -->
