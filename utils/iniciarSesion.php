@@ -34,8 +34,9 @@ if($res!=false){
   $res=User::userPassExist($usuario,$contrasenia);
   if($res!=false){
     //Inicia la sesion y almacena al usuario como arreglo asociativo en la sesion
-    require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
+    include_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
     $_SESSION['id'] = $res[0];
+
     manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "/public/index.php");
   }
   else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');

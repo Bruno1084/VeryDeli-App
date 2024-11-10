@@ -2,10 +2,10 @@
 function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images) {
   $contadorComentarios = 0;
   $commentCache = [];
-  include_once '../components/post-comentario.php';
-  include_once($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
-  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
-  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+  include_once '../components/postComentario.php';
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/components/comentario.php");
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getAllComentariosFromPublicacion.php");
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getUsuario.php");
 
   ob_start();
 ?>
@@ -116,7 +116,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
     </a>
 
     <!-- POSTEAR COMENTARIO -->
-    <?php echo renderPostComentario($username, "", $idPublicacion); ?>
+    <?php echo renderPostComentario("", $idPublicacion); ?>
 
 
     <!-- COMENTARIOS DE USUARIOS -->
@@ -134,11 +134,9 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
           $commentCache[$autorId] = $user;
         };
 
-        $username = $user["usuario_nombre"] . " " . $user["usuario_apellido"];
-
         echo renderComentario(
           $contadorComentarios,
-          $username,
+          $user['usuario_usuario'],
           '',
           $c['comentario_mensaje']
         );
