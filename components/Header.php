@@ -54,14 +54,14 @@
                                             foreach($notificaciones as $notify){?>
                                                 <a class="dropdown-item" href=<?php echo idIsNull($notify["publicacion_id"])?>><?php echo $notify["notificacion_mensaje"] ?></a>
                                                 <hr class="dropdown-divider">
-                                                <a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a>
+                                                <a class="dropdown-item" href="../pages/notificaciones.php">Ver mas</a>
                                     <?php       }
                                         }
                                         else{
                                     ?>
                                             <p class="dropdown-item">Nada por aqui</p>
                                             <hr class="dropdown-divider">
-                                            <a class="dropdown-item" href="../components/Notificaciones.php">Ver Todo</a>
+                                            <a class="dropdown-item" href="../pages/notificaciones.php">Ver Todo</a>
                                     <?php
                                         }
                                     ?>
