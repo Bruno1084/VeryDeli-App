@@ -97,7 +97,7 @@
         <div class="perfil_options">
             <a href="#">Modificar perfil</a>
             <?php if($_SESSION["esAdmin"]!=0){?>
-                <a class="text-reset" href='<?php echo "/pages/verificaciones.php?id=".$id?>'>Verificaciones</a>
+                <a href="/pages/verificaciones.php">Verificaciones</a>
                 <a href="#">Denuncias</a>
         <?php };?>
             
