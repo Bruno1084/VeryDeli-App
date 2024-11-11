@@ -1,7 +1,7 @@
 <?php
 function renderPublicaciones () {
-    include_once "../components/publicacionAcotada.php";
-    include_once "../utils/get/getAllPublicacionesActivas.php";
+    include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionAcotada.php");
+    include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllPublicacionesActivas.php");
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10; //Limite de publicaciones a mostrar
