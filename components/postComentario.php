@@ -9,14 +9,14 @@ function renderPostComentario ($username, $profileIcon, $idPublicacion) {
         <div user-post>
           <p>$username</p>
       </div>
-        <div class='col-12'>
-          <form action='/utils/publicarComentario.php' method='post' id='formComentar$idPublicacion' autocomplete='off'>
+      <div>
+        <form action='/utils/publicarComentario.php' method='post' id='formComentar<?php echo $idPublicacion;?>' autocomplete='off'>
           <div class='row'>
-              <div class='col-10'>
-                <textarea class='comentario-descripcion w-100 border rounded p-1' name='comentario' required placeholder='Escribe un comentario'></textarea>
+            <div class='col-8 col-md-10'>
+              <input class='comentario-descripcion w-100 border rounded py-1' name='comentario' required type='text' placeholder='Escribe un comentario'>
             </div>
-              <div class='col-2 boton-postC'>
-                <input type='submit' id='btn-enviar' form='formComentar$idPublicacion' class='btn border'></input>
+            <div class='col-4 col-md-2'>
+              <input type='submit' id='btn-enviar' form='formComentar<?php echo $idPublicacion;?>' class='btn'></input>
             </div>
               <input type='hidden' name='publicacion-id' value='$idPublicacion'>
             <input type='hidden' name='enviado'>

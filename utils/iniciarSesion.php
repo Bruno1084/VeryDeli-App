@@ -35,13 +35,14 @@ if($res!=false){
   if($res!=false){
     //Inicia la sesion y almacena el id del usuario en la sesion
     require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/utils/get/getEsResponsable.php');
     $_SESSION['id'] = $res["usuario_id"];
     $_SESSION['esVerificado'] = $res["usuario_esVerificado"];
-    $_SESSION['esResponsable'] = $res["usuario_esResponsable"];
+    $_SESSION['esResponsable'] = getEsResponsable($res["usuario_id"]);
     $_SESSION['esAdmin'] = $res["usuario_esAdmin"];
     $_SESSION['fotoPerfil'] = $res["usuario_fotoPerfil"];
     $_SESSION['marcoFoto'] = $res["usuario_marcoFoto"];
-    manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "../public/index.php");
+    manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "/index.php");
   }
   else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
 }

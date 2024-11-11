@@ -109,5 +109,5 @@
     if (!$response) {
       manejarError('false', 'Error de Guardado', 'Error al querer almacenar la/s foto/s');
     }
-    manejarError('true', "Publicacion creada", 'Pubicacion creada con exito', '../public/index.php');
+    manejarError('true', "Publicacion creada", 'Pubicacion creada con exito', '/index.php');
   }

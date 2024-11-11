@@ -171,7 +171,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
 
 
       <!-- COMENTARIOS DE USUARIOS -->
-      <div>
+      <div class="comentarios-container">
         <?php
         $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
