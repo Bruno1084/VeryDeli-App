@@ -25,7 +25,8 @@
   <section class="col-12 cuerpo">
     <?php
       foreach ($verificaciones as $verificacion) {
-        echo renderVerificacion(
+          echo "- Id Publicacion -".$verificacion["verificacion_id"];
+        /* echo renderVerificacion(
           $verificacion["verificacion_id"],
           $verificacion["verificacion_foto-doc1"],
           $verificacion["verificacion_foto-doc2"],
@@ -35,7 +36,7 @@
           $verificacion["verificacion_tipo-boleta"],
           $verificacion["verificacion_estado"],
           $verificacion["usuario_id"],
-        );
+        ); */
       }
     ?>
     </aside>
