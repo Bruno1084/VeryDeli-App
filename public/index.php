@@ -1,32 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Esto debería mostrar los usuarios</h1>
-  
-  <div>
-    <?php
-      require '../utils/getAllUsuarios.php';
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");
 
-      // Fetch the users
-      $usuarios = getAllUsuarios();
-
-      // Check if there are any users
-      if (!empty($usuarios)) {
-        echo "<ul>";
-        // Loop through the users and display them
-        foreach ($usuarios as $usuario) {
-          echo "<li>" . $usuario['nombre'] . " - " . $usuario['email'] . "</li>";
-        }
-        echo "</ul>";
-      } else {
-        echo "No hay usuarios disponibles.";
-      }
-    ?>
-  </div>
-</body>
-</html>
+if(empty($_SESSION)){
+  session_unset();
+  session_destroy();
+  setcookie("VERY-SESSION", "", time() - 3600, "/");
+  require_once($_SERVER["DOCUMENT_ROOT"]."/components/login.php");
+}
+else{
+  require_once($_SERVER["DOCUMENT_ROOT"]."/pages/inicio.php");
+}

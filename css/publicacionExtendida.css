@@ -1,0 +1,322 @@
+#carouselPublicacion{
+    height: auto;
+}
+
+#carouselPublicacion .u_photo{
+    width: auto;
+    height: auto;
+}
+
+
+.carousel-item-next, .carousel-item-prev, .carousel-item.active{
+    display: flex!important;
+    justify-content: center!important;
+    padding:15px !important;
+}
+#carouselIndicators_A button.carousel-control-next:hover, #carouselIndicators_A button.carousel-control-prev:hover{
+    background-color: #0000005e;
+}
+#carouselIndicators_A button.carousel-control-next, #carouselIndicators_A button.carousel-control-prev{
+    width: 8%;
+    margin: 15px;
+}
+
+#carouselIndicators_A .carousel-indicators{
+    margin-bottom: 18px;
+}
+#carouselIndicators_A .carousel-indicators button{
+    border: solid 0.1vh #0000008c;
+    border-radius: 5px;
+}
+
+.postulacion{
+    display:flex;
+    justify-content:space-around;
+    /* border-top:solid 0.3vh black; */
+}
+.postulacion:hover{
+    cursor:pointer;
+}
+.postulacion p{
+    margin:1vh 0;
+    padding:0 0.5vh;
+}
+.postulacion_titulo{
+    text-align:center;
+    padding:1vh;
+}
+.postulaciones{
+    padding:1vh;
+}
+aside{
+    background-color: #FEFFFE;
+    border-radius: 8px;
+    height: fit-content;
+    margin: 5vh 0;
+    color:black;
+}
+
+#publicacion-A .dropdown-menu{
+    right: 0!important;
+    left: auto!important;
+}
+
+/*foto perfil*/
+.datosUsuario{
+    padding-left: 0;
+}
+
+.comentario{
+    align-items: start;
+    padding: 0 1vh;
+}
+
+.comentario .dataComentario, .post-comentario .dataComentario{
+    padding: 0 0.5rem;
+}
+
+.post-comentario{
+    justify-content: space-evenly;
+}
+.comentario-user{
+    padding-left: 1vh;
+}
+.comentario-fecha, .comentario-hora, .comentario-user{
+    margin-bottom: 0;
+}
+.comentario .comentario-descripcion{
+    margin-top: 1.5vh;
+    text-align: start;
+    padding-left: 1vh;
+    word-break: break-all;
+}
+
+.post-comentario .user-post{
+    margin: 0.5vh 0;
+}
+
+.post-comentario .boton-postC{
+    display: flex;
+    align-items: flex-end;
+    padding: 1vh;
+}
+.post-comentario .comentario-descripcion{
+    resize: none;
+    height: 10vh;
+}
+
+.defaultPicture{
+    border: solid 0.1vh black;
+    width: 10vh;
+    height: 10vh;
+    background-color: #fff;
+    border-radius: 50%;
+    padding-bottom: 0.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.cabeceraPublicacion .defaultPicture{
+    margin: 0 0.5rem 0.5rem;
+}
+
+.comentario .defaultPicture{
+    margin: 1vh 0;
+    height: auto;
+    padding-bottom: 0;
+}
+
+.defaultPicture img{
+    width: 9vh;
+    height: 9vh;
+    padding: 0;
+}
+
+.profilePicture{
+    border-radius: 50%;
+    width: 10vh;
+    height: 10vh;
+    margin: 0.5rem 1rem 0.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding-left: 1vh;
+    padding-bottom: 2vh;
+}
+
+.comentario .profilePicture{
+    padding: 0;
+    margin: 2vh 1vh;
+}
+
+.post-comentario{
+    align-items: center;
+    padding-left: 1vh;
+}
+.post-comentario .profilePicture{
+    border-radius: 50%;
+    width: 10vh;
+    height: 10vh;
+    margin: 0.5rem 1rem 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+.profilePicture button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 10vh;
+    height: 10vh;
+}
+
+.post-comentario .profilePicture .divFoto{
+    position: relative;
+    display: flex;
+    width: 10vh;
+    height: 10vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+.profilePicture .divFoto{
+    position: relative;
+    display: flex;
+    width: 8vh;
+    height: 8vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-comentario .profilePicture .divFoto img{
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    width: 10vh;
+    height: 10vh;
+}
+.profilePicture .divFoto img{
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    width: 8vh;
+    height: 8vh;
+}
+
+.profilePicture .fondoFoto{
+    position: absolute;
+}
+
+.profilePicture .userFoto, .profilePicture .fondoFoto{
+    background-color: #fff;
+    border-radius: 50%;
+    width: 8vh;
+    height: 8vh;
+}
+.post-comentario .profilePicture .userFoto, .profilePicture .fondoFoto{
+    background-color: #fff;
+    border-radius: 50%;
+    width: 10vh;
+    height: 10vh;
+}
+.profilePicture .userFoto{
+    border: solid 0.1vh black;
+}
+
+.profilePicture .decoFoto1 {
+    position: absolute;
+    width: 11.5vh;
+    max-width: none;
+    z-index: 3;
+    padding: 0;
+}
+.post-comentario .profilePicture .decoFoto1 {
+    position: absolute;
+    width: 14.5vh;
+    max-width: none;
+    z-index: 3;
+    padding: 0;
+}
+
+.profilePicture .decoFoto2 {
+    position: absolute;
+    width: 9.8vh;
+    z-index: 3;
+}
+.post-comentario .profilePicture .decoFoto2 {
+    position: absolute;
+    width: 12.2vh;
+    z-index: 3;
+}
+
+.profilePicture .decoFoto3 {
+    position: absolute;
+    width: 10vh;
+    z-index: 13;
+}
+.post-comentario .profilePicture .decoFoto3 {
+    position: absolute;
+    width: 12.5vh;
+    z-index: 3;
+}
+
+.profilePicture .decoFoto4 {
+    position: absolute;
+    width: 9.2vh;
+    z-index: 3;
+}
+.post-comentario .profilePicture .decoFoto4 {
+    position: absolute;
+    width: 11.4vh;
+    z-index: 3;
+}
+
+.profilePicture .decoFoto5 {
+    position: absolute;
+    width: 9vh;
+    z-index: 3;
+}
+.post-comentario .profilePicture .decoFoto5 {
+    position: absolute;
+    width: 11.5vh;
+    z-index: 3;
+}
+
+.profilePicture .decoFoto6 {
+    position: absolute;
+    width: 9vh;
+    z-index: 3;
+    margin-right: 1vh;
+    margin-bottom: 0.4vh;
+}
+.post-comentario .profilePicture .decoFoto6 {
+    position: absolute;
+    width: 11.3vh;
+    z-index: 3;
+    margin-right: 1.3vh;
+    margin-bottom: 0.6vh;
+}
+
+.profilePicture .decoFoto7 {
+    position: absolute;
+    width: 9.8vh;
+    z-index: 3;
+    margin-bottom: 0.4vh;
+    margin-right: 0.3vh;
+}
+.post-comentario .profilePicture .decoFoto7 {
+    position: absolute;
+    width: 12.3vh;
+    z-index: 3;
+    margin-right: 0.5vh;
+    margin-bottom: 0.5vh;
+}
+

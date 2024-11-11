@@ -1,0 +1,230 @@
+#header .dropdown-menu{
+    position:absolute;
+}
+#header .perfilNav .dropdown-toggle::after,#header .notifications .dropdown-toggle::after{
+    display:none;
+}
+
+#header .notifications img{
+    width:3vh;
+}
+#header .notifications .dropdown-menu[data-bs-popper] {
+    margin-top: 2.7vh;
+}
+#header .dropdown-menu[data-bs-popper] {
+    right: 0;
+    left: auto;
+}
+#header .notYprof{
+    align-items: center;
+    justify-content: center;
+}
+
+#header .dropdown-toggle::after {
+    content: none;
+};
+
+#header #profileMenu {
+    right: 0;
+};
+
+#header .btnBuscar::before{
+    border-radius:50%;
+    padding:6px;
+    margin-right:15px;
+    border: solid 2px black;
+}
+#header form .btnBuscar{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    width: 6.5vh;
+    background-image: url(../assets/search.svg);
+    background-repeat: no-repeat;
+    background-size: 5vh;
+    background-position: left;
+    border-radius:50px;
+    margin-right:15px;
+    border: solid 0.3vh black;
+    background-color:#FFF;
+    border-left:none;
+    border-bottom-left-radius:0;
+    border-top-left-radius:0;
+    padding:1.5vh;
+    padding-right: 3vh;
+}
+#header form .tipoBusqueda:hover{
+    cursor:text;
+}
+#header form .btnBuscar:hover{
+    cursor:pointer;
+}
+
+#header nav form .form-control{
+    border-radius:50px 0 0 50px;
+    border-right:none;
+    border-color:black!important;
+    border-top: solid 0.3vh;
+    border-bottom: solid 0.3vh;
+    border-left: solid 0.3vh;
+    
+}
+#header nav form .form-control:focus{
+    box-shadow:0 0 0 0 #00000000;
+}
+#header .buscarNav form{
+    align-items: center;
+    justify-content: flex-end;
+    width:100%;
+    margin-left: 15px;
+    padding-right: 0;
+    border-right: 0;
+}
+#header .buscarNav form input{
+    height:6.5vh;
+}
+#header .tipoBusqueda .tipoBusqueda_hijo{
+    display: none;
+}
+#header .tipoBusqueda .tipoBusqueda_hijo label{
+    font-size: 2vh;
+}
+#header .tipoBusqueda .tipoBusqueda_hijo input{
+    width: 1.5vh;
+}
+#header .tipoBusqueda{
+    display: flex;
+    height: 6.5vh;
+    width: 15.5vh;
+    background-color: #fff;
+    border-bottom: solid 0.3vh black;
+    border-top: solid 0.3vh black;
+}
+#header .tipoBusqueda div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 0.5vh;
+    justify-content: center;
+}
+#header .tipoBusqueda div input{
+    height: auto;
+}
+#header .col-12{
+    display:flex;
+    justify-content: center;
+}
+
+#header {
+    background-color: bisque;
+}
+
+#header nav{
+    padding:8px;
+    margin: auto;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    align-items:center;
+}
+#header .logoNav a{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    height:12vh;
+    width:12vh;
+    margin:0;
+}
+#header .logoNav{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+/*perfil*/
+
+#header .perfilNav button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 10vh;
+    height: 10vh;
+}
+
+#header .perfilNav .divFoto{
+    position: relative;
+    display: flex;
+    width: 8vh;
+    height: 8vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#header .perfilNav .divFoto img{
+    border-radius: 50%; /* Redondea la foto de perfil */
+    position: relative;
+    z-index: 2; /* Coloca la foto de perfil sobre el borde decorativo */
+    width: 7vh;
+    height: 7vh;
+}
+
+#header .perfilNav .fondoFoto{
+    position: absolute;
+}
+
+#header .perfilNav .userFoto, #header .perfilNav .fondoFoto{
+    background-color: #fff;
+    border-radius: 50%;
+    width: 7vh;
+    height: 7vh;
+}
+#header .perfilNav .userFoto{
+    border: solid 0.1vh black;
+}
+
+#header .perfilNav .decoFoto1 {
+    position: absolute;
+    width: 10.5vh;
+    max-width: none;
+    z-index: 3;
+    margin-left: 0.3vh;
+    margin-bottom: 0.1vh;
+}
+#header .perfilNav .decoFoto2 {
+    position: absolute;
+    width: 8.5vh;
+    z-index: 3;
+}
+#header .perfilNav .decoFoto3 {
+    position: absolute;
+    width: 9vh;
+    z-index: 13;
+    margin-bottom: 0.1vh;
+}
+#header .perfilNav .decoFoto4 {
+    position: absolute;
+    width: 8vh;
+    z-index: 3;
+}
+#header .perfilNav .decoFoto5 {
+    position: absolute;
+    width: 8vh;
+    z-index: 3;
+}
+#header .perfilNav .decoFoto6 {
+    position: absolute;
+    width: 7.8vh;
+    z-index: 3;
+    margin-right: 0.8vh;
+    margin-bottom: 0.3vh;
+}
+#header .perfilNav .decoFoto7 {
+    position: absolute;
+    width: 8.5vh;
+    z-index: 3;
+    margin-bottom: 0.4vh;
+    margin-right: 0.2vh;
+}

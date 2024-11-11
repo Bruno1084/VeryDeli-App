@@ -1,0 +1,152 @@
+
+/* Estilos para formulario crear publicacion */
+
+#btn-crearPublicacion{
+  background-color: rgba(255, 255, 255, 80%);
+  color: #000000;
+}
+
+#btn-crearPublicacion:hover{
+  background-color:rgba(255, 255, 255, 70%);
+  color: #000033;
+}
+
+.form-publicacion input, .form-publicacion textarea{
+  font-size:20px;
+}
+
+#publicacion-titulo{
+  font-size:30px;
+}
+
+.form-publicacion input:focus, .form-publicacion textarea:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-bottom: #FFFFFF solid 1px;
+  background-color: transparent;
+  color: white;
+}
+
+.form-publicacion input:active, .form-publicacion textarea:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-bottom: #FFFFFF solid 1px;
+}
+
+.form-publicacion input, .form-publicacion textarea{
+  background-color: transparent;
+  border: none;
+  border-radius:none;
+  border-bottom: #FFFFFF solid 1px;
+  color: white;
+}
+
+.form-publicacion input::placeholder, .form-publicacion textarea::placeholder{
+  color:white;
+}
+
+
+.bg-modalPublicacion{
+  background-color: rgba(88, 16, 139, 0.9);
+  border: solid 2px #4b0082;
+}
+
+.addNewPhoto{
+    display:none;
+}
+#photos {
+display: flex;
+flex-wrap: wrap;           
+max-width: 50%;
+height: 103px;
+border-bottom: solid 1px #fff;
+gap: 5px; 
+}
+
+#photos img {
+width: 100px;
+height: 100px;
+object-fit: cover;
+margin-left: 5px;
+transition: width 5ms, height 5ms, filter 5ms;
+}
+
+#photos img:hover{
+filter:brightness(50%);
+cursor:pointer;
+}
+
+#addPhoto{
+display: inline-block;
+color:#fff;
+}
+
+.btn-cerrarFormularioPublicacion{
+  opacity:100%;
+  background-color: rgba(255, 0, 0, 70%);
+}
+
+.btn-cerrarFormularioPublicacion:hover{
+  opacity: 100%;
+  background-color: rgba(255, 0, 0, 100%);
+}
+
+#addNewPhoto {
+  display: none;
+}
+
+#addPhoto:hover{
+  cursor:pointer
+}
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#btn-crearPublicacion {
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+
+.div-crearPublicacion .col-3{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.div-crearPublicacion{
+  max-width: 48rem;
+  margin: auto;;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-amarillo:hover {
+  background-color: #ffcc00;
+  color:#4b0082;
+}
+
+.invalid-feedback {
+  animation: gradual 0.3s ease-in-out;
+}
+
+@keyframes gradual {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transform: translateY(-100px);
+  opacity: 0;
+}
+.modal.show .modal-dialog {
+  transform: translateY(0);
+  opacity: 1;
+}
