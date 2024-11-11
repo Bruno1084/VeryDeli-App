@@ -7,59 +7,61 @@
     require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/stringRandom.php');
 
     $tipoDocumento = $_POST['tipoDoc'];
-    $frenteDoc = $_POST["photosIdFrenteDoc"];
-    $dorsoDoc = $_POST["photosIdDorsoDoc"];
     $tipoBoleta = $_POST['tipoBol'];
-    $frenteBol = $_POST["photosIdFrenteBol"];
-    $dorsoBol = $_POST["photosIdDorsoBol"];
-    $autor = $_SESSION['id'];
+    $fotosDocumento = $_POST['photosIdDoc'];
+    $fotosBoleta = $_POST['photosIdBol'];
 
-    $formatSuportPhoto=["image/png","image/jpeg","image/jpg"];
-    
-    if (!in_array($frenteDoc[0],$formatSuportPhoto)) {
-      manejarError('false', 'Formato inválido', 'La imágen del frente del documento no es un formato valido!');
-      exit;
-    }
-
-    if (!in_array($dorsoDoc[0],$formatSuportPhoto)) {
-      manejarError('false', 'Formato inválido', 'La imágen del dorso del documento no es un formato valido!');
-      exit;
-    }
-
-    if (!in_array($frenteBol[0],$formatSuportPhoto)) {
-      manejarError('false', 'Formato inválido', 'La imágen del frente de la boleta no es un formato valido!');
-      exit;
-    }
-
-    if (!in_array($dorsoBol[0],$formatSuportPhoto)) {
-      manejarError('false', 'Formato inválido', 'La imágen del dorso de la boleta no es un formato valido!');
-      exit;
-    }
-    
-    /*
-    LOGICA PARA ALMACENAR LAS FOTOS (Tomada de ControlFormPublicacion)
-    require_once($_SERVER["DOCUMENT_ROOT"]."/database/conectionImgBB.php");
+    //------------------------------------------------------------------
     $dbImgBB=new DBIMG();
-    $urlFotos=array();
-    for($i=0;$i<count($fotos);$i+=2){
-      $extencion=getExtencion($fotos[$i+1]);
-      $newName=stringRandom(10).$extencion;
-      $fotoFinal=array("image"=>$fotos[$i],"name"=>$newName);
-      $response=$dbImgBB->guardarImagenImgBB($fotoFinal);
 
-      if(is_array($response)) $urlFotos[]=$response;
-      else manejarError('false', 'Error de Guardado',"Ocurrio un error al querer guardar la/s foto/s");
+    if(!$dbImgBB->envioVerificacion())
+    {
+      $formatSuportPhoto=["image/png","image/jpeg","image/jpg"];
+      for ($i=0;$i<count($fotosDocumento);$i+=2) {
+          if (!in_array($fotosDocumento[$i+1],$formatSuportPhoto)) {
+            manejarError('false', 'Formato inválido', 'Se encontro un formato de imágen no valido en la Documento');
+          }
+      }
+      for ($i=0;$i<count($fotosBoleta);$i+=2) {
+          if (!in_array($fotosBoleta[$i+1],$formatSuportPhoto)) {
+            manejarError('false', 'Formato inválido', 'Se encontro un formato de imágen no valido en el Boleta');
+          }
+        }
+        require_once($_SERVER["DOCUMENT_ROOT"]."/database/conectionImgBB.php");
+      $urlFotosDoc=array();
+      $urlFotosBol=array();
+      for($i=0;$i<count($fotosDocumento);$i+=2){
+        $extencion=getExtencion($fotosDocumento[$i+1]);
+        $newName=stringRandom(10).$extencion;
+        $fotoDocFinal=array("image"=>$fotosDocumento[$i],"name"=>$newName);
+        $response=$dbImgBB->guardarImagenImgBB($fotoDocFinal);
 
+        if(is_array($response)) $urlFotosDoc[]=$response;
+        else manejarError('false', 'Error de Guardado',"Ocurrio un error al querer guardar la/s foto/s del Documento");
+
+      }
+      for($i=0;$i<count($fotosBoleta);$i+=2){
+        $extencion=getExtencion($fotosBoleta[$i+1]);
+        $newName=stringRandom(10).$extencion;
+        $fotoBolFinal=array("image"=>$fotosBoleta[$i],"name"=>$newName);
+        $response=$dbImgBB->guardarImagenImgBB($fotoBolFinal);
+
+        if(is_array($response)) $urlFotosBol[]=$response;
+        else manejarError('false', 'Error de Guardado',"Ocurrio un error al querer guardar la/s foto/s de la Boleta");
+
+      }
+      $response=$dbImgBB->guardarFotosVerificacionDB($urlFotosDoc,$urlFotosBol,$tipoDoc,$tipoBol);
+      if (!$response) {
+        manejarError('false', 'Error de Guardado', 'Error al querer almacenar la/s foto/s de la Verificacion');
+      }
+      manejarError('true', 'Verificacion Enviada','En las proximas 48/72 hora se le notificara el resultado');
+
+      //------------------------------------------------------------------
+      
     }
-    $response=$dbImgBB->guardarImagenesDB($urlFotos,$idPublicacion);
-    if (!$response) {
-      manejarError('false', 'Error de Guardado', 'Error al querer almacenar la/s foto/s');
+    else{
+      manejarError('false', 'Verificacion Pendiente','Ya ha enviado una solicitud de verificacion');
     }
     
 
-    $db = new DB();
-    $conexion = $db->getConnection();
-    */
-
-    manejarError('true', 'Pruebas','El formulario se envio');
   }
