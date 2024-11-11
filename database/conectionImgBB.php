@@ -83,7 +83,7 @@ class DBIMG {
     $conexion = $db->getConnection();
     
     if(sizeof($fotosDoc)>1 && sizeof($fotosBol)>1){
-      $sql ="INSERT INTO `verificaciones` (`foto-doc1`, `foto-doc2`, `foto-bol1`, `foto-bol2`, `tipo-doc`, `tipo-bol`, `usuario_id`) VALUES (?,?,?,?,?,?,?)";
+      $sql ="INSERT INTO `verificaciones` (`verificacion_foto-doc1`, `verificacion_foto-doc2`, `verificacion_foto-boleta1`, `verificacion_foto-boleta2`, `verificacion_tipo-doc`, `verificacion_tipo-boleta`, `usuario_id`) VALUES (?,?,?,?,?,?,?)";
       
       $stmt = $conexion->prepare($sql);
       
@@ -96,7 +96,7 @@ class DBIMG {
       $stmt->bindValue(7, $_SESSION["id"], PDO::PARAM_INT);
     }
     elseif(sizeof($fotosDoc)==1 && sizeof($fotosBol)>1){
-      $sql ="INSERT INTO `verificaciones` (`foto-doc1`, `foto-bol1`, `foto-bol2`, `tipo-doc`, `tipo-bol`, `usuario_id`) VALUES (?,?,?,?,?,?)";
+      $sql ="INSERT INTO `verificaciones` (`verificacion_foto-doc1`, `verificacion_foto-boleta1`, `verificacion_foto-boleta2`, `verificacion_tipo-doc`, `verificacion_tipo-boleta`, `usuario_id`) VALUES (?,?,?,?,?,?)";
       
       $stmt = $conexion->prepare($sql);
       
@@ -108,7 +108,7 @@ class DBIMG {
       $stmt->bindValue(6, $_SESSION["id"], PDO::PARAM_INT);
     }
     elseif(sizeof($fotosDoc)>1 && sizeof($fotosBol)==1){
-      $sql ="INSERT INTO `verificaciones` (`foto-doc1`, `foto-doc2`, `foto-bol1`, `tipo-doc`, `tipo-bol`, `usuario_id`) VALUES (?,?,?,?,?,?)";
+      $sql ="INSERT INTO `verificaciones` (`verificacion_foto-doc1`, `verificacion_foto-doc2`, `verificacion_foto-boleta1`, `verificacion_tipo-doc`, `verificacion_tipo-boleta`, `usuario_id`) VALUES (?,?,?,?,?,?)";
       
       $stmt = $conexion->prepare($sql);
       
@@ -121,7 +121,7 @@ class DBIMG {
       
     }
     else{
-      $sql ="INSERT INTO `verificaciones` (`foto-doc1`, `foto-bol1`, `tipo-doc`, `tipo-bol`, `usuario_id`) VALUES (?,?,?,?,?)";
+      $sql ="INSERT INTO `verificaciones` (`verificacion_foto-doc1`, `verificacion_foto-boleta1`, `verificacion_tipo-doc`, `verificacion_tipo-boleta`, `usuario_id`) VALUES (?,?,?,?,?)";
       
       $stmt = $conexion->prepare($sql);
       
@@ -155,7 +155,7 @@ class DBIMG {
     $stmt=null;
     $conexion=null;
     $db=null;
-    
+
     return $res;
   }
 }

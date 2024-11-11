@@ -12,6 +12,7 @@
     $fotosBoleta = $_POST['photosIdBol'];
 
     //------------------------------------------------------------------
+    require_once($_SERVER["DOCUMENT_ROOT"]."/database/conectionImgBB.php");
     $dbImgBB=new DBIMG();
 
     if(!$dbImgBB->envioVerificacion())
@@ -27,7 +28,6 @@
             manejarError('false', 'Formato inválido', 'Se encontro un formato de imágen no valido en el Boleta');
           }
         }
-        require_once($_SERVER["DOCUMENT_ROOT"]."/database/conectionImgBB.php");
       $urlFotosDoc=array();
       $urlFotosBol=array();
       for($i=0;$i<count($fotosDocumento);$i+=2){
@@ -50,7 +50,7 @@
         else manejarError('false', 'Error de Guardado',"Ocurrio un error al querer guardar la/s foto/s de la Boleta");
 
       }
-      $response=$dbImgBB->guardarFotosVerificacionDB($urlFotosDoc,$urlFotosBol,$tipoDoc,$tipoBol);
+      $response=$dbImgBB->guardarFotosVerificacionDB($urlFotosDoc,$urlFotosBol,$tipoDocumento,$tipoBoleta);
       if (!$response) {
         manejarError('false', 'Error de Guardado', 'Error al querer almacenar la/s foto/s de la Verificacion');
       }

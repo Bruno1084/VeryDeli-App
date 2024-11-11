@@ -50,9 +50,10 @@
                           <option selected disabled>Tipo de documento...</option>
                           <option value="1">DNI</option>
                           <option value="2">Pasaporte</option>
-                          <option value="2">Cedula de identidad</option>
-                          <option value="3">Otro</option>
+                          <option value="3">Cedula de identidad</option>
+                          <option value="4">Otro</option>
                         </select>
+                        <div class="invalid-feedback" id="invalid-tipoDoc"></div>
                       </div>
 
                       <div id="addDoc" class="col-12 mb-3">
@@ -74,6 +75,7 @@
                           <option value="4">Contrato de alquiler</option>
                           <option value="5">Otro</option>
                         </select>
+                        <div class="invalid-feedback" id="invalid-tipoBol"></div>
                       </div>
                       <div id="addBol" class="col-12 mb-3">
                         <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhotoBol[]" id="addNewPhotoBol" onchange="preVisualBol(event)" multiple/>
