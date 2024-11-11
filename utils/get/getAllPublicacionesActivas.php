@@ -27,11 +27,8 @@ function getAllPublicacionesActivas($limit = 0, $offset = 0) {
               userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
           LEFT JOIN
               marcos ON marcos.marco_id = userMarcoFoto.marco_id
-          LEFT JOIN
-              publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
           WHERE 
               publicaciones.publicacion_esActivo='1'
-              AND publicaciones_reportadas.publicacion_id IS NULL
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,

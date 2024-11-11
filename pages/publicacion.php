@@ -24,10 +24,6 @@
   
   <?php 
     $publicacion = getPublicacion($_GET['id']);
-    $denuncia=false;
-    if(isset($_GET["denuncia"])){
-      $denuncia=true;
-    }
     $autor = getAutorPublicacion($_GET['id']);
     $imagenes = json_decode($publicacion['imagenes']);
 
@@ -48,8 +44,7 @@
       $publicacion['publicacion_peso'],
       $ubicaciones->origen->barrio,
       $ubicaciones->destino->barrio,
-      $imagenes,
-      $denuncia
+      $imagenes
     );
   ?>
 

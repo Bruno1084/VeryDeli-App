@@ -9,9 +9,6 @@ body{
   color: #000000;
 };
 
-.primerDivBody{
-    min-height: 60vh;
-}
 
 .formulario-registro{
     color:rgba(255, 255, 255, 90%);

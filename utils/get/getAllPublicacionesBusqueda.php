@@ -83,15 +83,12 @@
                         imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
                   JOIN
                         ubicaciones ON ubicaciones.ubicacion_id = publicaciones.ubicacion_origen OR ubicaciones.ubicacion_id = publicaciones.ubicacion_destino
-                  LEFT JOIN
-                        publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
                   WHERE
                         publicaciones.publicacion_esActivo = '1' AND 
                         -- Cálculo de la distancia usando la fórmula Haversine
                         ( 6371 * acos( cos( radians(?) ) * cos( radians(ubicaciones.ubicacion_latitud) ) 
                         * cos( radians(ubicaciones.ubicacion_longitud) - radians(?) ) 
                         + sin( radians(?) ) * sin( radians(ubicaciones.ubicacion_latitud)) ) ) <= ?
-                        AND publicaciones_reportadas.publicacion_id IS NULL
                   GROUP BY 
                         publicaciones.publicacion_id, 
                         usuarios.usuario_usuario,

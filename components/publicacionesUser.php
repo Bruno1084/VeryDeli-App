@@ -12,7 +12,7 @@ function renderPubsAndComsUser() {
     $conexion = $db->getConnection();
 
     $pubYcom = getAllPubsAndComsFromUser($_SESSION["id"],$limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones LEFT JOIN publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id WHERE usuario_autor=".$_SESSION["id"]." AND publicaciones_reportadas.publicacion_id IS NULL");
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones WHERE usuario_autor=".$_SESSION["id"]);
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $totalComentariosStmt = $conexion->query("SELECT COUNT(*) FROM comentarios WHERE usuario_id=".$_SESSION["id"]);
     $totalComentarios = $totalComentariosStmt->fetchColumn();

@@ -29,18 +29,20 @@
                 <div class="col-1 d-flex notYprof">
                     <div class="col-auto notifications">
                         <?php
-                            function tipoNotify($notify){
-                                switch($notify["notificacion_tipo"]){
-                                    case 3: return "../public/miPerfil.php";
-                                    default: return "../pages/publicacion.php?id=".$notify["publicacion_id"];
+                            function idIsNull($pubId){
+                                if($pubId==null){
+                                    return "#";
+                                }
+                                else{
+                                    return "../pages/publicacion.php?id=".$pubId;
                                 }
                             }
                             function tieneFoto(){
                                 if($_SESSION["fotoPerfil"]==0) return "../assets/user.png";
                                 else return $_SESSION["fotoPerfil"];
                             }
-                            require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/get5NotificacionesNoVistasFromUsuario.php"); 
-                            $notificaciones=get5NotificacionesActivasFromUsuario();
+                            require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
+                            $notificaciones=getNotificacionesActivasFromUsuario(5); 
                         ?>
                         <div class="dropdown">
                                 <button class="btn dropdown-toggle py-2 px-0 px-lg-2 d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
@@ -50,16 +52,16 @@
                                     <?php 
                                         if(sizeof($notificaciones)>0){
                                             foreach($notificaciones as $notify){?>
-                                                <a class="dropdown-item" href=<?php echo tipoNotify($notify)?>><?php echo $notify["notificacion_mensaje"] ?></a>
-                                    <?php   }?>
+                                                <a class="dropdown-item" href=<?php echo idIsNull($notify["publicacion_id"])?>><?php echo $notify["notificacion_mensaje"] ?></a>
                                                 <hr class="dropdown-divider">
-                                                <a class="dropdown-item" href="../pages/notificaciones.php">Ver mas</a>
-                                <?php   }
+                                                <a class="dropdown-item" href="../components/Notificaciones.php">Ver mas</a>
+                                    <?php       }
+                                        }
                                         else{
                                     ?>
-                                            <p class="dropdown-item">Ninguna novedad</p>
+                                            <p class="dropdown-item">Nada por aqui</p>
                                             <hr class="dropdown-divider">
-                                            <a class="dropdown-item" href="../pages/notificaciones.php">Ver Todo</a>
+                                            <a class="dropdown-item" href="../components/Notificaciones.php">Ver Todo</a>
                                     <?php
                                         }
                                     ?>
