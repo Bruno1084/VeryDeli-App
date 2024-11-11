@@ -222,7 +222,60 @@ function nuevoInputBol(){
 
 function validarVerificacion () {
   let esValido = true;
-  
+// Validar TipoDoc
+  var tipoDoc= document.querySelector("#input-tipo-doc");
+  const tipoDocFeedBack = document.getElementById('invalid-tipoDoc');
+  if(tipoDoc.selectedIndex==0){
+    tipoDocFeedBack.textContent = 'Seleccione un Tipo de Documento';
+    tipoDoc.classList.add('is-invalid');
+    tipoDocFeedBack.setAttribute("style","display:block");
+    esValido=false;
+  }else{
+    tipoDoc.classList.remove('is-invalid');
+    tipoDoc.classList.add('is-valid');
+    tipoDocFeedBack.textContent = "";
+  }
+// Validar TipoBol
+  var tipoBol= document.querySelector("#input-tipo-bol");
+  const tipoBolFeedBack = document.getElementById('invalid-tipoBol');
+  if(tipoBol.selectedIndex==0){
+    tipoBolFeedBack.textContent = 'Seleccione un Tipo de Boleta';
+    tipoBol.classList.add('is-invalid');
+    tipoBolFeedBack.setAttribute("style","display:block");
+    esValido=false;
+  }else{
+    tipoBol.classList.remove('is-invalid');
+    tipoBol.classList.add('is-valid');
+    tipoBolFeedBack.textContent = "";
+  }
+// Validar FotosDoc
+  const fotosDoc = document.querySelector('#photosDoc');
+  const cantFotosDoc = fotosDoc.childElementCount;
+  const fotosDocFeedBack = document.getElementById('invalid-photosDoc');
+  if (cantFotosDoc < 1) {
+    fotosDocFeedBack.textContent = 'Ingrese al menos una foto';
+    fotosDoc.classList.add('is-invalid');
+    fotosDocFeedBack.setAttribute("style","display:block");
+    esValido = false;
+  } else{
+    fotosDoc.classList.remove('is-invalid');
+    fotosDoc.classList.add('is-valid');
+    fotosDocFeedBack.textContent = "";
+  }
+// Validar FotosBol
+  const fotosBol = document.querySelector('#photosBol');
+  const cantFotosBol = fotosBol.childElementCount;
+  const fotosBolFeedBack = document.getElementById('invalid-photosBol');
+  if (cantFotosBol < 1) {
+    fotosBolFeedBack.textContent = 'Ingrese al menos una foto';
+    fotosBol.classList.add('is-invalid');
+    fotosBolFeedBack.setAttribute("style","display:block");
+    esValido = false;
+  } else{
+    fotosBol.classList.remove('is-invalid');
+    fotosBol.classList.add('is-valid');
+    fotosBolFeedBack.textContent = "";
+  }
   return esValido
 }
 
@@ -233,7 +286,7 @@ function validarVerificacion () {
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
         if (validarVerificacion()){
-          querySelector("#cerrarModVerify").click();
+          document.querySelector("#cerrarModVerify").click();
           window.scrollTo({
             top: 0,
             behavior: 'smooth'

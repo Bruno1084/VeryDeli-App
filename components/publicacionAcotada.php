@@ -1,7 +1,7 @@
 <?php
 function obtenerFoto($fYm){
   if($fYm["foto"]==0 && $fYm["marco"]==0){
-    return "<div class='defaultPicture'><img src='../assets/profile.svg' alt='user'></div>";
+    return "<div class='defaultPicture'><img src='../assets/user.png' alt='user'></div>";
   }
   elseif($fYm["foto"]!=0 && $fYm["marco"]==0){
     return "<div class='defaultPicture'><img src='".$fYm["foto"]."' alt='user'></div>";
@@ -9,7 +9,7 @@ function obtenerFoto($fYm){
   elseif($fYm["foto"]==0 && $fYm["marco"]!=0){
     return '<div class="profilePicture">
             <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-            <div class="divFoto"><img src="../assets/profile.svg" alt="user"></div>
+            <div class="divFoto"><img src="../assets/user.png" alt="user"></div>
             </div>';
   }
   else{
@@ -19,12 +19,12 @@ function obtenerFoto($fYm){
             </div>';
   }
 }
-function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen) {
+function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen, $denunciada=false) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
-  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?>'>
+  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?><?php if($denunciada==true)echo "&denuncia=true";?>'>
     <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-<?php echo $idPublicacion; ?>_A'>
       <div class='d-flex col-6 mt-1 text-start lh-1 datosUsuario'>
         
