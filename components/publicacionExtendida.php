@@ -164,9 +164,8 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       </a>
       -->
 
-      <!-- POSTEAR COMENTARIO -->
-        <?php echo renderPostComentario($username, $profileIcon, $idPublicacion); ?>
-      
+    <!-- POSTEAR COMENTARIO -->
+    <?php echo renderPostComentario($idPublicacion); ?>
 
 
       <!-- COMENTARIOS DE USUARIOS -->

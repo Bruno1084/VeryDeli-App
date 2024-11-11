@@ -42,7 +42,7 @@ if($res!=false){
     $_SESSION['esAdmin'] = $res["usuario_esAdmin"];
     $_SESSION['fotoPerfil'] = $res["usuario_fotoPerfil"];
     $_SESSION['marcoFoto'] = $res["usuario_marcoFoto"];
-    manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "../public/index.php");
+    manejarError('true', 'Sesion iniciada con exito', 'Espere un momento mientras lo redirigimos a la pagina principal', "/index.php");
   }
   else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
 }
