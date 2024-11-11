@@ -11,8 +11,6 @@ function renderVerificacion(
     $estado,
     $usuarioid
 ) {
-  $contadorComentarios = 0;
-  $commentCache = [];
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
   $usuario=getUsuario($usuarioid);
