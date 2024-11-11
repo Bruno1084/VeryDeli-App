@@ -78,6 +78,7 @@ class DBIMG {
     $conexion = null;
     return true;
   }
+  
   public static function guardarFotosVerificacionDB($fotosDoc,$fotosBol,$tipoDoc,$tipoBol){
     $db = new DB();
     $conexion = $db->getConnection();
@@ -144,7 +145,7 @@ class DBIMG {
     $db = new DB();
     $conexion = $db->getConnection();
       
-    $sql = "SELECT `usuario_id` FROM `verificaciones` WHERE `usuario_id`= ? ";
+    $sql = "SELECT usuario_id FROM verificaciones WHERE usuario_id= ?";
     
     $stmt = $conexion->prepare($sql);
     $stmt->bindValue(1, $_SESSION["id"], PDO::PARAM_INT);
