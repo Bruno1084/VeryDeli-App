@@ -125,10 +125,10 @@
   </div>
 
   <!--BOTON PARA ABRIR EL MODAL-->
-  <div class="Container-fluid text-end col-12">
+  <div class="container-fluid text-end mb-3">
     <div class="div-crearPublicacion">
-        <div class="p-0 col-3">
-          <button class="btn mb-3" id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal">Crear Publicación</button>
+        <div class="p-0">
+        <button class="btn " id="btn-crearPublicacion" data-bs-target="#modalCrearPublicacion" data-bs-toggle="modal"> Crear Publicación </button>
         </div>
     </div> 
   </div>  

@@ -12,10 +12,10 @@ function renderPostComentario ($username, $profileIcon, $idPublicacion) {
         <div class='col-12'>
           <form action='/utils/publicarComentario.php' method='post' id='formComentar$idPublicacion' autocomplete='off'>
             <div class='row'>
-              <div class='col-10'>
+              <div class='col-8 col-md-10'>
                 <textarea class='comentario-descripcion w-100 border rounded p-1' name='comentario' required placeholder='Escribe un comentario'></textarea>
               </div>
-              <div class='col-2 boton-postC'>
+              <div class='col-4 col-md-2 boton-postC'>
                 <input type='submit' id='btn-enviar' form='formComentar$idPublicacion' class='btn border'></input>
               </div>
               <input type='hidden' name='publicacion-id' value='$idPublicacion'>

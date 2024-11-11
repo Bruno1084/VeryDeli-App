@@ -165,11 +165,12 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       -->
 
       <!-- POSTEAR COMENTARIO -->
-      <?php echo renderPostComentario($username, $profileIcon, $idPublicacion); ?>
+        <?php echo renderPostComentario($username, $profileIcon, $idPublicacion); ?>
+      
 
 
       <!-- COMENTARIOS DE USUARIOS -->
-      <div>
+      <div class="comentarios-container">
         <?php
         $comentarios = getAllComentariosFromPublicacion($idPublicacion);
 
