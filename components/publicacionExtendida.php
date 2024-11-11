@@ -1,7 +1,7 @@
 <?php
 function obtenerFoto($fYm){
   if($fYm["foto"]==0 && $fYm["marco"]==0){
-    return "<div class='defaultPicture'><img src='../assets/profile.svg' alt='user'></div>";
+    return "<div class='defaultPicture'><img src='../assets/user.png' alt='user'></div>";
   }
   elseif($fYm["foto"]!=0 && $fYm["marco"]==0){
     return "<div class='defaultPicture'><img src='".$fYm["foto"]."' alt='user'></div>";
@@ -9,7 +9,7 @@ function obtenerFoto($fYm){
   elseif($fYm["foto"]==0 && $fYm["marco"]!=0){
     return '<div class="profilePicture">
             <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-            <div class="divFoto"><img src="../assets/profile.svg" alt="user"></div>
+            <div class="divFoto"><img src="../assets/user.png" alt="user"></div>
             </div>';
   }
   else{
