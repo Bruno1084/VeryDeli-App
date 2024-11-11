@@ -41,53 +41,55 @@
                 <button type="button" id="cerrarModVerify" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form action="/utils/verificar.php" class="form-publicacion form-verificar needs-validation FormularioAjax" method="post" id="formVerificar" novalidate>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="mb-3">
-                                <select class="form-select" name="tipoDoc" id="input-tipo-doc" required>
-                                    <option selected disabled>Tipo de documento...</option>
-                                    <option value="1">DNI</option>
-                                    <option value="2">Pasaporte</option>
-                                    <option value="3">Cédula de identidad</option>
-                                    <option value="4">Otro</option>
-                                </select>
-                            </div>
-                            <div id="addDoc" class="mb-3">
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhotoDoc[]" id="addNewPhotoDoc" onchange="preVisualDoc(event)" multiple/>
-                                <div class="custom-file-upload mb-2"> 
-                                    <h2 id="addPhotoDoc">Documento➕</h2> 
-                                </div>
-                                <select name="photosIdDoc[]" id="photosIdDoc" multiple hidden></select>
-                                <div id="photosDoc"></div>
-                                <div class="invalid-feedback" id="invalid-photosDoc">Por favor, sube una imagen válida.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <div class="mb-3">
-                                <select class="form-select" name="tipoBol" id="input-tipo-bol" required>
-                                    <option selected disabled>Tipo de boleta...</option>
-                                    <option value="1">Factura de Servicios</option>
-                                    <option value="2">Boleta de impuestos</option>
-                                    <option value="3">Resumen de tarjeta de crédito o cuenta bancaria</option>
-                                    <option value="4">Contrato de alquiler</option>
-                                    <option value="5">Otro</option>
-                                </select>
-                            </div>
-                            <div id="addBol" class="mb-3">
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhotoBol[]" id="addNewPhotoBol" onchange="preVisualBol(event)" multiple/>
-                                <div class="custom-file-upload mb-2"> 
-                                    <h2 id="addPhotoBol">Boleta➕</h2> 
-                                </div>
-                                <select name="photosIdBol[]" id="photosIdBol" multiple hidden></select>
-                                <div id="photosBol"></div>
-                                <div class="invalid-feedback" id="invalid-photosBol">Por favor, sube una imagen válida.</div>
-                            </div>
-                        </div>
+              <form action="/utils/verificar.php" class="form-publicacion form-verificar needs-validation FormularioAjax" method="post" id="formVerificar" novalidate  >
+                <div class="row">
+                  <div class="col-12 d-flex mb-1 p-3">
+                    <div class="col-6">
+                      <div class="col-12 mb-1 p-3 selectTipo">
+                        <select class="form-select" aria-label="Default select example" name="tipoDoc" id="input-tipo-doc">
+                          <option selected disabled>Tipo de documento...</option>
+                          <option value="1">DNI</option>
+                          <option value="2">Pasaporte</option>
+                          <option value="3">Cedula de identidad</option>
+                          <option value="4">Otro</option>
+                        </select>
+                        <div class="invalid-feedback" id="invalid-tipoDoc"></div>
+                      </div>
+
+                      <div id="addDoc" class="col-12 mb-3">
+                        <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhotoDoc[]" id="addNewPhotoDoc" onchange="preVisualDoc(event)" multiple/>
+                        <div class="custom-file-upload mb-2"> <h2 id="addPhotoDoc">Documento➕</h2> </div>
+                        <select name="photosIdDoc[]" id="photosIdDoc" multiple hidden></select>
+                        <div id="photosDoc"></div>
+                        <div class="invalid-feedback" id="invalid-photosDoc"></div>
+                      </div>
                     </div>
-                    <input type="hidden" name="verificacionEnviada">
-                </form>
+
+                    <div class="col-6">
+                      <div class="col-12 mb-1 p-3 selectTipo">
+                        <select class="form-select" aria-label="Default select example" name="tipoBol" id="input-tipo-bol">
+                          <option selected disabled>Tipo de boleta...</option>
+                          <option value="1">Factura de Servicios</option>
+                          <option value="2">Boleta de impuestos</option>
+                          <option value="3">Resumen de tarjeta de crédito o cuenta bancaria</option>
+                          <option value="4">Contrato de alquiler</option>
+                          <option value="5">Otro</option>
+                        </select>
+                        <div class="invalid-feedback" id="invalid-tipoBol"></div>
+                      </div>
+                      <div id="addBol" class="col-12 mb-3">
+                        <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhotoBol[]" id="addNewPhotoBol" onchange="preVisualBol(event)" multiple/>
+                        <div class="custom-file-upload mb-2"> <h2 id="addPhotoBol">Boleta➕</h2> </div>
+                        <select name="photosIdBol[]" id="photosIdBol" multiple hidden></select>
+                        <div class="col-12" id="photosBol"></div>
+                        <div class="invalid-feedback" id="invalid-photosBol"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <input type="hidden" name="verificacionEnviada">
+              </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-morado" data-bs-dismiss="modal">Cerrar</button>

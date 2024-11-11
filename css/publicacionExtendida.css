@@ -106,7 +106,6 @@ aside{
 }
 
 .defaultPicture{
-    border: solid 0.1vh black;
     width: 10vh;
     height: 10vh;
     background-color: #fff;
@@ -129,9 +128,11 @@ aside{
 }
 
 .defaultPicture img{
+    border-radius: 50%;
     width: 9vh;
     height: 9vh;
     padding: 0;
+    border: solid 0.1vh black;
 }
 
 .profilePicture{
