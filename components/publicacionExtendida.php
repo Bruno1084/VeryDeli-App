@@ -64,10 +64,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
             ?>
 
         </div>
-        
-        
       </div>
-
       <div class='my-3'>
         <div>
           <div>
