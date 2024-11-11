@@ -1,15 +1,10 @@
-.user_photo{
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    padding-bottom:1.5vh;
-}
-.user_info{
-    display:flex;
-    justify-content:flex-start;
-    flex-direction:column;
-    padding-left:1vh;
-}
+
+
+
+
+
+
+
 
 
 
@@ -44,34 +39,133 @@ aside{
 }
 
 
+
+
 .perfil_user{
-    padding:1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.perfil_user .user_photo{
-    padding:1vh;
+
+.user_photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 3vh auto 1vh;
+    width: 23vh;
+    height: 23vh;
 }
-.perfil_user .user_photo img{
-    width:50%;
-    border-radius:12px;
-    background-color:black;
+
+.user_photo .divFoto{
+    position: relative;
+    display: flex;
+    width: 8vh;
+    height: 8vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
 }
+
+.user_photo .divFoto img{
+    border-radius: 50%; /* Redondea la foto de perfil */
+    position: relative;
+    z-index: 2; /* Coloca la foto de perfil sobre el borde decorativo */
+    width: 15vh;
+    height: 15vh;
+}
+
+.user_photo .fondoFoto{
+    position: absolute;
+}
+
+.user_photo .userFoto, .user_photo .fondoFoto{
+    background-color: #fff;
+    border-radius: 50%;
+    width: 15vh;
+    height: 15vh;
+}
+.user_photo .userFoto img{
+    border: solid 0.1vh black;
+}
+
+
+.user_photo .decoFoto1 {
+    position: absolute;
+    width: 22.5vh;
+    height: auto;
+    z-index: 3;
+}
+.user_photo .decoFoto2 {
+    position: absolute;
+    width: 18vh;
+    height: auto;
+    z-index: 3;
+}
+.user_photo .decoFoto3 {
+    position: absolute;
+    width: 19vh;
+    height: auto;
+    z-index: 3;
+}
+.user_photo .decoFoto4 {
+    position: absolute;
+    width: 17vh;
+    height: auto;
+    z-index: 3;
+}
+.user_photo .decoFoto5 {
+    position: absolute;
+    width: 17.5vh;
+    height: auto;
+    z-index: 3;
+}
+.user_photo .decoFoto6 {
+    position: absolute;
+    width: 16.7vh;
+    height: auto;
+    margin-right: 1.6vh;
+    margin-bottom: 0.5vh;
+    z-index: 3;
+}
+.user_photo .decoFoto7 {
+    position: absolute;
+    width: 18.5vh;
+    height: auto;
+    z-index: 3;
+    margin-right: 0.5vh;
+    margin-bottom: 0.6vh;
+}
+
 .perfil .user_name{
     text-align:center;
     border-bottom:solid 0.3vh black;
 }
-.perfil_links{
+/*.user_info{
+    display:flex;
+    justify-content:flex-start;
+    flex-direction:column;
+    padding-left:1vh;
+}*/
+.perfil_info, .perfil_options{
     display:grid;
     padding:1vh;
     justify-content:center;
+    margin: 0 1vh;
 }
-.perfil_links a,.perfil_links p{
+.perfil_options{
+    border-bottom: solid 0.3vh black;
+}
+.perfil_info a,.perfil_info p, .perfil_options a{
     text-decoration:none;
+    width: 32vh;
+    text-align: start;
     color:black;
     margin: 0.7vh 0;
     padding:0 0.7vh;
     border-radius:7px;
 }
-.perfil_links a:hover{
+.perfil_info a:hover, .perfil_options a:hover{
     background-color:#ffddb1de;
 }
 .perfil_calificacion{

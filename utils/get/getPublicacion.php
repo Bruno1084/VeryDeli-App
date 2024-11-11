@@ -13,6 +13,8 @@ function getPublicacion ($idPublicacion) {
             publicaciones.publicacion_esActivo,
             usuarios.usuario_usuario, 
             usuarios.usuario_localidad,
+            CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
+              CASE WHEN usuarios.usuario_esVerificado = "1" THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto,
             JSON_OBJECT(
                 "origen", JSON_OBJECT(
                     "latitud", ubicacion_origen.ubicacion_latitud,
@@ -32,14 +34,20 @@ function getPublicacion ($idPublicacion) {
             JSON_ARRAYAGG(imagenes.imagen_url) AS imagenes
           FROM 
             publicaciones 
-          JOIN 
+          LEFT JOIN 
             usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
-          JOIN 
+          LEFT JOIN 
             imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
-          JOIN
+          LEFT JOIN
               ubicaciones AS ubicacion_origen ON ubicacion_origen.ubicacion_id = publicaciones.ubicacion_origen
-          JOIN
+          LEFT JOIN
               ubicaciones AS ubicacion_destino ON ubicacion_destino.ubicacion_id = publicaciones.ubicacion_destino
+          LEFT JOIN 
+              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+          LEFT JOIN 
+              userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
+          LEFT JOIN
+              marcos ON marcos.marco_id = userMarcoFoto.marco_id
           WHERE
             publicaciones.publicacion_id = ?;
         ';

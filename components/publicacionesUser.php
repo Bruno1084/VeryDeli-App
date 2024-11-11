@@ -5,7 +5,7 @@ function renderPubsAndComsUser() {
     include_once $_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPubsAndComsFromUser.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 5; //Limite de publicaciones a mostrar
+    $limit = 10; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
     $db = new DB();
@@ -29,21 +29,24 @@ function renderPubsAndComsUser() {
         <?php
             foreach ($pubYcom as $pOc) {
                 if($pOc["tipo"]=="publicacion"){
+                    $foto=array("foto"=>$pOc["usuario_fotoPerfil"],"marco"=>$pOc["usuario_marcoFoto"]);
                     echo renderPublicacionAcotada(
                         $pOc["publicacion_id"],
                         $pOc['usuario_localidad'],
                         $pOc['usuario_usuario'],
-                        "",
+                        $foto,
                         $pOc['publicacion_fecha'],
                         $pOc["publicacion_descr"],
                         $pOc["imagen_url"]
                     );
                 }
                 else{
+                    $foto=array("foto"=>$pOc["usuario_fotoPerfil"],"marco"=>$pOc["usuario_marcoFoto"]);
                     echo renderComentario(
+                        "",
                         $pOc["comentario_id"],
                         $pOc["usuario_usuario"],
-                        "",
+                        $foto,
                         $pOc["comentario_fecha"],
                         $pOc["comentario_mensaje"],
                         true,

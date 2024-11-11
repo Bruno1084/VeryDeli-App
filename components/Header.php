@@ -37,6 +37,10 @@
                                     return "../pages/publicacion.php?id=".$pubId;
                                 }
                             }
+                            function tieneFoto(){
+                                if($_SESSION["fotoPerfil"]==0) return "../assets/user.png";
+                                else return $_SESSION["fotoPerfil"];
+                            }
                             require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllNotificacionesNoVistasFromUsuario.php"); 
                             $notificaciones=getNotificacionesActivasFromUsuario(5); 
                         ?>
@@ -67,7 +71,16 @@
                     <div class="col-auto perfilNav">
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/assets/user.png" class="img-fluid" alt="account">
+                            <?php if($_SESSION["marcoFoto"]==0)
+                                    {
+                                ?>
+                                    <img src="<?php echo tieneFoto() ?>" class="userFoto" alt="account">
+                            <?php   }
+                                    else{
+                                        echo '<div class="fondoFoto"></div><img src="'.$_SESSION["marcoFoto"].'" class="decoFoto'.$_SESSION["marcoFoto"][(strlen($_SESSION["marcoFoto"])-5)].'">';
+                                        echo '<div class="divFoto"><img src="'.tieneFoto().'" alt="user"></div>';
+                                    }
+                                ?>
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="../public/miPerfil.php">Mi Perfil</a>

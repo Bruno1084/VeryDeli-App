@@ -4,31 +4,36 @@ function renderPublicaciones () {
     include_once "../utils/get/getAllPublicacionesActivas.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 5; //Limite de publicaciones a mostrar
+    $limit = 10; //Limite de publicaciones a mostrar
     $offset = ($pagina - 1) * $limit; // Indica desde que indice comenzar
     
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicacionesActivas(5, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones");
+    $publicaciones = getAllPublicacionesActivas($limit, $offset);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones WHERE publicacion_esActivo='1'");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
-
+    $db=null;
+    $conexion=null;
+    $totalPublicacionesStmt=null;
     $userCache = [];
+
+    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getMarcoUser.php");
+    
 ?>
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
                 
                 $userLocation = $p['usuario_localidad'];
-
+                $foto=array("foto"=>$p["usuario_fotoPerfil"],"marco"=>$p["usuario_marcoFoto"]);
                 echo renderPublicacionAcotada(
                     $p["publicacion_id"],
                     $userLocation,
                     $p['usuario_usuario'],
-                    "",
+                    $foto,
                     $p['publicacion_fecha'],
                     $p["publicacion_descr"],
                     $p["imagen_url"]

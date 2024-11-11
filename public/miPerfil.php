@@ -4,6 +4,7 @@
     <?php require($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
     <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/head.php") ?>
     <link rel="stylesheet" href="/css/miPerfil.css">
+    <link rel="stylesheet" href="/css/publicacionAcotada.css">
     <title>Mi Perfil</title>
 </head>
 <body>
@@ -39,11 +40,11 @@
         }
     }
     function esRes($esResponsable){
-        if($esResponsable==1){
-            return "<p>Responsable</p>";
+        if($esResponsable==0){
+            return "<p>No Responsable</p>";
         }
         else{
-            return "<p>No Responsable</p>";
+            return "<p>Responsable</p>";
         }
     }
     function estadoCalif($promedio){
@@ -71,24 +72,39 @@
             return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
         }
     }
-    
             
 ?>
 <section class="col-12 cuerpo">
     <aside class="col-2 perfil shadow border border-dark-subtle rounded">
         <div class="perfil_user">
             <div class="col-12 user_photo">
-                <img class="img-fluid"src="/assets/Logo.png" alt="user">
+            <?php if($_SESSION["marcoFoto"]==0){ ?>
+                    <div class="userFoto">
+                        <img src="<?php echo tieneFoto() ?>" class="userFoto" alt="user">
+                    </div>
+            <?php   }
+                    else{
+                        echo '<div class="fondoFoto"></div><img src="'.$_SESSION["marcoFoto"].'" class="decoFoto'.$_SESSION["marcoFoto"][(strlen($_SESSION["marcoFoto"])-5)].'">';
+                        echo '<div class="divFoto"><img src="'.tieneFoto().'" alt="user"></div>';
+                    }?>
             </div>
             <div class="col-12 user_name">
                 <h4><?php echo $info_usuario['usuario_nombre']; ?></h4>
                 <h4><?php echo $info_usuario['usuario_apellido']; ?></h4>
             </div>
         </div>
-        <div class="perfil_links">
+        <div class="perfil_options">
+            <a href="#">Modificar perfil</a>
+            <?php if($_SESSION["esAdmin"]!=0){?>
+                <a href="#">Verificaciones</a>
+                <a href="#">Denuncias</a>
+        <?php };?>
+            
+        </div>
+        <div class="perfil_info">
             <p>Localidad: <?php echo $info_usuario['usuario_localidad']; ?></p>
             <a href="mailTo:<?php echo $info_usuario['usuario_correo']; ?>"><?php echo $info_usuario['usuario_correo']; ?></a>
-            <?php echo esRes($info_usuario["usuario_esResponsable"])?>
+            <?php echo esRes($_SESSION["esResponsable"])?>
         </div>
         <div class="perfil_calificacion">
             <div class="calificacion_titulo">

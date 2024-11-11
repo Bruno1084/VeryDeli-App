@@ -101,12 +101,6 @@ body{
     border-radius: 8px;
 }
 
-.profilePicture{
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
 
 .publicacion-descripcion{
     text-align: justify;

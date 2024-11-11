@@ -26,7 +26,7 @@ function getAllPublicaciones ($limit = 0, $offset = 0) {
               usuarios.usuario_usuario,
               usuarios.usuario_localidad
           ORDER BY
-              publicaciones.publicacion_fecha DESC;
+              publicaciones.publicacion_fecha DESC
           ";
 
   if ($limit > 0) {
