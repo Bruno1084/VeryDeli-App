@@ -162,7 +162,12 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
       -->
 
     <!-- POSTEAR COMENTARIO -->
-      <?php echo renderPostComentario($username, $profileIcon, $idPublicacion); ?>
+    <?php 
+      require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
+      $user = getUsuario($_SESSION['id']);
+      $username = $user['usuario_usuario'];
+      $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
+      echo renderPostComentario($username, $fYm, $idPublicacion); ?>
 
 
       <!-- COMENTARIOS DE USUARIOS -->
