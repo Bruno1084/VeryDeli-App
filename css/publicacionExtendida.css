@@ -320,3 +320,8 @@ aside{
     margin-bottom: 0.5vh;
 }
 
+.comentarios-container {
+    max-width: 100%;
+    overflow: hidden; 
+}
+
