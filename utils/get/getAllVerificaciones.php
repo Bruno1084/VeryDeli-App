@@ -5,7 +5,7 @@ function getAllVerificaciones() {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT * FROM verificaciones WHERE verificaciones.verificacion_estado=0";
+  $sql = "SELECT * FROM verificaciones WHERE verificacion_estado=0";
   $stmt = $conexion->prepare($sql);
   $stmt->execute();
 

@@ -20,16 +20,12 @@
   <?php 
   require_once("../components/Header.php");
   $verificaciones=getAllVerificaciones();
-  foreach ($verificaciones as $verificacion) {
-      echo "- Verificacion ID - ".$verificacion["verificacion_id"];
-          
-      }
   ?>
   
   <section class="col-12 cuerpo">
     <?php
       foreach ($verificaciones as $verificacion) {
-        renderVerificacion(
+        echo renderVerificacion(
           $verificacion["verificacion_id"],
           $verificacion["verificacion_foto-doc1"],
           $verificacion["verificacion_foto-doc2"],
