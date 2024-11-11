@@ -21,8 +21,6 @@
 <body>
   <?php require_once("../components/Header.php");?>
   <div class="d-flex justify-content-center">
-    <div class="form-rest my-4 col-8"></div>
-  </div>
   <section class="col-12 cuerpo">
     <div class="col-7 contenedor">
         
