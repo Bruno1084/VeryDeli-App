@@ -4,7 +4,7 @@
         <div class="col-12">
             <nav class="navbar navbar-expand-lg">
                 <div class="col-1 logoNav">
-                    <a class="navbar-brand" href="../public/index.php">
+                    <a class="navbar-brand" href="/index.php">
                         <img src="/assets/Logo.png" class="img-fluid" alt="logo">
                     </a>
                 </div>
@@ -83,7 +83,7 @@
                                 ?>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="../public/miPerfil.php">Mi Perfil</a>
+                                <a class="dropdown-item" href="../pages/miPerfil.php">Mi Perfil</a>
                                 <a class="dropdown-item" href="../utils/functions/cerrarSesion.php">Cerrar Sesion</a>
                             </div>
                         </div>
