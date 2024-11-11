@@ -20,7 +20,7 @@
 </head>
 <body>
   <?php require_once("../components/Header.php");?>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center primerDivBody">
   <section class="col-12 cuerpo">
     <div class="col-7 contenedor">
         
