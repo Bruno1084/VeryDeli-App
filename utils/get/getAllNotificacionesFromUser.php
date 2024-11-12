@@ -1,20 +1,21 @@
 <?php
-function getNotificacionesActivasFromUsuario($limit = 0){
+function getAllNotificacionesFromUsuario(){
     require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
 
     $db=new DB();
     $connection=$db->getConnection();
 
-    $sql="SELECT notificacion_mensaje, publicacion_id FROM notificaciones WHERE notificacion_estado = '0' AND usuario_id = ? ";
+    $sql="SELECT notificacion_id,
+                 notificacion_mensaje,
+                 notificacion_fecha,
+                 notificacion_tipo,
+                 publicacion_id
+          FROM notificaciones 
+          WHERE usuario_id = ? ";
     
-    if ($limit > 0) {
-        $sql .= " LIMIT ?";
-    };
-
     $stmt=$connection->prepare($sql);
 
     $stmt->bindParam(1,$_SESSION["id"],PDO::PARAM_INT);
-    $stmt->bindParam(2,$limit,PDO::PARAM_INT);
 
 
     $stmt->execute();
