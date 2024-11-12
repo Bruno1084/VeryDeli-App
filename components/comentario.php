@@ -1,5 +1,5 @@
 <?php
-function renderComentario ($comentarioCount, $comentarioId ,$username, $profileIcon, $comFecha, $commentText, $a=false, $idPub=null) {
+function renderComentario ($comentarioCount, $comentarioId ,$username, $profileIcon, $comFecha, $commentText, $autorComen, $autorPubli, $a=false, $idPub=false) {
 
   ob_start();
 ?>
@@ -48,6 +48,27 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
           <div class="col-6 mt-1 text-end lh-1">
             <p class="comentario-fecha"><?php echo (date('d/m/Y', strtotime($comFecha))) ?></p>
           </div>
+          <?php 
+            if($_SESSION['id'] == $autorComen){
+              echo '
+              <div class="dropdown publicacionExtendida-menuButton-container">
+                <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="#">Modificar comentario</a></li>
+                  <li><a class="dropdown-item" href="#">Eliminar comentario</a></li>
+                </ul>
+              </div>';
+            }
+            elseif($_SESSION["id"]== $autorPubli){
+              echo '
+              <div class="dropdown publicacionExtendida-menuButton-container">
+                <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="#">Denunciar comentario</a></li>
+                </ul>
+              </div>';
+            }
+          ?>
         </div>
         <div class="d-flex">
           <p class='comentario-descripcion col-11'><?php echo $commentText?></p>

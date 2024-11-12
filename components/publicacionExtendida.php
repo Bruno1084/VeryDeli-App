@@ -57,7 +57,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
                 <div class="dropdown publicacionExtendida-menuButton-container">
                   <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Eliminar publicacion</a></li>
                   </ul>
                 </div>';
               }
@@ -95,23 +95,27 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
         <?php  
         if($denunciada==false){?>
       <div><?php
-          $db = new DB();
-          $conexion = $db->getConnection();
-          $db = null;
-          $publicacion = $conexion->query("SELECT publicaciones.publicacion_esActivo FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch(PDO::FETCH_ASSOC); 
-          if ($publicacion['publicacion_esActivo'] != 3){ ?>
-          <button type='button' class='btn btn-gris btn-md' data-bs-target="#modalPostularse<?php echo $idPublicacion ?>" data-bs-toggle="modal">Postularse</button>
-          <?php } else {
-            require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
-            $postulacion = getTransportistaPublicacion($idPublicacion);
-            if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_postulante']) == false) {
-              require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
-              renderCalificarUsuario($idPublicacion);
+          if($_SESSION["id"] != $autor["usuario_autor"]){
+            $db = new DB();
+            $conexion = $db->getConnection();
+            $db = null;
+            $publicacion = $conexion->query("SELECT publicaciones.publicacion_esActivo FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch(PDO::FETCH_ASSOC); 
+            if ($publicacion['publicacion_esActivo'] != 3){ ?>
+            <button type='button' class='btn btn-gris btn-md' data-bs-target="#modalPostularse<?php echo $idPublicacion ?>" data-bs-toggle="modal">Postularse</button>
+            <?php } else {
+              require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
+              require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
+              $postulacion = getTransportistaPublicacion($idPublicacion);
+              if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_postulante']) == false) {
+                require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
+                renderCalificarUsuario($idPublicacion);
+              }
             }
-          }
           $conexion = null;
-          $publicacion = null;?>
+          $publicacion = null;
+          }else{
+            echo '<button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>';
+          }?>
         </div>
   <?php  }
         ?>
@@ -174,8 +178,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
     <?php 
       if($denunciada==false){
         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
-        $user = getUsuario($_SESSION['id']);
-        $username = $user['usuario_usuario'];
+        $username = getUsuario($_SESSION['id'])['usuario_usuario'];
         $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
         echo renderPostComentario($username, $fYm, $idPublicacion); 
       }
@@ -197,7 +200,9 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
             $c["usuario_usuario"],
             $foto,
             $c["comentario_fecha"],
-            $c['comentario_mensaje']
+            $c['comentario_mensaje'],
+            $c["usuario_id"],
+            $autor["usuario_autor"]
           );
           $contadorComentarios++;
         }
