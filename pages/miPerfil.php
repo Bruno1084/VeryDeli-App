@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="perfil_options">
-            <a href="#">Modificar perfil</a>
+            <a href="/pages/modificarPerfil.php">Modificar perfil</a>
             <?php if($_SESSION["esAdmin"]!=0){?>
                 <a href="/pages/verificaciones.php">Verificaciones</a>
                 <a href="#">Denuncias</a>
