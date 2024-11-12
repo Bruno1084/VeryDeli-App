@@ -1,17 +1,19 @@
-<?php require_once($_SERVER["DOCUMENT_ROOT"].'/utils/functions/startSession.php') ?>
+<?php require_once($_SERVER["DOCUMENT_ROOT"] . '/utils/functions/startSession.php') ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
-  <link rel="stylesheet" href="../css/ubicacionEnvio.css">
-  <link rel="stylesheet" href="../css/publicacionAcotada.css">
-  <?php
-    if($_SESSION["esVerificado"]==0) echo '<link rel="stylesheet" href="../css/verificacion.css">';
-  ?>
-  <?php require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); ?>
-  <title>Very Deli</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php") ?>
+    <link rel="stylesheet" href="../css/ubicacionEnvio.css">
+    <link rel="stylesheet" href="../css/publicacionAcotada.css">
+    <?php
+    if ($_SESSION["esVerificado"] == 0) echo '<link rel="stylesheet" href="../css/verificacion.css">';
+    ?>
+    <?php require_once($_SERVER["DOCUMENT_ROOT"] . '/database/conection.php'); ?>
+    <title>Very Deli</title>
 </head>
+
 <body>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php");?>
   <?php require_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
@@ -68,7 +70,7 @@
                       </div>
 
                       <div class="col-md-6 mb-3">
-                        <div class="mb-3">
+                        <div class="mb-3 selectTipo">
                           <select class="form-select" name="tipoBol" id="input-tipo-bol" required>
                             <option selected disabled>Tipo de boleta...</option>
                             <option value="1">Factura de Servicios</option>
@@ -106,7 +108,7 @@
         }
       ?>
 
-      <?php require_once($_SERVER ['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
+      <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/components/nuevaPublicacion.php') ?>
       
       <!-- Imprime todas las publicaciones activas en la base de datos -->
       <?php 
@@ -122,4 +124,5 @@
   <script src="../js/validarReporte.js"></script>
   <script src="../js/postulacion.js"></script>
 </body>
+
 </html>

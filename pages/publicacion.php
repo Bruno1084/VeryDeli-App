@@ -53,7 +53,7 @@
     );
   ?>
 
-  <?php require_once("../components/Footer.php");?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/components/Footer.php");?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php")?>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/postulacion.js"></script>

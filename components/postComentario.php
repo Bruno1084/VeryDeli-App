@@ -10,10 +10,9 @@ function renderPostComentario ($username, $profileIcon, $idPublicacion) {
   ob_start();
 ?>
   <div class='post-comentario border-top border-bottom my-2 py-1 d-flex'>
+    
     <?php obtenerFoto($profileIcon)?>
-    <div class="user-post">
-      <img class='profilePicture' src='<?php echo $profileIcon;?>' alt='user-icon'>
-    </div>
+    
     <div class='dataComentario text-start col-100'>
       <div>
         <p><?php echo $username ?></p>
