@@ -36,7 +36,7 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
   } 
   else{
   ?>
-    <div class='comentario border-top border-bottom my-2 d-flex' id="comentario_<?php echo$comentarioCount; ?> data-id='<?php echo $comentarioId?>'">
+    <div class='comentario border-top border-bottom my-2 d-flex' id="comentario_<?php echo$comentarioCount; ?>" data-id="<?php echo $comentarioId?>">
       
       <?php echo obtenerFoto($profileIcon);?>
       
@@ -51,10 +51,10 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
           <?php 
             if($_SESSION['id'] == $autorComen){
               echo '
-              <div class="dropdown publicacionExtendida-menuButton-container">
+              <div class="dropdown publicacionExtendida-menuButton-container" data-id="autor_'.$autorComen.'" id="menuButton_'.$comentarioCount.'">
                 <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">Modificar comentario</a></li>
+                  <li><a class="dropdown-item" data-id="autor_'.$autorComen.'" onclick="modificarComentario(event)" >Modificar comentario</a></li>
                   <li><a class="dropdown-item" href="#">Eliminar comentario</a></li>
                 </ul>
               </div>';
@@ -70,9 +70,15 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
             }
           ?>
         </div>
-        <div class="d-flex">
-          <p class='comentario-descripcion col-11'><?php echo $commentText?></p>
-          <p class="comentario-hora text-end col-1"><?php echo (date('H:i', strtotime($comFecha))) ?></p>
+        <div>
+          <form class="d-flex" action="/utils/patch/actualizarComentario.php" method="post" id="newComentario<?php echo $comentarioId;?>">
+            <p class='comentario-descripcion col-11' name="newComentario<?php echo $comentarioId;?>"><?php echo $commentText?></p>
+            <div>
+              <p class="comentario-hora text-end col-1"><?php echo (date('H:i', strtotime($comFecha))) ?></p>
+              <input type="submit" name="modificar" onclick="actualizarComentario(event)" class="btn inputHidden" value="Modificar"></input>
+              <p onclick="cancelarActualizar(event)" class="btn inputHidden">Cancelar</p>
+            </div>
+          </form>
         </div>
       </div>
       <?php if($a && $idPub!=null) echo "</a>"; ?>
@@ -80,6 +86,7 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
   <?php
   }
   ?>
+  
 <?php
   return ob_get_clean();
 }
