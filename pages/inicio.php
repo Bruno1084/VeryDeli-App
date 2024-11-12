@@ -40,7 +40,7 @@
             <div class="modal-content bg-modalPublicacion">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="modalVerificarLabel">Verificar identidad</h1>
-                <button type="button" id="cerrarModVerify" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <button type="button" id="cerrarModVerify" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
               </div>
               <div class="modal-body">
                 <form action="/utils/verificar.php" class="form-publicacion form-verificar needs-validation FormularioAjax" method="post" id="formVerificar" novalidate>
