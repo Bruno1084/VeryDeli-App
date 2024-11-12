@@ -16,10 +16,12 @@
 
 <body>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php");?>
+  
+  <div class="primerDivBody">
+
   <?php require_once($_SERVER ['DOCUMENT_ROOT'].'/components/nuevaPublicacion.php') ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php")?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
-  <div class="primerDivBody">
       <?php 
         if($_SESSION["esVerificado"]==0){
       ?>
@@ -115,12 +117,12 @@
         require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicaciones.php");
         echo renderPublicaciones();
       ?>
+  </div>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php"); ?>
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php"); ?>
     <?php
       if($_SESSION["esVerificado"]==0) echo '<script src="../js/verificarUsuario.js"></script>';  
     ?>
-  </div>
   <script src="../js/validarReporte.js"></script>
   <script src="../js/postulacion.js"></script>
 </body>
