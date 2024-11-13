@@ -20,16 +20,15 @@
   <?php 
   require_once("../components/Header.php");
   $verificaciones=getAllVerificaciones();
-  foreach ($verificaciones as $verificacion) {
-      echo "- Verificacion ID - ".$verificacion["verificacion_id"];
-          
-      }
   ?>
+  <div class="d-flex justify-content-center primerDivBody">
   
   <section class="col-12 cuerpo">
+  <aside>
     <?php
       foreach ($verificaciones as $verificacion) {
-        renderVerificacion(
+        
+         echo renderVerificacion(
           $verificacion["verificacion_id"],
           $verificacion["verificacion_foto-doc1"],
           $verificacion["verificacion_foto-doc2"],
@@ -38,12 +37,13 @@
           $verificacion["verificacion_tipo-doc"],
           $verificacion["verificacion_tipo-boleta"],
           $verificacion["verificacion_estado"],
-          $verificacion["usuario_id"],
-        );
+          $verificacion["usuario_id"]
+        ); 
       }
     ?>
     </aside>
   </section>
+  </div>
   <?php require_once("../components/Footer.php");?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php")?>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
