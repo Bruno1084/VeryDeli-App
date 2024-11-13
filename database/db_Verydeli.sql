@@ -37,16 +37,16 @@ CREATE TABLE `vehiculos` (
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_titulo` varchar(500)  NOT NULL ,
-    `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `publicacion_fecha` DATETIME DEFAULT ,
     `publicacion_descr` varchar(500)  NOT NULL ,
-    `publicacion_volumen` float NOT NULL ,
-    `publicacion_peso` float NOT NULL ,
-    `publicacion_nombreRecibe` varchar(100) NOT NULL ,
-    `publicacion_telefono` varchar(15) NOT NULL ,
+    `publicacion_volumen` float  NULL ,
+    `publicacion_peso` float  NULL ,
+    `publicacion_nombreRecibe` varchar(100)  NULL ,
+    `publicacion_telefono` varchar(15)  NULL ,
     `ubicacion_origen` int NOT NULL ,
     `ubicacion_destino` int NOT NULL ,
     `usuario_autor` int  NOT NULL ,
-    `usuario_transportista` int ,
+    `usuario_transportista` int  NULL ,
     `publicacion_esActivo` enum('0','1','2','3')  NOT NULL ,
     PRIMARY KEY (
         `publicacion_id`
@@ -92,9 +92,9 @@ CREATE TABLE `postulaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_postulante` int  NOT NULL ,
     `postulacion_precio` float  NOT NULL ,
-    `postulacion_descr` varchar(500) NOT NULL ,
+    `postulacion_descr` varchar(500)  NULL ,
     `postulacion_fecha` DATETIME DEFAULT ,
-    `postulacion_estado` enum('0', '1', '2') NOT NULL DEFAULT '0' ,
+    `postulacion_estado` enum('0', '1', '2') NOT NULL DEFAULT '0'
     PRIMARY KEY (
         `postulacion_id`
     )
@@ -105,7 +105,7 @@ CREATE TABLE `calificaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_calificado` int  NOT NULL ,
     `usuario_calificador` int  NOT NULL ,
-    `calificacion_puntaje` enum('1', '2', '3', '4', '5') NOT NULL,
+    `calificacion_puntaje` enum(1,2,3,4,5)  NOT NULL ,
     `calificacion_fecha` DATETIME DEFAULT ,
     PRIMARY KEY (
         `calificacion_id`
@@ -123,9 +123,9 @@ CREATE TABLE `administradores` (
 CREATE TABLE `verificaciones` (
     `verificacion_id` INT NOT NULL AUTO_INCREMENT ,
     `verificacion_foto-doc1` VARCHAR(255) NOT NULL ,
-    `verificacion_foto-doc2` VARCHAR(255),
+    `verificacion_foto-doc2` VARCHAR(255) NULL ,
     `verificacion_foto-boleta1` VARCHAR(255) NOT NULL ,
-    `verificacion_foto-boleta2` VARCHAR(255),
+    `verificacion_foto-boleta2` VARCHAR(255) NULL ,
     `verificacion_tipo-doc` enum('1','2','3','4') NOT NULL ,
     `verificacion_tipo-boleta` enum('1','2','3','4') NOT NULL ,
     `verificacion_estado` BOOLEAN NOT NULL DEFAULT '0',
@@ -141,7 +141,7 @@ CREATE TABLE `notificaciones` (
     `notificacion_estado` BOOLEAN NOT NULL ,
     `notificacion_fecha` DATETIME DEFAULT,
     `usuario_id` INT NOT NULL ,
-    `publicacion_id` INT,
+    `publicacion_id` INT NULL,
     PRIMARY KEY (
         `notificacion_id`
     )
