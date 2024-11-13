@@ -1,7 +1,7 @@
 <?php
-function renderPublicaciones () {
-    include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionAcotada.php");
-    include_once ($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllPublicacionesActivas.php");
+function renderPublicacionesDenunciadas () {
+    include_once "../components/publicacionAcotada.php";
+    include_once "../utils/get/getAllPublicacionesDenunciadasPendientes.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10; //Limite de publicaciones a mostrar
@@ -10,8 +10,8 @@ function renderPublicaciones () {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $publicaciones = getAllPublicacionesActivas($limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones LEFT JOIN publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.publicacion_esActivo='1' AND publicaciones_reportadas.publicacion_id IS NULL");
+    $publicaciones = getAllPublicacionesDenunciadasPendientes($limit, $offset);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones JOIN publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicacion_esActivo='1' AND publicaciones_reportadas.publicacion_id IS NOT NULL");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
@@ -26,18 +26,20 @@ function renderPublicaciones () {
     <div class='container-fluid text-center'>
         <?php
             foreach ($publicaciones as $p) {
-                
-                $userLocation = $p['usuario_localidad'];
-                $foto=array("foto"=>$p["usuario_fotoPerfil"],"marco"=>$p["usuario_marcoFoto"]);
-                echo renderPublicacionAcotada(
-                    $p["publicacion_id"],
-                    $userLocation,
-                    $p['usuario_usuario'],
-                    $foto,
-                    $p['publicacion_fecha'],
-                    $p["publicacion_descr"],
-                    $p["imagen_url"]
-                );
+                if($p["usuario_autor"]!=$_SESSION["id"]){
+                    $userLocation = $p['usuario_localidad'];
+                    $foto=array("foto"=>$p["usuario_fotoPerfil"],"marco"=>$p["usuario_marcoFoto"]);
+                    echo renderPublicacionAcotada(
+                        $p["publicacion_id"],
+                        $userLocation,
+                        $p['usuario_usuario'],
+                        $foto,
+                        $p['publicacion_fecha'],
+                        $p["publicacion_descr"],
+                        $p["imagen_url"],
+                        true
+                    );
+                }
             };
         ?>
     </div>

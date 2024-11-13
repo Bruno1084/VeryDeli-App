@@ -234,7 +234,7 @@ function validarPublicacion() {
     event.preventDefault();
     return validado=()=>new Promise((resolve)=>{
       if (validarPublicacion()){
-        $('#modalCrearPublicacion').modal('hide');
+        querySelector('#modalCrearPublicacion .btn-cerrarFormularioPublicacion').click();
         resolve(true);
       }
       else{

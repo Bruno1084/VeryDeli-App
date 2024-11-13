@@ -1,5 +1,5 @@
 <?php
-function getAllPublicacionesFromUsuario ($idUsuario, $limit = 0, $offset = 0) {
+function getAllPublicacionesDenunciadasPendientes($limit = 0, $offset = 0) {
   require_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
   
   $DB = new DB();
@@ -10,20 +10,29 @@ function getAllPublicacionesFromUsuario ($idUsuario, $limit = 0, $offset = 0) {
               publicaciones.publicacion_titulo,
               publicaciones.publicacion_descr,
               publicaciones.publicacion_fecha,
+              publicaciones.usuario_autor,
+              CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
               usuarios.usuario_usuario, 
-              usuarios.usuario_localidad, 
+              usuarios.usuario_localidad,
+              CASE WHEN usuarios.usuario_esVerificado = '1' THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto,
               imagenes.imagen_url
           FROM 
               publicaciones
-          JOIN 
+          LEFT JOIN 
               usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
-          JOIN 
+          LEFT JOIN 
               imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
+          LEFT JOIN 
+              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+          LEFT JOIN 
+              userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
+          LEFT JOIN
+              marcos ON marcos.marco_id = userMarcoFoto.marco_id
           LEFT JOIN
               publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
-          WHERE
-              (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3') AND usuario_autor = ?
-              AND publicaciones_reportadas.publicacion_id IS NULL
+          WHERE 
+              publicaciones.publicacion_esActivo='1'
+              AND publicaciones_reportadas.publicacion_id IS NOT NULL
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,
@@ -41,16 +50,15 @@ function getAllPublicacionesFromUsuario ($idUsuario, $limit = 0, $offset = 0) {
   }
 
   $stmt = $conexion->prepare($sql);
-  
-  $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
 
   if ($limit > 0) {
-    $stmt->bindValue(2, $limit, PDO::PARAM_INT);
+    $stmt->bindValue(1, $limit, PDO::PARAM_INT);
   };
 
   if ($offset > 0){
-    $stmt->bindValue(3, $offset, PDO::PARAM_INT);
+    $stmt->bindValue(2, $offset, PDO::PARAM_INT);
   };
+
   $stmt->execute();
 
   $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
