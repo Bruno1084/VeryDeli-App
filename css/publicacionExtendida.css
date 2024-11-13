@@ -89,12 +89,19 @@ aside{
     text-align: start;
     padding-left: 1vh;
     word-break: break-all;
+    resize: none;
+}
+
+.comentario .publicacionExtendida-menuButton-container ul{
+    transform: translate(-14px, 0px)!important;
 }
 
 .post-comentario .user-post{
     margin: 0.5vh 0;
 }
-
+.comentario .inputHidden{
+    display: none;
+}
 .post-comentario .boton-postC{
     display: flex;
     align-items: flex-end;
@@ -103,6 +110,7 @@ aside{
 .post-comentario .comentario-descripcion{
     resize: none;
     height: 10vh;
+    padding-left: 5px;
 }
 
 .defaultPicture{
