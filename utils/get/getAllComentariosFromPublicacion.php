@@ -7,7 +7,8 @@ function getAllComentariosFromPublicacion ($idPublicacion) {
 
   $sql = "SELECT comentarios.comentario_id, 
                  comentarios.comentario_mensaje, 
-                 comentarios.comentario_fecha, 
+                 comentarios.comentario_fecha,
+                 comentarios.usuario_id,
                  usuarios.usuario_usuario,
                  CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
                  CASE WHEN usuarios.usuario_esVerificado = '1' THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto
