@@ -31,8 +31,8 @@
                         <?php
                             function tipoNotify($notify){
                                 switch($notify["notificacion_tipo"]){
-                                    case 2: return "/public/miPerfil.php";
-                                    default: return "/pages/publicacion.php?id=".$notify["publicacion_id"];
+                                    case 3: return "../public/miPerfil.php";
+                                    default: return "../pages/publicacion.php?id=".$notify["publicacion_id"];
                                 }
                             }
                             function tieneFoto(){
@@ -50,16 +50,16 @@
                                     <?php 
                                         if(sizeof($notificaciones)>0){
                                             foreach($notificaciones as $notify){?>
-                                                <a class="dropdown-item" href=<?php echo tipoNotify($notify)?>><?php if(strlen($notify["notificacion_mensaje"])>25) echo str_split($notify["notificacion_mensaje"],23)[0]."...";else echo $notify["notificacion_mensaje"]; ?></a>
+                                                <a class="dropdown-item" href=<?php echo tipoNotify($notify)?>><?php echo $notify["notificacion_mensaje"] ?></a>
                                     <?php   }?>
                                                 <hr class="dropdown-divider">
-                                                <a class="dropdown-item" href="/pages/notificaciones.php">Ver mas</a>
+                                                <a class="dropdown-item" href="../pages/notificaciones.php">Ver mas</a>
                                 <?php   }
                                         else{
                                     ?>
                                             <p class="dropdown-item">Ninguna novedad</p>
                                             <hr class="dropdown-divider">
-                                            <a class="dropdown-item" href="/pages/notificaciones.php">Ver Todo</a>
+                                            <a class="dropdown-item" href="../pages/notificaciones.php">Ver Todo</a>
                                     <?php
                                         }
                                     ?>

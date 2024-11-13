@@ -1,21 +1,10 @@
 .notificaciones{
-    min-height: 55vh;
+    margin-top: 10vh;
     display: flex;
     justify-content: center;
+    min-height: 50vh;
 }
 
 .notiLeido{
-    background-color: #e8e8e8;
-}
-.notificacion .mensaje:hover{
-    background-color: #cecece;
-}
-.notificacion .botones p{
-    margin: 0;
-}
-.notificacion .botones p:hover{
-    background-color: #cecece;
-}
-.notificacion a p{
-    word-break: break-all;
+    background-color: #929292;
 }

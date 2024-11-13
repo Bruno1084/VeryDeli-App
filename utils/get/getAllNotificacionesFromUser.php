@@ -9,7 +9,6 @@ function getAllNotificacionesFromUsuario(){
                  notificacion_mensaje,
                  notificacion_fecha,
                  notificacion_tipo,
-                 notificacion_estado,
                  publicacion_id
           FROM notificaciones 
           WHERE usuario_id = ? ";
