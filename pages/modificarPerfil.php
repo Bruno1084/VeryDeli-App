@@ -4,6 +4,7 @@
     <?php require($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
     <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/head.php") ?>
 </head>
+<script src="/js/ajax.js"></script>
 <body>
 <?php
     require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");
@@ -16,7 +17,7 @@
     <div class="form-rest my-4 p-3 col-12 col-md-8"></div>
   </div>
 <div class="container py-3 mt-2">
-            <form class="form-registrarse FormularioAjax" action="/utils/actualizarUsuario.php" method="post">
+            <form class="form-registrarse form-update-user FormularioAjax" action="/utils/actualizarUsuario.php" method="post">
               <input type="hidden" value="<?= $_SESSION['id'] ?>" name="usuario_id" required>
                 <div class="row justify-content-center">
                     <div class="form-group col-12 col-md-5 mb-3">
@@ -64,7 +65,7 @@
                         </div>
                         <div class="form-group col-12 col-md-5 mb-3">
                             <label>Clave</label>
-                            <input class="form-control bg-input" type="password" name="contraseña_confirm" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
+                            <input class="form-control bg-input" type="password" name="contraseña_confirm" pattern="[a-zA-Z0-9$@.\-]{7,100}" maxlength="100" required>
                         </div>
                 </div>
 
@@ -75,5 +76,19 @@
                 </div>
             </form>
 </div>
-
-<script src="/js/ajax.js"></script>
+<script>
+    (() => {
+    const form = document.querySelector('.form-update-user');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        return validado=()=>new Promise((resolve)=>{
+        if (1==1){
+            resolve(true);
+        }
+        else{
+            resolve(false);
+        }
+        });
+    }, false);
+    })();
+</script>
