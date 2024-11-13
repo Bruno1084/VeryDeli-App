@@ -8,7 +8,7 @@ CREATE TABLE `usuarios` (
     `usuario_usuario` varchar(65) UNIQUE NOT NULL, 
     `usuario_contraseña` varchar(255)  NOT NULL ,
     `usuario_esResponsable` tinyint(1)  NOT NULL ,
-    `usuario_esActivo` tinyint(1)  NOT NULL DEFAULT '1',
+    `usuario_esActivo` tinyint(1)  NOT NULL ,
     PRIMARY KEY (
         `usuario_id`
     )
@@ -37,7 +37,7 @@ CREATE TABLE `vehiculos` (
 CREATE TABLE `publicaciones` (
     `publicacion_id` int AUTO_INCREMENT NOT NULL ,
     `publicacion_titulo` varchar(500)  NOT NULL ,
-    `publicacion_fecha` DATETIME ,
+    `publicacion_fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `publicacion_descr` varchar(500)  NOT NULL ,
     `publicacion_volumen` float NOT NULL ,
     `publicacion_peso` float NOT NULL ,
@@ -80,7 +80,7 @@ CREATE TABLE `comentarios` (
     `publicacion_id` int  NOT NULL ,
     `usuario_id` int  NOT NULL ,
     `comentario_mensaje` varchar(500)  NOT NULL ,
-    `comentario_fecha` DATETIME ,
+    `comentario_fecha` DATETIME DEFAULT ,
     `comentario_esActivo` tinyint(1) NOT NULL,
     PRIMARY KEY (
         `comentario_id`
@@ -92,9 +92,9 @@ CREATE TABLE `postulaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_postulante` int  NOT NULL ,
     `postulacion_precio` float  NOT NULL ,
-    `postulacion_descr` varchar(500)  NULL ,
-    `postulacion_fecha` DATETIME ,
-    `postulacion_estado` enum('0', '1', '2') NOT NULL DEFAULT '0'
+    `postulacion_descr` varchar(500) NOT NULL ,
+    `postulacion_fecha` DATETIME DEFAULT ,
+    `postulacion_estado` enum('0', '1', '2') NOT NULL DEFAULT '0' ,
     PRIMARY KEY (
         `postulacion_id`
     )
@@ -105,8 +105,8 @@ CREATE TABLE `calificaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_calificado` int  NOT NULL ,
     `usuario_calificador` int  NOT NULL ,
-    `calificacion_puntaje` enum('1','2','3','4','5')  NOT NULL ,
-    `calificacion_fecha` DATETIME ,
+    `calificacion_puntaje` enum('1', '2', '3', '4', '5') NOT NULL,
+    `calificacion_fecha` DATETIME DEFAULT ,
     PRIMARY KEY (
         `calificacion_id`
     )
@@ -139,7 +139,7 @@ CREATE TABLE `notificaciones` (
     `notificacion_id` INT NOT NULL AUTO_INCREMENT ,
     `notificacion_mensaje` VARCHAR(255) NOT NULL ,
     `notificacion_estado` BOOLEAN NOT NULL ,
-    `notificacion_fecha` DATETIME ,
+    `notificacion_fecha` DATETIME DEFAULT,
     `usuario_id` INT NOT NULL ,
     `publicacion_id` INT,
     PRIMARY KEY (

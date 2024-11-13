@@ -19,12 +19,12 @@ function obtenerFoto($fYm){
             </div>';
   }
 }
-function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen, $denunciada=false) {
+function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
   ob_start();
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
-  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?><?php if($denunciada==true)echo "&denuncia=true";?>'>
+  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?>'>
     <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-<?php echo $idPublicacion; ?>_A'>
       <div class='d-flex col-6 mt-1 text-start lh-1 datosUsuario'>
         
