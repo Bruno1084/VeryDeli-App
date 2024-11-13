@@ -101,8 +101,12 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
             <?php } else {
               require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
               require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
+              require_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
+              $db = new DB();
+              $conexion = $db->getConnection();
+              $estadoPublicacion = $conexion->query("SELECT publicacion_esActivo FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch();
               $postulacion = getTransportistaPublicacion($idPublicacion);
-              if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_postulante']) == false) {
+              if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_transportista']) == false AND $estadoPublicacion['publicacion_esActivo'] == '3') {
                 require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
                 renderCalificarUsuario($idPublicacion);
               }
