@@ -236,7 +236,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
           <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion(<?php echo $idPublicacion ?>)">
             <div class="row">
               <div class="col-12">
-                <input type="number" step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="Monto">
+                <input type="number" step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="$0.00">
                 <div class="invalid-feedback" id="invalid-monto<?php echo $idPublicacion ?>"></div>
               </div>
             </div>
