@@ -1,10 +1,11 @@
+<?php require($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
     <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/head.php") ?>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </head>
-<script src="/js/ajax.js"></script>
 <body>
 <?php
     require_once($_SERVER['DOCUMENT_ROOT']."/components/Header.php");
@@ -17,12 +18,12 @@
     <div class="form-rest my-4 p-3 col-12 col-md-8"></div>
   </div>
 <div class="container py-3 mt-2">
-            <form class="form-registrarse form-update-user FormularioAjax" action="/utils/actualizarUsuario.php" method="post">
-              <input type="hidden" value="<?= $_SESSION['id'] ?>" name="usuario_id" required>
+            <form method="post" id="form-Actualizar" class="formulario-registro form-update-user FormularioAjax" action="/utils/actualizarUsuario.php">
+              <input type="hidden" value="<?= $_SESSION['id'] ?>" name="usuario_id" id="usuario_id">
                 <div class="row justify-content-center">
                     <div class="form-group col-12 col-md-5 mb-3">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control bg-input" id="nombre" name="nombre" required value="<?= $datos['usuario_nombre'] ?>">
+                        <input type="text" class="form-control bg-input" id="nombre" name="nombre" value="<?= $datos['usuario_nombre'] ?>" required>
                     </div>
                     <div class="form-group col-12 col-md-5 mb-3">
                         <label for="apellido">Apellido</label>
@@ -71,14 +72,17 @@
 
                 <div class="row justify-content-center my-3">
                     <div class="col-12 col-md-5 text-center">
-                        <button type="submit" class="btn btn-amarillo btn-block w-100">Actualizar</button>
+                      <input type="submit" id="btn-enviar" form="form-Actualizar" class="btn btn-amarillo"></input>
                     </div>
                 </div>
             </form>
 </div>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php") ?>
+<script src="/js/ajax.js"></script>
 <script>
     (() => {
-    const form = document.querySelector('.form-update-user');
+    const form = document.querySelector('.formulario-registro');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         return validado=()=>new Promise((resolve)=>{
@@ -92,3 +96,5 @@
     }, false);
     })();
 </script>
+</body>
+</html>
