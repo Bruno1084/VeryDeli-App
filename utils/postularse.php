@@ -90,7 +90,7 @@
       if($correoAutor!=false&&$correoAutor!=null)enviarEmailNotificacion($correoAutor,$mensaje);
       $stmt=null;
       $conexion = null;
-      manejarError('true', "Postulacion Realizada", 'Postulacion registrada con exito', '/index.php?#');
+      manejarError('true', "Postulacion Realizada", 'Postulacion registrada con exito');
     } else {
       $stmtPostularse = null;
       $conexion = null;
