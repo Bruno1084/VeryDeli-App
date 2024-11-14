@@ -30,6 +30,7 @@ function renderDenunciasPendientes () {
                     echo renderPublicacionAcotada(
                         $pOc["publicacion_id"],
                         $pOc['usuario_localidad'],
+                        $pOc["usuario_id"],
                         $pOc['usuario_usuario'],
                         $foto,
                         $pOc['reporte_fecha'],
