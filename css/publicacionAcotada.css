@@ -1,12 +1,17 @@
 /*foto perfil*/
-.datosUsuario{
+.datosUsuario {
     padding-left: 0;
 }
 
+.usuario-calificacion img {
+    position: relative;
+    width: 80px;
+    height: 19px;
+    object-fit: cover;
+    margin-left: 10px;
+}
 
-
-
-.defaultPicture{
+.defaultPicture {
     width: 8vh;
     height: 8vh;
     background-color: #fff;
@@ -18,7 +23,7 @@
     justify-content: center;
 }
 
-.defaultPicture img{
+.defaultPicture img {
     border: solid 0.1vh black;
     border-radius: 50%;
     width: 8vh;
@@ -26,7 +31,7 @@
     padding: 0;
 }
 
-.profilePicture{
+.profilePicture {
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -37,7 +42,7 @@
     align-content: center;
 }
 
-.profilePicture button{
+.profilePicture button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +51,7 @@
     height: 10vh;
 }
 
-.profilePicture .divFoto{
+.profilePicture .divFoto {
     position: relative;
     display: flex;
     width: 8vh;
@@ -56,7 +61,7 @@
     justify-content: center;
 }
 
-.profilePicture .divFoto img{
+.profilePicture .divFoto img {
     border-radius: 50%;
     position: relative;
     z-index: 2;
@@ -64,21 +69,21 @@
     height: 8vh;
 }
 
-.profilePicture .fondoFoto{
+.profilePicture .fondoFoto {
     position: absolute;
 }
 
-.profilePicture .userFoto, .profilePicture .fondoFoto{
+.profilePicture .userFoto,
+.profilePicture .fondoFoto {
     background-color: #fff;
     border-radius: 50%;
     width: 8vh;
     height: 8vh;
 }
-.profilePicture .userFoto{
+
+.profilePicture .userFoto {
     border: solid 0.1vh black;
 }
-
-
 
 .profilePicture .decoFoto1 {
     position: absolute;

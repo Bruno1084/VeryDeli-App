@@ -1,22 +1,22 @@
 <?php
     function estadoCalif($calificacion){
       if($calificacion == 1){
-          return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(1).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
       }
       else if($calificacion == 2){
-          return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(2).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
       }
       else if($calificacion == 3){
-          return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(3).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
       }
       else if($calificacion == 4){
-          return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(4).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
       }
       else if($calificacion == 5){
-          return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(5).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
       }
       else{
-          return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(0).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
       }
     }
 
