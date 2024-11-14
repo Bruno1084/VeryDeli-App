@@ -14,6 +14,8 @@ $sql="  SELECT denuncias_reportadas.*
         WHERE denuncias_reportadas.reporte_activo='1'
         AND publicaciones.usuario_autor IS NULL
         AND comentarios.usuario_id IS NULL
+        GROUP BY denuncias_reportadas.publicacion_id,
+                 denuncias_reportadas.comentario_id
         ORDER BY denuncias_reportadas.reporte_fecha ASC
     ";
 
