@@ -33,6 +33,7 @@ function renderPubsAndComsUser() {
                     echo renderPublicacionAcotada(
                         $pOc["publicacion_id"],
                         $pOc['usuario_localidad'],
+                        $_SESSION['id'],
                         $pOc['usuario_usuario'],
                         $foto,
                         $pOc['publicacion_fecha'],
