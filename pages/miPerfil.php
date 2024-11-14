@@ -17,6 +17,7 @@
     include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getAllPostulacionFromUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getAVGCalificacionesFromUsuario.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . "/components/publicacionesUser.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/functions/funcionesCalificaciones.php");
     ?>
     <?php
     $info_usuario = getUsuario($_SESSION["id"]);
@@ -48,29 +49,9 @@
         } else {
             return "<p>Responsable</p>";
         }
-    }
-    function estadoCalif($promedio)
-    {
-        if ($promedio != false) {
-            $promedio = $promedio["calificacion_promedio"];
-            if ($promedio >= 1 && $promedio < 2) {
-                return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
-            } else if ($promedio >= 2 && $promedio < 3) {
-                return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
-            } else if ($promedio >= 3 && $promedio < 4) {
-                return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
-            } else if ($promedio >= 4 && $promedio < 5) {
-                return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
-            } else if ($promedio >= 5 && $promedio < 6) {
-                return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
-            } else {
-                return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
-            }
-        } else {
-            return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
-        }
-    }
+    };
 
+    
     ?>
     <section class="col-12 cuerpo">
         <aside class="col-2 perfil shadow border border-dark-subtle rounded">
@@ -108,7 +89,6 @@
                     <h3>Calificacion</h3>
                 </div>
                 <div class="calificacion_puntaje">
-
                     <?php echo estadoCalif($promedio) ?>
                 </div>
             </div>
