@@ -13,6 +13,7 @@ function getAllPublicacionesActivas($limit = 0, $offset = 0)
                     publicaciones.publicacion_fecha,
                     CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
                     usuarios.usuario_usuario, 
+                    usuarios.usuario_id,
                     usuarios.usuario_localidad,
                     CASE WHEN usuarios.usuario_esVerificado = '1' THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto,
                     imagenes.imagen_url
