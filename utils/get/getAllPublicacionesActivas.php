@@ -28,10 +28,10 @@ function getAllPublicacionesActivas($limit = 0, $offset = 0) {
           LEFT JOIN
               marcos ON marcos.marco_id = userMarcoFoto.marco_id
           LEFT JOIN
-              publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
+              denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
           WHERE 
               publicaciones.publicacion_esActivo='1'
-              AND publicaciones_reportadas.publicacion_id IS NULL
+              AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,
