@@ -1,8 +1,8 @@
 <?php
-function renderPubsAndComsUser() {
+function renderDenunciasPendientes () {
     include_once $_SERVER["DOCUMENT_ROOT"]."/components/publicacionAcotada.php";
-    require_once($_SERVER["DOCUMENT_ROOT"]."/components/comentario.php");
-    include_once $_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPubsAndComsFromUser.php";
+    include_once $_SERVER["DOCUMENT_ROOT"]."/components/comentario.php";
+    include_once $_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllDenunciasPendientes.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10; //Limite de publicaciones a mostrar
@@ -11,19 +11,16 @@ function renderPubsAndComsUser() {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $pubYcom = getAllPubsAndComsFromUser($_SESSION["id"],$limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
-    $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
-    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
-    $totalComentarios = $totalComentariosStmt->fetchColumn();
-    $paginasTotales = ceil(($totalComentarios+$totalPublicaciones) / $limit);
-    
+    $pubYcom = getAllDenunciasPendientes($limit, $offset);
+    $totalDenunciasPendientesStmt = $conexion->query("SELECT COUNT(*) FROM denuncias_reportadas WHERE denuncias_reportadas.reporte_activo='1'");
+    $totalDenunciasPendientes = $totalDenunciasPendientesStmt->fetchColumn();
+    $paginasTotales = ceil($totalDenunciasPendientes / $limit);
+    ob_start();
     $db=null;
     $conexion=null;
-    
-    ob_start();
-    
+    $totalDenunciasPendientesStmt=null;
     $userCache = [];
+    
 ?>
     <div class='container-fluid text-center'>
         <?php
@@ -35,9 +32,10 @@ function renderPubsAndComsUser() {
                         $pOc['usuario_localidad'],
                         $pOc['usuario_usuario'],
                         $foto,
-                        $pOc['publicacion_fecha'],
+                        $pOc['reporte_fecha'],
                         $pOc["publicacion_descr"],
-                        $pOc["imagen_url"]
+                        $pOc["imagen_url"],
+                        true
                     );
                 }
                 else{
@@ -47,10 +45,10 @@ function renderPubsAndComsUser() {
                         $pOc["comentario_id"],
                         $pOc["usuario_usuario"],
                         $foto,
-                        $pOc["comentario_fecha"],
+                        $pOc["reporte_fecha"],
                         $pOc["comentario_mensaje"],
-                        $_SESSION["id"],
-                        false,
+                        $pOc["usuario_id"],
+                        true,
                         true,
                         $pOc["publicacion_id"]
                     );

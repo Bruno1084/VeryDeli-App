@@ -7,9 +7,10 @@ function getTransportistaPublicacion ($idPublicacion) {
     $sql = "SELECT publicaciones.*, postulaciones.*
             FROM publicaciones
             JOIN postulaciones ON postulaciones.usuario_postulante = publicaciones.usuario_transportista
+            AND postulaciones.publicacion_id=publicaciones.publicacion_id
             WHERE publicaciones.publicacion_id = ? 
             AND publicaciones.usuario_transportista IS NOT NULL
-            AND postulaciones.postulacion_estado = '2' ";
+            AND postulaciones.postulacion_estado = '2'";
     $stmt = $conexion->prepare($sql);
     $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
     $stmt->execute();

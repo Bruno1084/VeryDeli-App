@@ -146,14 +146,16 @@ CREATE TABLE `notificaciones` (
         `notificacion_id`
     )
 );
-CREATE TABLE `publicaciones_reportadas` (
+CREATE TABLE `denuncias_reportadas` (
     `reporte_id` int AUTO_INCREMENT NOT NULL ,
-    `publicacion_id` int  NOT NULL ,
+    `publicacion_id` int NULL ,
+    `comentario_id` int NULL ,
     `usuario_autor` int  NOT NULL ,
     `reporte_motivo` varchar(30)  NOT NULL ,
     `reporte_mensaje` varchar(255) NULL ,
     `reporte_fecha` DATETIME DEFAULT ,
-    `reporte_activo` tinyint(1) DEFAULT 1 NOT NULL,
+    `reporte_activo` enum('1','2','3') DEFAULT 1 NOT NULL,
+    `adminResponsable_id` int NULL
     PRIMARY KEY (
         `reporte_id`
     )
@@ -239,11 +241,17 @@ REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `notificaciones` ADD CONSTRAINT `fk_notificaciones_publicacion_id` FOREIGN KEY (`publicacion_id`)
 REFERENCES `publicaciones`(`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `publicaciones_reportadas` ADD CONSTRAINT `fk_publicaciones_reportadas_publicacion_id` FOREIGN KEY(`publicacion_id`)
-REFERENCES `publicaciones` (`publicacion_id`);
+ALTER TABLE `denuncias_reportadas` ADD CONSTRAINT `fk_denuncias_reportadas_publicacion_id` FOREIGN KEY(`publicacion_id`)
+REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `publicaciones_reportadas` ADD CONSTRAINT `fk_publicaciones_reportadas_usuario_autor` FOREIGN KEY(`usuario_autor`)
-REFERENCES `usuarios` (`usuario_id`);
+ALTER TABLE `denuncias_reportadas` ADD CONSTRAINT `fk_denuncias_reportadas_comentario_id` FOREIGN KEY(`comentario_id`)
+REFERENCES `comentarios` (`comentario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `denuncias_reportadas` ADD CONSTRAINT `fk_denuncias_reportadas_usuario_autor` FOREIGN KEY(`usuario_autor`)
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `denuncias_reportadas` ADD CONSTRAINT `fk_denuncias_reportadas_adminResponsable_id` FOREIGN KEY(`adminResponsable_id`)
+REFERENCES `administradores` (`administrador_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `fotosPerfil` ADD CONSTRAINT `fk_fotosPerfil_usuario_id` FOREIGN KEY (`usuario_id`) 
 REFERENCES `usuarios`(`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -284,8 +292,14 @@ ON `calificaciones` (`usuario_calificado`);
 CREATE INDEX `idx_calificaciones_usuario_calificador`
 ON `calificaciones` (`usuario_calificador`);
 
-CREATE INDEX `idx_publicaciones_reportadas_usuario_autor`
-ON `publicaciones_reportadas` (`usuario_autor`);
+CREATE INDEX `idx_denuncias_reportadas_usuario_autor`
+ON `denuncias_reportadas` (`usuario_autor`);
 
-CREATE INDEX `idx_publicaciones_reportadas_publicacion_id`
-ON `publicaciones_reportadas` (`publicacion_id`);
+CREATE INDEX `idx_denuncias_reportadas_adminResponsable_id`
+ON `denuncias_reportadas` (`adminResponsable_id`);
+
+CREATE INDEX `idx_denuncias_reportadas_publicacion_id`
+ON `denuncias_reportadas` (`publicacion_id`);
+
+CREATE INDEX `idx_denuncias_reportadas_comentario_id`
+ON `denuncias_reportadas` (`comentario_id`);

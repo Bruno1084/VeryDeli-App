@@ -13,13 +13,13 @@
     <?php
         if($_SESSION["esAdmin"]==1){
     ?>
-        <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/publicacionesDenunciadas.php")?>
+        <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/denunciasPendientes.php")?>
         <?php require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllUsuarios.php")?>
 
-        <!-- Imprime todas las publicaciones Denunciadas y activas en la base de datos -->
+        <!-- Imprime todas las Denuncias activas en la base de datos -->
 
         <?php 
-        echo renderPublicacionesDenunciadas();
+        echo renderDenunciasPendientes();
         ?>
         
         <?php
@@ -28,10 +28,8 @@
   </div>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php"); ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php"); ?>
-  <?php
-    if($_SESSION["esVerificado"]==0) echo '<script src="../js/verificarUsuario.js"></script>';  
-  ?>
-  <script src="../js/validarReporte.js"></script>
-  <script src="../js/postulacion.js"></script>
+  
+  
+  
 </body>
 </html>
