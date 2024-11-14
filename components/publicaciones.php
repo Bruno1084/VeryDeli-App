@@ -11,7 +11,7 @@ function renderPublicaciones () {
     $conexion = $db->getConnection();
 
     $publicaciones = getAllPublicacionesActivas($limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones LEFT JOIN publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.publicacion_esActivo='1' AND publicaciones_reportadas.publicacion_id IS NULL");
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.publicacion_esActivo='1' AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
@@ -19,8 +19,6 @@ function renderPublicaciones () {
     $conexion=null;
     $totalPublicacionesStmt=null;
     $userCache = [];
-
-    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getMarcoUser.php");
     
 ?>
     <div class='container-fluid text-center'>

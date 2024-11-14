@@ -12,9 +12,9 @@ function renderPubsAndComsUser() {
     $conexion = $db->getConnection();
 
     $pubYcom = getAllPubsAndComsFromUser($_SESSION["id"],$limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$_SESSION["id"]." AND publicaciones_reportadas.publicacion_id IS NULL");
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
-    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$_SESSION["id"]." AND publicaciones_reportadas.publicacion_id IS NULL");
+    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
     $totalComentarios = $totalComentariosStmt->fetchColumn();
     $paginasTotales = ceil(($totalComentarios+$totalPublicaciones) / $limit);
     
@@ -49,6 +49,8 @@ function renderPubsAndComsUser() {
                         $foto,
                         $pOc["comentario_fecha"],
                         $pOc["comentario_mensaje"],
+                        $_SESSION["id"],
+                        false,
                         true,
                         $pOc["publicacion_id"]
                     );

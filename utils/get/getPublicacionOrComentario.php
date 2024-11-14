@@ -32,11 +32,11 @@ function getPublicacionOrComentario($pubOcom){
                 LEFT JOIN
                     marcos ON marcos.marco_id = userMarcoFoto.marco_id
                 LEFT JOIN
-                    publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
+                    denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
                 WHERE
                     (publicaciones.publicacion_esActivo="1" OR publicaciones.publicacion_esActivo="2" OR publicaciones.publicacion_esActivo="3") 
                     AND publicaciones.publicacion_id = ?
-                    AND publicaciones_reportadas.publicacion_id IS NULL
+                    AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo="3" )
                 ';
             $stmt=$conexion->prepare($sql);
             $stmt->bindValue(1,$pubOcom["id"]);
@@ -82,10 +82,10 @@ function getPublicacionOrComentario($pubOcom){
                 LEFT JOIN
                     marcos ON marcos.marco_id = userMarcoFoto.marco_id
                 LEFT JOIN
-                    publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = comentarios.publicacion_id
+                    denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id
                 WHERE
                     comentarios.comentario_esActivo="1" AND comentarios.comentario_id = ?
-                    AND publicaciones_reportadas.publicacion_id IS NULL
+                    AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo="3" )
                 ';
             $stmt=$conexion->prepare($sql);
             $stmt->bindValue(1,$pubOcom["id"]);
