@@ -1,5 +1,8 @@
 <?php
     function estadoCalif($calificacion){
+      if(is_array($calificacion)){
+        $calificacion = round($calificacion['calificacion_promedio']);
+      }
       if($calificacion == 1){
           return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
       }
@@ -23,15 +26,29 @@
     function renderCalificaciones($calificaciones){
       echo '
         <style>
-        .tabla-calif td, .tabla-calif th {
-            vertical-align: middle;
-            text-align: center;
-        }
-        .rating-stars {
-            justify-content: center;
-        }
-        </style>
-
+    .tabla-calif td, .tabla-calif th {
+        vertical-align: middle;
+        text-align: center;
+        padding: 4px; 
+    }
+    .rating-stars {
+        justify-content: center;
+        font-size: 1.5rem; 
+    }
+    .rating-stars svg {
+        width: 14px; 
+        height: 14px;
+    }
+    .container {
+        max-width: 800px; 
+        heigth: 600px;
+        margin: 0 auto;
+    }
+    
+    table tr {
+      heigth: 100px;
+    }
+</style>
         <div class="container">
           <table class="table table-bordered table-hover tabla-calif">
             <thead class="table-dark">
