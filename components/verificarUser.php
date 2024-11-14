@@ -16,25 +16,34 @@ function renderVerificacion(
   $usuario=getUsuario($usuarioid);
   ob_start();
 ?>
-    <section class="col-12 cuerpo">
-        <aside class="col-2 perfil shadow border border-dark-subtle rounded">
-            <div class="perfil_user">
-                <div class="col-12 user_name">
-                    <h4>Verificacion</h4>
-                    <h6><?php echo "Usuario:".$usuario["usuario_nombre"]; ?></h6>
-                     <h6><?php echo "Localidad:".$usuario["usuario_localidad"]; ?></h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                
+                <div class="VerificacionCard">
+                    <!-- Tarjeta Verificacion -->
+                    <div class="profile-section">
+                        <img src="/assets/user.png" alt="Foto de perfil" class="profile-image">
+                        <span class="user-name"><?php echo "Usuario:".$usuario["usuario_nombre"]; ?></span>
+                        <?php   
+                                if($estado==0){
+                                echo "<h6>Estado:Sin Verificar</h6>";    
+                                }   
+                        ?> 
+                        <spam><?php echo "Localidad:".$usuario["usuario_localidad"];?></spam>
+                    </div>
+                    <!-- Foto DNI del usuario -->
+                    <div class="id-section">
+                        <img src="/assets/Very.png" alt="Foto DNI" class="id-image">
+                        <div class="button-section">
+                            <button class="btn btn-accept">Aceptar</button>
+                            <button class="btn btn-reject">Rechazar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="perfil_info">
-                <?php 
-                    if($estado=0){
-                        echo "<p>Estado: sin verificar</p>";
-                    }
-                ?>
-                
-            </div>
-        </aside>
-    </section>
+        </div>
+    </div>    
 <?php
   return ob_get_clean();
 }

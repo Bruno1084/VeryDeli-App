@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");?>
-  <link rel="stylesheet" href="../css/publicacionExtendida.css">
+  <link rel="stylesheet" href="../css/verificacion.css">
   <link rel="stylesheet" href="/css/miPerfil.css">
   <?php 
 
@@ -20,9 +20,7 @@
   <?php 
   require_once("../components/Header.php");
   $verificaciones=getAllVerificaciones();
-   var_dump($verificaciones)
   ?>
-  
   <section class="col-12 cuerpo">
   <aside>
     <?php
