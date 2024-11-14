@@ -18,4 +18,3 @@ function getAllPostulacionesFromPublicacion ($idPublicacion) {
 
   return $postulaciones;
 };
-?>
