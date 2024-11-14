@@ -12,8 +12,9 @@
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAutorPublicacion.php");
   require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
+
   ?>
-  
+   <script src="/js/cambiarEstado.js"></script>
   <title>Very Deli</title>
 </head>
 <body>
@@ -34,6 +35,27 @@
       $imagenes = json_decode($publicacion['imagenes']);
   
       $ubicaciones = json_decode($publicacion["ubicaciones"]);
+      
+      if($publicacion['publicacion_esActivo'] == "3"){
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+        if ($_SESSION['id'] == $publicacion['usuario_transportista']) {
+          $calificaciones = getCalificacionesFromPublicacion($_GET['id']);
+          if(!empty($calificaciones)){
+            $calificacionTransportista = [];
+            foreach($calificaciones as $calificacion){
+              if($calificacion['usuario_calificado'] == $_SESSION['id']){
+                $calificacionTransportista[] = $calificacion;
+              }
+            }
+            if(!empty($calificacionTransportista)) {
+              renderCalificaciones($calificacionTransportista);
+            }
+          } 
+        }
+      }
+      
+
       if($_SESSION['id'] == $autor['usuario_autor']){
         echo renderPostulaciones($publicacion['publicacion_id']);
       }
@@ -209,7 +231,7 @@
   <script src="/js/postulacion.js"></script>
   <script src="/js/ajax.js"></script>
   <script src="/js/validarReporte.js"></script>
-  <script src="/js/cambiarEstado.js"></script>
+ 
   <script src="/js/validarCalificacion.js"></script>
   <script src="/js/finalizarPublicacion.js"></script>
 </body>

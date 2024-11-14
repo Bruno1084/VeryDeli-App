@@ -108,7 +108,7 @@ if(trim($contraseña) != ""){
 
 $actualizarUsuario = $conexion->prepare(
   "UPDATE usuarios 
-          SET usuario_nombre=?, usuario_apellido=?, usuario_usuario=?, usuario_clave=?, usuario_email=?, usuario_localidad=? 
+          SET usuario_nombre=?, usuario_apellido=?, usuario_usuario=?, usuario_clave=?, usuario_correo=?, usuario_localidad=? 
           WHERE usuario_id = ?");
 $actualizarUsuario->bindValue(1, $nombre, PDO::PARAM_STR);
 $actualizarUsuario->bindValue(2, $apellido, PDO::PARAM_STR);
