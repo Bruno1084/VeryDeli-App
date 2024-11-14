@@ -6,66 +6,9 @@
         require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getPublicacion.php");
         require_once($_SERVER["DOCUMENT_ROOT"]. "/database/conection.php");
         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
-        function estadoCalif($calificacion){
-          if($calificacion == 1){
-              return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(1).svg' alt='rate'>";
-          }
-          else if($calificacion == 2){
-              return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(2).svg' alt='rate'>";
-          }
-          else if($calificacion == 3){
-              return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(3).svg' alt='rate'>";
-          }
-          else if($calificacion == 4){
-              return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(4).svg' alt='rate'>";
-          }
-          else if($calificacion == 5){
-              return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(5).svg' alt='rate'>";
-          }
-          else{
-              return "<img class='img-fluid' style='width:60px; heigth:60px;' src='/assets/rating(0).svg' alt='rate'>";
-          }
-        }
-
-        function renderCalificaciones($calificaciones){
-          echo '
-            <style>
-            .tabla-calif td, .tabla-calif th {
-                vertical-align: middle;
-                text-align: center;
-            }
-            .rating-stars {
-                justify-content: center;
-            }
-            </style>
-
-            <div class="container">
-              <table class="table table-bordered table-hover tabla-calif">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Usuario Calificador</th>
-                    <th>Usuario Calificado</th>
-                    <th>Puntaje</th>
-                  </tr>
-                </thead>
-                <tbody>';
-                  foreach($calificaciones as $calificacion){
-                  echo'
-                      <tr>
-                          <td>'.$calificacion['nombre_calificador'].'</td>
-                          <td>'.$calificacion['nombre_calificado'].'</td>
-                          <td>
-                              <div class="d-flex rating-stars">
-                                '.estadoCalif($calificacion['calificacion_puntaje']).'
-                              </div>
-                          </td>
-                    </tr>'; 
-                  }
-                echo 
-                '</tbody>
-              </table>
-            </div>';
-        }
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAutorPublicacion.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+        
         
         $postulaciones = getAllPostulacionesFromPublicacion($idPublicacion);
         $db = new DB();
@@ -125,6 +68,11 @@
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"></path>
                   </svg>
                 </button>
+                <button type="button" class="btn btn-secondary" title="Eliminar" data-estadp="<?= $bgEstado ?>" data-id="<?= $postulacion['postulacion_id'] ?>" onclick="eliminarPostulacion(this)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -154,26 +102,28 @@
 <?php
     break;
     case '3':
-    $count=0;
     $postulacion = getTransportistaPublicacion($idPublicacion);
-    $usuario = getUsuario($postulacion['usuario_postulante']);
+    $autor = getAutorPublicacion($idPublicacion);
     require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
     $calificaciones = getCalificacionesFromPublicacion($idPublicacion);
-    $count = 0;
-    if(!empty($calificaciones)){
-      $count = 0;
-      foreach($calificaciones as $calificacion){
-        if($calificacion['usuario_calificador'] == $_SESSION['id']){
-          $count += 1;
+    if($_SESSION['id'] == $autor['usuario_autor']){
+      $count=0;
+      $usuario = getUsuario($postulacion['usuario_postulante']);
+      if(!empty($calificaciones)){
+        $count = 0;
+        foreach($calificaciones as $calificacion){
+          if($calificacion['usuario_calificador'] == $_SESSION['id']){
+            $count += 1;
+          }
         }
+      } 
+      if($count == 0){
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarTransportista.php');
+        renderCalificarTransportista($usuario, $postulacion, $idPublicacion);
+      } else{
+        renderCalificaciones($calificaciones);
       }
     } 
-    if($count == 0){
-      include_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarTransportista.php');
-      renderCalificarTransportista($usuario, $postulacion, $idPublicacion);
-    } else{
-      renderCalificaciones($calificaciones);
-    }
 ?>
 
 <?php 
