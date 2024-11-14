@@ -45,6 +45,9 @@
           $calificaciones = getCalificacionesFromPublicacion($_GET['id']);
           if(!empty($calificaciones)){
             $calificacionTransportista = [];
+            if(count($calificaciones) == 2){
+              renderCalificaciones($calificaciones);
+            }
             foreach($calificaciones as $calificacion){
               if($calificacion['usuario_calificado'] == $_SESSION['id']){
                 $calificacionTransportista[] = $calificacion;
