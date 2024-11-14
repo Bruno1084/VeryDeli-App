@@ -4,22 +4,22 @@
         $calificacion = round($calificacion['calificacion_promedio']);
       }
       if($calificacion == 1){
-          return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate' title='1'>";
       }
       else if($calificacion == 2){
-          return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate' title='2'>";
       }
       else if($calificacion == 3){
-          return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate' title='3'>";
       }
       else if($calificacion == 4){
-          return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate' title='4'>";
       }
       else if($calificacion == 5){
-          return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate' title='5'>";
       }
       else{
-          return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate'>";
+          return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate' title='0'>";
       }
     }
 
@@ -35,9 +35,9 @@
         justify-content: center;
         font-size: 1.5rem; 
     }
-    .rating-stars svg {
-        width: 14px; 
-        height: 14px;
+    .rating-stars img {
+        width: 70px; 
+        height: 70px;
     }
     .container {
         max-width: 800px; 
