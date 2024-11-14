@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");?>
+  <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php"); ?>
   <link rel="stylesheet" href="../css/publicacionExtendida.css">
-  <?php 
+  <?php
   include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getPublicacion.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAutorPublicacion.php");
   require_once($_SERVER['DOCUMENT_ROOT'] . '/components/listaPostulaciones.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
+
   ?>
-  
+   <script src="/js/cambiarEstado.js"></script>
   <title>Very Deli</title>
 </head>
+
 <body>
-  <?php require_once("../components/Header.php");?>
+  <?php require_once("../components/Header.php"); ?>
   <div class="d-flex justify-content-center">
     <div class="form-rest my-4 col-8"></div>
   </div>
   <div class="primerDivBody">
-  <?php 
+    <?php
     $publicacion = getPublicacion($_GET['id']);
-    if($publicacion!=false){
+    if ($publicacion != false) {
 
       $denuncia=null;
       if(isset($_GET["denuncia"])){
@@ -32,8 +35,29 @@
       }
       $autor = getAutorPublicacion($_GET['id']);
       $imagenes = json_decode($publicacion['imagenes']);
-  
+
       $ubicaciones = json_decode($publicacion["ubicaciones"]);
+      
+      if($publicacion['publicacion_esActivo'] == "3"){
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+        if ($_SESSION['id'] == $publicacion['usuario_transportista']) {
+          $calificaciones = getCalificacionesFromPublicacion($_GET['id']);
+          if(!empty($calificaciones)){
+            $calificacionTransportista = [];
+            foreach($calificaciones as $calificacion){
+              if($calificacion['usuario_calificado'] == $_SESSION['id']){
+                $calificacionTransportista[] = $calificacion;
+              }
+            }
+            if(!empty($calificacionTransportista)) {
+              renderCalificaciones($calificacionTransportista);
+            }
+          } 
+        }
+      }
+      
+
       if($_SESSION['id'] == $autor['usuario_autor']){
         echo renderPostulaciones($_GET['id']);
       }
@@ -71,7 +95,7 @@
         );
       }
     }
-  ?>
+    ?>
   </div>
   <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/components/Footer.php");?>
   
@@ -79,14 +103,10 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/postulacion.js"></script>
   <script src="/js/ajax.js"></script>
-  <?php if(!isset($_GET["denuncia"])){?>
-    <script src="/js/editYdeleteComent.js"></script>
-    <script src="/js/validarReportePublicacion.js"></script>
-    <script src="/js/validarReporteComentario.js"></script>
-    <script src="/js/cambiarEstado.js"></script>
-    <script src="/js/validarCalificacion.js"></script>
-    <script src="/js/finalizarPublicacion.js"></script>
-  <?php }
-  ?>
+  <script src="/js/validarReporte.js"></script>
+  <script src="/js/cambiarEstado.js"></script>
+  <script src="/js/validarCalificacion.js"></script>
+  <script src="/js/finalizarPublicacion.js"></script>
 </body>
+
 </html>

@@ -101,8 +101,12 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
             <?php } else {
               require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
               require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
+              require_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
+              $db = new DB();
+              $conexion = $db->getConnection();
+              $estadoPublicacion = $conexion->query("SELECT publicacion_esActivo FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch();
               $postulacion = getTransportistaPublicacion($idPublicacion);
-              if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_postulante']) == false) {
+              if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_transportista']) == false AND $estadoPublicacion['publicacion_esActivo'] == '3') {
                 require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
                 renderCalificarUsuario($idPublicacion);
               }
@@ -261,7 +265,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
           <form action="/utils/postularse.php" class="form-publicacion form-postularse needs-validation FormularioAjax" novalidate method="post" id="formPostularse<?php echo $idPublicacion ?>" autocomplete="off" onsubmit="return validarPostulacion(<?php echo $idPublicacion ?>)">
             <div class="row">
               <div class="col-12">
-                <input type="number" step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="Monto">
+                <input type="number" step="0.01" class="form-control mb-3" id="postulacion-monto<?php echo $idPublicacion ?>" name="monto" placeholder="$0.00">
                 <div class="invalid-feedback" id="invalid-monto<?php echo $idPublicacion ?>"></div>
               </div>
             </div>

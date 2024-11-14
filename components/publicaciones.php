@@ -28,13 +28,14 @@ function renderPublicaciones () {
                 $userLocation = $p['usuario_localidad'];
                 $foto=array("foto"=>$p["usuario_fotoPerfil"],"marco"=>$p["usuario_marcoFoto"]);
                 echo renderPublicacionAcotada(
-                    $p["publicacion_id"],
+                    $p['publicacion_id'],
                     $userLocation,
+                    $p['usuario_id'],
                     $p['usuario_usuario'],
                     $foto,
                     $p['publicacion_fecha'],
-                    $p["publicacion_descr"],
-                    $p["imagen_url"]
+                    $p['publicacion_descr'],
+                    $p['imagen_url'],
                 );
             };
         ?>

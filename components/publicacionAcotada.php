@@ -19,8 +19,15 @@ function obtenerFoto($fYm){
             </div>';
   }
 }
-function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $profileIcon, $date, $productDetail, $imagen, $denunciada=false) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/getAllImagenesFromPublicacion.php');
+
+function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $username, $profileIcon, $date, $productDetail, $imagen, $denunciada=false) {
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAllImagenesFromPublicacion.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+
+  $calificacionUsuario = getAVGCalificacionesFromUsuario($idUsuario);
+
   ob_start();
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
@@ -29,10 +36,15 @@ function renderPublicacionAcotada ($idPublicacion, $userLocation, $username, $pr
       <div class='d-flex col-6 mt-1 text-start lh-1 datosUsuario'>
         
         <?php echo obtenerFoto($profileIcon);?>
-        
-        <div>
-          <p><?php echo $username; ?></p>
-          <p><?php echo $userLocation; ?></p>
+        <div class="col">
+          <div class="d-flex usuario-calificacion">
+            <p><?php echo $username; ?></p>
+            <?php echo estadoCalif($calificacionUsuario) ?>
+          </div>
+
+          <div>
+            <p><?php echo $userLocation; ?></p>
+          </div>
         </div>
       </div>
       <div class='col-6 mt-1 text-end lh-1'>
