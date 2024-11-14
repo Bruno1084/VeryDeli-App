@@ -20,10 +20,10 @@ function getAllPublicacionesFromUsuario ($idUsuario, $limit = 0, $offset = 0) {
           JOIN 
               imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
           LEFT JOIN
-              publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
+              denuncias_reportadas ON  denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
           WHERE
               (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3') AND usuario_autor = ?
-              AND publicaciones_reportadas.publicacion_id IS NULL
+              AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3' )
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,

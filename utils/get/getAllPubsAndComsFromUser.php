@@ -8,19 +8,19 @@ function getAllPubsAndComsFromUser($idUser, $limit = 0, $offset = 0){
     $sql="  SELECT publicaciones.publicacion_id AS id, publicaciones.publicacion_fecha AS fecha, 'publicacion' AS tipo
             FROM publicaciones
             LEFT JOIN
-                publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
+                denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
             WHERE
                 (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3')
                 AND publicaciones.usuario_autor= ?
-                AND publicaciones_reportadas.publicacion_id IS NULL
+                AND denuncias_reportadas.publicacion_id IS NULL
             UNION
             SELECT comentarios.comentario_id, comentarios.comentario_fecha, 'comentario'
             FROM comentarios
             LEFT JOIN
-                publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = comentarios.publicacion_id
+                denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id
             WHERE comentarios.comentario_esActivo='1'
             AND comentarios.usuario_id= ?
-            AND publicaciones_reportadas.publicacion_id IS NULL
+            AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')
             ORDER BY fecha DESC
         ";
 

@@ -1,4 +1,4 @@
-function validarReporte(idPublicacion){
+function validarReportePublicacion(idPublicacion){
   let id = parseInt(idPublicacion);
   let isValid = true;
 
@@ -37,13 +37,13 @@ function validarReporte(idPublicacion){
 }
 
 (() => {
-  const forms = document.querySelectorAll('.form-reportar');
+  const forms = document.querySelectorAll('.form-reportarPublicacion');
   forms.forEach(form => {
     form.addEventListener('submit', function (event) {  
       let idPublicacion = parseInt(form.getAttribute("id").replace('formReportar', ''));
       event.preventDefault();
       return validado=()=>new Promise((resolve)=>{
-        if (validarReporte(idPublicacion)){
+        if (validarReportePublicacion(idPublicacion)){
           document.querySelector('#cerrarModalReportar' + idPublicacion).click();
           window.scrollTo({
             top: 0,

@@ -5,7 +5,8 @@ function getUsuario ($idUsuario) {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT usuario_nombre, 
+  $sql = "SELECT usuario_id,
+                 usuario_nombre, 
                  usuario_apellido, 
                  usuario_correo, 
                  usuario_contraseña,

@@ -21,9 +21,8 @@
           <div class="row">
             <div class="col-12">
               <h3 class="text-center mb-4">Postulaciones</h3>
-              <?php if($postulaciones == false) {?>
+              <?php if($postulaciones == false || empty($postulaciones)) {?>
                 <p class="mb-1 fw-medium text-center"> Todavía nadie se ha postulado a tu publicación 😓 </p>
-              
             </div>  
           </div>
           <?php } else {?>
@@ -103,27 +102,32 @@
     break;
     case '3':
     $postulacion = getTransportistaPublicacion($idPublicacion);
-    $autor = getAutorPublicacion($idPublicacion);
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
-    $calificaciones = getCalificacionesFromPublicacion($idPublicacion);
-    if($_SESSION['id'] == $autor['usuario_autor']){
-      $count=0;
-      $usuario = getUsuario($postulacion['usuario_postulante']);
-      if(!empty($calificaciones)){
-        $count = 0;
-        foreach($calificaciones as $calificacion){
-          if($calificacion['usuario_calificador'] == $_SESSION['id']){
-            $count += 1;
+    if($postulacion){
+      $autor = getAutorPublicacion($idPublicacion);
+      require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getCalificacionesFromPublicacion.php');
+      $calificaciones = getCalificacionesFromPublicacion($idPublicacion);
+      if($_SESSION['id'] == $autor['usuario_autor']){
+        $count=0;
+        $usuario = getUsuario($postulacion['usuario_postulante']);
+          if(!empty($calificaciones)){
+            $count = 0;
+            foreach($calificaciones as $calificacion){
+              if($calificacion['usuario_calificador'] == $_SESSION['id']){
+                $count += 1;
+              }
+            }
+          } 
+          if($count == 0){
+            include_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarTransportista.php');
+            renderCalificarTransportista($usuario, $postulacion, $idPublicacion);
+          } else{
+            renderCalificaciones($calificaciones);
           }
-        }
       } 
-      if($count == 0){
-        include_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarTransportista.php');
-        renderCalificarTransportista($usuario, $postulacion, $idPublicacion);
-      } else{
-        renderCalificaciones($calificaciones);
-      }
-    } 
+    }
+    else{?>
+       <p class="mb-1 fw-medium text-center"> Ocurrio un error al obtener las postulaciones 😓 </p>
+<?php }
 ?>
 
 <?php 

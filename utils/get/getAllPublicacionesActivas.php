@@ -7,46 +7,39 @@ function getAllPublicacionesActivas($limit = 0, $offset = 0)
     $conexion = $DB->getConnection();
 
     $sql = "SELECT 
-            p.publicacion_id,
-            p.publicacion_titulo,
-            p.publicacion_descr,
-            p.publicacion_fecha,
-            u.usuario_id,
-            COALESCE(fp.imagen_url, 0) AS usuario_fotoPerfil,
-            u.usuario_usuario, 
-            u.usuario_localidad,
-            COALESCE(m.marco_url, 0) AS usuario_marcoFoto,
-            i.imagen_url
+                publicaciones.publicacion_id,
+                publicaciones.publicacion_titulo,
+                publicaciones.publicacion_descr,
+                publicaciones.publicacion_fecha,
+                usuarios.usuario_id,
+                CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
+                usuarios.usuario_usuario, 
+                usuarios.usuario_localidad,
+                CASE WHEN usuarios.usuario_esVerificado = '1' THEN marcos.marco_url ELSE 0 END AS usuario_marcoFoto,
+                imagenes.imagen_url
             FROM 
-            publicaciones p
+                publicaciones
             LEFT JOIN 
-            usuarios u ON u.usuario_id = p.usuario_autor
+                usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
             LEFT JOIN 
-            imagenes i ON p.publicacion_id = i.publicacion_id
+                imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
             LEFT JOIN 
-            fotosPerfil fp ON fp.usuario_id = p.usuario_autor AND fp.imagen_estado = 1
+                fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
             LEFT JOIN 
-            userMarcoFoto umf ON umf.usuario_id = u.usuario_id
-            LEFT JOIN 
-            marcos m ON m.marco_id = umf.marco_id
-            LEFT JOIN 
-            publicaciones_reportadas pr ON pr.publicacion_id = p.publicacion_id
+                userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
+            LEFT JOIN
+                marcos ON marcos.marco_id = userMarcoFoto.marco_id
+            LEFT JOIN
+                denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
             WHERE 
-            p.publicacion_esActivo = '1'
-            AND pr.publicacion_id IS NULL
+                publicaciones.publicacion_esActivo='1'
+                AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')
             GROUP BY 
-            p.publicacion_id, 
-            p.publicacion_titulo, 
-            p.publicacion_descr, 
-            p.publicacion_fecha, 
-            u.usuario_id, 
-            u.usuario_usuario, 
-            u.usuario_localidad, 
-            fp.imagen_url, 
-            m.marco_url, 
-            i.imagen_url
-            ORDER BY 
-            p.publicacion_fecha DESC";
+                publicaciones.publicacion_id, 
+                usuarios.usuario_usuario
+            ORDER BY
+                publicaciones.publicacion_fecha DESC
+            ";
 
     if ($limit > 0) {
         $sql .= " LIMIT ?";

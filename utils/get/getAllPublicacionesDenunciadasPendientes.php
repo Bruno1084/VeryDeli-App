@@ -9,7 +9,7 @@ function getAllPublicacionesDenunciadasPendientes($limit = 0, $offset = 0) {
               publicaciones.publicacion_id,
               publicaciones.publicacion_titulo,
               publicaciones.publicacion_descr,
-              publicaciones.publicacion_fecha,
+              denuncias_reportadas.reporte_fecha,
               publicaciones.usuario_autor,
               CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
               usuarios.usuario_usuario, 
@@ -29,16 +29,17 @@ function getAllPublicacionesDenunciadasPendientes($limit = 0, $offset = 0) {
           LEFT JOIN
               marcos ON marcos.marco_id = userMarcoFoto.marco_id
           LEFT JOIN
-              publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id
+              denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
+              AND denuncias_reportadas.reporte_activo='1'
           WHERE 
               publicaciones.publicacion_esActivo='1'
-              AND publicaciones_reportadas.publicacion_id IS NOT NULL
+              AND denuncias_reportadas.publicacion_id IS NOT NULL
           GROUP BY 
               publicaciones.publicacion_id, 
               usuarios.usuario_usuario,
               usuarios.usuario_localidad
           ORDER BY
-              publicaciones.publicacion_fecha DESC
+              publicaciones.publicacion_fecha ASC
           ";
 
   if ($limit > 0) {

@@ -31,7 +31,7 @@ function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $u
   ob_start();
 ?>
 <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3'>
-  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?><?php if($denunciada==true)echo "&denuncia=true";?>'>
+  <a class="text-reset text-decoration-none" href='<?php echo "/pages/publicacion.php?id=". $idPublicacion ?><?php if($denunciada)echo "&denuncia=1";?>'>
     <div class='row p-2 border-bottom' name='publicacion_A' id='publicacion-<?php echo $idPublicacion; ?>_A'>
       <div class='d-flex col-6 mt-1 text-start lh-1 datosUsuario'>
         
