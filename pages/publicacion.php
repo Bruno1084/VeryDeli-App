@@ -47,15 +47,18 @@
             $calificacionTransportista = [];
             if(count($calificaciones) == 2){
               renderCalificaciones($calificaciones);
-            }
-            foreach($calificaciones as $calificacion){
-              if($calificacion['usuario_calificado'] == $_SESSION['id']){
-                $calificacionTransportista[] = $calificacion;
+            } else {
+              foreach($calificaciones as $calificacion){
+                if($calificacion['usuario_calificado'] == $_SESSION['id']){
+                  $calificacionTransportista[] = $calificacion;
+                }
+              }
+              if(!empty($calificacionTransportista)) {
+                renderCalificaciones($calificacionTransportista);
               }
             }
-            if(!empty($calificacionTransportista)) {
-              renderCalificaciones($calificacionTransportista);
-            }
+            
+            
           } 
         }
       }
