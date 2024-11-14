@@ -1,7 +1,8 @@
 <?php
-function renderPublicacionesDenunciadas () {
+function renderDenunciasReportadas () {
     include_once "../components/publicacionAcotada.php";
     include_once "../utils/get/getAllPublicacionesDenunciadasPendientes.php";
+    include_once "../utils/get/getAllComentariosDenunciadosPendientes.php";
 
     $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10; //Limite de publicaciones a mostrar
@@ -11,7 +12,8 @@ function renderPublicacionesDenunciadas () {
     $conexion = $db->getConnection();
 
     $publicaciones = getAllPublicacionesDenunciadasPendientes($limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones JOIN publicaciones_reportadas ON publicaciones_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicacion_esActivo='1' AND publicaciones_reportadas.publicacion_id IS NOT NULL");
+    $publicaciones = getAllComentariosDenunciadosPendientes($limit, $offset);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(*) FROM publicaciones JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicacion_esActivo='1' AND denuncias_reportadas.publicacion_id IS NOT NULL");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
     $paginasTotales = ceil($totalPublicaciones / $limit);
     ob_start();
@@ -19,8 +21,6 @@ function renderPublicacionesDenunciadas () {
     $conexion=null;
     $totalPublicacionesStmt=null;
     $userCache = [];
-
-    require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/getMarcoUser.php");
     
 ?>
     <div class='container-fluid text-center'>
