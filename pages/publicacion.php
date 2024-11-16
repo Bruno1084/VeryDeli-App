@@ -45,14 +45,20 @@
           $calificaciones = getCalificacionesFromPublicacion($_GET['id']);
           if(!empty($calificaciones)){
             $calificacionTransportista = [];
-            foreach($calificaciones as $calificacion){
-              if($calificacion['usuario_calificado'] == $_SESSION['id']){
-                $calificacionTransportista[] = $calificacion;
+            if(count($calificaciones) == 2){
+              renderCalificaciones($calificaciones);
+            } else {
+              foreach($calificaciones as $calificacion){
+                if($calificacion['usuario_calificado'] == $_SESSION['id']){
+                  $calificacionTransportista[] = $calificacion;
+                }
+              }
+              if(!empty($calificacionTransportista)) {
+                renderCalificaciones($calificacionTransportista);
               }
             }
-            if(!empty($calificacionTransportista)) {
-              renderCalificaciones($calificacionTransportista);
-            }
+            
+            
           } 
         }
       }

@@ -8,6 +8,7 @@
         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAutorPublicacion.php');
         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
         
         
         $postulaciones = getAllPostulacionesFromPublicacion($idPublicacion);
@@ -15,7 +16,7 @@
         $conexion = $db->getConnection();
         $publicacion = $conexion->query("SELECT * FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch(PDO::FETCH_ASSOC);
         ob_start();
-    ?>
+    ?>  <link rel="stylesheet" href="../css/publicacionAcotada.css">
         <section>
         <div class="postulaciones container py-4">
           <div class="row">
@@ -31,24 +32,28 @@
             default:
             foreach($postulaciones as $postulacion) { 
               $usuario = getUsuario($postulacion['usuario_postulante']);
+              $calificacionUsuario = getAVGCalificacionesFromUsuario($postulacion['usuario_postulante']);
               switch($postulacion['postulacion_estado']){
                 case '0':
                   $estado = 'Pendiente';
-                  $bgEstado = 'btn btn-secondary';
+                  $bgEstado = 'btn btn-secondary disabled';
                 break;
                 case '1';
                   $estado = 'Aceptada';
-                  $bgEstado = 'btn btn-success';
+                  $bgEstado = 'btn btn-success disabled';
                 break;
                 case '2';
                   $estado = 'Rechazada';
-                  $bgEstado = 'btn btn-danger';
+                  $bgEstado = 'btn btn-danger disabled';
                 break;
               }
           ?>
           <div class="row mb-3 align-items-center border p-2 rounded" id="postulacionP-<?= $nombreUsuario ?>">
             <div class="col-md-8">
-              <h5 class="fw-bold mb-1"><?= $usuario['usuario_nombre'] ?></h5>
+              <div class="d-flex usuario-calificacion">
+                <h5 class="fw-bold mb-1"><?= $usuario['usuario_nombre'] ?></h5>
+                <?php echo estadoCalif($calificacionUsuario) ?>
+              </div>
               <p class="mb-1">Precio: <span class="fw-bold">$<?= number_format($postulacion['postulacion_precio'], 0, ',', '.'); ?></span></p>
               <p class="text-muted mb-1"><?= $postulacion['postulacion_descr'] ?></p>
               <span class="mb-0"> <h5 class="fw-bold d-inline-block <?= $bgEstado ?>"><?= $estado ?></h5> </span>
@@ -78,14 +83,18 @@
           <?php } break; 
             case '2' : 
             $postulacion = getTransportistaPublicacion($idPublicacion);
+            $calificacionUsuario = getAVGCalificacionesFromUsuario($postulacion['usuario_postulante']);
             $usuario = getUsuario($postulacion['usuario_postulante']);
             ?>
             <div class="row mb-3 align-items-center border p-2 rounded" id="postulacionP-<?= $usuario['usuario_nombre'] ?>">
               <div class="col-md-8">
-                  <h5 class="fw-bold mb-1"><?= $usuario['usuario_nombre'] ?></h5>
+                  <div class="d-flex usuario-calificacion">
+                    <h5 class="fw-bold mb-1"><?= $usuario['usuario_nombre'] ?></h5>
+                    <?php echo estadoCalif($calificacionUsuario) ?>
+                  </div>
                   <p class="mb-1">Precio: <span class="fw-bold">$<?= number_format($postulacion['postulacion_precio'], 0, ',', '.'); ?></span></p>
                   <p class="text-muted mb-1"><?= $postulacion['postulacion_descr'] ?></p>
-                  <span class="mb-0"><h5 class="fw-bold d-inline-block btn btn-success">Aceptada</h5></span>
+                  <span class="mb-0"><h5 class="fw-bold d-inline-block btn btn-success disabled">Aceptada</h5></span>
               </div>
               <div class="col-md-4 text-md-end">
                   <div class="btn-group">
@@ -126,7 +135,7 @@
       } 
     }
     else{?>
-       <p class="mb-1 fw-medium text-center"> Ocurrio un error al obtener las postulaciones 😓 </p>
+      <p class="mb-1 fw-medium text-center"> Ocurrio un error al obtener las postulaciones 😓 </p>
 <?php }
 ?>
 
