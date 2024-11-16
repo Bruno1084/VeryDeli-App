@@ -14,18 +14,20 @@
                         imagenes.imagen_url
                     FROM 
                         publicaciones
-                    JOIN 
+                    LEFT JOIN 
                         usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
-                    JOIN 
+                    LEFT JOIN 
                         imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
-                    WHERE 
-                            LOWER(publicacion_titulo)
+                    LEFT JOIN
+                        denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
+                    WHERE (LOWER(publicacion_titulo)
                         LIKE 
                             LOWER(?)
                         OR
                             LOWER(publicacion_descr)
                         LIKE 
-                            LOWER(?)
+                            LOWER(?))
+                        AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')
                     GROUP BY 
                         publicaciones.publicacion_id, 
                         usuarios.usuario_usuario,
@@ -77,18 +79,21 @@
                     imagenes.imagen_url
                   FROM 
                         publicaciones
-                  JOIN 
+                  LEFT JOIN 
                         usuarios ON usuarios.usuario_id = publicaciones.usuario_autor
-                  JOIN 
+                  LEFT JOIN 
                         imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
-                  JOIN
+                  LEFT JOIN
                         ubicaciones ON ubicaciones.ubicacion_id = publicaciones.ubicacion_origen OR ubicaciones.ubicacion_id = publicaciones.ubicacion_destino
+                  LEFT JOIN
+                        denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
                   WHERE
                         publicaciones.publicacion_esActivo = '1' AND 
                         -- Cálculo de la distancia usando la fórmula Haversine
                         ( 6371 * acos( cos( radians(?) ) * cos( radians(ubicaciones.ubicacion_latitud) ) 
                         * cos( radians(ubicaciones.ubicacion_longitud) - radians(?) ) 
                         + sin( radians(?) ) * sin( radians(ubicaciones.ubicacion_latitud)) ) ) <= ?
+                        AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')
                   GROUP BY 
                         publicaciones.publicacion_id, 
                         usuarios.usuario_usuario,

@@ -91,6 +91,14 @@ aside{
     word-break: break-all;
 }
 
+.comentario.comentario-denunciado{
+    border-top-color: #dc3545 !important;
+    border-bottom-color: #dc3545 !important;
+    border-left: solid 0.1rem #dc3545;
+    border-right: solid 0.1rem #dc3545;
+    background-color: #dc354517;
+}
+
 .post-comentario .user-post{
     margin: 0.5vh 0;
 }
