@@ -102,25 +102,25 @@ aside{
     border-right: solid 0.1rem #dc3545;
     background-color: #dc354517;
 }
-.comentario.comentario-denunciado .resultDenuncia{
+.resultDenuncia{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.comentario.comentario-denunciado .resultDenuncia p{
+.resultDenuncia p{
     width: 50%;
     text-align: center;
     padding: 6px;
     margin: 0;
 }
-.comentario.comentario-denunciado .resultDenuncia p.Permitido{
+.resultDenuncia p.Permitido{
     border: 0.1vh solid #218757;
     border-radius: 6px;
     background-color: #fff;
     color: #218757;
 }
-.comentario.comentario-denunciado .resultDenuncia p.Eliminado{
+.resultDenuncia p.Eliminado{
     border: 0.1vh solid #da3243;
     border-radius: 6px;
     background-color: #fff;
