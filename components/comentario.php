@@ -7,7 +7,7 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
   if($a && $idPub!=null){
   ?>
   <div class='comentario publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3' id="comentario_<?php echo$comentarioId; ?>">
-    <a class="text-reset text-decoration-none" href="<?php echo '/pages/publicacion.php?id='.$idPub?><?php if($denuncia)echo "&denuncia=2";?>">
+    <a class="text-reset text-decoration-none" href="<?php echo '/pages/publicacion.php?id='.$idPub?><?php if($denuncia)echo "&denuncia=2&comentario=".$comentarioId;?>">
       <div class="row p-2 border-bottom">
         <div class="d-flex col-6 mt-1 text-start lh-1 datosUsuario">
 
@@ -83,15 +83,12 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
           </div>
         </div>
         <?php 
-          if($denuncia==2){
+          if($denuncia==2 && $_GET["comentario"]==$comentarioId){
         ?>
         <div class="mb-1 d-flex justify-content-end">
-          <button type="button" class="btn procesarDenuncia me-4 btn-outline-success btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">
-            Permitir
-          </button>
-          <button type="button" class="btn procesarDenuncia me-5 btn-outline-danger btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">
-            Eliminar
-          </button>
+          <div class="resultDenuncia"><p></p></div>
+          <button type="button" class="btn procesarDenuncia me-4 btn-outline-success btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">Permitir</button>
+          <button type="button" class="btn procesarDenuncia me-5 btn-outline-danger btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">Eliminar</button>
         </div>
         <?php
           }
