@@ -117,6 +117,10 @@
     <script src="/js/validarCalificacion.js"></script>
     <script src="/js/finalizarPublicacion.js"></script>
   <?php }
+  else{?>
+    <script src="/js/procesarDenuncia.js"></script>
+<?php
+  }
   ?>
 </body>
 
