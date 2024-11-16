@@ -86,10 +86,10 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
           if($denuncia==2){
         ?>
         <div class="mb-1 d-flex justify-content-end">
-          <button type="button" class="btn me-4 bg-light text-success btn-outline-success btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">
+          <button type="button" class="btn procesarDenuncia me-4 btn-outline-success btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">
             Permitir
           </button>
-          <button type="button" class="btn me-5 bg-light text-danger btn-outline-danger btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">
+          <button type="button" class="btn procesarDenuncia me-5 btn-outline-danger btn-md" data-name="comentario" data-id="<?php echo $comentarioId ?>" onclick="procesarDenuncia(event)">
             Eliminar
           </button>
         </div>

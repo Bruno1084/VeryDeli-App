@@ -110,6 +110,11 @@ aside{
 .comentario .inputHidden{
     display: none;
 }
+
+.btn.procesarDenuncia{
+    --bs-btn-bg: #ffffff;
+}
+
 .post-comentario .boton-postC{
     display: flex;
     align-items: flex-end;
