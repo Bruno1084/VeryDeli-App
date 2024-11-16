@@ -118,8 +118,8 @@
                     ?>
                             <div class="col-12" name="postulacion">
                                 <a class="text-reset text-decoration-none d-flex postulacion" href="<?php echo '../pages/publicacion.php?id=' . $postulacion["publicacion_id"] ?>">
-                                    <p><?php echo estadoPost($postulacion["postulacion_estado"]) ?></p>
-                                    <p><?php echo date('H:i d/m/Y', strtotime($postulacion["postulacion_fecha"])) ?></p>
+                                    <p class="estado"><?php echo estadoPost($postulacion["postulacion_estado"]) ?></p>
+                                    <p class="fecha"><?php echo date('H:i d/m/Y', strtotime($postulacion["postulacion_fecha"])) ?></p>
                                 </a>
                             </div>
                     <?php
