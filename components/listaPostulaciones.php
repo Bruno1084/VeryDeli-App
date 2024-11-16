@@ -109,21 +109,21 @@
       if($_SESSION['id'] == $autor['usuario_autor']){
         $count=0;
         $usuario = getUsuario($postulacion['usuario_postulante']);
-        if(!empty($calificaciones)){
-          $count = 0;
-          foreach($calificaciones as $calificacion){
-            if($calificacion['usuario_calificador'] == $_SESSION['id']){
-              $count += 1;
+          if(!empty($calificaciones)){
+            $count = 0;
+            foreach($calificaciones as $calificacion){
+              if($calificacion['usuario_calificador'] == $_SESSION['id']){
+                $count += 1;
+              }
             }
+          } 
+          if($count == 0){
+            include_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarTransportista.php');
+            renderCalificarTransportista($usuario, $postulacion, $idPublicacion);
+          } else{
+            renderCalificaciones($calificaciones);
           }
-        } 
-        if($count == 0){
-          include_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarTransportista.php');
-          renderCalificarTransportista($usuario, $postulacion, $idPublicacion);
-        } else{
-          renderCalificaciones($calificaciones);
-        }
-      }
+      } 
     }
     else{?>
       <p class="mb-1 fw-medium text-center"> Ocurrio un error al obtener las postulaciones 😓 </p>

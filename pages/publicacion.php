@@ -109,15 +109,10 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/postulacion.js"></script>
   <script src="/js/ajax.js"></script>
-  <?php if(!isset($_GET["denuncia"])){?>
-    <script src="/js/editYdeleteComent.js"></script>
-    <script src="/js/validarReportePublicacion.js"></script>
-    <script src="/js/validarReporteComentario.js"></script>
-    <script src="/js/cambiarEstado.js"></script>
-    <script src="/js/validarCalificacion.js"></script>
-    <script src="/js/finalizarPublicacion.js"></script>
-  <?php }
-  ?>
+  <script src="/js/validarReporte.js"></script>
+  <script src="/js/cambiarEstado.js"></script>
+  <script src="/js/validarCalificacion.js"></script>
+  <script src="/js/finalizarPublicacion.js"></script>
 </body>
 
 </html>

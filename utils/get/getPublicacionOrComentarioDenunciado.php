@@ -10,6 +10,7 @@ function getPublicacionOrComentarioDenunciado($pubOcom){
                     publicaciones.publicacion_titulo,
                     publicaciones.publicacion_descr,
                     publicaciones.publicacion_fecha,
+                    usuarios.usuario_id,
                     usuarios.usuario_usuario, 
                     usuarios.usuario_localidad,
                     CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
