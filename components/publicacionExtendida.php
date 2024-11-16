@@ -127,12 +127,9 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
         <?php }
           }
           elseif($denunciada==1){?>
-          <button type="button" class="btn procesarDenuncia btn-outline-success btn-md" data-name="publicacion" data-id="<?php echo $idPublicacion ?>" onclick="procesarDenuncia(event)">
-            Permitir
-          </button>
-          <button type="button" class="btn procesarDenuncia btn-outline-danger btn-md" data-name="publicacion" data-id="<?php echo $idPublicacion ?>" onclick="procesarDenuncia(event)">
-            Eliminar
-          </button>
+          <button type="button" class="btn procesarDenuncia btn-outline-success btn-md" data-name="publicacion" data-id="<?php echo $idPublicacion ?>" onclick="procesarDenuncia(event)">Permitir</button>
+          <div class="resultDenuncia"><p></p></div>
+          <button type="button" class="btn procesarDenuncia btn-outline-danger btn-md" data-name="publicacion" data-id="<?php echo $idPublicacion ?>" onclick="procesarDenuncia(event)">Eliminar</button>
           <?php }
       ?>
       </div>
