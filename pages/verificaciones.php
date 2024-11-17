@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../css/verificacion.css">
   <script src="/js/cambiarEstadoVerificacion.js"></script>
   <script src="/js/ajax.js"></script>
+  <script src="/js/validarReportePublicacion.js"></script>
+
 
   <?php 
 
@@ -25,7 +27,15 @@
   ?>
   <div class="container-fluid cuerpo">
     <div class="row">
-      <h1 class="d-flex justify-content-center">Verificaciones Pendientes</h1>
+      <?php 
+       if(count($verificaciones)!=0){
+        echo "<h1 class='d-flex justify-content-center'>Verificaciones Pendientes</h1>";
+       }else{
+        echo "<h1 class='d-flex justify-content-center'>No tiene verificaciones Pendientes</h1>";
+       }
+       
+      ?>
+      
       <div class="col-12 d-flex justify-content-center">
           
         <?php
