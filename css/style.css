@@ -10,7 +10,6 @@ body{
 };
 
 
-
 .formulario-registro{
     color:rgba(255, 255, 255, 90%);
 }
@@ -127,11 +126,4 @@ body{
 .publicacionExtendida-menuIcon {
     max-width: 30px;
     max-height: 35px;
-}
-
-.primerDivBody{
-    display: flex;
-    min-height: 64vh;
-    flex-direction: column;
-    justify-content: flex-end;
 }

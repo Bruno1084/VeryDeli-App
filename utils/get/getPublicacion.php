@@ -50,18 +50,17 @@ function getPublicacion ($idPublicacion) {
           LEFT JOIN
               marcos ON marcos.marco_id = userMarcoFoto.marco_id
           WHERE
-            publicaciones.publicacion_id = ?
-            AND (publicaciones.publicacion_esActivo = "1" OR publicaciones.publicacion_esActivo = "2" OR publicaciones.publicacion_esActivo = "3");
+            publicaciones.publicacion_id = ?;
         ';
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
   $stmt->execute();
 
-  $publicacion = $stmt->fetch(PDO::FETCH_ASSOC);
+  $publicacion = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $DB = null;
   $stmt = null;
   $conexion = null;
-  
+  if(!empty($publicacion))$publicacion=$publicacion[0];
   return $publicacion;
 }
