@@ -10,7 +10,7 @@ $db = new DB();
 $conexion = $db->getConnection();
 
 $upVerificacionStmt = $conexion->prepare('UPDATE verificaciones SET verificacion_estado = ? WHERE verificacion_id = ?');
-$upVerificacionStmt->bindParam(1, $estado, PDO::PARAM_STR);
+$upVerificacionStmt->bindParam(1, $estado, PDO::PARAM_INT);
 $upVerificacionStmt->bindParam(2, $verificacionId, PDO::PARAM_INT);
 
 

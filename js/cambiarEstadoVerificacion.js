@@ -1,6 +1,6 @@
 function cambiarEstadoVerificacion(button, nuevoEstado) {
     const verificacionId = button.getAttribute('data-id');
-    fetch('/utils/EstadoVerificacioon.php', {
+    fetch('/utils/EstadoVerificacion.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

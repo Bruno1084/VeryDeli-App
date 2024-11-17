@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");?>
   <link rel="stylesheet" href="../css/verificacion.css">
-   <script src="/js/cambiarEstadoVerificacion.js"></script>
-  
+  <script src="/js/cambiarEstadoVerificacion.js"></script>
+  <script src="/js/ajax.js"></script>
+
   <?php 
 
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");

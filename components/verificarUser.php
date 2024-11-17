@@ -63,6 +63,8 @@ function renderVerificacion(
                                 <button type="button" class="btn btn-accept" title="Aceptar"  data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,1)">Aceptar</button>
                                 <button type="button" class="btn btn-reject" title="Rechazar" data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,2)">Rechazar</button>
                             </div>
+                            
+                            </div>
                         </div>
                     </div>
                 </form> 
