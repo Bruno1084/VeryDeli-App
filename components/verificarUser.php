@@ -26,7 +26,15 @@ function renderVerificacion(
                 <div class="VerificacionCard">
                     <!-- Tarjeta Verificacion -->
                     <div class="profile-section">
-                        <img src="<?= $fotoperfil?>" alt="Foto de perfil" class="profile-image">
+                        <?php 
+                            if($fotoperfil==false){
+                               echo "<img src='/assets/user.png' alt='Foto de perfil' class='profile-image'>";
+        
+                            }
+                            else{
+                                echo"<img src='$fotoperfil' alt='Foto de perfil' class='profile-image'>";
+                            }
+                        ?>
                         <span class="user-name"><?php echo "Usuario:".$usuario["usuario_nombre"]; ?></span>
                         <?php   
                                 if($estado==0){

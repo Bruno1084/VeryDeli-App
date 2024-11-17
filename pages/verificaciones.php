@@ -20,8 +20,6 @@
   <?php 
   require_once("../components/Header.php");
   $verificaciones=getAllVerificaciones();
-  
-  var_dump($verificaciones)
   ?>
   <section class="col-12 cuerpo">
   <aside>
