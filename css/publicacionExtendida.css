@@ -90,6 +90,10 @@ aside{
     padding-left: 1vh;
     word-break: break-all;
 }
+
+.comentario .publicacionExtendida-menuButton-container ul{
+    transform: translate(-14px, 0px)!important;
+}
 .comentario.comentario-denunciado{
     border-top-color: #dc3545 !important;
     border-bottom-color: #dc3545 !important;
