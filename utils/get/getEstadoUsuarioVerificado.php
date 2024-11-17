@@ -10,7 +10,7 @@ function getEstadoUsuarioVerificado ($idUsuario) {
   $stmt->bindValue(1, $idUsuario, PDO::PARAM_INT);
   $stmt->execute();
 
-  $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+  $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $DB = null;
   $stmt = null;
