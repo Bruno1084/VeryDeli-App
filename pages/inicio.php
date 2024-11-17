@@ -49,9 +49,9 @@
             <div class="modal-body">
               <form action="/utils/verificar.php" class="form-publicacion form-verificar needs-validation FormularioAjax" method="post" id="formVerificar" novalidate>
                 <div class="row">
-                  <div class="col-md-6 mb-3 d-flex p-3">
-                    <div class="mb-3">
-                      <div class="col-12 mb-1 p-3 selectTipo">
+                  <div class="col-md-12 mb-3 d-flex p-3">
+                    <div class="col-md-6 mb-3 pe-2">
+                      <div class="mb-3 selectTipo">
                         <select class="form-select" name="tipoDoc" id="input-tipo-doc" required>
                           <option selected disabled>Tipo de documento...</option>
                           <option value="1">DNI</option>
@@ -73,7 +73,7 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 ps-2">
                       <div class="mb-3 selectTipo">
                         <select class="form-select" name="tipoBol" id="input-tipo-bol" required>
                           <option selected disabled>Tipo de boleta...</option>
@@ -85,6 +85,7 @@
                         </select>
                         <div class="invalid-feedback" id="invalid-tipoBol"></div>
                       </div>
+
                       <div id="addBol" class="mb-3">
                         <input type="file" accept="image/png, image/jpeg, image/jpg" name="addNewPhotoBol[]" id="addNewPhotoBol" onchange="preVisualBol(event)" multiple />
                         <div class="custom-file-upload mb-2">
@@ -127,7 +128,6 @@
   <?php
   if ($_SESSION["esVerificado"] == 0) echo '<script src="../js/verificarUsuario.js"></script>';
   ?>
-  <script src="../js/validarReporte.js"></script>
   <script src="../js/postulacion.js"></script>
 </body>
 
