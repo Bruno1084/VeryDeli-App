@@ -4,12 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");?>
-  <link rel="stylesheet" href="../css/verificacion.css">
-  <script src="/js/cambiarEstadoVerificacion.js"></script>
-  <script src="/js/ajax.js"></script>
-  <script src="/js/validarReportePublicacion.js"></script>
-
-
+  <link rel="stylesheet" href="../css/publicacionExtendida.css">
+  <link rel="stylesheet" href="/css/miPerfil.css">
   <?php 
 
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
@@ -25,37 +21,28 @@
   require_once("../components/Header.php");
   $verificaciones=getAllVerificaciones();
   ?>
-  <div class="container-fluid cuerpo">
-    <div class="row">
-      <?php 
-       if(count($verificaciones)!=0){
-        echo "<h1 class='d-flex justify-content-center'>Verificaciones Pendientes</h1>";
-       }else{
-        echo "<h1 class='d-flex justify-content-center'>No tiene verificaciones Pendientes</h1>";
-       }
-       
-      ?>
-      
-      <div class="col-12 d-flex justify-content-center">
-          
-        <?php
-          foreach ($verificaciones as $verificacion) {
-            
-            echo renderVerificacion(
-              $verificacion["verificacion_id"],
-              $verificacion["verificacion_foto-doc1"],
-              $verificacion["verificacion_foto-doc2"],
-              $verificacion["verificacion_foto-boleta1"],
-              $verificacion["verificacion_foto-boleta2"],
-              $verificacion["verificacion_tipo-doc"],
-              $verificacion["verificacion_tipo-boleta"],
-              $verificacion["verificacion_estado"],
-              $verificacion["usuario_id"]
-            ); 
-          }
-        ?> 
-      </div>
-    </div>
+  <div class="d-flex justify-content-center primerDivBody">
+  
+  <section class="col-12 cuerpo">
+  <aside>
+    <?php
+      foreach ($verificaciones as $verificacion) {
+        
+         echo renderVerificacion(
+          $verificacion["verificacion_id"],
+          $verificacion["verificacion_foto-doc1"],
+          $verificacion["verificacion_foto-doc2"],
+          $verificacion["verificacion_foto-boleta1"],
+          $verificacion["verificacion_foto-boleta2"],
+          $verificacion["verificacion_tipo-doc"],
+          $verificacion["verificacion_tipo-boleta"],
+          $verificacion["verificacion_estado"],
+          $verificacion["usuario_id"]
+        ); 
+      }
+    ?>
+    </aside>
+  </section>
   </div>
   <?php require_once("../components/Footer.php");?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php")?>
