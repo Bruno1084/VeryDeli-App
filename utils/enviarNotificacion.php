@@ -1,25 +1,66 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/database/conection.php");
-function enviarNotificacion($idUsuario_destino,$mensaje,$fechaActual,$idPublicacion_origen){
-    if(isset($db)){
-        $db=null;   
+function enviarNotificacion($idUsuario_destino,$mensaje,$fechaActual,$tipoNotify,$idPublicacion_origen=null,$idDenunciado=null){
+    if(!isset($db)){
+        $db=new DB();
     }
-    $db=new DB();
     $connection=$db->getConnection();
-    $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_fecha`, `usuario_id`, `publicacion_id`) VALUES (?,?,?,?)";
+    $notificado=false;
+    if($idUsuario_destino!=-1){
+        $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_fecha`, `notificacion_tipo`, `usuario_id`";
+        if($idPublicacion_origen!=null) $sql.=", `publicacion_id`";
+        $sql.=") VALUES (?,?,?,?";
+        if($idPublicacion_origen!=null) $sql.=",?";
+        $sql.=")";
 
-    $stmt=$connection->prepare($sql);
+        $stmt=$connection->prepare($sql);
 
-    $stmt->bindParam(1,$mensaje,PDO::PARAM_STR);
-    $stmt->bindParam(2,$fechaActual,PDO::PARAM_STR);
-    $stmt->bindParam(3,$idUsuario_destino,PDO::PARAM_INT);
-    $stmt->bindParam(4,$idPublicacion_origen,PDO::PARAM_INT);
+        $stmt->bindParam(1,$mensaje,PDO::PARAM_STR);
+        $stmt->bindParam(2,$fechaActual,PDO::PARAM_STR);
+        $stmt->bindParam(3,$tipoNotify,PDO::PARAM_INT);
+        $stmt->bindParam(4,$idUsuario_destino,PDO::PARAM_INT);
+        if($idPublicacion_origen!=null) $stmt->bindParam(5,$idPublicacion_origen,PDO::PARAM_INT);
 
-    $res=$stmt->execute();
+        $notificado=$stmt->execute();
+    }
+    else{
+        $sql="SELECT administrador_id FROM administradores";
+        $stmt=$connection->prepare($sql);
+        $idAdmins=null;
+        if($stmt->execute()){
+            $res=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($res){
+                $idAdmins=$res;
+            }
+        }
+        if($idAdmins!=null){
+            $sql="INSERT INTO `notificaciones` (`notificacion_mensaje`, `notificacion_fecha`, `notificacion_tipo`, `usuario_id`, `publicacion_id`) VALUES ";
+            $totalAdmins=0;
+            $validAdmins=array();
+            for($i=0;$i<sizeof($idAdmins);$i++){
+                if($idAdmins[$i]["administrador_id"]!=$_SESSION["id"]&&$idAdmins[$i]["administrador_id"]!=$idDenunciado){
+                    if($totalAdmins>0) $sql.=", (?, ?, ?, ?, ?)";
+                    else $sql.="(?, ?, ?, ?, ?)";
+                    $validAdmins[$totalAdmins]=$idAdmins[$i]["administrador_id"];
+                    $totalAdmins++;
+                }
+            }
+            $stmt=$connection->prepare($sql);
+            for($i=0;$i<sizeof($validAdmins);$i++){
+                $stmt->bindParam((($i*5)+1),$mensaje,PDO::PARAM_STR);
+                $stmt->bindParam((($i*5)+2),$fechaActual,PDO::PARAM_STR);
+                $stmt->bindParam((($i*5)+3),$tipoNotify,PDO::PARAM_INT);
+                $stmt->bindParam((($i*5)+4),$validAdmins[$i],PDO::PARAM_INT);
+                $stmt->bindParam((($i*5)+5),$idPublicacion_origen,PDO::PARAM_INT);
+                
+            }
+            $notificado=$stmt->execute();
+        }
+    }
     $stmt=null;
     $connection=null;
-
-    return $res;
+    $db=null;
+    return $notificado;
 }
 
 function enviarEmailNotificacion($correoDestino, $mensaje){

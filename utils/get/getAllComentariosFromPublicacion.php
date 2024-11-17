@@ -32,6 +32,8 @@ function getAllComentariosFromPublicacion ($idPublicacion, $denuncia=false) {
     if(!$denuncia){
         $sql.="AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='3')";
     }
+    $sql.="GROUP BY 
+              comentarios.comentario_id";
 
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);

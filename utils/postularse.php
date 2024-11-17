@@ -86,7 +86,7 @@
         }
       }
       $mensaje="¡".$datos['usuario_usuario']." se a postulado a tu publicacion!";
-      enviarNotificacion($autor,$mensaje,$fechaActual,$pubId);
+      enviarNotificacion($autor,$mensaje,$fechaActual,1,$pubId);
       if($correoAutor!=false&&$correoAutor!=null)enviarEmailNotificacion($correoAutor,$mensaje);
       $stmt=null;
       $conexion = null;
