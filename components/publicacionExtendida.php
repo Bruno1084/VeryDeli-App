@@ -369,11 +369,13 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
 
 
   </div>
+  <?php if($denuncia==false){?>
   <script>
     function reportarComentario(comentarioId){
       document.querySelector("#formReportarComentario input[name='comentario-id']").value=comentarioId;
     }
   </script>
+  <?php }?>
 <?php
   return ob_get_clean();
 }
