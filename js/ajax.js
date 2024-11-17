@@ -27,9 +27,20 @@ async function enviarFormularioAjax(form){
       // Muestra la respuesta en el contenedor
       contenedor.innerHTML = data.message
       if (data.redirect) {
-        setTimeout(() => {
-          window.location.href = data.redirect;
-        }, 2000); 
+        if(data.redirect.trim()=="#"){
+          setTimeout(() => {
+            window.location.reload(true);
+          }, 2000);
+        }
+        else if(data.redirect.trim()=="back"){
+          setTimeout(() => {
+            window.history.back();
+          }, 2000);
+        }else{
+          setTimeout(() => {
+            window.location.href = data.redirect;
+          }, 2000); 
+        }
       }
     })
     .catch(error => {

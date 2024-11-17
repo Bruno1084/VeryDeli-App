@@ -20,7 +20,7 @@
 
     //Consulta
     $reporteStmt=null;
-    if(isset($_POST["publicacion_id"]))
+    if($publicacion!=null)
     $reporteStmt = $conexion->prepare('INSERT INTO denuncias_reportadas (publicacion_id, usuario_autor, reporte_motivo, reporte_mensaje, reporte_fecha) VALUES (?, ?, ?, ?, ?)');
     else
     $reporteStmt = $conexion->prepare('INSERT INTO denuncias_reportadas (comentario_id, usuario_autor, reporte_motivo, reporte_mensaje, reporte_fecha) VALUES (?, ?, ?, ?, ?)');
@@ -30,7 +30,7 @@
     $fecha = date('Y-m-d H:i:s');
 
     //Parámetros
-    if($_POST["publicacion-id"]!=null){
+    if($publicacion!=null){
       $reporteStmt->bindParam(1, $publicacion, PDO::PARAM_INT);
     }
     else{
@@ -46,12 +46,13 @@
     if($reporteStmt->execute()){
       $reporteStmt = null;
       $conexion = null;
-      manejarError('true', 'Reporte enviado', 'Hemos recibido tu reporte y pronto estaremos revisando la situacion');
-      exit;
+      if($publicacion!=null)
+      manejarError('true', 'Reporte enviado', 'Hemos recibido tu reporte y pronto estaremos revisando la situacion',"back");
+      else
+      manejarError('true', 'Reporte enviado', 'Hemos recibido tu reporte y pronto estaremos revisando la situacion',"#");
     } else {
       $reporteStmt = null;
       $conexion = null;
       manejarError('false','Error inesperado', 'Ocurrio un error al momento de tomar su reporte, intente de nuevo mas tarde');
-      exit;
     }
   }

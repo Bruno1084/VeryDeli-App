@@ -95,13 +95,36 @@ aside{
 .comentario .publicacionExtendida-menuButton-container ul{
     transform: translate(-14px, 0px)!important;
 }
-
 .comentario.comentario-denunciado{
     border-top-color: #dc3545 !important;
     border-bottom-color: #dc3545 !important;
     border-left: solid 0.1rem #dc3545;
     border-right: solid 0.1rem #dc3545;
     background-color: #dc354517;
+}
+.resultDenuncia{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.resultDenuncia p{
+    width: 50%;
+    text-align: center;
+    padding: 6px;
+    margin: 0;
+}
+.resultDenuncia p.Permitido{
+    border: 0.1vh solid #218757;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #218757;
+}
+.resultDenuncia p.Eliminado{
+    border: 0.1vh solid #da3243;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #da3243;
 }
 
 .post-comentario .user-post{
@@ -110,6 +133,11 @@ aside{
 .comentario .inputHidden{
     display: none;
 }
+
+.btn.procesarDenuncia{
+    --bs-btn-bg: #ffffff;
+}
+
 .post-comentario .boton-postC{
     display: flex;
     align-items: flex-end;

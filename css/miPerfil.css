@@ -12,9 +12,13 @@
     background-color: #ffddb1de;
 }
 
-.postulacion p {
+.postulacion p.estado {
     margin: 0.5vh 0;
-    padding: 0 0.5vh;
+    padding: 0 0 0 0.5vh;
+}
+.postulacion p.fecha {
+    margin: 0.5vh 0;
+    padding: 0 0.5vh 0 0;
 }
 
 .postulacion_titulo {
