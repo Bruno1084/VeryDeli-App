@@ -1,4 +1,4 @@
-function cambiarEstadoVerificacion(button, nuevoEstado, verificacion) {
+function cambiarEstadoVerificacion(button, nuevoEstado) {
     const verificacionId = button.getAttribute('data-id');
     fetch('/utils/EstadoVerificacioon.php', {
             method: 'POST',
@@ -8,7 +8,6 @@ function cambiarEstadoVerificacion(button, nuevoEstado, verificacion) {
             body: JSON.stringify({
                 id: parseInt(verificacionId),
                 estado: nuevoEstado,
-                verificacionId: parseInt(verificacion)
             })
         })
         .then(response => response.json()) 
