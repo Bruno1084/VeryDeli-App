@@ -7,8 +7,7 @@ function getAllComentariosFromPublicacion ($idPublicacion, $denuncia=false) {
 
   $sql = "SELECT comentarios.comentario_id, 
                  comentarios.comentario_mensaje, 
-                 comentarios.comentario_fecha,
-                 comentarios.usuario_id,
+                 comentarios.comentario_fecha, 
                  usuarios.usuario_usuario,
          ";
   if($denuncia) 
