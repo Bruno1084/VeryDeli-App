@@ -12,65 +12,29 @@ function renderVerificacion(
     $usuarioid
 ) {
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
-  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getFotoUser.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
-
   $usuario=getUsuario($usuarioid);
-  $fotoperfil=getFotoUser($usuarioid);
   ob_start();
 ?>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3">
-               <form>
-                    <div class="VerificacionCard">
-                        <!-- Tarjeta Verificacion -->
-                        <div class="profile-section">
-                            <?php 
-                                if($fotoperfil==false){
-                                echo "<img src='/assets/user.png' alt='Foto de perfil' class='profile-image'>";
-            
-                                }
-                                else{
-                                    echo"<img src='$fotoperfil' alt='Foto de perfil' class='profile-image'>";
-                                }
-                            ?>
-                            <span class="user-name"><?php echo "Usuario:".$usuario["usuario_nombre"]; ?></span>
-                            <?php   
-                                    if($estado==0){
-                                    echo "<h6>Estado:Sin Verificar</h6>";    
-                                    }   
-                            ?> 
-                            <spam><?php echo "Localidad:".$usuario["usuario_localidad"];?></spam>
-                    
-                            <spam><?php echo "Tipo de Documento:".$tipodoc?></spam>
-                            <spam><?php echo "Tipo de Documento:".$tipoboleta?></spam>
-                        </div>
-                        <!-- Foto DNI del usuario -->
-                        <div class="id-section">
-                            <?php 
-                                if(($fotodoc1 || $fotodoc2)!=null){
-                                    echo "<img src='$fotodoc1' alt='Foto DNI' class='id-image'>";
-                                    echo "<img src='$fotodoc2' alt='Foto DNI' class='id-image'>";
-                                }
-                                elseif(($fotoboleta1 || $fotoboleta2)!=null){
-                                    echo "<img src='$fotoboleta1' alt='Foto DNI' class='id-image'>";
-                                    echo "<img src='$fotoboleta2' alt='Foto DNI' class='id-image'>";
-                                }
-                            ?>
-                            <div class="button-section">
-                                <!-- 0="pendiente", a 1="aceptado" o 2="rechazado" -->
-                                <button type="button" class="btn btn-accept" title="Aceptar"  data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,1)">Aceptar</button>
-                                <button type="button" class="btn btn-reject" title="Rechazar" data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,2)">Rechazar</button>
-                            </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </form> 
+    <section class="col-12 cuerpo">
+        <aside class="col-2 perfil shadow border border-dark-subtle rounded">
+            <div class="perfil_user">
+                <div class="col-12 user_name">
+                    <h4>Verificacion</h4>
+                    <h6><?php echo "Usuario:".$usuario["usuario_nombre"]; ?></h6>
+                     <h6><?php echo "Localidad:".$usuario["usuario_localidad"]; ?></h6>
+                </div>
             </div>
-        </div>
-    </div>    
+            <div class="perfil_info">
+                <?php 
+                    if($estado=0){
+                        echo "<p>Estado: sin verificar</p>";
+                    }
+                ?>
+                
+            </div>
+        </aside>
+    </section>
 <?php
   return ob_get_clean();
 }

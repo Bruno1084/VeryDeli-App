@@ -11,7 +11,7 @@
     $usuarioAutor = $_SESSION['id'];
     $db = new DB();
     $conexion = $db->getConnection();
-    $stmtEsResponsable = $conexion->prepare("SELECT usuario_esResponsable FROM usuarios WHERE usuario_id = ? AND usuario_esActivo = 0");
+    $stmtEsResponsable = $conexion->prepare("SELECT usuario_esResponsable FROM usuarios WHERE usuario_id = ? AND usuario_esActivo = '1'");
     $stmtEsResponsable->bindParam(1, $usuarioAutor, PDO::PARAM_INT);
     if ($stmtEsResponsable->execute()) {
       $esResponsable=$stmtEsResponsable->fetch();
