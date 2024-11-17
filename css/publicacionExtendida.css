@@ -89,7 +89,6 @@ aside{
     text-align: start;
     padding-left: 1vh;
     word-break: break-all;
-    resize: none;
 }
 
 .comentario .publicacionExtendida-menuButton-container ul{
@@ -130,13 +129,6 @@ aside{
 .post-comentario .user-post{
     margin: 0.5vh 0;
 }
-.comentario .inputHidden{
-    display: none;
-}
-
-.btn.procesarDenuncia{
-    --bs-btn-bg: #ffffff;
-}
 
 .post-comentario .boton-postC{
     display: flex;
@@ -146,10 +138,10 @@ aside{
 .post-comentario .comentario-descripcion{
     resize: none;
     height: 10vh;
-    padding-left: 5px;
 }
 
 .defaultPicture{
+    border: solid 0.1vh black;
     width: 10vh;
     height: 10vh;
     background-color: #fff;
@@ -172,11 +164,9 @@ aside{
 }
 
 .defaultPicture img{
-    border-radius: 50%;
     width: 9vh;
     height: 9vh;
     padding: 0;
-    border: solid 0.1vh black;
 }
 
 .profilePicture{
