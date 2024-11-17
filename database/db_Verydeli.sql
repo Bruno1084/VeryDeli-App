@@ -138,8 +138,9 @@ CREATE TABLE `verificaciones` (
 CREATE TABLE `notificaciones` (
     `notificacion_id` INT NOT NULL AUTO_INCREMENT ,
     `notificacion_mensaje` VARCHAR(255) NOT NULL ,
-    `notificacion_estado` BOOLEAN NOT NULL ,
     `notificacion_fecha` DATETIME NOT NULL ,
+    `notificacion_tipo` enum('1', '2', '3', '4') NOT NULL,
+    `notificacion_estado` BOOLEAN NOT NULL ,
     `usuario_id` INT NOT NULL ,
     `publicacion_id` INT,
     PRIMARY KEY (

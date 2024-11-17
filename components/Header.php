@@ -31,8 +31,23 @@
                         <?php
                             function tipoNotify($notify){
                                 switch($notify["notificacion_tipo"]){
-                                    case 2: return "/public/miPerfil.php";
-                                    default: return "/pages/publicacion.php?id=".$notify["publicacion_id"];
+                                    case 1: return "/pages/publicacion.php?id=".$notify["publicacion_id"];
+                                            
+                                    case 2: if(str_contains($notify["notificacion_mensaje"],"!Su verificacion ha sido Rechazada"))
+                                                return "/index.php";
+                                            elseif(str_contains($notify["notificacion_mensaje"],"!Su verificacion ha sido Aceptada"))
+                                                return "/pages/miPerfil.php";
+                                            else return "/pages/verificaciones.php";
+
+                                    case 3: if(str_contains($notify["notificacion_mensaje"],"¡Alguien"))
+                                                return "/pages/miPerfil.php";
+                                            else return "/pages/denuncias.php";
+
+                                    case 4: if(str_contains($notify["notificacion_mensaje"],"¡Alguien"))
+                                                return "/pages/publicacion.php?id=".$notify["publicacion_id"];
+                                            else return "/pages/denuncias.php";
+                                            
+                                    default: return "/pages/notificaciones.php";
                                 }
                             }
                             function tieneFoto(){
