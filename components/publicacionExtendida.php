@@ -369,7 +369,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
 
 
   </div>
-  <?php if($denuncia==false){?>
+  <?php if($denunciada==false){?>
   <script>
     function reportarComentario(comentarioId){
       document.querySelector("#formReportarComentario input[name='comentario-id']").value=comentarioId;
