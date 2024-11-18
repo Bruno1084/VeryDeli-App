@@ -31,14 +31,14 @@
 
                 <div class="col-md-6">
                   <div class="col-10">
-                    <input type="number" step="0.01" class="form-control" id="publicacion-volumen" name="volumen" placeholder="Volumen">
+                    <input type="number" step="0.01" class="form-control" id="publicacion-volumen" name="volumen" placeholder="Volumen m³">
                     <div class="invalid-feedback" id="invalid-volumen"></div>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="col-10">
-                    <input type="number" step="0.01" class="form-control" id="publicacion-peso" name="peso" placeholder="Peso">
+                    <input type="number" step="0.01" class="form-control" id="publicacion-peso" name="peso" placeholder="Peso Kg">
                     <div class="invalid-feedback" id="invalid-peso"></div>
                   </div>
                 </div>

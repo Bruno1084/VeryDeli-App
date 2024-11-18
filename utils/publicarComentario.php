@@ -8,6 +8,7 @@ if (isset($_POST["enviado"])) {
   $db = new DB();
   $conexion = $db->getConnection();
   $stmtComentario = $conexion->prepare('INSERT INTO comentarios (publicacion_id, usuario_id, comentario_mensaje, comentario_fecha) VALUES (?, ?, ?, ?)');
+  date_default_timezone_set("America/Argentina/Buenos_Aires");
   $fechaActual = date('Y-m-d H:i:s');
   $stmtComentario->bindParam(1, $pubId, PDO::PARAM_INT);
   $stmtComentario->bindParam(2, $_SESSION['id'], PDO::PARAM_INT);

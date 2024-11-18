@@ -179,11 +179,15 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
         if($stmtPost->execute()){
           $res=$stmtPost->fetchAll(PDO::FETCH_NUM);
         }
+        $postulantes=array();
+        foreach($res as $re){
+          $postulantes[]=$re[0];
+        }
         $stmtPost=null;
         $conexion=null;
         $db=null;
         //--------------ID de Postulantes-----------------
-        if(in_array($_SESSION["id"],$res) || $_SESSION["id"]==$autor["usuario_autor"]){
+        if(in_array($_SESSION["id"],$postulantes) || $_SESSION["id"]==$autor["usuario_autor"]){
           require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
           $username = getUsuario($_SESSION['id'])['usuario_usuario'];
           $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
@@ -369,7 +373,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
 
 
   </div>
-  <?php if($denuncia==false){?>
+  <?php if($denunciada==false){?>
   <script>
     function reportarComentario(comentarioId){
       document.querySelector("#formReportarComentario input[name='comentario-id']").value=comentarioId;

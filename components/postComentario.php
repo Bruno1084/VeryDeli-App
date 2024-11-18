@@ -12,7 +12,7 @@ function renderPostComentario ($username, $profileIcon, $idPublicacion) {
 
     <div class='dataComentario text-start col-10'>
       <div>
-        <p><?php echo $username ?></p>
+        <p class="my-1"><?php echo $username ?></p>
       </div>
       <div class='col-12'>
         <form action='/utils/publicarComentario.php' method='post' id='formComentar<?php echo $idPublicacion;?>' autocomplete='off'>
