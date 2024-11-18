@@ -35,7 +35,7 @@ function renderDenunciasReportadas () {
                         $p['usuario_usuario'],
                         $foto,
                         $p['publicacion_fecha'],
-                        $p["publicacion_descr"],
+                        $p["publicacion_titulo"],
                         $p["imagen_url"],
                         true
                     );

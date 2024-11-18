@@ -94,6 +94,7 @@
           $foto,
           $publicacion['publicacion_fecha'],
           $publicacion['usuario_localidad'],
+          $publicacion["publicacion_titulo"],
           $publicacion['publicacion_descr'],
           $publicacion['publicacion_peso'],
           $ubicaciones->origen->barrio,
