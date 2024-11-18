@@ -1,5 +1,10 @@
 <?php
 function renderComentario ($comentarioCount, $comentarioId ,$username, $profileIcon, $comFecha, $commentText, $autorComen, $denuncia=false, $a=false, $idPub=null) {
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+
+  $calificacionUsuario = getAVGCalificacionesFromUsuario($autorComen);
+
 
   ob_start();
 ?>
@@ -13,8 +18,9 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
 
           <?php echo obtenerFoto($profileIcon);?>
 
-          <div>
+          <div class="d-flex usuario-calificacion">
             <p><?php echo $username?></p>
+            <?php echo estadoCalif($calificacionUsuario) ?>
           </div>
         </div>
         <div class="dataComentario col-6 mt-1 text-end lh-1">
