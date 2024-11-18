@@ -19,7 +19,7 @@ function obtenerFoto($fYm){
             </div>';
   }
 }
-function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
+function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $tituloPublicacion, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
   include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/postComentario.php');
@@ -58,20 +58,22 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
           <?php 
               require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAutorPublicacion.php");
               $autor = getAutorPublicacion($idPublicacion);
-              if($_SESSION['id'] == $autor['usuario_autor'] && $denunciada==false && $estado==1){
-                echo '
+              if($_SESSION['id'] == $autor['usuario_autor'] && $denunciada==false && $estado==1){?>
                 <div class="dropdown publicacionExtendida-menuButton-container">
                   <img class="publicacionExtendida-menuIcon" src="/assets/three-dots-vertical.svg" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#" onclick="eliminarPublicacion(<?= $idPublicacion ?>)">Eliminar publicacion</a></li>
+                    <li><a class="dropdown-item" onclick="eliminarPublicacion(<?php echo $idPublicacion; ?>)">Eliminar publicacion</a></li>
                   </ul>
-                </div>';
-              }
+                </div>
+        <?php  }
             ?>
 
         </div>
       </div>
       <div class='my-3'>
+        <div>
+          <h2><?php echo $tituloPublicacion;?></h2>
+        </div>
         <div>
           <div>
             <p class='text-start fs-5 lh-1'>Detalles del producto:</p>
@@ -117,9 +119,9 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
                 renderCalificarUsuario($idPublicacion);
               }
             }
-          }elseif($estado == 2){
-            echo '<button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>';
-          }?>
+          }elseif($estado == 2){?>
+            <button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>
+   <?php  }?>
         </div>
   <?php  }
         ?>
@@ -383,6 +385,34 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
   <script>
     function reportarComentario(comentarioId){
       document.querySelector("#formReportarComentario input[name='comentario-id']").value=comentarioId;
+    }
+    function eliminarPublicacion(id){
+      data=new FormData();
+      data.append("publicacion_id",id);
+      fetch("/utils/eliminarPublicacion.php",{
+        method: "post",
+        body: data
+      })
+      .then(respuesta => {
+        if (!respuesta.ok) { // Verifica si la respuesta es un error
+            throw new Error('Error en la solicitud: ' + respuesta.status);
+        }
+        return respuesta.text();
+        })
+      .then(text => {
+        if (text) { 
+            if(text.trim()=="Eliminado"){
+              let contenedor = document.querySelector('.form-rest');
+              contenedor.innerHTML = '<div class="text-bg-success p-3"><strong>¡Publicacion Eliminada!</strong><br>Se ha eliminado exitosamente la publicacion</div>';
+              setTimeout(() => {
+                window.history.back();
+              }, 2000);
+            }
+        } else {
+            throw new Error("Respuesta vacía del servidor");
+        }
+        })
+      .catch(error => {});
     }
   </script>
   <?php }?>

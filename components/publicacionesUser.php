@@ -12,9 +12,9 @@ function renderPubsAndComsUser() {
     $conexion = $db->getConnection();
 
     $pubYcom = getAllPubsAndComsFromUser($_SESSION["id"],$limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3') AND (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3')");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
-    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
+    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3') AND comentarios.comentario_esActivo='1'");
     $totalComentarios = $totalComentariosStmt->fetchColumn();
     $paginasTotales = ceil(($totalComentarios+$totalPublicaciones) / $limit);
     
@@ -37,7 +37,7 @@ function renderPubsAndComsUser() {
                         $pOc['usuario_usuario'],
                         $foto,
                         $pOc['publicacion_fecha'],
-                        $pOc["publicacion_descr"],
+                        $pOc["publicacion_titulo"],
                         $pOc["imagen_url"]
                     );
                 }

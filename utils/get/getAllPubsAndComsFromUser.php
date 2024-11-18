@@ -12,7 +12,7 @@ function getAllPubsAndComsFromUser($idUser, $limit = 0, $offset = 0){
             WHERE
                 (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3')
                 AND publicaciones.usuario_autor= ?
-                AND denuncias_reportadas.publicacion_id IS NULL
+                AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3')
             UNION
             SELECT comentarios.comentario_id, comentarios.comentario_fecha, 'comentario'
             FROM comentarios

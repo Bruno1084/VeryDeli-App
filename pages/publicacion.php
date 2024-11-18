@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php"); ?>
-  <link rel="stylesheet" href="../css/publicacionExtendida.css">
+  <link rel="stylesheet" href="/css/publicacionExtendida.css">
   <?php
   include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
@@ -94,6 +94,7 @@
           $foto,
           $publicacion['publicacion_fecha'],
           $publicacion['usuario_localidad'],
+          $publicacion["publicacion_titulo"],
           $publicacion['publicacion_descr'],
           $publicacion['publicacion_peso'],
           $ubicaciones->origen->barrio,
