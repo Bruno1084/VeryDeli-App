@@ -1,0 +1,28 @@
+.notificaciones{
+    min-height: 55vh;
+    display: flex;
+    justify-content: center;
+}
+
+.notiLeido{
+    background-color: #e8e8e8;
+}
+.notificacion .mensaje:hover{
+    background-color: #cecece;
+}
+.notificacion .pie p{
+    margin: 0;
+}
+.notificacion .botones p:hover{
+    background-color: #cecece;
+}
+.notificacion a p{
+    word-break: break-all;
+}
+.notificacion .fechaNotify{
+    display: flex;
+    align-items: center;
+}
+.notificacion .fechaNotify p{
+    text-align: center;
+}

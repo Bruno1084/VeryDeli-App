@@ -18,7 +18,6 @@ function renderPublicaciones () {
     $db=null;
     $conexion=null;
     $totalPublicacionesStmt=null;
-    $userCache = [];
     
 ?>
     <div class='container-fluid text-center'>

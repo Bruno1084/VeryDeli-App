@@ -92,7 +92,7 @@ if($datos['usuario_usuario'] != $usuario){
 
 $checkUsuario = null;
 
-if(trim($contraseña) != ""){
+if(trim($contrasenia) != ""){
   // Validar formato de la contraseña
   if(verificarDatos('[a-zA-Z0-9$@.\-]{7,100}', $contrasenia)){
     manejarError('false','Contraseña inválida','La contraseña ingresada no coincide con el formato solicitado.');
@@ -108,7 +108,7 @@ if(trim($contraseña) != ""){
 
 $actualizarUsuario = $conexion->prepare(
   "UPDATE usuarios 
-          SET usuario_nombre=?, usuario_apellido=?, usuario_usuario=?, usuario_clave=?, usuario_correo=?, usuario_localidad=? 
+          SET usuario_nombre = ?, usuario_apellido = ?, usuario_usuario = ?, usuario_contraseña = ?, usuario_correo = ?, usuario_localidad = ?
           WHERE usuario_id = ?");
 $actualizarUsuario->bindValue(1, $nombre, PDO::PARAM_STR);
 $actualizarUsuario->bindValue(2, $apellido, PDO::PARAM_STR);
@@ -116,6 +116,7 @@ $actualizarUsuario->bindValue(3, $usuario, PDO::PARAM_STR);
 $actualizarUsuario->bindValue(4, $contrasenia, PDO::PARAM_STR);
 $actualizarUsuario->bindValue(5, $correo, PDO::PARAM_STR);
 $actualizarUsuario->bindValue(6, $localidad, PDO::PARAM_STR);
+$actualizarUsuario->bindValue(7, $id, PDO::PARAM_INT);
 
 if($actualizarUsuario->execute()){
   manejarError('true','Datos Actualizados', 'Sus datos se actualizaron con exito');

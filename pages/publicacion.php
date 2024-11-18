@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php"); ?>
-  <link rel="stylesheet" href="../css/publicacionExtendida.css">
+  <link rel="stylesheet" href="/css/publicacionExtendida.css">
   <?php
   include_once($_SERVER['DOCUMENT_ROOT'] . "/components/publicacionExtendida.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
@@ -63,7 +63,7 @@
         }
       }
       
-
+      // Renderiza postulaciones solo si la publicación le pertenece al usuario 
       if($_SESSION['id'] == $autor['usuario_autor']){
         echo renderPostulaciones($_GET['id']);
       }
@@ -72,6 +72,7 @@
       if($denuncia!=null){
         echo renderPublicacionExtendida(
           $publicacion['publicacion_id'],
+          $autor,
           $publicacion['usuario_usuario'],
           $foto,
           $publicacion['publicacion_fecha'],
@@ -88,6 +89,7 @@
       else{
         echo renderPublicacionExtendida(
           $publicacion['publicacion_id'],
+          $publicacion['usuario_id'],
           $publicacion['usuario_usuario'],
           $foto,
           $publicacion['publicacion_fecha'],

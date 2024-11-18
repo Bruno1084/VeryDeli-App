@@ -1,4 +1,5 @@
 <?php 
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");
 function stateExist($arreglo){
     if(isset($arreglo["state"])){
         return $arreglo["state"].", ";
@@ -15,6 +16,8 @@ function isCheck($i,$check){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/head.php")?>
     <link rel="stylesheet" href="../css/resultSearch.css">
+    <link rel="stylesheet" href="../css/publicacionAcotada.css">
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <title>Resultados</title>
 </head>

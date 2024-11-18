@@ -20,7 +20,6 @@ function renderDenunciasReportadas () {
     $db=null;
     $conexion=null;
     $totalPublicacionesStmt=null;
-    $userCache = [];
     
 ?>
     <div class='container-fluid text-center'>
@@ -32,6 +31,7 @@ function renderDenunciasReportadas () {
                     echo renderPublicacionAcotada(
                         $p["publicacion_id"],
                         $userLocation,
+                        $p['usuario_autor'],
                         $p['usuario_usuario'],
                         $foto,
                         $p['publicacion_fecha'],

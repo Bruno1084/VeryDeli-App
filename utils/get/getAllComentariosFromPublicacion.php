@@ -7,7 +7,8 @@ function getAllComentariosFromPublicacion ($idPublicacion, $denuncia=false) {
 
   $sql = "SELECT comentarios.comentario_id, 
                  comentarios.comentario_mensaje, 
-                 comentarios.comentario_fecha, 
+                 comentarios.comentario_fecha,
+                 comentarios.usuario_id,
                  usuarios.usuario_usuario,
          ";
   if($denuncia) 
@@ -33,7 +34,10 @@ function getAllComentariosFromPublicacion ($idPublicacion, $denuncia=false) {
         $sql.="AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='3')";
     }
     $sql.="GROUP BY 
-              comentarios.comentario_id";
+              comentarios.comentario_id
+           ORDER BY 
+              comentarios.comentario_fecha DESC
+          ";
 
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);

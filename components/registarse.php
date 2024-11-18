@@ -78,11 +78,11 @@
                 <div class="additional-fields row justify-content-center">
                     <div class="form-group col-12 col-md-5 mb-3">
                         <label for="volumenSoportado">Volumen soportado</label>
-                        <input type="number" step="0.001" class="form-control mb-3" id="volumenSoportado" name="volumenSoportado" placeholder="Volumen">
+                        <input type="number" step="0.001" class="form-control mb-3" id="volumenSoportado" name="volumenSoportado" placeholder="1200m³">
                     </div>
                     <div class="form-group col-12 col-md-5 mb-3">
                         <label for="pesoSoportado">Peso soportado</label>
-                        <input type="number" step="0.001" class="form-control mb-3" id="pesoSoportado" name="pesoSoportado" placeholder="Peso">
+                        <input type="number" step="0.001" class="form-control mb-3" id="pesoSoportado" name="pesoSoportado" placeholder="450kg">
                     </div>
                 </div>
 

@@ -19,27 +19,33 @@ function obtenerFoto($fYm){
             </div>';
   }
 }
-function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
-  $contadorComentarios = 0;
-  $commentCache = [];
+function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/postComentario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
 
+  $contadorComentarios = 0;
+  $calificacionUsuario = getAVGCalificacionesFromUsuario($idUsuario);
   ob_start();
 ?>
   <div class='publicacionExtendida-container container-fluid shadow border border-dark-subtle rounded my-3'>
     <div class='row p-2' name='publicacion_A' id='publicacion-A'>
       <div class="cabeceraPublicacion d-flex col-12 justify-content-center datosUsuario border-bottom align-items-center">
         <div class='d-flex col-6 mt-1 text-start lh-1'>
-          
+
           <?php echo obtenerFoto($profileIcon);?>
-          
-          <div>
-            <p><?php echo $username; ?></p>
-            <p><?php echo $userLocation; ?></p>
+          <div class="col">
+            <div class="d-flex usuario-calificacion">
+              <p><?php echo $username; ?></p>
+              <?php echo estadoCalif($calificacionUsuario) ?>
+            </div>
+            <div>
+              <p><?php echo $userLocation; ?></p>
+            </div>
           </div>
         </div>
         
@@ -111,9 +117,9 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
                 renderCalificarUsuario($idPublicacion);
               }
             }
-          }elseif($estado == 2){
-            echo '<button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>';
-          }?>
+          }elseif($estado == 2){?>
+            <button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>
+   <?php  }?>
         </div>
   <?php  }
         ?>
@@ -179,11 +185,15 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
         if($stmtPost->execute()){
           $res=$stmtPost->fetchAll(PDO::FETCH_NUM);
         }
+        $postulantes=array();
+        foreach($res as $re){
+          $postulantes[]=$re[0];
+        }
         $stmtPost=null;
         $conexion=null;
         $db=null;
         //--------------ID de Postulantes-----------------
-        if(in_array($_SESSION["id"],$res) || $_SESSION["id"]==$autor["usuario_autor"]){
+        if(in_array($_SESSION["id"],$postulantes) || $_SESSION["id"]==$autor["usuario_autor"]){
           require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
           $username = getUsuario($_SESSION['id'])['usuario_usuario'];
           $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
@@ -369,7 +379,7 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
 
 
   </div>
-  <?php if($denuncia==false){?>
+  <?php if($denunciada==false){?>
   <script>
     function reportarComentario(comentarioId){
       document.querySelector("#formReportarComentario input[name='comentario-id']").value=comentarioId;
