@@ -128,7 +128,7 @@ CREATE TABLE `verificaciones` (
     `verificacion_foto-boleta2` VARCHAR(255),
     `verificacion_tipo-doc` enum('1','2','3','4') NOT NULL ,
     `verificacion_tipo-boleta` enum('1','2','3','4') NOT NULL ,
-    `verificacion_estado` BOOLEAN NOT NULL DEFAULT '0',
+    `verificacion_estado` enum('0','1','2') NOT NULL DEFAULT '0',
     `usuario_id` INT NOT NULL ,
     PRIMARY KEY (
         `verificacion_id`
