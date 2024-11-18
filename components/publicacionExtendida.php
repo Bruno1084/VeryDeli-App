@@ -120,7 +120,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
               }
             }
           }elseif($estado == 2){?>
-            <button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>
+            <button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?php echo $idPublicacion; ?>)">Finalizar publicacion</button>
    <?php  }?>
         </div>
   <?php  }
