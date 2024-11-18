@@ -37,7 +37,7 @@ function renderPubsAndComsUser() {
                         $pOc['usuario_usuario'],
                         $foto,
                         $pOc['publicacion_fecha'],
-                        $pOc["publicacion_descr"],
+                        $pOc["publicacion_titulo"],
                         $pOc["imagen_url"]
                     );
                 }

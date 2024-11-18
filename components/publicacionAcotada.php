@@ -20,7 +20,7 @@ function obtenerFoto($fYm){
   }
 }
 
-function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $username, $profileIcon, $date, $productDetail, $imagen, $denunciada=false) {
+function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $username, $profileIcon, $date, $TituloPublicacion, $imagen, $denunciada=false) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAllImagenesFromPublicacion.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
@@ -56,7 +56,7 @@ function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $u
 
     <div >
       <div>
-        <p class="my-3 text-start"><?php echo $productDetail ?></p>
+        <h3 class="my-3 text-start"><?php echo $TituloPublicacion ?></h3>
       </div>
 
       <div class='imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-center'>

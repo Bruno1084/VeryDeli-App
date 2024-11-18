@@ -19,7 +19,7 @@ function obtenerFoto($fYm){
             </div>';
   }
 }
-function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
+function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $tituloPublicacion, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
   include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/postComentario.php');
@@ -71,6 +71,9 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
         </div>
       </div>
       <div class='my-3'>
+        <div>
+          <h2><?php echo $tituloPublicacion;?></h2>
+        </div>
         <div>
           <div>
             <p class='text-start fs-5 lh-1'>Detalles del producto:</p>

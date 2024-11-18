@@ -33,7 +33,7 @@ function renderPublicacionesBusqueda ($descr_o_ubicacion, $tipo) {
                     $p['usuario_usuario'],
                     $foto,
                     $p['publicacion_fecha'],
-                    $p["publicacion_descr"],
+                    $p["publicacion_titulo"],
                     $p["imagen_url"]
                 );
             };
