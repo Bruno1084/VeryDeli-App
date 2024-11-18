@@ -27,8 +27,11 @@
                         <p class='my-3 w-100 text-start'><?php echo $notify["notificacion_mensaje"]?></p>
                     </div>
                 </a>
-                <div class="botones row justify-content-end">
-                    <div class="d-flex justify-content-end col-auto my-1 text-end lh-1">
+                <div class="pie row d-flex justify-content-between">
+                    <div class="col-auto fechaNotify">
+                        <p><?php echo $notify["notificacion_fecha"];?></p>
+                    </div>
+                    <div class="botones d-flex justify-content-end col-auto my-1 text-end lh-1">
                         <p class="btn border me-3" onclick="estadoNotify(event)"><?php if($notify["notificacion_estado"]==0) echo "leido";else echo "no leido"; ?></p>
                         <p class="btn border" onclick="estadoNotify(event)">Eliminar</p>
                     </div>

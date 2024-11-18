@@ -12,7 +12,9 @@ function getAllNotificacionesFromUsuario(){
                  notificacion_estado,
                  publicacion_id
           FROM notificaciones 
-          WHERE usuario_id = ? ";
+          WHERE usuario_id = ? 
+          ORDER BY notificacion_fecha DESC
+          ";
     
     $stmt=$connection->prepare($sql);
 
