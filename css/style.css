@@ -127,3 +127,10 @@ body{
     max-width: 30px;
     max-height: 35px;
 }
+
+.primerDivBody{
+    display: flex;
+    min-height: 64vh;
+    flex-direction: column;
+    justify-content: flex-end;
+}
