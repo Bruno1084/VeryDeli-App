@@ -97,8 +97,8 @@ function renderVerificacion(
                             </div>
                             <div class="button-section">
                                 <!-- 0="pendiente", a 1="aceptado" o 2="rechazado" -->
-                                <button type="button" class="btn btn-accept" title="Aceptar"  data-id="<?= $verificacionid ?>" data-name="<?php echo $usuarioid;?>" onclick="cambiarEstadoVerificacion(this,1)">Aceptar</button>
-                                <button type="button" class="btn btn-reject" title="Rechazar" data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,2)">Rechazar</button>
+                                <button type="button" class="btn btn-accept" title="Aceptar"  data-id="<?php echo $verificacionid; ?>" data-name="<?php echo $usuarioid;?>" onclick="cambiarEstadoVerificacion(this,1)">Aceptar</button>
+                                <button type="button" class="btn btn-reject" title="Rechazar" data-id="<?php echo $verificacionid; ?>" onclick="cambiarEstadoVerificacion(this,2)">Rechazar</button>
                             </div>
                         </div>
                     </div>
