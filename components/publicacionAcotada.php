@@ -23,7 +23,6 @@ function obtenerFoto($fYm){
 function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $username, $profileIcon, $date, $productDetail, $imagen, $denunciada=false) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAllImagenesFromPublicacion.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
 
   $calificacionUsuario = getAVGCalificacionesFromUsuario($idUsuario);

@@ -63,7 +63,7 @@
         }
       }
       
-
+      // Renderiza postulaciones solo si la publicación le pertenece al usuario 
       if($_SESSION['id'] == $autor['usuario_autor']){
         echo renderPostulaciones($_GET['id']);
       }
@@ -72,6 +72,7 @@
       if($denuncia!=null){
         echo renderPublicacionExtendida(
           $publicacion['publicacion_id'],
+          $autor,
           $publicacion['usuario_usuario'],
           $foto,
           $publicacion['publicacion_fecha'],
@@ -88,6 +89,7 @@
       else{
         echo renderPublicacionExtendida(
           $publicacion['publicacion_id'],
+          $publicacion['usuario_id'],
           $publicacion['usuario_usuario'],
           $foto,
           $publicacion['publicacion_fecha'],

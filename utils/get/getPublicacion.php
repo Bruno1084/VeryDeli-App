@@ -12,6 +12,7 @@ function getPublicacion ($idPublicacion) {
             publicaciones.publicacion_fecha,
             publicaciones.publicacion_esActivo,
             publicaciones.usuario_transportista,
+            usuarios.usuario_id,
             usuarios.usuario_usuario, 
             usuarios.usuario_localidad,
             CASE WHEN fotosPerfil.usuario_id IS NOT NULL THEN fotosPerfil.imagen_url ELSE 0 END AS usuario_fotoPerfil,
