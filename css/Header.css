@@ -10,6 +10,7 @@
 }
 #header .notifications .dropdown-menu[data-bs-popper] {
     margin-top: 2.7vh;
+    z-index: 1500;
 }
 #header .dropdown-menu[data-bs-popper] {
     right: 0;
