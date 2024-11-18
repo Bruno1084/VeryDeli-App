@@ -111,9 +111,9 @@ function renderPublicacionExtendida ($idPublicacion, $username, $profileIcon, $d
                 renderCalificarUsuario($idPublicacion);
               }
             }
-          }elseif($estado == 2){
-            echo '<button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>';
-          }?>
+          }elseif($estado == 2){?>
+            <button type="button" class="btn btn-gris btn-md" href="#" onclick="finalizarPublicacion(<?= $idPublicacion ?>)">Finalizar publicacion</button>
+   <?php  }?>
         </div>
   <?php  }
         ?>

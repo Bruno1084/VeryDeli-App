@@ -10,7 +10,7 @@ function getTransportistaPublicacion ($idPublicacion) {
             AND postulaciones.publicacion_id=publicaciones.publicacion_id
             WHERE publicaciones.publicacion_id = ? 
             AND publicaciones.usuario_transportista IS NOT NULL
-            AND postulaciones.postulacion_estado = '2' ";
+            AND postulaciones.postulacion_estado = '1' ";
     $stmt = $conexion->prepare($sql);
     $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
     $stmt->execute();

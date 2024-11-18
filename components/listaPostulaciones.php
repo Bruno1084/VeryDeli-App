@@ -16,7 +16,7 @@
         $conexion = $db->getConnection();
         $publicacion = $conexion->query("SELECT * FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch(PDO::FETCH_ASSOC);
         ob_start();
-    ?>  <link rel="stylesheet" href="../css/publicacionAcotada.css">
+    ?>  <link rel="stylesheet" href="/css/publicacionAcotada.css">
         <section>
         <div class="postulaciones container py-4">
           <div class="row">
