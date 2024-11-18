@@ -1,24 +1,22 @@
+<?php 
+require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/functions/startSession.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php");?>
-  <link rel="stylesheet" href="../css/verificacion.css">
-  <script src="/js/cambiarEstadoVerificacion.js"></script>
-  <script src="/js/ajax.js"></script>
-  <script src="/js/validarReportePublicacion.js"></script>
-
-
-  <?php 
-
+    <link rel="stylesheet" href="../css/verificacion.css">
+    
+    
+<?php
   include_once($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
   include_once($_SERVER['DOCUMENT_ROOT']. "/utils/get/getAllVerificaciones.php");
-  require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/functions/startSession.php");
   require_once($_SERVER['DOCUMENT_ROOT'] . "/components/verificarUser.php");
-  ?>
+?>
   
-  <title>verificaciones</title>
+  <title>Verificaciones</title>
 </head>
 <body>
   <?php 
@@ -36,7 +34,7 @@
        
       ?>
       
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 d-flex flex-column justify-content-center">
           
         <?php
           foreach ($verificaciones as $verificacion) {
@@ -57,14 +55,9 @@
       </div>
     </div>
   </div>
-  <?php require_once("../components/Footer.php");?>
+  <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Footer.php");?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/JS.php")?>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/js/postulacion.js"></script>
-  <script src="/js/ajax.js"></script>
-  <script src="/js/validarReporte.js"></script>
-  <script src="/js/cambiarEstado.js"></script>
-  <script src="/js/validarCalificacion.js"></script>
-  <script src="/js/finalizarPublicacion.js"></script>
+  <script src="/js/cambiarEstadoVerificacion.js"></script>
 </body>
 </html>
