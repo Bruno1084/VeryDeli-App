@@ -18,7 +18,7 @@
     <div class="form-rest my-4 p-3 col-12 col-md-8"></div>
   </div>
 <div class="container py-3 mt-2">
-            <form method="post" id="form-Actualizar" class="formulario-registro form-update-user FormularioAjax" action="/utils/actualizarUsuario.php">
+            <form method="POST" id="form-Actualizar" class="formulario-registro form-update-user FormularioAjax" action="/utils/actualizarUsuario.php">
               <input type="hidden" value="<?= $_SESSION['id'] ?>" name="usuario_id" id="usuario_id">
                 <div class="row justify-content-center">
                     <div class="form-group col-12 col-md-5 mb-3">
