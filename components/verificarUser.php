@@ -19,11 +19,11 @@ function renderVerificacion(
   $fotoperfil=getFotoUser($usuarioid);
   ob_start();
 ?>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3">
+    <div class=" col-8 container-fluid d-flex justify-content-center">
+        <div class="row col-12">
+            <div class="col-12">
                <form>
-                    <div class="VerificacionCard">
+                    <div class="col-12 VerificacionCard">
                         <!-- Tarjeta Verificacion -->
                         <div class="profile-section">
                             <?php 
@@ -44,26 +44,61 @@ function renderVerificacion(
                             <spam><?php echo "Localidad:".$usuario["usuario_localidad"];?></spam>
                     
                             <spam><?php echo "Tipo de Documento:".$tipodoc?></spam>
-                            <spam><?php echo "Tipo de Documento:".$tipoboleta?></spam>
+                            <spam><?php echo "Tipo de Boleta:".$tipoboleta?></spam>
                         </div>
-                        <!-- Foto DNI del usuario -->
+                        <!-- Fotos Documento y Boleta del usuario -->
                         <div class="id-section">
-                            <?php 
-                                if(($fotodoc1 || $fotodoc2)!=null){
-                                    echo "<img src='$fotodoc1' alt='Foto DNI' class='id-image'>";
-                                    echo "<img src='$fotodoc2' alt='Foto DNI' class='id-image'>";
-                                }
-                                elseif(($fotoboleta1 || $fotoboleta2)!=null){
-                                    echo "<img src='$fotoboleta1' alt='Foto DNI' class='id-image'>";
-                                    echo "<img src='$fotoboleta2' alt='Foto DNI' class='id-image'>";
-                                }
-                            ?>
+                            <div class='row' id="carouselVerificacion_<?php echo$usuarioid;?>">
+                                <div class='col-12'>
+                                    <div id="carouselIndicators_<?php echo $usuarioid;?>" class="carousel slide imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start">
+                                        <div class="carousel-indicators">
+                                            <?php $documentacion=array($fotodoc1,$fotodoc2,$fotoboleta1,$fotoboleta2);
+                                                    $cantFotos=0;
+                                            ?>
+                                            <?php for ($i = 0; $i < sizeof($documentacion); $i++) { 
+                                                    if($documentacion[$i]!=null){ ?>
+                                                <button type="button" data-bs-target="#carouselIndicators_<?php echo $usuarioid;?>" data-bs-slide-to=<?php echo $cantFotos ?> <?php if ($cantFotos == 0) echo "class='active'"; ?> <?php if ($cantFotos == 0) echo "aria-current='true'"; ?> aria-label=<?php echo "'Slide " . ($cantFotos + 1) . "'"; ?>></button>
+                                            <?php       $cantFotos++;
+                                                    } 
+                                                    }
+                                            ?>
+                                        </div>
+                                        <div class="carousel-inner">
+                                        <?php $cantFotos = 0;
+                                            foreach ($documentacion as $fotoDocumentacion) { 
+                                                    if($fotoDocumentacion!=null)
+                                                    { ?>
+                                                        <div class="carousel-item <?php if ($cantFotos == 0) echo "active"; ?>">
+                                                        <img class='img u_photo img-fluid id-image' src='<?php echo $fotoDocumentacion; ?>' alt='<?php switch($cantFotos){
+                                                                                                                                                            case 0: echo "Foto Documento";
+                                                                                                                                                                    break;
+                                                                                                                                                            case 1: if($fotodoc2==null) echo "Foto Boleta";
+                                                                                                                                                                    else echo "Foto Documento";
+                                                                                                                                                                    break;
+                                                                                                                                                            case 2: echo "Foto Boleta";
+                                                                                                                                                                    break;
+                                                                                                                                                            case 3: echo "Foto Boleta";
+                                                                                                                                                        }?>'>
+                                                        </div>
+                                        <?php           $cantFotos++;
+                                                    }
+                                            } ?>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators_<?php echo $usuarioid;?>" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators_<?php echo $usuarioid;?>" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="button-section">
                                 <!-- 0="pendiente", a 1="aceptado" o 2="rechazado" -->
-                                <button type="button" class="btn btn-accept" title="Aceptar"  data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,1)">Aceptar</button>
+                                <button type="button" class="btn btn-accept" title="Aceptar"  data-id="<?= $verificacionid ?>" data-name="<?php echo $usuarioid;?>" onclick="cambiarEstadoVerificacion(this,1)">Aceptar</button>
                                 <button type="button" class="btn btn-reject" title="Rechazar" data-id="<?= $verificacionid ?>" onclick="cambiarEstadoVerificacion(this,2)">Rechazar</button>
-                            </div>
-                            
                             </div>
                         </div>
                     </div>
