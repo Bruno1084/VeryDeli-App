@@ -126,9 +126,9 @@
   <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/components/Footer.php"); ?>
   <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/components/JS.php"); ?>
   <?php
-  if ($_SESSION["esVerificado"] == 0) echo '<script src="../js/verificarUsuario.js"></script>';
+  if ($_SESSION["esVerificado"] == 0) echo '<script src="/js/verificarUsuario.js"></script>';
   ?>
-  <script src="../js/postulacion.js"></script>
+  <script src="/js/postulacion.js"></script>
 </body>
 
 </html>

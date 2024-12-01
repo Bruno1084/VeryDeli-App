@@ -56,7 +56,6 @@ window.addEventListener("load",()=>{
     map=iniciarMapa();
     addMyLocation();
     getMyLocation();
-    
 });
 function iniciarMapa(){
     // Inicializa el mapa centrado en una ubicación por defecto
