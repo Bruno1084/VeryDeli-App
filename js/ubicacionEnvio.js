@@ -75,7 +75,7 @@ function addMyLocation(){
     var myLocation=document.createElement("div");
     myLocation.setAttribute("id","btn-container");
     var imgLocation=new Image();
-    imgLocation.src="../assets/gps-location-off.png";
+    imgLocation.src="/assets/gps-location-off.png";
     imgLocation.setAttribute("id","btn-centrar-mapa");
     myLocation.appendChild(imgLocation);
     divMap.appendChild(myLocation);
