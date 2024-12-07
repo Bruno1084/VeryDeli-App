@@ -8,11 +8,14 @@ function getAllAdmins(){
     $stmt = $conexion->prepare($sql);
     $stmt->execute();
 
-    $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $DB = null;
     $stmt = null;
     $conexion = null;
-
+    $admins=array();
+    foreach($res as $admin){
+        $admins[]=$admin["administrador_id"];
+    }
     return $admins;
 }
