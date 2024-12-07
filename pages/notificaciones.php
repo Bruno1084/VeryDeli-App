@@ -4,7 +4,7 @@
     <?php require($_SERVER["DOCUMENT_ROOT"]."/utils/functions/startSession.php");?>
     <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/head.php") ?>
     <link rel="stylesheet" href="../css/notificaciones.css">
-    <title>Mi Perfil</title>
+    <title>Notificaciones</title>
 </head>
 <body>
 <?php

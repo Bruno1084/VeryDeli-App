@@ -17,7 +17,7 @@
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/startSession.php');
   ?>
    <script src="/js/cambiarEstado.js"></script>
-  <title>Very Deli</title>
+  <title>Publicacion</title>
 </head>
 <body>
   <?php require_once("../components/Header.php"); ?>

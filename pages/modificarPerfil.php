@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <?php require_once($_SERVER['DOCUMENT_ROOT']."/components/head.php") ?>
+    <title>Modificar Perfil</title>
 </head>
 <body>
 <?php
