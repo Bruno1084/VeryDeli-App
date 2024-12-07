@@ -1,0 +1,205 @@
+.user_name{
+    position: relative;
+    top: -1vh;
+}
+
+.user_photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 auto;
+    width: 23vh;
+    height: 23vh;
+}
+
+.user_photo .divFoto {
+    position: relative;
+    display: flex;
+    width: 8vh;
+    height: 8vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.user_photo .divFoto img {
+    border-radius: 50%;
+    /* Redondea la foto de perfil */
+    position: relative;
+    z-index: 2;
+    /* Coloca la foto de perfil sobre el borde decorativo */
+    width: 15vh;
+    height: 15vh;
+}
+
+.user_photo .fondoFoto {
+    position: absolute;
+}
+
+.user_photo .userFoto,
+.user_photo .fondoFoto {
+    background-color: #fff;
+    border-radius: 50%;
+    width: 15vh;
+    height: 15vh;
+}
+
+.user_photo .userFoto img {
+    border: solid 0.1vh black;
+}
+
+
+.user_photo .decoFoto1 {
+    position: absolute;
+    width: 22.5vh;
+    height: auto;
+    z-index: 3;
+}
+
+.user_photo .decoFoto2 {
+    position: absolute;
+    width: 18vh;
+    height: auto;
+    z-index: 3;
+}
+
+.user_photo .decoFoto3 {
+    position: absolute;
+    width: 19vh;
+    height: auto;
+    z-index: 3;
+}
+
+.user_photo .decoFoto4 {
+    position: absolute;
+    width: 17vh;
+    height: auto;
+    z-index: 3;
+}
+
+.user_photo .decoFoto5 {
+    position: absolute;
+    width: 17.5vh;
+    height: auto;
+    z-index: 3;
+}
+
+.user_photo .decoFoto6 {
+    position: absolute;
+    width: 16.7vh;
+    height: auto;
+    margin-right: 1.6vh;
+    margin-bottom: 0.5vh;
+    z-index: 3;
+}
+
+.user_photo .decoFoto7 {
+    position: absolute;
+    width: 18.5vh;
+    height: auto;
+    z-index: 3;
+    margin-right: 0.5vh;
+    margin-bottom: 0.6vh;
+}
+
+/*--------------Calificaciones-----------------*/
+
+.perfil_calificacion .calificacion_puntaje {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.perfil_calificacion .calificacion_puntaje div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfil_calificacion .calificacion_puntaje img{
+    height: 3vh;
+}
+.perfil_calificacion .calificacion_puntaje p{
+    margin: 0;
+}
+
+.ratings{
+    display: inline-block;
+    width: 100%;
+}
+
+.rating{
+    align-items: center;
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: 8fr 1fr;
+    -ms-grid-columns: 8fr 1fr;
+    grid-column-gap: 16px;
+    font-size: 14px;
+    height: 16px;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.ratings .progress_bar .fondo{
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 100px;
+    bottom: 0;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+.ratings .progress_bar .relleno{
+    background: rgba(0, 0, 0, .55);
+    border-radius: 100px;
+    bottom: 0;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.ratings .progress_bar span{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: rgba(0, 0, 0, .70);
+    font-size: small;
+}
+
+.ratings .stars{
+    color: rgba(0, 0, 0, .55);
+    display: flex;
+}
+.progress_bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.progress_bar div{
+    border-radius: 100px;
+    display: inline-block;
+    height: 4px;
+    margin-top: 4px;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+}
+
+/*--------------Mensajes Calificaciones---------------*/
+
+.mensajes_calif .mensaje .rating img{
+    height: 16px;
+}
+
+
+
