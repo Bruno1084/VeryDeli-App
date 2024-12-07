@@ -92,7 +92,7 @@ CREATE TABLE `postulaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_postulante` int  NOT NULL ,
     `postulacion_precio` float  NOT NULL ,
-    `postulacion_descr` varchar(500)  NULL ,
+    `postulacion_descr` varchar(500) NULL ,
     `postulacion_fecha` DATETIME NOT NULL ,
     `postulacion_estado` enum('0', '1', '2', '3') NOT NULL DEFAULT '0',
     PRIMARY KEY (
@@ -105,8 +105,11 @@ CREATE TABLE `calificaciones` (
     `publicacion_id` int  NOT NULL ,
     `usuario_calificado` int  NOT NULL ,
     `usuario_calificador` int  NOT NULL ,
-    `calificacion_puntaje` enum('1','2','3','4','5')  NOT NULL ,
+    `calificacion_puntaje` enum('1','2','3','4','5') NOT NULL ,
     `calificacion_fecha` DATETIME NOT NULL ,
+    `calificacion_mensaje` varchar(500) NULL ,
+    `calificacion_fecha` DATETIME NOT NULL ,
+    `calificacion_tipo` enum('1','2') NOT NULL ,
     PRIMARY KEY (
         `calificacion_id`
     )
