@@ -1,6 +1,20 @@
+.divMap{
+    height: auto;
+}
+#map {
+    border-radius: 7%;
+    width: 90%;
+    height: 100%;
+}
+.redirectMap a{
+    border-color: black;
+    color:black;
+}
+.redirectMap a:hover{
+    color:white;
+}
 .usuario-calificacion img {
     position: relative;
-    width: 80px;
     height: 19px;
     object-fit: cover;
     margin-left: 10px;
@@ -14,7 +28,6 @@
     width: auto;
     height: auto;
 }
-
 
 .carousel-item-next, .carousel-item-prev, .carousel-item.active{
     display: flex!important;
@@ -110,6 +123,13 @@ aside{
     border-right: solid 0.1rem #dc3545;
     background-color: #dc354517;
 }
+
+#formCalificarTransportista .calificacion_mensaje textarea{
+    width: 100%;
+    height: 20vh;
+    resize: none;
+}
+
 .resultDenuncia{
     width: 100%;
     display: flex;
