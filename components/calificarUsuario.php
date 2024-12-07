@@ -10,7 +10,7 @@ function renderCalificarUsuario($idPublicacion){ ?>
       <div class="modal-content bg-modalPublicacion">
         <div class="modal-header" style="color:black; background-color:rgba(255, 255, 255, 80%)">
           <h1 class="modal-title fs-5" id="modalCalificarLabel">Calificar Usuario</h1>
-          <button type="button" class=" btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class=" btn-close" id="cerrarModalCalificar" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
           <form action="/utils/calificar.php" class="form-publicacion form-calificar needs-validation FormularioAjax" method="post" id="formCalificarTransportista" novalidate>
@@ -26,11 +26,16 @@ function renderCalificarUsuario($idPublicacion){ ?>
                 </select>
                 <div class="invalid-feedback" id="invalid-puntaje"></div>
               </div>
+              <div class="mt-2 calificacion_mensaje">
+                <textarea name="mensaje" id="inputMensaje" placeholder="Mensaje opcional"></textarea>
+                <div class="invalid-feedback" id="invalid-mensaje"></div>
+              </div>
             </div>
 
             <input type="hidden" name="calificador" value="<?= $_SESSION['id']?>">
             <input type="hidden" name="calificado" value="<?= $usuario['usuario_autor']?>">
             <input type="hidden" name="publicacion-id" value="<?php echo $idPublicacion ?>">
+            <input type="hidden" name="calificacion_tipo" value="2">
             <input type="hidden" name="calificacionEnviada">
           </form>
         </div>

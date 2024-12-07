@@ -13,6 +13,18 @@ function validarCalificacion(){
       motivo.classList.add('is-valid');
       motivoFeedback.textContent = '';
     }
+    const mensaje = document.getElementById('inputMensaje');
+    const mensajeFeedback = document.getElementById('invalid-mensaje');
+  
+    if (mensaje.value.trim() !== '' && mensaje.value.length < 15) {
+      mensaje.classList.add('is-invalid');
+      mensajeFeedback.textContent = 'Ingrese al menos 15 caracteres';
+      isValid = false
+    } else {
+      mensaje.classList.remove('is-invalid');
+      mensaje.classList.add('is-valid');
+      mensajeFeedback.textContent = '';
+    }
 
     return isValid;
   }
@@ -24,7 +36,7 @@ function validarCalificacion(){
         event.preventDefault();
         return validado=()=>new Promise((resolve)=>{
           if (validarCalificacion()){
-            $('#modalCalificar').modal('hide');
+            document.querySelector('#cerrarModalCalificar').click();
             window.scrollTo({
               top: 0,
               behavior: 'smooth'

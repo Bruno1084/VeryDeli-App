@@ -1,28 +1,33 @@
 <?php
     function estadoCalif($calificacion){
       if(is_array($calificacion)){
-        $calificacion = round($calificacion['calificacion_promedio']);
+        $calificacion = round($calificacion['calificacion_promedio'],1);
       }
-      if($calificacion == 1){
-          return "<img class='img-fluid' src='/assets/rating(1).svg' alt='rate' title='1'>";
+      if(!is_numeric($calificacion)||($calificacion>=0 && $calificacion<0.5)){
+        return "<img class='img-fluid' src='/assets/rating(0).png' alt='rate'>";
+      }elseif($calificacion>=0.5 && $calificacion<1){
+        return "<img class='img-fluid' src='/assets/rating(1).png' alt='rate'>";
+      }elseif($calificacion>=1 && $calificacion<1.5){
+        return "<img class='img-fluid' src='/assets/rating(2).png' alt='rate'>";
+      }elseif($calificacion>=1.5 && $calificacion<2){
+        return "<img class='img-fluid' src='/assets/rating(3).png' alt='rate'>";
+      }elseif($calificacion>=2 && $calificacion<2.5){
+        return "<img class='img-fluid' src='/assets/rating(4).png' alt='rate'>";
+      }elseif($calificacion>=2.5 && $calificacion<3){
+        return "<img class='img-fluid' src='/assets/rating(5).png' alt='rate'>";
+      }elseif($calificacion>=3 && $calificacion<3.5){
+        return "<img class='img-fluid' src='/assets/rating(6).png' alt='rate'>";
+      }elseif($calificacion>=3.5&&$calificacion<4){
+        return "<img class='img-fluid' src='/assets/rating(7).png' alt='rate'>";
+      }elseif($calificacion>=4 && $calificacion<4.5){
+        return "<img class='img-fluid' src='/assets/rating(8).png' alt='rate'>";
+      }elseif($calificacion>=4.5&&$calificacion<5){
+        return "<img class='img-fluid' src='/assets/rating(9).png' alt='rate'>";
+      }elseif($calificacion=5){
+        return "<img class='img-fluid' src='/assets/rating(10).png' alt='rate'>";
       }
-      else if($calificacion == 2){
-          return "<img class='img-fluid' src='/assets/rating(2).svg' alt='rate' title='2'>";
-      }
-      else if($calificacion == 3){
-          return "<img class='img-fluid' src='/assets/rating(3).svg' alt='rate' title='3'>";
-      }
-      else if($calificacion == 4){
-          return "<img class='img-fluid' src='/assets/rating(4).svg' alt='rate' title='4'>";
-      }
-      else if($calificacion == 5){
-          return "<img class='img-fluid' src='/assets/rating(5).svg' alt='rate' title='5'>";
-      }
-      else{
-          return "<img class='img-fluid' src='/assets/rating(0).svg' alt='rate' title='0'>";
-      }
-    }
 
+    }
     function renderCalificaciones($calificaciones){
       echo '
         <style>
@@ -37,7 +42,7 @@
     }
     .rating-stars img {
         width: 70px; 
-        height: 70px;
+        height: auto;
     }
     .container {
         max-width: 800px; 
@@ -76,4 +81,3 @@
           </table>
         </div>';
     }
-?>
