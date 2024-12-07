@@ -33,6 +33,9 @@ function getAllComentariosFromPublicacion ($idPublicacion, $denuncia=false) {
     if(!$denuncia){
         $sql.="AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='3')";
     }
+    else{
+        $sql.="AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='1')";
+    }
     $sql.="GROUP BY 
               comentarios.comentario_id
            ORDER BY 
