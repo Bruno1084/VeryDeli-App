@@ -50,9 +50,15 @@
                                     default: return "/pages/notificaciones.php";
                                 }
                             }
-                            function tieneFoto(){
-                                if($_SESSION["fotoPerfil"]==0) return "../assets/user.png";
-                                else return $_SESSION["fotoPerfil"];
+                            function tieneFoto($otroUser=null){
+                                if($otroUser==null){
+                                    if($_SESSION["fotoPerfil"]==0) return "../assets/user.png";
+                                    else return $_SESSION["fotoPerfil"];
+                                }
+                                else{
+                                    if($otroUser==0) return "../assets/user.png";
+                                    else return $otroUser;
+                                }
                             }
                             require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/get5NotificacionesNoVistasFromUsuario.php"); 
                             $notificaciones=get5NotificacionesActivasFromUsuario();
