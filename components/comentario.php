@@ -1,5 +1,5 @@
 <?php
-function renderComentario ($comentarioCount, $comentarioId ,$username, $profileIcon, $comFecha, $commentText, $autorComen, $denuncia=false, $a=false, $idPub=null) {
+function renderComentario ($comentarioCount, $comentarioId ,$username, $profileIcon, $comFecha, $commentText, $autorComen, $pubEstado, $denuncia=false, $a=false, $idPub=null) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
 
@@ -19,14 +19,14 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
           <?php echo obtenerFoto($profileIcon);?>
 
           <div class="d-flex usuario-calificacion">
-            <p><?php echo $username?></p>
-            <?php echo estadoCalif($calificacionUsuario) ?>
+            <p class="mb-2"><?php echo $username;?></p>
+            <?php echo estadoCalif($calificacionUsuario);?>
           </div>
         </div>
         <div class="dataComentario col-6 mt-1 text-end lh-1">
           <div>
-            <p><?php echo (date('H:i', strtotime($comFecha))) ?></p>
-            <p><?php echo (date('d/m/Y', strtotime($comFecha))) ?></p>
+            <p><?php echo (date('H:i', strtotime($comFecha)));?></p>
+            <p><?php echo (date('d/m/Y', strtotime($comFecha)));?></p>
           </div>
         </div>
       </div>
@@ -44,18 +44,22 @@ function renderComentario ($comentarioCount, $comentarioId ,$username, $profileI
   ?>
     <div class='comentario border-top <?php if($denuncia==2) echo "comentario-denunciado";?> border-bottom my-2 d-flex' id="comentario_<?php echo$comentarioCount; ?>" data-id="<?php echo $comentarioId?>">
       
-      <?php echo obtenerFoto($profileIcon);?>
+      <?php if($_SESSION["id"]==$autorComen) echo obtenerFoto($profileIcon);else echo obtenerFoto($profileIcon, $username);?>
       
       <div class='dataComentario text-start col-11'>
         <div class="d-flex col-12 mt-1 text-start lh-1">
           <div class="col-6 mt-1 text-start lh-1">
-            <p class="comentario-user"><?php echo $username?></p>
+          <?php if($_SESSION["id"]==$autorComen){?>
+            <p class="comentario-user"><?php echo $username;?></p>
+          <?php }else{?>
+            <a class="comentario-user text-reset text-decoration-none" href="/miPerfil.php?user=<?php echo $username;?>"><?php echo $username;?></a>
+          <?php }?>
           </div>
           <div class="col-6 mt-1 text-end lh-1">
-            <p class="comentario-fecha"><?php echo (date('d/m/Y', strtotime($comFecha))) ?></p>
+            <p class="comentario-fecha"><?php echo (date('d/m/Y', strtotime($comFecha)));?></p>
           </div>
           <?php 
-            if(!$denuncia){
+            if(!$denuncia && ($pubEstado==1 || $pubEstado==2)){
               if($_SESSION['id'] == $autorComen){
                 echo '
                 <div class="dropdown publicacionExtendida-menuButton-container" data-id="autor_'.$autorComen.'" id="menuButton_'.$comentarioCount.'">

@@ -39,6 +39,7 @@ function renderPublicacionAcotada ($idPublicacion, $userLocation, $idUsuario, $u
           <div class="d-flex usuario-calificacion">
             <p><?php echo $username; ?></p>
             <?php echo estadoCalif($calificacionUsuario) ?>
+            <p class="ps-1"><?php if(is_array($calificacionUsuario))echo round($calificacionUsuario['calificacion_promedio'],1)." (".$calificacionUsuario["calificacion_cantidad"].")"; else echo "0 (0)";?></p>
           </div>
 
           <div>
