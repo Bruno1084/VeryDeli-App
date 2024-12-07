@@ -13,6 +13,8 @@
     <?php
     require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Header.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . '/database/conection.php');
+    include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getIdUsuario.php");
+    include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getMiUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getAllPostulacionFromUsuario.php");
     include_once($_SERVER["DOCUMENT_ROOT"] . "/utils/get/getAVGCalificacionesFromUsuario.php");
@@ -20,10 +22,17 @@
     require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/functions/funcionesCalificaciones.php");
     ?>
     <?php
-    $info_usuario = getUsuario($_SESSION["id"]);
-    $id = $_SESSION["id"];
-    $info_postulaciones = getAllPostulacionFromUsuario($_SESSION["id"]);
-    $promedio = getAVGCalificacionesFromUsuario($_SESSION["id"]);
+    if(isset($_GET["user"])){
+        $idUser = getIdUsuario($_GET["user"]);
+        if($idUser) $idUser=$idUser["usuario_id"];
+    }else{
+        $idUser = $_SESSION["id"];
+    }
+    if($idUser){
+    if($_SESSION["id"]==$idUser)$info_usuario = getMiUsuario($idUser);
+    else $info_usuario = getUsuario($idUser);
+    $info_postulaciones = getAllPostulacionFromUsuario($idUser);
+    $promedio = getAVGCalificacionesFromUsuario($idUser);
     function esPost($info_postulaciones)
     {
         if (empty($info_postulaciones)) {
@@ -57,6 +66,7 @@
         <aside class="col-2 perfil shadow border border-dark-subtle rounded">
             <div class="perfil_user">
                 <div class="col-12 user_photo">
+                <?php if($_SESSION["id"]==$idUser){?>
                     <?php if ($_SESSION["marcoFoto"] == 0) { ?>
                         <div class="userFoto">
                             <img src="<?php echo tieneFoto() ?>" class="userFoto" alt="user">
@@ -65,37 +75,54 @@
                         echo '<div class="fondoFoto"></div><img src="' . $_SESSION["marcoFoto"] . '" class="decoFoto' . $_SESSION["marcoFoto"][(strlen($_SESSION["marcoFoto"]) - 5)] . '">';
                         echo '<div class="divFoto"><img src="' . tieneFoto() . '" alt="user"></div>';
                     } ?>
+                <?php }else{?>
+                    <?php if ($info_usuario["usuario_marcoFoto"] == 0) { ?>
+                        <div class="userFoto">
+                            <img src="<?php echo tieneFoto($info_usuario["usuario_fotoPerfil"]) ?>" class="userFoto" alt="user">
+                        </div>
+                    <?php   } else {
+                        echo '<div class="fondoFoto"></div><img src="' . $info_usuario["usuario_marcoFoto"] . '" class="decoFoto' . $info_usuario["usuario_marcoFoto"][(strlen($info_usuario["usuario_marcoFoto"]) - 5)] . '">';
+                        echo '<div class="divFoto"><img src="' . tieneFoto($info_usuario["usuario_fotoPerfil"]) . '" alt="user"></div>';
+                    } ?>
+
+                <?php }?>
                 </div>
                 <div class="col-12 user_name">
                     <h4><?php echo $info_usuario['usuario_nombre']; ?></h4>
                     <h4><?php echo $info_usuario['usuario_apellido']; ?></h4>
                 </div>
             </div>
+            <?php if($_SESSION["id"]==$idUser){?>
             <div class="perfil_options">
                 <a href="/pages/modificarPerfil.php">Modificar perfil</a>
                 <?php if ($_SESSION["esAdmin"] == 1) { ?>
                     <a class="text-reset" href="/pages/verificaciones.php">Verificaciones</a>
                     <a class="text-reset" href='/pages/denuncias.php'>Denuncias</a>
                 <?php }; ?>
-
             </div>
+            <?php }?>
             <div class="perfil_info">
                 <p>Localidad: <?php echo $info_usuario['usuario_localidad']; ?></p>
                 <a href="mailTo:<?php echo $info_usuario['usuario_correo']; ?>"><?php echo $info_usuario['usuario_correo']; ?></a>
-                <?php echo esRes($_SESSION["esResponsable"]) ?>
+                <?php if($_SESSION["id"]==$idUser) echo esRes($_SESSION["esResponsable"]);
+                      else echo esRes($info_usuario["usuario_esResponsable"]);?>
             </div>
             <div class="perfil_calificacion">
                 <div class="calificacion_titulo">
-                    <h3>Calificacion</h3>
+                    <h3 class="m-0">Calificacion</h3>
                 </div>
                 <div class="calificacion_puntaje">
+                    <h1 class="mb-2 me-1"><?php if(is_array($promedio))echo round($promedio["calificacion_promedio"],2);else echo "0";?></h1>
+                    <a href="/pages/reseñas.php<?php if($_SESSION["id"]!=$idUser) echo "?user=".$_GET["user"];?>" class="text-reset text-decoration-none d-flex flex-column align-items-center">
                     <?php echo estadoCalif($promedio) ?>
+                        <p><?php if(is_array($promedio))echo $promedio["calificacion_cantidad"];else echo "0"; if(is_array($promedio))if($promedio["calificacion_cantidad"]==1) echo " Calificacion"; else echo " Calificaciones"; else echo " Calificaciones";?></p>
+                    </a>
                 </div>
             </div>
         </aside>
         <div class="col-7 contenedor">
 
-            <?php echo renderPubsAndComsUser() ?>
+            <?php echo renderPubsAndComsUser($idUser) ?>
 
         </div>
         <aside class="col-2">
@@ -130,6 +157,7 @@
             </div>
         </aside>
     </section>
+<?php }?>
     <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/Footer.php") ?>
     <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php") ?>
 </body>

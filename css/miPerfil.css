@@ -195,18 +195,22 @@ aside {
 
 .perfil_calificacion .calificacion_puntaje {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin-top: 1vh;
+}
+.perfil_calificacion .calificacion_puntaje a{
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 .perfil_calificacion .calificacion_puntaje img {
-    width: 150px;
-    height: 150px;
-    position: relative;
-    top: -3vh;
+    height: 3vh;
 }
 
 .perfil_calificacion .calificacion_puntaje p {
-    position: relative;
-    top: -8vh;
+    margin: 0;
 }

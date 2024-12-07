@@ -1,5 +1,5 @@
 <?php
-function renderPubsAndComsUser() {
+function renderPubsAndComsUser($idUser) {
     include_once $_SERVER["DOCUMENT_ROOT"]."/components/publicacionAcotada.php";
     require_once($_SERVER["DOCUMENT_ROOT"]."/components/comentario.php");
     include_once $_SERVER["DOCUMENT_ROOT"]."/utils/get/getAllPubsAndComsFromUser.php";
@@ -11,10 +11,10 @@ function renderPubsAndComsUser() {
     $db = new DB();
     $conexion = $db->getConnection();
 
-    $pubYcom = getAllPubsAndComsFromUser($_SESSION["id"],$limit, $offset);
-    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3') AND (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3')");
+    $pubYcom = getAllPubsAndComsFromUser($idUser,$limit, $offset);
+    $totalPublicacionesStmt = $conexion->query("SELECT COUNT(publicaciones.publicacion_id) FROM publicaciones LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id WHERE publicaciones.usuario_autor=".$idUser." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3') AND (publicaciones.publicacion_esActivo='1' OR publicaciones.publicacion_esActivo='2' OR publicaciones.publicacion_esActivo='3')");
     $totalPublicaciones = $totalPublicacionesStmt->fetchColumn();
-    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$_SESSION["id"]." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3') AND comentarios.comentario_esActivo='1'");
+    $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.publicacion_id = comentarios.publicacion_id WHERE comentarios.usuario_id=".$idUser." AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo='3') AND comentarios.comentario_esActivo='1'");
     $totalComentarios = $totalComentariosStmt->fetchColumn();
     $paginasTotales = ceil(($totalComentarios+$totalPublicaciones) / $limit);
     
@@ -33,7 +33,7 @@ function renderPubsAndComsUser() {
                     echo renderPublicacionAcotada(
                         $pOc["publicacion_id"],
                         $pOc['usuario_localidad'],
-                        $_SESSION["id"],
+                        $idUser,
                         $pOc['usuario_usuario'],
                         $foto,
                         $pOc['publicacion_fecha'],
@@ -41,7 +41,7 @@ function renderPubsAndComsUser() {
                         $pOc["imagen_url"]
                     );
                 }
-                else{
+                elseif($pOc["tipo"]=="comentario"){
                     $foto=array("foto"=>$pOc["usuario_fotoPerfil"],"marco"=>$pOc["usuario_marcoFoto"]);
                     echo renderComentario(
                         "",
@@ -50,14 +50,19 @@ function renderPubsAndComsUser() {
                         $foto,
                         $pOc["comentario_fecha"],
                         $pOc["comentario_mensaje"],
-                        $_SESSION["id"],
+                        $idUser,
+                        false,
                         false,
                         true,
                         $pOc["publicacion_id"]
                     );
                 }
             };
-        ?>
+            if(sizeof($pubYcom)==0){?>
+                <div class='publicacionAcotada-container container-fluid shadow border border-dark-subtle rounded my-3 py-3'>
+                    <h5 class="my-2">Aun no se ha echo ninguna Publicacion</h5>
+                </div>
+      <?php }?>
     </div>
 
 
