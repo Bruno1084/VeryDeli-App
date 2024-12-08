@@ -1,46 +1,5 @@
 <?php
-function obtenerFoto($fYm,$userName=false){
-  if($userName==false){
-    if($fYm["foto"]==0 && $fYm["marco"]==0){
-      return "<div class='defaultPicture'><img src='../assets/user.png' alt='user'></div>";
-    }
-    elseif($fYm["foto"]!=0 && $fYm["marco"]==0){
-      return "<div class='defaultPicture'><img src='".$fYm["foto"]."' alt='user'></div>";
-    }
-    elseif($fYm["foto"]==0 && $fYm["marco"]!=0){
-      return '<div class="profilePicture">
-              <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-              <div class="divFoto"><img src="../assets/user.png" alt="user"></div>
-              </div>';
-    }
-    else{
-      return '<div class="profilePicture">
-              <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-              <div class="divFoto"><img src="'.$fYm["foto"].'" alt="user"></div>
-              </div>';
-    }
-  }
-  else{
-    if($fYm["foto"]==0 && $fYm["marco"]==0){
-      return "<a href='/pages/miPerfil.php?user=".$userName."' class='defaultPicture'><img src='../assets/user.png' alt='user'></a>";
-    }
-    elseif($fYm["foto"]!=0 && $fYm["marco"]==0){
-      return "<a href='/pages/miPerfil.php?user=".$userName."' class='defaultPicture'><img src='".$fYm["foto"]."' alt='user'></a>";
-    }
-    elseif($fYm["foto"]==0 && $fYm["marco"]!=0){
-      return '<a href="/pages/miPerfil.php?user='.$userName.'" class="profilePicture">
-              <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-              <div class="divFoto"><img src="../assets/user.png" alt="user"></div>
-              </a>';
-    }
-    else{
-      return '<a href="/pages/miPerfil.php?user='.$userName.'" class="profilePicture">
-              <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-              <div class="divFoto"><img src="'.$fYm["foto"].'" alt="user"></div>
-              </a>';
-    }
-  }
-}
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/obtenerFoto.php");
 
 function locacion($coordLat,$coordLng){
   $point=$coordLat.",".$coordLng;
@@ -81,7 +40,7 @@ function transportistaPublicacion($idPublicacion, $estado){
 function postulantesPublicacion($idPublicacion){
   $db=new DB();
   $conexion=$db->getConnection();
-  $sql="SELECT usuario_postulante FROM postulaciones WHERE publicacion_id = ?";
+  $sql="SELECT usuario_postulante FROM postulaciones WHERE publicacion_id = ? AND (postulacion_estado=0 OR postulacion_estado=1)";
   $stmtPost=$conexion->prepare($sql);
   $stmtPost->bindParam(1,$idPublicacion,PDO::PARAM_INT);
   $res=array();
@@ -287,7 +246,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
             <button type='button' class='btn btn-gris btn-md' data-bs-target="#modalPostularse<?php echo $idPublicacion ?>" data-bs-toggle="modal">Postularse</button>
             <?php } else {
               require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
-              
+              if($transportista)
               if($_SESSION['id'] == $transportista['usuario_transportista'] AND getPostRatingUsuario($idPublicacion, $transportista['usuario_transportista']) == false AND $estado == '3') {
                 require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
                 renderCalificarUsuario($idPublicacion);
@@ -364,6 +323,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
           }
         }
         elseif($estado==2){
+          if($transportista)
           if($_SESSION["id"]==$transportista['usuario_transportista'] || $_SESSION["id"]==$autor["usuario_autor"]){
             require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
             $username = getMiUsuario($_SESSION['id'])['usuario_usuario'];
@@ -376,14 +336,29 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
 
 
       <!-- COMENTARIOS DE USUARIOS -->
-      <div class="comentarios-container">
+      <div id="comentarios" class="comentarios-container">
         <?php
+        $limitComentarios=10;
+        $offsetComentarios=0;
         $comentarios=array();
-        if($denunciada)
-        $comentarios = getAllComentariosFromPublicacion($idPublicacion,true);
-        else
-        $comentarios = getAllComentariosFromPublicacion($idPublicacion);
-
+        
+        $db=new DB();
+        $conexion=$db->getConnection();
+        if($denunciada){
+          $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.comentario_id=comentarios.comentario_id WHERE comentarios.publicacion_id = $idPublicacion AND comentario_esActivo = '1' AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
+          $totalComentarios = $totalComentariosStmt->fetchColumn();
+          $totalComentariosStmt=null;
+          $comentarios = getAllComentariosFromPublicacion($idPublicacion,$offsetComentarios,$limitComentarios,true);
+        }
+        else{
+          $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.comentario_id=comentarios.comentario_id WHERE comentarios.publicacion_id = $idPublicacion AND comentario_esActivo = '1' AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='1')");
+          $totalComentarios = $totalComentariosStmt->fetchColumn();
+          $totalComentariosStmt=null;
+          $comentarios = getAllComentariosFromPublicacion($idPublicacion,$offsetComentarios,$limitComentarios);
+        } 
+        $conexion=null;
+        $db=null;
+        $offsetComentarios+=$limitComentarios;
         foreach ($comentarios as $c) {
           $foto=array("foto"=>$c["usuario_fotoPerfil"],"marco"=>$c["usuario_marcoFoto"]);
           if(isset($c["esReportado"])){
@@ -428,6 +403,11 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
           }
           $contadorComentarios++;
         }
+        if($totalComentarios>sizeof($comentarios)){?>
+        <div id="masComentarios" class="text-center mb-3 pb-1 pt-2 border-top border-bottom border-dark-subtle col-12">
+            <h5>Cargar mas</h5>
+        </div>
+  <?php }
         ?>
       </div>
     </div>
@@ -554,6 +534,16 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
 
 
   </div>
+  <script>
+    var estadoPublicacion=<?php echo $estado;?>;
+    var idPublicacion=<?php echo $idPublicacion;?>;
+    var denuncia=<?php if($denunciada)echo 1;else echo 0;?>;
+    var offsetComentarios=<?php echo $offsetComentarios;?>;
+    var limitComentarios=<?php echo $limitComentarios;?>;
+    var comentarios=<?php echo sizeof($comentarios);?>;
+    var totalComentarios=<?php echo $totalComentarios;?>;
+  </script>
+  <script src="/js/comentarios.js"></script>
   <?php if($denunciada==false){?>
   <script>
     function reportarComentario(comentarioId){
@@ -589,6 +579,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
     }
   </script>
   <?php }
+    if($postulantes||$denunciada||$_SESSION["id"]==$autor["usuario_autor"])
     if($_SESSION["id"]==$autor["usuario_autor"] || in_array($_SESSION["id"],$postulantes) || $denunciada){?>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
