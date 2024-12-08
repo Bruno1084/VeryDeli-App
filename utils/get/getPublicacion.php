@@ -1,5 +1,5 @@
 <?php
-function getPublicacion ($idPublicacion) {
+function getPublicacion ($idPublicacion,$denuncia=false) {
   include_once ($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
 
   $DB = new DB();
@@ -54,10 +54,14 @@ function getPublicacion ($idPublicacion) {
               userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
           LEFT JOIN
               marcos ON marcos.marco_id = userMarcoFoto.marco_id
+          LEFT JOIN
+              denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
           WHERE
-            publicaciones.publicacion_id = ?;
-            AND (publicaciones.publicacion_esActivo = "1" OR publicaciones.publicacion_esActivo = "2" OR publicaciones.publicacion_esActivo = "3");
-        ';
+            publicaciones.publicacion_id = ?
+            AND (publicaciones.publicacion_esActivo = "1" OR publicaciones.publicacion_esActivo = "2" OR publicaciones.publicacion_esActivo = "3")
+         ';
+  if(!$denuncia) $sql.='AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo="3")';
+
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
   $stmt->execute();

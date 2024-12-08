@@ -26,8 +26,9 @@
   </div>
   <div class="primerDivBody">
     <?php
-    $publicacion = getPublicacion($_GET['id']);
-    if ($publicacion != false) {
+    if(isset($_GET["denuncia"])) $publicacion = getPublicacion($_GET['id'],true);
+    else $publicacion = getPublicacion($_GET['id']);
+    if ($publicacion["publicacion_id"] != false) {
       $admins=null;
       $denuncia=null;
       if(isset($_GET["denuncia"])){
