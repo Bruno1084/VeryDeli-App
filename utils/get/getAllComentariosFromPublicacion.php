@@ -20,7 +20,7 @@ function getAllComentariosFromPublicacion ($idPublicacion, $offset=0, $limit=0, 
           LEFT JOIN 
               usuarios ON usuarios.usuario_id=comentarios.usuario_id
           LEFT JOIN 
-              fotosPerfil ON fotosPerfil.usuario_id=comentarios.usuario_id AND fotosPerfil.imagen_estado = 1
+              fotosPerfil ON fotosPerfil.usuario_id=comentarios.usuario_id AND fotosPerfil.imagen_estado = '1'
           LEFT JOIN 
               userMarcoFoto ON userMarcoFoto.usuario_id=comentarios.usuario_id
           LEFT JOIN
@@ -28,7 +28,7 @@ function getAllComentariosFromPublicacion ($idPublicacion, $offset=0, $limit=0, 
           LEFT JOIN 
               denuncias_reportadas ON denuncias_reportadas.comentario_id=comentarios.comentario_id
           WHERE
-              comentarios.publicacion_id = ? AND comentarios.comentario_esActivo = true
+              comentarios.publicacion_id = ? AND comentarios.comentario_esActivo = '1'
           ";
   if(!$denuncia){
     $sql.=" AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='3')";

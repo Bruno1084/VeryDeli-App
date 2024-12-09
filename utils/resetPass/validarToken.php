@@ -16,5 +16,4 @@ if(isset($_POST["codigo"])){
         }
         manejarError('false',"Codigo invalido","El codigo ingresado no coincide con el enviado a su correo.</br>Numero de intentos restantes: ".(5-$_SESSION["attempts"]));
     }
-    
 }

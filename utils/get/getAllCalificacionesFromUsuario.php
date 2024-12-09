@@ -116,7 +116,7 @@ function getAllDataCalificacionesFromUsuario($idUsuario){
         FROM 
             calificaciones
         WHERE 
-            calificaciones.usuario_calificado = ?;
+            calificaciones.usuario_calificado = ?
           ";
     
     $stmt=$connection->prepare($sql);

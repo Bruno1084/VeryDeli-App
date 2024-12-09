@@ -119,9 +119,11 @@ $actualizarUsuario->bindValue(6, $localidad, PDO::PARAM_STR);
 $actualizarUsuario->bindValue(7, $id, PDO::PARAM_INT);
 
 if($actualizarUsuario->execute()){
+  $actualizarUsuario = null;
+  $conexion = null;
   manejarError('true','Datos Actualizados', 'Sus datos se actualizaron con exito');
 }else{
+  $actualizarUsuario = null;
+  $conexion = null;
   manejarError('false', 'Error inesperado', 'Ocurrio un error, intente de nuevo mas tarde');
 } 
-$actualizarUsuario = null;
-$conexion = null;

@@ -6,7 +6,7 @@
         $db=new DB();
         $conexion=$db->getConnection();
         
-        $sql="SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = ? AND usuario_esActivo=1";
+        $sql="SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = ? AND usuario_esActivo='1'";
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
         $stmt->execute();
@@ -23,7 +23,7 @@
         $db=new DB();
         $conexion=$db->getConnection();
         
-        $sql="SELECT usuario_correo FROM usuarios WHERE usuario_correo = ? AND usuario_esActivo=1";
+        $sql="SELECT usuario_correo FROM usuarios WHERE usuario_correo = ? AND usuario_esActivo='1'";
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $correo, PDO::PARAM_STR);
         $stmt->execute();
@@ -41,7 +41,7 @@
         $db=new DB();
         $conexion=$db->getConnection();
         
-        $sql="SELECT usuario_contraseña FROM usuarios WHERE usuario_usuario = ? AND usuario_esActivo=1";
+        $sql="SELECT usuario_contraseña FROM usuarios WHERE usuario_usuario = ? AND usuario_esActivo='1'";
         $stmt = $conexion->prepare($sql);
         $stmt->bindValue(1, $usuario, PDO::PARAM_STR);
         $stmt->execute();
@@ -61,7 +61,7 @@
                         LEFT JOIN 
                             administradores ON administradores.administrador_id = usuarios.usuario_id
                         LEFT JOIN 
-                            fotosPerfil ON fotosPerfil.usuario_id = usuarios.usuario_id AND fotosPerfil.imagen_estado = 1
+                            fotosPerfil ON fotosPerfil.usuario_id = usuarios.usuario_id AND fotosPerfil.imagen_estado = '1'
                         LEFT JOIN 
                         	userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
                         LEFT JOIN
@@ -69,7 +69,7 @@
                         WHERE 
                             usuarios.usuario_usuario = ? 
                             AND usuarios.usuario_contraseña = ?
-                            AND usuarios.usuario_esActivo = 1";
+                            AND usuarios.usuario_esActivo = '1'";
                 
                 $stmt = $conexion->prepare($sql);
                 $stmt->bindValue(1, $usuario, PDO::PARAM_STR);

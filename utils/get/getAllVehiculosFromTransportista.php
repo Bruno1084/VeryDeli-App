@@ -18,4 +18,3 @@ function getAllVehiculosFromTransportista ($idTransportista) {
 
   return $vehiculos;
 };
-?>

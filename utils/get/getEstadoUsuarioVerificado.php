@@ -18,4 +18,3 @@ function getEstadoUsuarioVerificado ($idUsuario) {
 
   return $resultado;
 };
-?>

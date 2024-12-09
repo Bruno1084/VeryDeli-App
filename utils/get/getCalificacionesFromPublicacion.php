@@ -22,7 +22,7 @@ function getCalificacionesFromPublicacion ($idPublicacion) {
     JOIN 
     usuarios AS usuario_calificado ON calificaciones.usuario_calificado = usuario_calificado.usuario_id
     WHERE 
-    publicaciones.publicacion_id = ?;
+    publicaciones.publicacion_id = ?
       ";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);

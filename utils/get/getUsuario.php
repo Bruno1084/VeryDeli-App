@@ -19,14 +19,14 @@ function getUsuario ($idUsuario) {
            LEFT JOIN 
                administradores ON administradores.administrador_id = usuarios.usuario_id
            LEFT JOIN 
-               fotosPerfil ON fotosPerfil.usuario_id = usuarios.usuario_id AND fotosPerfil.imagen_estado = 1
+               fotosPerfil ON fotosPerfil.usuario_id = usuarios.usuario_id AND fotosPerfil.imagen_estado = '1'
            LEFT JOIN 
                userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
            LEFT JOIN
                marcos ON marcos.marco_id = userMarcoFoto.marco_id
            WHERE
                usuarios.usuario_id = ?
-               AND usuarios.usuario_esActivo = 1
+               AND usuarios.usuario_esActivo = '1'
           ";
           
   $stmt = $conexion->prepare($sql);

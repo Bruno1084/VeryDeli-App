@@ -22,7 +22,7 @@ function getPostRatingUsuario ($idPublicacion, $idUsuario) {
     JOIN 
     usuarios AS usuario_calificado ON calificaciones.usuario_calificado = usuario_calificado.usuario_id
     WHERE 
-    publicaciones.publicacion_id = ? AND calificaciones.usuario_calificador = ?;
+    publicaciones.publicacion_id = ? AND calificaciones.usuario_calificador = ?
       ";
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);

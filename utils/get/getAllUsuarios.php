@@ -5,7 +5,7 @@ function getAllUsuarios () {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT * FROM usuarios WHERE usuario_esActivo = true";
+  $sql = "SELECT * FROM usuarios WHERE usuario_esActivo = '1'";
   $stmt = $conexion->prepare($sql);
   $stmt->execute();
 

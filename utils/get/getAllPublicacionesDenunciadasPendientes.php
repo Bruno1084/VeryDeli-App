@@ -23,7 +23,7 @@ function getAllPublicacionesDenunciadasPendientes($limit = 0, $offset = 0) {
           LEFT JOIN 
               imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
           LEFT JOIN 
-              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = '1'
           LEFT JOIN 
               userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
           LEFT JOIN

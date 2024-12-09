@@ -25,4 +25,4 @@ function getMiUsuario ($idUsuario) {
   $conexion = null;
 
   return $usuario;
-};
+}

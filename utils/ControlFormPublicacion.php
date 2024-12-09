@@ -55,13 +55,13 @@
     if($origenId==null){
       $stmtPublicacion=null;
       $conexion=null;
-      manejarError("false","Error en Origen","No se pudo guardar la ubicacion Origen");
+      manejarError("false","Error en Origen","No se pudo guardar la ubicacion de Origen");
     }
     $destinoId = guardarUbicacion($conexion,"destino");
     if($destinoId==null){
       $stmtPublicacion=null;
       $conexion=null;
-      manejarError("false","Error en Destino","No se pudo guardar la ubicacion Destino");
+      manejarError("false","Error en Destino","No se pudo guardar la ubicacion de Destino");
     }
     date_default_timezone_set("America/Argentina/Buenos_Aires");
     $fecha=date("Y-m-d H:i:s");

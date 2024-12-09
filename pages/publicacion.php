@@ -89,7 +89,7 @@
       else{
         $tmpDB=new DB();
         $tmpConexion=$tmpDB->getConnection();
-        $tmpSql="SELECT publicacion_id FROM denuncias_reportadas WHERE publicacion_id = ? AND (reporte_activo = 1 OR reporte_activo = 2)";
+        $tmpSql="SELECT publicacion_id FROM denuncias_reportadas WHERE publicacion_id = ? AND (reporte_activo = '1' OR reporte_activo = '2')";
         $tmpStmt=$tmpConexion->prepare($tmpSql);
         $tmpStmt->bindParam(1,$publicacion,PDO::PARAM_INT);
         $res=false;

@@ -109,6 +109,3 @@ function renderVerificacion(
 <?php
   return ob_get_clean();
 }
-
-
-

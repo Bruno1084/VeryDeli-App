@@ -26,7 +26,7 @@ function getPublicacionOrComentario($pubOcom){
                 LEFT JOIN
                     ubicaciones AS ubicacion_destino ON ubicacion_destino.ubicacion_id = publicaciones.ubicacion_destino
                 LEFT JOIN 
-                    fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+                    fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = "1"
                 LEFT JOIN 
                     userMarcoFoto ON userMarcoFoto.usuario_id=publicaciones.usuario_autor
                 LEFT JOIN
@@ -76,7 +76,7 @@ function getPublicacionOrComentario($pubOcom){
                 LEFT JOIN
                     usuarios ON usuarios.usuario_id=comentarios.usuario_id
                 LEFT JOIN 
-                    fotosPerfil ON fotosPerfil.usuario_id = comentarios.usuario_id AND fotosPerfil.imagen_estado = 1
+                    fotosPerfil ON fotosPerfil.usuario_id = comentarios.usuario_id AND fotosPerfil.imagen_estado = "1"
                 LEFT JOIN 
                     userMarcoFoto ON userMarcoFoto.usuario_id=comentarios.usuario_id
                 LEFT JOIN

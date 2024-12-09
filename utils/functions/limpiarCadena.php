@@ -9,4 +9,3 @@ function limpiarCadena ($cadena) {
 
     return $cadena;
 };
-?>

@@ -49,7 +49,7 @@ function getPublicacion ($idPublicacion,$denuncia=false) {
           LEFT JOIN
               ubicaciones AS ubicacion_destino ON ubicacion_destino.ubicacion_id = publicaciones.ubicacion_destino
           LEFT JOIN 
-              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = "1"
           LEFT JOIN 
               userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
           LEFT JOIN
@@ -60,7 +60,7 @@ function getPublicacion ($idPublicacion,$denuncia=false) {
             publicaciones.publicacion_id = ?
             AND (publicaciones.publicacion_esActivo = "1" OR publicaciones.publicacion_esActivo = "2" OR publicaciones.publicacion_esActivo = "3")
          ';
-  if(!$denuncia) $sql.='AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo="3")';
+  if(!$denuncia) $sql.=' AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo="3")';
 
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);

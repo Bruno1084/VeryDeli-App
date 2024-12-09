@@ -18,4 +18,3 @@ function getAllComentarios ($idPublicacion) {
 
   return $comentarios;
 };
-?>

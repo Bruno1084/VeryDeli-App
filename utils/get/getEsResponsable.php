@@ -48,4 +48,3 @@ function getEsResponsable($idUsuario) {
     $conexion = null;
     return true;
 }
-?>

@@ -47,4 +47,3 @@ if($res!=false){
   else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
 }
 else manejarError('false','Datos invalidos','Usuario o clave incorrectos.');
-

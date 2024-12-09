@@ -6,4 +6,3 @@ function verificarDatos ($filtro, $dato) {
         return true;    // Si la cadena contiene errores retorna true
     };
 };
-?>
