@@ -98,7 +98,7 @@ if(isset($_POST["serTransportista"])){
 $contrasenia = password_hash($contrasenia, PASSWORD_BCRYPT, ["cost"=>10]);
 
 //Insertar el nuevo usuario en la base de datos
-$sql = "INSERT INTO usuarios (usuario_nombre, usuario_apellido, usuario_correo, usuario_localidad, usuario_usuario, usuario_contraseña, usuario_esResponsable) VALUES (?, ?, ?, ?, ?, ?, 0)";
+$sql = "INSERT INTO usuarios (usuario_nombre, usuario_apellido, usuario_correo, usuario_localidad, usuario_usuario, usuario_contraseña) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
 $stmt->bindValue(1, $nombre, PDO::PARAM_STR);
 $stmt->bindValue(2, $apellido, PDO::PARAM_STR);
@@ -129,5 +129,4 @@ if ($stmt->execute()){
   $conexion=null;
 manejarError('false','Ocurrio un error inesperado','Error al registrar el usuario. Intente de nuevo más tarde.');
 };
-
 $conexion = null;

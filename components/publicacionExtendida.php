@@ -1,33 +1,83 @@
 <?php
-function obtenerFoto($fYm){
-  if($fYm["foto"]==0 && $fYm["marco"]==0){
-    return "<div class='defaultPicture'><img src='../assets/user.png' alt='user'></div>";
-  }
-  elseif($fYm["foto"]!=0 && $fYm["marco"]==0){
-    return "<div class='defaultPicture'><img src='".$fYm["foto"]."' alt='user'></div>";
-  }
-  elseif($fYm["foto"]==0 && $fYm["marco"]!=0){
-    return '<div class="profilePicture">
-            <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-            <div class="divFoto"><img src="../assets/user.png" alt="user"></div>
-            </div>';
-  }
-  else{
-    return '<div class="profilePicture">
-            <div class="fondoFoto"></div><img src="'.$fYm["marco"].'" class="decoFoto'.$fYm["marco"][(strlen($fYm["marco"])-5)].'">
-            <div class="divFoto"><img src="'.$fYm["foto"].'" alt="user"></div>
-            </div>';
-  }
+require_once($_SERVER["DOCUMENT_ROOT"]."/utils/functions/obtenerFoto.php");
+
+function locacion($coordLat,$coordLng){
+  $point=$coordLat.",".$coordLng;
+  $query = array(
+      "limit" => "1",
+      "reverse" => "true",
+      "point" => $point,
+      "provider" => "default",
+      "key" => "96865858-2f5d-4a0a-9c0b-d56b3f1e20cc"
+    );
+        
+    // Configuración de cURL
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://graphhopper.com/api/1/geocode?". http_build_query($query));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  // Esto desactiva la verificación SSL, no recomendado en producción
+    $response = curl_exec($ch);
+    
+    if(curl_errno($ch)) {
+      return '';
+    }else{
+      curl_close($ch);
+      $data = json_decode($response, true);
+      return $data;
+    }
 }
-function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $tituloPublicacion, $productDetail, $weight, $origin, $destination, $images, $estado, $denunciada=false) {
+
+function transportistaPublicacion($idPublicacion, $estado){
+  if($estado!=1){
+    $res=getTransportistaPublicacion($idPublicacion);
+    if($res!=false){
+      return $res;
+    }
+  }
+  return false;
+}
+
+function postulantesPublicacion($idPublicacion){
+  $db=new DB();
+  $conexion=$db->getConnection();
+  $sql="SELECT usuario_postulante FROM postulaciones WHERE publicacion_id = ? AND (postulacion_estado=0 OR postulacion_estado=1)";
+  $stmtPost=$conexion->prepare($sql);
+  $stmtPost->bindParam(1,$idPublicacion,PDO::PARAM_INT);
+  $res=array();
+  if($stmtPost->execute()){
+    $res=$stmtPost->fetchAll(PDO::FETCH_NUM);
+  }
+  $postulantes=array();
+  foreach($res as $re){
+    $postulantes[]=$re[0];
+  }
+  $stmtPost=null;
+  $conexion=null;
+  $db=null;
+  return $postulantes;
+}
+
+function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $profileIcon, $date, $userLocation, $tituloPublicacion, $productDetail, $weight, $volume, $nombreRecibe, $telefono, $origin, $destination, $images, $estado, $denunciada=false) {
   include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/functions/funcionesCalificaciones.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getAVGCalificacionesFromUsuario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/postComentario.php');
   include_once($_SERVER["DOCUMENT_ROOT"] . '/components/comentario.php');
   include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getAllComentariosFromPublicacion.php");
-  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getUsuario.php");
+  include_once($_SERVER['DOCUMENT_ROOT'] . "/utils/get/getMiUsuario.php");
   include_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
+  require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
+  if($denunciada){
+    require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getAutoresDenunciasFromPublicacion.php");
+    $autoresDenuncias=getAutoresDenunciasFromPublicacion($idPublicacion);
+  }
+  else{
+    $autoresDenuncias=null;
+  }
 
+  $transportista=transportistaPublicacion($idPublicacion, $estado);
+
+
+  $postulantes=null;
   $contadorComentarios = 0;
   $calificacionUsuario = getAVGCalificacionesFromUsuario($idUsuario);
   ob_start();
@@ -37,12 +87,19 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
       <div class="cabeceraPublicacion d-flex col-12 justify-content-center datosUsuario border-bottom align-items-center">
         <div class='d-flex col-6 mt-1 text-start lh-1'>
 
-          <?php echo obtenerFoto($profileIcon);?>
+          <?php if($_SESSION["id"]!=$idUsuario)echo obtenerFoto($profileIcon,$username);else echo obtenerFoto($profileIcon);?>
           <div class="col">
             <div class="d-flex usuario-calificacion">
-              <p><?php echo $username; ?></p>
+          <?php if($_SESSION["id"]!=$idUsuario){?>
+              <a class="mb-2 text-reset text-decoration-none" href="/pages/miPerfil.php?user=<?php echo $username;?>"><?php echo $username;?></a>
+          <?php }else{?>
+              <p class="mb-2"><?php echo $username;?></p>
+          <?php }?>
+            <a class="ms-1 text-reset text-decoration-none" href="/pages/reseñas.php<?php if($_SESSION["id"]!=$idUsuario) echo "?user=".$username;?>" class="text-reset text-decoration-none">
               <?php echo estadoCalif($calificacionUsuario) ?>
-            </div>
+            </a>
+              <p class="ps-1"><?php if(is_array($calificacionUsuario))echo round($calificacionUsuario['calificacion_promedio'],1)." (".$calificacionUsuario["calificacion_cantidad"].")"; else echo "0 (0)";?></p>
+          </div>
             <div>
               <p><?php echo $userLocation; ?></p>
             </div>
@@ -70,35 +127,116 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
 
         </div>
       </div>
-      <div class='my-3'>
-        <div>
+      <div class='mt-3'>
+        <div class="mb-3">
           <h2><?php echo $tituloPublicacion;?></h2>
         </div>
         <div>
           <div>
             <p class='text-start fs-5 lh-1'>Detalles del producto:</p>
           </div>
-          <div>
+          <div class="ps-1">
             <p class='publicacion-descripcion'><?php echo $productDetail; ?></p>
           </div>
         </div>
-
-        <div>
-          <div class='text-start lh-1'>
-            <p class='fs-5'>Peso:</p>
-            <p><?php echo $weight; ?></p>
+        <?php $postulantes=postulantesPublicacion($idPublicacion);?>
+        <div class="col-12 d-flex">
+          <div class="col-6">
+            <div class="d-flex">
+              <div class='col-4 text-start lh-1'>
+                <p class='fs-5'>Peso:</p>
+                <p class="ps-1"><?php echo $weight; ?> Kg</p>
+              </div>
+              <div class='col-4 text-start lh-1'>
+                <p class='fs-5'>Volumen:</p>
+                <p class="ps-1"><?php echo $volume; ?> m³</p>
+              </div>
+            </div>
+            <div class='text-start lh-1'>
+              <p class='fs-5'>Origen:</p>
+              <?php $dataOrig=locacion($origin->latitud,$origin->longitud);?>
+              <p class="ps-1"><?php echo $origin->barrio.", ".$dataOrig["hits"][0]["state"].", ".$dataOrig["hits"][0]["country"];?></p>
+              <?php if($transportista){?>
+                <?php if(($_SESSION["id"]==$autor["usuario_autor"] || $_SESSION["id"]==$transportista["usuario_transportista"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+                  <div class="ps-1 d-flex">
+                    <p><p class="fw-semibold">Manzana/Piso</p>: <?php echo $origin->manzana;?></p>
+                    <p class="ms-2"><p class="fw-semibold">Casa/Depto</p>: <?php echo $origin->casa;?></p>
+                  </div>
+                <?php }?>
+              <?php }elseif(($_SESSION["id"]==$autor["usuario_autor"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+                  <div class="ps-1 d-flex">
+                    <p><p class="fw-semibold">Manzana/Piso</p>: <?php echo $origin->manzana;?></p>
+                    <p class="ms-2"><p class="fw-semibold">Casa/Depto</p>: <?php echo $origin->casa;?></p>
+                  </div>
+              <?php }?>
+            </div>
+            <div class='text-start lh-1'>
+              <p class='fs-5'>Destino:</p>
+              <?php $dataDest=locacion($destination->latitud,$destination->longitud);?>
+              <p class="ps-1"><?php echo $destination->barrio.", ".$dataDest["hits"][0]["state"].", ".$dataDest["hits"][0]["country"]; ?></p>
+              <?php if($transportista){?>
+                <?php if(($_SESSION["id"]==$autor["usuario_autor"] || $_SESSION["id"]==$transportista["usuario_transportista"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+                  <div class="ps-1 d-flex">
+                    <p><p class="fw-semibold">Manzana/Piso</p>: <?php echo $origin->manzana;?></p>
+                    <p class="ms-2"><p class="fw-semibold">Casa/Depto</p>: <?php echo $origin->casa;?></p>
+                  </div>
+                <?php }?>
+              <?php }elseif(($_SESSION["id"]==$autor["usuario_autor"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+                  <div class="ps-1 d-flex">
+                    <p><p class="fw-semibold">Manzana/Piso</p>: <?php echo $origin->manzana;?></p>
+                    <p class="ms-2"><p class="fw-semibold">Casa/Depto</p>: <?php echo $origin->casa;?></p>
+                  </div>
+              <?php }?>
+            </div>
           </div>
-          <div class='text-start lh-1'>
-            <p class='fs-5'>Origen:</p>
-            <p><?php echo $origin; ?></p>
-          </div>
-          <div class='text-start lh-1'>
-            <p class='fs-5'>Destino:</p>
-            <p><?php echo $destination; ?></p>
-          </div>
+          <?php if($transportista){?>
+            <?php if(($_SESSION["id"]==$autor["usuario_autor"] || $_SESSION["id"]==$transportista["usuario_transportista"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+              <div class="divMap col-6 d-flex align-items-center justify-content-center">
+                <div id="map" class="shadow border"></div>
+              </div>
+            <?php }?>
+          <?php }elseif(($_SESSION["id"]==$autor["usuario_autor"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+              <div class="divMap col-6 d-flex align-items-center justify-content-center">
+                <div id="map" class="shadow border"></div>
+              </div>
+          <?php }?>
         </div>
       </div>
-
+      <?php if(!$transportista){?>
+        <?php if(($_SESSION["id"]==$autor["usuario_autor"] && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+          <div class="col-12 d-flex">
+            <div class="col-6">
+              <p class='fs-5'>Destinatario:</p>
+              <div class="ps-1 pe-5 d-flex justify-content-between col-12">
+                <p class="text-start col-6 lh-1 text-break"><?php echo $nombreRecibe;?></p>
+                <div class='text-start col-5 lh-1'>
+                  <a class="text-reset text-decoration-none d-flex" href="tel:<?php echo $telefono;?>"><p class="fw-semibold">Tel</p><p>: <?php echo $telefono;?></p></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-around redirectMap">
+              <a href="https://www.google.com.ar/maps/dir//<?php echo $origin->latitud.",".$origin->longitud?>" class="mt-2 btn btn-outline-primary" target="_blank">Origen</a>
+              <a href="https://www.google.com.ar/maps/dir//<?php echo $destination->latitud.",".$destination->longitud?>" class="mt-2 btn btn-outline-primary" target="_blank">Destino</a>
+            </div>
+          </div>
+        <?php } ?>
+      <?php }elseif((($_SESSION["id"]==$autor["usuario_autor"] || $_SESSION["id"]==$transportista["usuario_transportista"]) && !$denunciada) || ($denunciada && !in_array($_SESSION["id"],$autoresDenuncias))){?>
+          <div class="col-12 d-flex">
+            <div class="col-6">
+              <p class='fs-5'>Destinatario:</p>
+              <div class="ps-1 pe-5 d-flex justify-content-between col-12">
+                <p class="text-start col-6 lh-1 text-break"><?php echo $nombreRecibe;?></p>
+                <div class='text-start col-5 lh-1'>
+                  <a class="text-reset text-decoration-none d-flex" href="tel:<?php echo $telefono;?>"><p class="fw-semibold">Tel</p><p>: <?php echo $telefono;?></p></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-around redirectMap">
+              <a href="https://www.google.com.ar/maps/dir//<?php echo $origin->latitud.",".$origin->longitud?>" class="mt-2 btn btn-outline-primary" target="_blank">Origen</a>
+              <a href="https://www.google.com.ar/maps/dir//<?php echo $destination->latitud.",".$destination->longitud?>" class="mt-2 btn btn-outline-primary" target="_blank">Destino</a>
+            </div>
+          </div>
+        <?php } ?>
       <div class='my-4 d-flex justify-content-between align-items-center'>
         <?php  
         if($denunciada==false){?>
@@ -107,14 +245,9 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
             if ($estado != 3 && $estado != 2){ ?>
             <button type='button' class='btn btn-gris btn-md' data-bs-target="#modalPostularse<?php echo $idPublicacion ?>" data-bs-toggle="modal">Postularse</button>
             <?php } else {
-              require_once($_SERVER["DOCUMENT_ROOT"]. "/utils/get/getTransportistaPublicacion.php");
               require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getPostRatingUsuario.php');
-              require_once($_SERVER['DOCUMENT_ROOT'] . '/database/conection.php');
-              $db = new DB();
-              $conexion = $db->getConnection();
-              $estadoPublicacion = $conexion->query("SELECT publicacion_esActivo FROM publicaciones WHERE publicacion_id = $idPublicacion")->fetch();
-              $postulacion = getTransportistaPublicacion($idPublicacion);
-              if($_SESSION['id'] == $postulacion['usuario_postulante'] AND getPostRatingUsuario($idPublicacion, $postulacion['usuario_transportista']) == false AND $estadoPublicacion['publicacion_esActivo'] == '3') {
+              if($transportista)
+              if($_SESSION['id'] == $transportista['usuario_transportista'] AND getPostRatingUsuario($idPublicacion, $transportista['usuario_transportista']) == false AND $estado == '3') {
                 require_once($_SERVER['DOCUMENT_ROOT'] . '/components/calificarUsuario.php');
                 renderCalificarUsuario($idPublicacion);
               }
@@ -134,7 +267,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
           </button>
         <?php }
           }
-          elseif($denunciada==1){?>
+          elseif($denunciada==1 && !in_array($_SESSION["id"],$autoresDenuncias)){?>
           <button type="button" class="btn procesarDenuncia btn-outline-success btn-md" data-name="publicacion" data-id="<?php echo $idPublicacion ?>" onclick="procesarDenuncia(event)">Permitir</button>
           <div class="resultDenuncia"><p></p></div>
           <button type="button" class="btn procesarDenuncia btn-outline-danger btn-md" data-name="publicacion" data-id="<?php echo $idPublicacion ?>" onclick="procesarDenuncia(event)">Eliminar</button>
@@ -143,7 +276,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
       </div>
 
 
-      <div class='row' id="carouselPublicacion">
+      <div class='col-12' id="carouselPublicacion">
         <div class='col-12'>
           <div id="carouselIndicators_A" class="carousel slide imgPubli-container border border-dark-3 d-flex flex-wrap justify-content-start">
             <div class="carousel-indicators">
@@ -178,42 +311,54 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
     <?php 
       if($denunciada==false){
         //--------------ID de Postulantes-----------------
-        $db=new DB();
-        $conexion=$db->getConnection();
-        $sql="SELECT usuario_postulante FROM postulaciones WHERE publicacion_id = ?";
-        $stmtPost=$conexion->prepare($sql);
-        $stmtPost->bindParam(1,$idPublicacion,PDO::PARAM_INT);
-        $res=array();
-        if($stmtPost->execute()){
-          $res=$stmtPost->fetchAll(PDO::FETCH_NUM);
+        if($postulantes==null){
+          $postulantes=postulantesPublicacion($idPublicacion);
         }
-        $postulantes=array();
-        foreach($res as $re){
-          $postulantes[]=$re[0];
+        if($estado==1){
+          if(in_array($_SESSION["id"],$postulantes) || $_SESSION["id"]==$autor["usuario_autor"]){
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
+            $username = getMiUsuario($_SESSION['id'])['usuario_usuario'];
+            $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
+            echo renderPostComentario($username, $fYm, $idPublicacion); 
+          }
         }
-        $stmtPost=null;
-        $conexion=null;
-        $db=null;
-        //--------------ID de Postulantes-----------------
-        if(in_array($_SESSION["id"],$postulantes) || $_SESSION["id"]==$autor["usuario_autor"]){
-          require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
-          $username = getUsuario($_SESSION['id'])['usuario_usuario'];
-          $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
-          echo renderPostComentario($username, $fYm, $idPublicacion); 
+        elseif($estado==2){
+          if($transportista)
+          if($_SESSION["id"]==$transportista['usuario_transportista'] || $_SESSION["id"]==$autor["usuario_autor"]){
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/get/getUsuario.php');
+            $username = getMiUsuario($_SESSION['id'])['usuario_usuario'];
+            $fYm=array("foto"=>$_SESSION["fotoPerfil"],"marco"=>$_SESSION["marcoFoto"]);
+            echo renderPostComentario($username, $fYm, $idPublicacion); 
+          }
         }
       }
     ?>
 
 
       <!-- COMENTARIOS DE USUARIOS -->
-      <div class="comentarios-container">
+      <div id="comentarios" class="comentarios-container">
         <?php
+        $limitComentarios=10;
+        $offsetComentarios=0;
         $comentarios=array();
-        if($denunciada)
-        $comentarios = getAllComentariosFromPublicacion($idPublicacion,true);
-        else
-        $comentarios = getAllComentariosFromPublicacion($idPublicacion);
-
+        
+        $db=new DB();
+        $conexion=$db->getConnection();
+        if($denunciada){
+          $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.comentario_id=comentarios.comentario_id WHERE comentarios.publicacion_id = $idPublicacion AND comentario_esActivo = '1' AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='3')");
+          $totalComentarios = $totalComentariosStmt->fetchColumn();
+          $totalComentariosStmt=null;
+          $comentarios = getAllComentariosFromPublicacion($idPublicacion,$offsetComentarios,$limitComentarios,true);
+        }
+        else{
+          $totalComentariosStmt = $conexion->query("SELECT COUNT(comentarios.comentario_id) FROM comentarios LEFT JOIN denuncias_reportadas ON denuncias_reportadas.comentario_id=comentarios.comentario_id WHERE comentarios.publicacion_id = $idPublicacion AND comentario_esActivo = '1' AND (denuncias_reportadas.comentario_id IS NULL OR denuncias_reportadas.reporte_activo='1')");
+          $totalComentarios = $totalComentariosStmt->fetchColumn();
+          $totalComentariosStmt=null;
+          $comentarios = getAllComentariosFromPublicacion($idPublicacion,$offsetComentarios,$limitComentarios);
+        } 
+        $conexion=null;
+        $db=null;
+        $offsetComentarios+=$limitComentarios;
         foreach ($comentarios as $c) {
           $foto=array("foto"=>$c["usuario_fotoPerfil"],"marco"=>$c["usuario_marcoFoto"]);
           if(isset($c["esReportado"])){
@@ -226,6 +371,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
                 $c["comentario_fecha"],
                 $c['comentario_mensaje'],
                 $c["usuario_id"],
+                $estado,
                 2
               );
             }else{
@@ -237,6 +383,7 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
                 $c["comentario_fecha"],
                 $c['comentario_mensaje'],
                 $c["usuario_id"],
+                $estado,
                 1
               );
 
@@ -250,11 +397,17 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
               $foto,
               $c["comentario_fecha"],
               $c['comentario_mensaje'],
-              $c["usuario_id"]
+              $c["usuario_id"],
+              $estado
             );
           }
           $contadorComentarios++;
         }
+        if($totalComentarios>sizeof($comentarios)){?>
+        <div id="masComentarios" class="text-center mb-3 pb-1 pt-2 border-top border-bottom border-dark-subtle col-12">
+            <h5>Cargar mas</h5>
+        </div>
+  <?php }
         ?>
       </div>
     </div>
@@ -381,6 +534,16 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
 
 
   </div>
+  <script>
+    var estadoPublicacion=<?php echo $estado;?>;
+    var idPublicacion=<?php echo $idPublicacion;?>;
+    var denuncia=<?php if($denunciada)echo 1;else echo 0;?>;
+    var offsetComentarios=<?php echo $offsetComentarios;?>;
+    var limitComentarios=<?php echo $limitComentarios;?>;
+    var comentarios=<?php echo sizeof($comentarios);?>;
+    var totalComentarios=<?php echo $totalComentarios;?>;
+  </script>
+  <script src="/js/comentarios.js"></script>
   <?php if($denunciada==false){?>
   <script>
     function reportarComentario(comentarioId){
@@ -415,6 +578,95 @@ function renderPublicacionExtendida ($idPublicacion, $idUsuario, $username, $pro
       .catch(error => {});
     }
   </script>
+  <?php }
+    if($postulantes||$denunciada||$_SESSION["id"]==$autor["usuario_autor"])
+    if($_SESSION["id"]==$autor["usuario_autor"] || in_array($_SESSION["id"],$postulantes) || $denunciada){?>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+      var orgLat=<?php echo $origin->latitud;?>;
+      var orgLng=<?php echo $origin->longitud;?>;
+      var destLat=<?php echo $destination->latitud;?>;
+      var destLng=<?php echo $destination->longitud;?>;
+      //Distintas capas para el mapa
+      var porDefecto = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+      var simple = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png');
+      var satelite = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}@2x.jpg?key=OpTD9h2MxIr6P9bmwMLz');
+
+      //Icono color Rojo, Origen
+      var redIcon = L.icon({
+          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          shadowSize: [41, 41]
+      });
+
+      //Icono color Verde, Destino
+      var greenIcon = L.icon({
+          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          shadowSize: [41, 41]
+      });
+
+      // Añadir distintas capas al mapa
+      var baseMaps = {
+          "Default": porDefecto,
+          "Simple": simple,
+          "Satelite": satelite
+      };
+
+      var map;
+
+      window.addEventListener("load",()=>{
+          map=iniciarMapa();
+          obtenerRuta();
+      });
+      function iniciarMapa(){
+        // Inicializa el mapa centrado en el origen
+        var map = L.map('map',{
+            center:[orgLat,orgLng],
+            zoom: 14,
+            layers:[porDefecto]
+        }); // San Luis, Argentina
+        L.control.layers(baseMaps).addTo(map);
+        destino = L.marker([destLat, destLng],{ icon: greenIcon }).addTo(map).bindPopup('Destino').openPopup();
+        origen = L.marker([orgLat, orgLng],{ icon: redIcon }).addTo(map).bindPopup('Origen').openPopup();
+        return map;
+    }
+
+    function obtenerRuta() {
+      // Llamada a la API de OpenRouteService
+      var apiKey = '5b3ce3597851110001cf62483b5a376be02e414cb6c37b1a68d7381f';
+      var url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${orgLng},${orgLat}&end=${destLng},${destLat}`;
+
+      fetch(url)
+          .then(response =>response.json())
+          .then(data => {
+              // Obtener las coordenadas de la ruta
+              var routeCoords = data.features[0].geometry.coordinates;
+
+              // Convertir las coordenadas a formato Leaflet (lat, lng)
+              var leafletCoords = routeCoords.map(coord => [coord[1], coord[0]]);
+
+              // Dibujar la ruta en el mapa
+              trazarRuta(leafletCoords);
+          })
+      .catch(error => alert('Error al obtener la ruta'));
+    }
+    function trazarRuta(leafletCoords){
+      ruta = L.polyline(leafletCoords, {
+          color: 'green',      // Color de la línea
+          weight: 5,           // Grosor de la línea
+          opacity: 0.7,        // Opacidad
+          smoothFactor: 1      // Suavidad
+      }).addTo(map);
+    }
+
+    </script>
   <?php }?>
 <?php
   return ob_get_clean();

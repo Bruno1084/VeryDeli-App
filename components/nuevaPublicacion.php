@@ -136,9 +136,6 @@
       </div>
     </div>
   </div>
-
-
-
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/JS.php"); ?>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="/js/inputFotos.js"></script>

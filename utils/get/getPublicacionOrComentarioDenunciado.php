@@ -80,7 +80,7 @@ function getPublicacionOrComentarioDenunciado($pubOcom){
                   LEFT JOIN
                       usuarios ON usuarios.usuario_id=comentarios.usuario_id
                   LEFT JOIN 
-                      fotosPerfil ON fotosPerfil.usuario_id = comentarios.usuario_id AND fotosPerfil.imagen_estado = 1
+                      fotosPerfil ON fotosPerfil.usuario_id = comentarios.usuario_id AND fotosPerfil.imagen_estado = "1"
                   LEFT JOIN 
                       userMarcoFoto ON userMarcoFoto.usuario_id=comentarios.usuario_id
                   LEFT JOIN

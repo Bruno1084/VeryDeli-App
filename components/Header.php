@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-1 d-flex notYprof">
-                    <div class="col-auto notifications">
+                    <div class="col-auto me-1 notifications">
                         <?php
                             function tipoNotify($notify){
                                 switch($notify["notificacion_tipo"]){
@@ -50,9 +50,15 @@
                                     default: return "/pages/notificaciones.php";
                                 }
                             }
-                            function tieneFoto(){
-                                if($_SESSION["fotoPerfil"]==0) return "../assets/user.png";
-                                else return $_SESSION["fotoPerfil"];
+                            function tieneFoto($otroUser=null){
+                                if($otroUser==null){
+                                    if($_SESSION["fotoPerfil"]==0) return "../assets/user.png";
+                                    else return $_SESSION["fotoPerfil"];
+                                }
+                                else{
+                                    if($otroUser==0) return "../assets/user.png";
+                                    else return $otroUser;
+                                }
                             }
                             require_once($_SERVER["DOCUMENT_ROOT"]."/utils/get/get5NotificacionesNoVistasFromUsuario.php"); 
                             $notificaciones=get5NotificacionesActivasFromUsuario();
@@ -65,16 +71,16 @@
                                     <?php 
                                         if(sizeof($notificaciones)>0){
                                             foreach($notificaciones as $notify){?>
-                                                <a class="dropdown-item px-1" href=<?php echo tipoNotify($notify)?>><?php if(strlen($notify["notificacion_mensaje"])>25) echo str_split($notify["notificacion_mensaje"],23)[0]."...";else echo $notify["notificacion_mensaje"]; ?></a>
+                                                <a class="dropdown-item px-1" href=<?php echo tipoNotify($notify);?> title="<?php echo $notify["notificacion_mensaje"];?>"><?php echo $notify["notificacion_mensaje"];?></a>
                                     <?php   }?>
                                                 <hr class="dropdown-divider">
-                                                <a class="dropdown-item px-1" href="/pages/notificaciones.php">Ver mas</a>
+                                                <a class="dropdown-item px-2" href="/pages/notificaciones.php">Ver mas</a>
                                 <?php   }
                                         else{
                                     ?>
                                             <p class="dropdown-item px-1">Ninguna novedad</p>
                                             <hr class="dropdown-divider">
-                                            <a class="dropdown-item px-1" href="/pages/notificaciones.php">Ver Todo</a>
+                                            <a class="dropdown-item px-2" href="/pages/notificaciones.php">Ver Todo</a>
                                     <?php
                                         }
                                     ?>

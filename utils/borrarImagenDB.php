@@ -1,5 +1,5 @@
 <?php
-    function borrarImagenDB($imagen_delete_url) {
+function borrarImagenDB($imagen_delete_url) {
     require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php');
     $db = new DB();
     $conexion = $db->getConnection();
@@ -18,4 +18,4 @@
         if(!$response)return 2;    
     }
     else return 1;
-  }
+}

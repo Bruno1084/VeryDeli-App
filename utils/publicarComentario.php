@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_POST["enviado"])) {
   $comentario = $_POST['comentario'];
   $pubId = $_POST['publicacion-id'];
@@ -28,4 +27,3 @@ if (isset($_POST["enviado"])) {
     exit;
   }
 }
-?>

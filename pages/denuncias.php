@@ -5,7 +5,7 @@
   <?php require_once($_SERVER['DOCUMENT_ROOT'] . "/components/head.php")?>
   <link rel="stylesheet" href="../css/publicacionAcotada.css">
   <?php require_once($_SERVER["DOCUMENT_ROOT"].'/database/conection.php'); ?>
-  <title>Very Deli</title>
+  <title>Denuncias</title>
 </head>
 <body>
   <?php require_once($_SERVER["DOCUMENT_ROOT"]."/components/Header.php");?>

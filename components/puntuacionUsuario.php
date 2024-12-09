@@ -3,4 +3,3 @@ function renderUsuarioPuntuacion ($puntuacion) {
 
 
 };
-?>

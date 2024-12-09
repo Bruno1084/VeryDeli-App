@@ -5,7 +5,9 @@ function getAVGCalificacionesFromUsuario($idUsuario) {
   $DB = new DB();
   $conexion = $DB->getConnection();
 
-  $sql = "SELECT AVG(calificacion_puntaje) AS calificacion_promedio
+  $sql = "SELECT 
+          AVG(calificacion_puntaje) AS calificacion_promedio, 
+          COUNT(calificacion_puntaje) AS calificacion_cantidad
           FROM calificaciones 
           WHERE ? = calificaciones.usuario_calificado
           GROUP BY usuario_calificado
@@ -23,4 +25,3 @@ function getAVGCalificacionesFromUsuario($idUsuario) {
 
   return $calificaciones;
 }
-?>

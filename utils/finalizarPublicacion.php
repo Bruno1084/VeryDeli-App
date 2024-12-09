@@ -26,10 +26,8 @@
       $finalizarStmt = null;
       $conexion = null;
       manejarError('true', 'Publicacion Finalizada', 'Publicacion finalizada, recorda calificar al transportista responsable de tu solicitud', '/pages/publicacion.php?id=' . $Idpublicacion);
-      exit;
     } else {
       $finalizarStmt = null;
       $conexion = null;
       manejarError('false','Error inesperado', 'Ocurrio un error al momento de finalizar su publicacion, intente de nuevo mas tarde');
-      exit;
     }

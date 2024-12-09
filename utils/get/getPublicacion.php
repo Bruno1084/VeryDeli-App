@@ -1,5 +1,5 @@
 <?php
-function getPublicacion ($idPublicacion) {
+function getPublicacion ($idPublicacion,$denuncia=false) {
   include_once ($_SERVER['DOCUMENT_ROOT'] . "/database/conection.php");
 
   $DB = new DB();
@@ -10,6 +10,9 @@ function getPublicacion ($idPublicacion) {
             publicaciones.publicacion_titulo,
             publicaciones.publicacion_descr,
             publicaciones.publicacion_peso,
+            publicaciones.publicacion_volumen,
+            publicaciones.publicacion_nombreRecibe,
+            publicaciones.publicacion_telefono,
             publicaciones.publicacion_fecha,
             publicaciones.publicacion_esActivo,
             publicaciones.usuario_transportista,
@@ -46,15 +49,19 @@ function getPublicacion ($idPublicacion) {
           LEFT JOIN
               ubicaciones AS ubicacion_destino ON ubicacion_destino.ubicacion_id = publicaciones.ubicacion_destino
           LEFT JOIN 
-              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+              fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = "1"
           LEFT JOIN 
               userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
           LEFT JOIN
               marcos ON marcos.marco_id = userMarcoFoto.marco_id
+          LEFT JOIN
+              denuncias_reportadas ON denuncias_reportadas.publicacion_id = publicaciones.publicacion_id
           WHERE
-            publicaciones.publicacion_id = ?;
-            AND (publicaciones.publicacion_esActivo = "1" OR publicaciones.publicacion_esActivo = "2" OR publicaciones.publicacion_esActivo = "3");
-        ';
+            publicaciones.publicacion_id = ?
+            AND (publicaciones.publicacion_esActivo = "1" OR publicaciones.publicacion_esActivo = "2" OR publicaciones.publicacion_esActivo = "3")
+         ';
+  if(!$denuncia) $sql.=' AND (denuncias_reportadas.publicacion_id IS NULL OR denuncias_reportadas.reporte_activo="3")';
+
   $stmt = $conexion->prepare($sql);
   $stmt->bindValue(1, $idPublicacion, PDO::PARAM_INT);
   $stmt->execute();

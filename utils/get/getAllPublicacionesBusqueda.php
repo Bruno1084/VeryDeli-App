@@ -22,7 +22,7 @@
                     LEFT JOIN 
                         imagenes ON publicaciones.publicacion_id = imagenes.publicacion_id
                     LEFT JOIN
-                        fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+                        fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = '1'
                     LEFT JOIN 
                         userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
                     LEFT JOIN
@@ -99,7 +99,7 @@
                   LEFT JOIN
                         ubicaciones ON ubicaciones.ubicacion_id = publicaciones.ubicacion_origen OR ubicaciones.ubicacion_id = publicaciones.ubicacion_destino
                   LEFT JOIN
-                      fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = 1
+                      fotosPerfil ON fotosPerfil.usuario_id = publicaciones.usuario_autor AND fotosPerfil.imagen_estado = '1'
                   LEFT JOIN 
                       userMarcoFoto ON userMarcoFoto.usuario_id=usuarios.usuario_id
                   LEFT JOIN
