@@ -7,8 +7,9 @@ CREATE TABLE `usuarios` (
     `usuario_correo` varchar(65) UNIQUE NOT NULL ,
     `usuario_usuario` varchar(65) UNIQUE NOT NULL, 
     `usuario_contraseña` varchar(255)  NOT NULL ,
-    `usuario_esResponsable` tinyint(1)  NOT NULL ,
+    `usuario_esResponsable` tinyint(1)  NOT NULL DEFAULT '0' ,
     `usuario_esActivo` tinyint(1)  NOT NULL DEFAULT '1',
+    `usuario_esVerificado` tinyint(1)  NOT NULL DEFAULT '0' ,
     PRIMARY KEY (
         `usuario_id`
     )
@@ -29,6 +30,7 @@ CREATE TABLE `vehiculos` (
     `vehiculo_pesoSoportado` float  NULL ,
     `vehiculo_volumenSoportado` float  NULL ,
     `transportista_id` int  NULL ,
+    `vehiculo_estado` tinyint(1)  NOT NULL DEFAULT '1' ,
     PRIMARY KEY (
         `vehiculo_id`
     )
@@ -81,7 +83,7 @@ CREATE TABLE `comentarios` (
     `usuario_id` int  NOT NULL ,
     `comentario_mensaje` varchar(500)  NOT NULL ,
     `comentario_fecha` DATETIME NOT NULL ,
-    `comentario_esActivo` tinyint(1) NOT NULL,
+    `comentario_esActivo` tinyint(1) NOT NULL DEFAULT '1' ,
     PRIMARY KEY (
         `comentario_id`
     )
@@ -107,7 +109,7 @@ CREATE TABLE `calificaciones` (
     `usuario_calificador` int  NOT NULL ,
     `calificacion_puntaje` enum('1','2','3','4','5') NOT NULL ,
     `calificacion_fecha` DATETIME NOT NULL ,
-    `calificacion_mensaje` varchar(500) NULL ,
+    `calificacion_mensaje` varchar(255) NULL ,
     `calificacion_fecha` DATETIME NOT NULL ,
     `calificacion_tipo` enum('1','2') NOT NULL ,
     PRIMARY KEY (
@@ -143,7 +145,7 @@ CREATE TABLE `notificaciones` (
     `notificacion_mensaje` VARCHAR(255) NOT NULL ,
     `notificacion_fecha` DATETIME NOT NULL ,
     `notificacion_tipo` enum('1', '2', '3', '4') NOT NULL,
-    `notificacion_estado` BOOLEAN NOT NULL ,
+    `notificacion_estado` tinyint(1) NOT NULL DEFAULT '0',
     `usuario_id` INT NOT NULL ,
     `publicacion_id` INT,
     PRIMARY KEY (
@@ -158,9 +160,9 @@ CREATE TABLE `denuncias_reportadas` (
     `reporte_motivo` varchar(30)  NOT NULL ,
     `reporte_mensaje` varchar(255) NULL ,
     `reporte_fecha` DATETIME NOT NULL ,
-    `reporte_activo` enum('1','2','3') DEFAULT 1 NOT NULL ,
     `adminResponsable_id` int NULL ,
     `fecha_revision` DATETIME NULL ,
+    `reporte_activo` enum('1','2','3') DEFAULT '1' NOT NULL ,
     PRIMARY KEY (
         `reporte_id`
     )
@@ -170,7 +172,7 @@ CREATE TABLE `fotosPerfil` (
     `usuario_id` INT NOT NULL , 
     `imagen_url` varchar(255) NOT NULL , 
     `imagen_delete_url` varchar(255) NOT NULL , 
-    `imagen_estado` tinyint(1) DEFAULT 1 NOT NULL,
+    `imagen_estado` tinyint(1) DEFAULT '1' NOT NULL,
     PRIMARY KEY (
         `imagen_url`, `usuario_id`
     )
@@ -208,7 +210,7 @@ ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_usuario_autor` FORE
 REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `publicaciones` ADD CONSTRAINT `fk_publicaciones_usuario_transportista` FOREIGN KEY(`usuario_transportista`)
-REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+REFERENCES `transportistas` (`transportista_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `imagenes` ADD CONSTRAINT `fk_imagenes_publicacion_id` FOREIGN KEY(`publicacion_id`)
 REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -223,7 +225,7 @@ ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_publicacion_id` FOR
 REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `postulaciones` ADD CONSTRAINT `fk_postulaciones_usuario_postulante` FOREIGN KEY(`usuario_postulante`)
-REFERENCES `usuarios` (`usuario_id`);
+REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `calificaciones` ADD CONSTRAINT `fk_calificaciones_publicacion_id` FOREIGN KEY(`publicacion_id`)
 REFERENCES `publicaciones` (`publicacion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
